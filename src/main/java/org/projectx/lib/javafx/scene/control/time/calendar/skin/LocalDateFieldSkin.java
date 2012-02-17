@@ -10,6 +10,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Skin;
@@ -19,8 +20,12 @@ import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
+import javax.time.calendar.format.DateTimeFormatter;
+import org.projectx.lib.javafx.scene.Nodes;
+import org.projectx.lib.javafx.scene.control.CellRenderer;
 import org.projectx.lib.javafx.scene.control.FormattedTextField;
 import org.projectx.lib.javafx.scene.control.ObjectCellRenderer;
+import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateCellRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateField;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateFoo;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDatePicker;
@@ -43,7 +48,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
      * This control is used to represent the YearMonthPicker.
      */
     private HBox pane = new HBox();
-    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new ObjectCellRenderer(),
+    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new LocalDateCellRenderer(),
             new Parser<LocalDate>() {
 
                 @Override
@@ -58,12 +63,20 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
 
     public LocalDateFieldSkin(LocalDateField control) {
         this.control = control;
+//        this.control.cellRendererProperty().addListener(new ChangeListener<CellRenderer<? super LocalDate>>() {
+//
+//            @Override
+//            public void changed(ObservableValue<? extends CellRenderer<? super LocalDate>> ov,
+//                    CellRenderer<? super LocalDate> oldValue, CellRenderer<? super LocalDate> newValue) {
+//                dateField.setCellRenderer(newValue);
+//            }
+//        });
         pane.getChildren().addAll(dateField, dateButton);
-        
+
 
         popup.getContent().add(datePicker);
         popup.setAutoHide(true);
-        popup.setOnHiding(new EventHandler<WindowEvent>(){
+        popup.setOnHiding(new EventHandler<WindowEvent>() {
 
             @Override
             public void handle(WindowEvent t) {
@@ -83,13 +96,13 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         datePicker.showYearScrollButtonProperty().bind(this.control.showYearScrollButtonProperty());
         datePicker.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         datePicker.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
-        datePicker.selectedDateProperty().addListener(new ChangeListener<LocalDate>(){
+        datePicker.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
 
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 dateField.setValue(newVal);
                 LocalDateFieldSkin.this.control.setSelectedDate(newVal);
-                
+
                 popup.hide();
             }
         });
@@ -100,12 +113,16 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             public void handle(ActionEvent t) {
                 if (!showing) {
                     showing = true;
-                   // Nodes.getScreenLocation(dateButton);
-                    popup.show(LocalDateFieldSkin.this.control.getScene().getWindow());
+                    Point2D screenLocation = Nodes.getScreenLocation(dateButton);
+                    popup.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
+                            screenLocation.getX() + dateButton.getWidth() - popup.getWidth(),
+                            screenLocation.getY() + dateButton.getHeight() - popup.getHeight());
                 }
             }
         });
 
+        dateField.cellRendererProperty().bind(this.control.cellRendererProperty());
+        dateField.parserProperty().bind(this.control.parserProperty());
         dateField.setEditable(false);
         dateField.setValue(control.getSelectedDate());
     }

@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Control;
 import javax.time.calendar.YearMonth;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
+import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
 
 /**
  *
@@ -40,7 +41,7 @@ public class YearMonthPicker extends Control {
 
     @Override
     protected String getUserAgentStylesheet() {
-        return YearMonthPicker.class.getResource("YearMonthPicker.css").toExternalForm();
+        return Stylesheets.getDefaultStylesheet();
     }
 
     public final YearMonth getYearMonth() {

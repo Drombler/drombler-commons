@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
+import java.util.Locale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -13,16 +14,24 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
+import javax.time.calendar.format.DateTimeFormatter;
+import javax.time.calendar.format.DateTimeFormatters;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
+import org.projectx.lib.javafx.scene.control.CellRenderer;
+import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
+import org.softsmithy.lib.text.Parser;
 
 /**
  *
  * @author puce
  */
 // TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
-public class LocalDateField extends Control{
-    
-       private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
+public class LocalDateField extends Control {
+
+    private final ObjectProperty<CellRenderer<? super LocalDate>> cellRenderer = new SimpleObjectProperty<CellRenderer<? super LocalDate>>(
+            this, "cellRenderer", new LocalDateCellRenderer(DateTimeFormatters.longDate(Locale.getDefault())));
+    private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
+    private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
             LocalDate.now());
     private final ObjectProperty<YearMonth> yearMonth = new SimpleObjectProperty<>(this, "yearMonth", YearMonth.now());
     // TODO: should be configurable with CSS?
@@ -49,9 +58,33 @@ public class LocalDateField extends Control{
 
     @Override
     protected String getUserAgentStylesheet() {
-        return LocalDateField.class.getResource("LocalDateField.css").toExternalForm();
+        return Stylesheets.getDefaultStylesheet();
     }
 
+    public final CellRenderer<? super LocalDate> getCellRenderer() {
+        return cellRenderer.get();
+    }
+
+    public final void setCellRenderer(CellRenderer<? super LocalDate> cellRenderer) {
+        this.cellRenderer.set(cellRenderer);
+    }
+
+    public ObjectProperty<CellRenderer<? super LocalDate>> cellRendererProperty() {
+        return cellRenderer;
+    }
+
+    public final Parser<? extends LocalDate> getParser() {
+        return parser.get();
+    }
+
+    public final void setParser(Parser<? extends LocalDate> parser) {
+        this.parser.set(parser);
+    }
+
+    public ObjectProperty<Parser<? extends LocalDate>> parserProperty() {
+        return parser;
+    }
+    
     public final LocalDate getSelectedDate() {
         return selectedDate.get();
     }
@@ -159,5 +192,4 @@ public class LocalDateField extends Control{
     public BooleanProperty showYearScrollButtonProperty() {
         return showYearScrollButton;
     }
-    
 }

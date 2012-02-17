@@ -1,0 +1,48 @@
+/* 
+    Document   : caspian
+    Created on : 17.02.2012, 17:49:21
+    Author     : puce
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDateField                                                                                 *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-field { 
+    -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDateFieldSkin";
+}
+
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDateFoo                                                                                   *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-foo { 
+    -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDateFooSkin";
+}
+
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDatePicker                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-picker { 
+    -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDatePickerSkin";
+}
+
+/**************************************************************************************************
+ *                                                                                                *
+ * YearMonthPicker                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.year-month-picker { 
+    -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.YearMonthPickerSkin";
+}
+

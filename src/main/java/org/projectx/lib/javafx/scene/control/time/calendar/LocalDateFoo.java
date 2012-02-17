@@ -14,6 +14,7 @@ import javafx.scene.control.Control;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
+import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
 
 /**
  *
@@ -40,7 +41,7 @@ public class LocalDateFoo extends Control {
 
     @Override
     protected String getUserAgentStylesheet() {
-        return LocalDateFoo.class.getResource("LocalDateFoo.css").toExternalForm();
+        return Stylesheets.getDefaultStylesheet();
     }
 
     public final LocalDate getSelectedDate() {
