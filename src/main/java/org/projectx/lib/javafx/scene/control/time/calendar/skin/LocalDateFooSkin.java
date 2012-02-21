@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Locale;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javax.time.calendar.DateTimeFieldRule;
 import javax.time.calendar.DayOfWeek;
@@ -87,6 +89,12 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
         dayOfMonthView = null;
     }
 
+    private ColumnConstraints createColumnConstraints() {
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHalignment(HPos.CENTER);
+        return columnConstraints;
+    }
+
     private void initDayOfMonthView() {
         initDayOfWeekLabels();
         initWeekLabels();
@@ -98,6 +106,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
     private void initDayOfWeekLabels() {
         for (DayOfWeek dayOfWeek : orderedDaysOfWeek) {
             Label dayOfWeekLabel = new Label(dayOfWeek.getShortText(Locale.getDefault()));
+            dayOfWeekLabel.getStyleClass().add("day-of-week");
             orderedDayOfWeekLabels.add(dayOfWeekLabel);
         }
     }
@@ -122,6 +131,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
             List<LocalDateButton> weekButtons = new ArrayList<>(DAYS_IN_WEEK);
             for (int i = 0; i < DAYS_IN_WEEK; i++) {
                 LocalDateButton dayButton = new LocalDateButton();
+                dayButton.setMaxWidth(Double.MAX_VALUE);
                 dayButton.setToggleGroup(dayButtonGroup);
                 weekButtons.add(dayButton);
             }
@@ -140,9 +150,16 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
 
     private void layout() {
         dayOfMonthView = new GridPane();
+        //dayOfMonthView.setAlignment(Pos.CENTER);
         int columnIndex = control.getShowWeeks() ? 1 : 0;
         int rowIndex = 0;
+        if (control.getShowWeeks()) {
+            ColumnConstraints columnConstraints = createColumnConstraints();
+            dayOfMonthView.getColumnConstraints().add(columnConstraints);
+        }
         for (Label dayOfWeekLabel : orderedDayOfWeekLabels) {
+            ColumnConstraints columnConstraints = createColumnConstraints();
+            dayOfMonthView.getColumnConstraints().add(columnConstraints);
             dayOfMonthView.add(dayOfWeekLabel, columnIndex++, rowIndex);
         }
         int weeks = getWeeks();
