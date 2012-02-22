@@ -30,8 +30,8 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
         this(null, null);
     }
 
-    public FormattedTextField(DataRenderer<? super T> cellRenderer, Parser<? extends T> parser) {
-        setDataRenderer(cellRenderer);
+    public FormattedTextField(DataRenderer<? super T> dataRenderer, Parser<? extends T> parser) {
+        setDataRenderer(dataRenderer);
         setParser(parser);
         value.addListener(new ChangeListener<T>() {
 
