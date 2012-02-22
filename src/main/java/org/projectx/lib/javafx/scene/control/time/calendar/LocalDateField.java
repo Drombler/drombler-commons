@@ -17,7 +17,7 @@ import javax.time.calendar.YearMonth;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatters;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
-import org.projectx.lib.javafx.scene.control.CellRenderer;
+import org.projectx.lib.javafx.scene.control.DataRenderer;
 import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
 import org.softsmithy.lib.text.Parser;
 
@@ -28,8 +28,8 @@ import org.softsmithy.lib.text.Parser;
 // TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
 public class LocalDateField extends Control {
 
-    private final ObjectProperty<CellRenderer<? super LocalDate>> cellRenderer = new SimpleObjectProperty<CellRenderer<? super LocalDate>>(
-            this, "cellRenderer", new LocalDateCellRenderer(DateTimeFormatters.longDate(Locale.getDefault())));
+    private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
+            this, "dataRenderer", new LocalDateRenderer(DateTimeFormatters.longDate(Locale.getDefault())));
     private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
     private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -61,16 +61,16 @@ public class LocalDateField extends Control {
         return Stylesheets.getDefaultStylesheet();
     }
 
-    public final CellRenderer<? super LocalDate> getCellRenderer() {
-        return cellRenderer.get();
+    public final DataRenderer<? super LocalDate> getDataRenderer() {
+        return dataRenderer.get();
     }
 
-    public final void setCellRenderer(CellRenderer<? super LocalDate> cellRenderer) {
-        this.cellRenderer.set(cellRenderer);
+    public final void setDataRenderer(DataRenderer<? super LocalDate> dataRenderer) {
+        this.dataRenderer.set(dataRenderer);
     }
 
-    public ObjectProperty<CellRenderer<? super LocalDate>> cellRendererProperty() {
-        return cellRenderer;
+    public ObjectProperty<DataRenderer<? super LocalDate>> dataRendererProperty() {
+        return dataRenderer;
     }
 
     public final Parser<? extends LocalDate> getParser() {

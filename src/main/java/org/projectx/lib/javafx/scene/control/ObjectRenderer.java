@@ -8,7 +8,7 @@ package org.projectx.lib.javafx.scene.control;
  *
  * @author puce
  */
-public class ObjectCellRenderer extends AbstractCellRenderer<Object> {
+public class ObjectRenderer extends AbstractDataRenderer<Object> {
 
     @Override
     public String getText(Object item) {

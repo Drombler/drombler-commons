@@ -5,13 +5,13 @@
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
 import javax.time.calendar.LocalDate;
-import org.projectx.lib.javafx.scene.control.AbstractCellRenderer;
+import org.projectx.lib.javafx.scene.control.AbstractDataRenderer;
 
 /**
  *
  * @author puce
  */
-public class DayOfMonthCellRenderer extends AbstractCellRenderer<LocalDate> {
+public class DayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
 
     @Override
     public String getText(LocalDate localDate) {

@@ -14,11 +14,11 @@ import org.projectx.lib.javafx.scene.control.DataToggleButton;
 public class LocalDateButton extends DataToggleButton<LocalDate> {
 
     public LocalDateButton() {
-        super(new DayOfMonthCellRenderer());
+        super(new DayOfMonthRenderer());
     }
 
     public LocalDateButton(LocalDate data) {
-        super(new DayOfMonthCellRenderer(), data);
+        super(new DayOfMonthRenderer(), data);
     }
 
     @Override

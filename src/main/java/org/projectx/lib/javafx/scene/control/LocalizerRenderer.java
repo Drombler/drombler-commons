@@ -12,11 +12,11 @@ import org.softsmithy.lib.text.Localizer;
  *
  * @author puce
  */
-public class LocalizerCellRenderer<T> extends AbstractCellRenderer<T> {
+public class LocalizerRenderer<T> extends AbstractDataRenderer<T> {
 
     private final Localizer<? super T> localizer;
 
-    public LocalizerCellRenderer(Localizer<? super T> localizer) {
+    public LocalizerRenderer(Localizer<? super T> localizer) {
         this.localizer = localizer;
     }
 

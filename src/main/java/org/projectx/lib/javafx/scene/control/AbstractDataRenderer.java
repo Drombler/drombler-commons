@@ -5,20 +5,14 @@
 package org.projectx.lib.javafx.scene.control;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import javafx.scene.text.TextAlignment;
 
 /**
  *
  * @author puce
  */
-public abstract class AbstractCellRenderer<T> implements CellRenderer<T> {
+public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
 
 
     @Override

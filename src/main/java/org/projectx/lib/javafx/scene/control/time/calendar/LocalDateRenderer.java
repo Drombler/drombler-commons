@@ -5,24 +5,23 @@
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
 import java.util.Locale;
-import javafx.scene.text.TextAlignment;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatters;
-import org.projectx.lib.javafx.scene.control.AbstractCellRenderer;
+import org.projectx.lib.javafx.scene.control.AbstractDataRenderer;
 
 /**
  *
  * @author puce
  */
-public class LocalDateCellRenderer extends AbstractCellRenderer<LocalDate> {
+public class LocalDateRenderer extends AbstractDataRenderer<LocalDate> {
     private final DateTimeFormatter dateTimeFormatter;
 
-    public LocalDateCellRenderer() {
+    public LocalDateRenderer() {
         this(DateTimeFormatters.fullDate(Locale.getDefault()));
     }
 
-    public LocalDateCellRenderer(DateTimeFormatter dateTimeFormatter) {
+    public LocalDateRenderer(DateTimeFormatter dateTimeFormatter) {
         this.dateTimeFormatter = dateTimeFormatter;
     }
     

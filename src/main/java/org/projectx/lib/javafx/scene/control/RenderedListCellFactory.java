@@ -14,14 +14,14 @@ import javafx.util.Callback;
  */
 public class RenderedListCellFactory<T> implements Callback<ListView<T>, ListCell<T>> {
 
-    private final CellRenderer<? super T> cellRenderer;
+    private final DataRenderer<? super T> dataRenderer;
 
-    public RenderedListCellFactory(CellRenderer<? super T> cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public RenderedListCellFactory(DataRenderer<? super T> dataRenderer) {
+        this.dataRenderer = dataRenderer;
     }
 
     @Override
     public ListCell<T> call(ListView<T> p) {
-        return new RenderedListCell<>(cellRenderer); // TODO: create a new one or cache it?
+        return new RenderedListCell<>(dataRenderer); // TODO: create a new one or cache it?
     }
 }

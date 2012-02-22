@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 public class DataButton<T> extends Button {
 
     private final ObjectProperty<T> data = new SimpleObjectProperty<>(this, "data");
-    private final CellRenderer<? super T> cellRenderer;
+    private final DataRenderer<? super T> cellRenderer;
 
     public final T getData() {
         return data.get();
@@ -32,18 +32,18 @@ public class DataButton<T> extends Button {
     }
 
     public DataButton() {
-        this(new ObjectCellRenderer());
+        this(new ObjectRenderer());
     }
 
-    public DataButton(CellRenderer<? super T> cellRenderer) {
+    public DataButton(DataRenderer<? super T> cellRenderer) {
         this(cellRenderer, null);
     }
 
     public DataButton(T data) {
-        this(new ObjectCellRenderer(), data);
+        this(new ObjectRenderer(), data);
     }
 
-    public DataButton(CellRenderer<? super T> cellRenderer, T data) {
+    public DataButton(DataRenderer<? super T> cellRenderer, T data) {
         this.cellRenderer = cellRenderer;
         this.data.addListener(new ChangeListener<T>() {
 

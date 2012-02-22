@@ -37,7 +37,7 @@ public class MonthOfYearComboBox extends ComboBox<MonthOfYear> {
 //                return MonthOfYear.valueOf(string);
 //            }
 //        });
-        setCellFactory(new RenderedListCellFactory<>(new MonthOfYearCellRenderer()));
+        setCellFactory(new RenderedListCellFactory<>(new MonthOfYearRenderer()));
     }
     
     private static ObservableList<MonthOfYear> getMonthOfYearList(){

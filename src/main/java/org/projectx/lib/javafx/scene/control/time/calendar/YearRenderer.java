@@ -5,13 +5,13 @@
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
 import javax.time.calendar.Year;
-import org.projectx.lib.javafx.scene.control.AbstractCellRenderer;
+import org.projectx.lib.javafx.scene.control.AbstractDataRenderer;
 
 /**
  *
  * @author puce
  */
-public class YearCellRenderer extends AbstractCellRenderer<Year> {
+public class YearRenderer extends AbstractDataRenderer<Year> {
 
     @Override
     public String getText(Year year) {

@@ -16,7 +16,7 @@ import org.softsmithy.lib.util.Comparables;
  *
  * @author puce
  */
-public class WholeNumberCellRenderer<T extends Number & Comparable<T>> extends AbstractCellRenderer<T> {
+public class WholeNumberCellRenderer<T extends Number & Comparable<T>> extends AbstractDataRenderer<T> {
 
     private final NumberFormat numberFormat;
     private final T zero;

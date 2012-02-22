@@ -12,7 +12,7 @@ import javafx.scene.Node;
  *
  * @author puce
  */
-public interface CellRenderer<T> {
+public interface DataRenderer<T> {
 
 //    StringProperty displayStringProperty();
 //

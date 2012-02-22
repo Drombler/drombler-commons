@@ -6,21 +6,21 @@ package org.projectx.lib.javafx.scene.control.time.calendar;
 
 import java.util.Locale;
 import javax.time.calendar.MonthOfYear;
-import org.projectx.lib.javafx.scene.control.AbstractCellRenderer;
+import org.projectx.lib.javafx.scene.control.AbstractDataRenderer;
 
 /**
  *
  * @author puce
  */
-public class MonthOfYearCellRenderer extends AbstractCellRenderer<MonthOfYear> {
+public class MonthOfYearRenderer extends AbstractDataRenderer<MonthOfYear> {
 
     private final boolean shortText;
 
-    public MonthOfYearCellRenderer() {
+    public MonthOfYearRenderer() {
         this(false);
     }
 
-    public MonthOfYearCellRenderer(boolean shortText) {
+    public MonthOfYearRenderer(boolean shortText) {
         this.shortText = shortText;
     }
 

@@ -12,12 +12,12 @@ import javafx.scene.control.Labeled;
  */
 public class LabeledUtils {
 
-    public static <T> void configure(Labeled labeled, CellRenderer<? super T> cellRenderer, T data) {
-        labeled.setText(cellRenderer.getText(data));
-        labeled.setGraphic(cellRenderer.getGraphic(data));
+    public static <T> void configure(Labeled labeled, DataRenderer<? super T> dataRenderer, T data) {
+        labeled.setText(dataRenderer.getText(data));
+        labeled.setGraphic(dataRenderer.getGraphic(data));
 //        labeled.setTextAlignment(cellRenderer.getTextAlignment());
 //        labeled.setAlignment(Pos.BASELINE_RIGHT);
-        labeled.getStyleClass().removeAll(cellRenderer.getStyleClass());
-        labeled.getStyleClass().addAll(cellRenderer.getStyleClass(data));
+        labeled.getStyleClass().removeAll(dataRenderer.getStyleClass());
+        labeled.getStyleClass().addAll(dataRenderer.getStyleClass(data));
     }
 }

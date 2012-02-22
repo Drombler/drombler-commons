@@ -26,9 +26,9 @@ import javax.time.calendar.Year;
 import javax.time.calendar.YearMonth;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
 import org.projectx.lib.javafx.scene.control.DataButton;
-import org.projectx.lib.javafx.scene.control.time.calendar.MonthOfYearCellRenderer;
+import org.projectx.lib.javafx.scene.control.time.calendar.MonthOfYearRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.MonthOfYearComboBox;
-import org.projectx.lib.javafx.scene.control.time.calendar.YearCellRenderer;
+import org.projectx.lib.javafx.scene.control.time.calendar.YearRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.YearField;
 import org.projectx.lib.javafx.scene.control.time.calendar.YearMonthPicker;
 import org.projectx.lib.time.calendar.MonthOfYearComparator;
@@ -49,8 +49,8 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
      * This control is used to represent the YearMonthPicker.
      */
     private GridPane pane = new GridPane();
-    private DataButton<MonthOfYear> monthOfYearButton = new DataButton<>(new MonthOfYearCellRenderer());
-    private DataButton<Year> yearButton = new DataButton<>(new YearCellRenderer());
+    private DataButton<MonthOfYear> monthOfYearButton = new DataButton<>(new MonthOfYearRenderer());
+    private DataButton<Year> yearButton = new DataButton<>(new YearRenderer());
     private Button previousMonthButton = new Button("<");
     private Button nextMonthButton = new Button(">");
     private Button previousYearButton = new Button("<<");

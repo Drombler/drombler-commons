@@ -17,7 +17,7 @@ import javafx.scene.control.ToggleButton;
 public class DataToggleButton<T> extends ToggleButton {
 
     private final ObjectProperty<T> data = new SimpleObjectProperty<>(this, "data");
-    private final CellRenderer<? super T> cellRenderer;
+    private final DataRenderer<? super T> cellRenderer;
 
     public final T getData() {
         return data.get();
@@ -32,18 +32,18 @@ public class DataToggleButton<T> extends ToggleButton {
     }
 
     public DataToggleButton() {
-        this(new ObjectCellRenderer());
+        this(new ObjectRenderer());
     }
 
-    public DataToggleButton(CellRenderer<? super T> cellRenderer) {
+    public DataToggleButton(DataRenderer<? super T> cellRenderer) {
         this(cellRenderer, null);
     }
 
     public DataToggleButton(T data) {
-        this(new ObjectCellRenderer(), data);
+        this(new ObjectRenderer(), data);
     }
 
-    public DataToggleButton(CellRenderer<? super T> cellRenderer, T data) {
+    public DataToggleButton(DataRenderer<? super T> cellRenderer, T data) {
         this.cellRenderer = cellRenderer;
         this.data.addListener(new ChangeListener<T>() {
 

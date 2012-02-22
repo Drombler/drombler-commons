@@ -14,16 +14,16 @@ import javafx.scene.text.Text;
  */
 public class RenderedListCell<T> extends ListCell<T> {
 
-    private final CellRenderer<? super T> cellRenderer;
+    private final DataRenderer<? super T> dataRenderer;
 
-    public RenderedListCell(CellRenderer<? super T> cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public RenderedListCell(DataRenderer<? super T> dataRenderer) {
+        this.dataRenderer = dataRenderer;
     }
 
     @Override
     protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
-        LabeledUtils.configure(this, cellRenderer, item);
+        LabeledUtils.configure(this, dataRenderer, item);
 //        setText(cellRenderer.getText(item));
 //        setGraphic(cellRenderer.getGraphic(item));
         //setGraphic(new Text("@"));
