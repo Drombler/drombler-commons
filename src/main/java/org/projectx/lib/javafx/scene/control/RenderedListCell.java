@@ -4,7 +4,9 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -21,8 +23,13 @@ public class RenderedListCell<T> extends ListCell<T> {
     @Override
     protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
-        setText(cellRenderer.getText(item));
-        setGraphic(cellRenderer.getGraphic(item));
-        setTextAlignment(cellRenderer.getTextAlignment());
+        LabeledUtils.configure(this, cellRenderer, item);
+//        setText(cellRenderer.getText(item));
+//        setGraphic(cellRenderer.getGraphic(item));
+        //setGraphic(new Text("@"));
+        //setTextAlignment(cellRenderer.getTextAlignment());
+        //setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
+        //setAlignment(Pos.CENTER_RIGHT);
+//        getStyleClass().addAll(cellRenderer.getStyleClass(item));
     }
 }

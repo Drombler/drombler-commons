@@ -4,6 +4,9 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,25 +20,13 @@ import javafx.scene.text.TextAlignment;
  */
 public abstract class AbstractCellRenderer<T> implements CellRenderer<T> {
 
-    private final TextAlignment textAlignment;
-
-    public AbstractCellRenderer() {
-        this(TextAlignment.LEFT); // TODO: No "LEADING" in JavaFX?
-    }
-
-    public AbstractCellRenderer(TextAlignment textAlignment) {
-        this.textAlignment = textAlignment;
-    }
-
-    @Override
-    public TextAlignment getTextAlignment() {
-        return textAlignment;
-    }
 
     @Override
     public Node getGraphic(T item) {
         return null;
     }
+    
+    
 //    private final StringProperty displayStringProperty = new SimpleStringProperty();
 //    private final ObjectProperty<TextAlignment> textAlignmentProperty = new SimpleObjectProperty<>();
 //    private final ObjectProperty<Node> graphicProperty = new SimpleObjectProperty<>();
@@ -54,4 +45,16 @@ public abstract class AbstractCellRenderer<T> implements CellRenderer<T> {
 //    public ObjectProperty<Node> graphicProperty() {
 //        return graphicProperty;
 //    }
+
+    @Override
+    public List<String> getStyleClass(T item) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<String> getStyleClass() {
+        return new ArrayList<>();
+    }
+    
+    
 }

@@ -4,7 +4,6 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Labeled;
 
 /**
@@ -16,7 +15,9 @@ public class LabeledUtils {
     public static <T> void configure(Labeled labeled, CellRenderer<? super T> cellRenderer, T data) {
         labeled.setText(cellRenderer.getText(data));
         labeled.setGraphic(cellRenderer.getGraphic(data));
-        labeled.setTextAlignment(cellRenderer.getTextAlignment());
+//        labeled.setTextAlignment(cellRenderer.getTextAlignment());
 //        labeled.setAlignment(Pos.BASELINE_RIGHT);
+        labeled.getStyleClass().removeAll(cellRenderer.getStyleClass());
+        labeled.getStyleClass().addAll(cellRenderer.getStyleClass(data));
     }
 }

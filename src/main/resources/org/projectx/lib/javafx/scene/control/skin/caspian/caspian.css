@@ -75,4 +75,18 @@
     /* -fx-color: -fx-hover-base; * already defined in default css?*/
 }
 
+/**************************************************************************************************
+ *                                                                                                *
+ * WholeNumberCellRenderer                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+
+.number{
+    -fx-alignment: baseline-right; /*TODO: correct? */
+}
+
+.negative-number{
+    -fx-text-fill: red;
+}
 

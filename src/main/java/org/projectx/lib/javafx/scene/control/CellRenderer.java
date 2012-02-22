@@ -4,9 +4,8 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
-import java.util.Locale;
+import java.util.List;
 import javafx.scene.Node;
-import javafx.scene.text.TextAlignment;
 
 /**
  * Note: more methods might be added
@@ -22,7 +21,11 @@ public interface CellRenderer<T> {
 //    ObjectProperty<Node> graphicProperty();
     String getText(T item); // TODO: is it possible to set the locale of a node? if yes, pass it as parameter.
 
-    TextAlignment getTextAlignment();
+    //TextAlignment getTextAlignment();
 
     Node getGraphic(T item);// TODO: is it possible to set the locale of a node? if yes, pass it as parameter.
+
+    List<String> getStyleClass(T item);
+
+    List<String> getStyleClass();
 }

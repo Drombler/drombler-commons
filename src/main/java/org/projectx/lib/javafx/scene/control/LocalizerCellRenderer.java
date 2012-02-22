@@ -20,11 +20,6 @@ public class LocalizerCellRenderer<T> extends AbstractCellRenderer<T> {
         this.localizer = localizer;
     }
 
-    public LocalizerCellRenderer(Localizer<? super T> localizer, TextAlignment textAlignment) {
-        super(textAlignment);
-        this.localizer = localizer;
-    }
-
     @Override
     public String getText(T item) {
         String localizedString = null;

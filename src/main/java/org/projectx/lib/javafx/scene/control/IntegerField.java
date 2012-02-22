@@ -14,10 +14,10 @@ import org.softsmithy.lib.text.IntegerParser;
 public class IntegerField extends FormattedTextField<Integer> {
 
     public IntegerField() {
-        super(new WholeNumberCellRenderer(), new IntegerParser());
+        super(new WholeNumberCellRenderer<>(0), new IntegerParser());
     }
 
     public IntegerField(NumberFormat numberFormat) {
-        super(new WholeNumberCellRenderer(numberFormat), new IntegerParser(numberFormat));
+        super(new WholeNumberCellRenderer<>(numberFormat, 0), new IntegerParser(numberFormat));
     }
 }
