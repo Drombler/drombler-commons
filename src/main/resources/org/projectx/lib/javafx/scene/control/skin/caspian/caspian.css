@@ -26,8 +26,9 @@
     -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDateFooSkin";
 }
 .local-date-foo .toggle-button{
-    -fx-background-color: green; /*transparent;*/
-    -fx-border-color: black;
+    -fx-background-color: aliceblue;
+    /*-fx-background-color: green;
+   -fx-border-color: black;*/
 }
 
 /* TODO: doesn't work!? */
@@ -43,6 +44,8 @@
 
 .local-date-picker { 
     -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDatePickerSkin";
+    /*-fx-background-color: -fx-background;*/
+    -fx-background-color: yellow;
 }
 
 /**************************************************************************************************
@@ -53,11 +56,18 @@
 
 .year-month-picker { 
     -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.YearMonthPickerSkin";
+    /*-fx-background-color: blue, red;
+    -fx-background-insets: 10, 20;
+    -fx-border-color: black;*/
+    -fx-font-size: 1.166667em; /* 14pt - 2 more than the default font */
+
 }
 
 
 .year-month-picker .button {
     -fx-background-color: transparent;
+    /*-fx-background-color: aqua;*/ 
+    /*-fx-border-color: black;*/
 }
 
 .year-month-picker .button:hover {

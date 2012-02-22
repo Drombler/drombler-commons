@@ -9,30 +9,23 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Skin;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.Year;
 import javax.time.calendar.YearMonth;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
 import org.projectx.lib.javafx.scene.control.DataButton;
-import org.projectx.lib.javafx.scene.control.ObjectCellRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.MonthOfYearCellRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.MonthOfYearComboBox;
 import org.projectx.lib.javafx.scene.control.time.calendar.YearCellRenderer;
@@ -55,7 +48,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     /**
      * This control is used to represent the YearMonthPicker.
      */
-    private HBox pane = new HBox();
+    private GridPane pane = new GridPane();
     private DataButton<MonthOfYear> monthOfYearButton = new DataButton<>(new MonthOfYearCellRenderer());
     private DataButton<Year> yearButton = new DataButton<>(new YearCellRenderer());
     private Button previousMonthButton = new Button("<");
@@ -69,6 +62,8 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
     public YearMonthPickerSkin(final YearMonthPicker control) {
         this.control = control;
+        //pane.setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
+        //pane.setGridLinesVisible(true);
         control.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
 
             @Override
@@ -129,27 +124,53 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     }
 
     private void layout() {
-        monthColumnIndex = 0;
-        yearColumnIndex = 1;
-        if (control.getShowPreviousYearScrollButton()) {
-            pane.getChildren().add(previousYearButton);
-            monthColumnIndex++;
-            yearColumnIndex++;
+        int columnIndex = 0;
+        if (control.isAlwaysYearScrollButtonSpaceReserved() || control.getShowPreviousYearScrollButton() || control.getShowNextYearScrollButton()) {
+            ColumnConstraints cc = new ColumnConstraints();
+            pane.getColumnConstraints().add(cc);
+            pane.add(previousYearButton, columnIndex++, 0);
+            previousYearButton.setVisible(control.getShowPreviousYearScrollButton());
         }
-        if (control.getShowPreviousMonthScrollButton()) {
-            pane.getChildren().add(previousMonthButton);
-            monthColumnIndex++;
-            yearColumnIndex++;
+        if (control.isAlwaysMonthScrollButtonSpaceReserved() || control.getShowPreviousMonthScrollButton() || control.getShowNextMonthScrollButton()) {
+            ColumnConstraints cc = new ColumnConstraints();
+            pane.getColumnConstraints().add(cc);
+            pane.add(previousMonthButton, columnIndex++, 0);
+            previousMonthButton.setVisible(control.getShowPreviousMonthScrollButton());
         }
 
-        pane.getChildren().addAll(monthOfYearButton, yearButton);
+//        HBox.setHgrow(monthOfYearButton, Priority.ALWAYS);
+//        HBox.setHgrow(yearButton, Priority.ALWAYS);
+//        pane.setAlignment(Pos.TOP_CENTER);
+//        monthOfYearButton.setMaxWidth(Double.MAX_VALUE);
+//        yearButton.setMaxWidth(Double.MAX_VALUE);
 
-        if (control.getShowNextMonthScrollButton()) {
-            pane.getChildren().add(nextMonthButton);
+//        pane.getChildren().addAll(monthOfYearButton, yearButton);
+        ColumnConstraints ccMonthOfYear = new ColumnConstraints();
+        ccMonthOfYear.setHgrow(Priority.ALWAYS);
+        ccMonthOfYear.setHalignment(HPos.RIGHT);
+        pane.getColumnConstraints().add(ccMonthOfYear);
+        monthColumnIndex = columnIndex;
+        pane.add(monthOfYearButton, columnIndex++, 0);
+
+        ColumnConstraints ccYear = new ColumnConstraints();
+        ccYear.setHgrow(Priority.ALWAYS);
+        pane.getColumnConstraints().add(ccYear);
+        yearColumnIndex = columnIndex;
+        pane.add(yearButton, columnIndex++, 0);
+
+        if (control.isAlwaysMonthScrollButtonSpaceReserved() || control.getShowPreviousMonthScrollButton() || control.getShowNextMonthScrollButton()) {
+            ColumnConstraints cc = new ColumnConstraints();
+            pane.getColumnConstraints().add(cc);
+            pane.add(nextMonthButton, columnIndex++, 0);
+            nextMonthButton.setVisible(control.getShowNextMonthScrollButton());
         }
-        if (control.getShowNextYearScrollButton()) {
-            pane.getChildren().add(nextYearButton);
+        if (control.isAlwaysYearScrollButtonSpaceReserved() || control.getShowPreviousYearScrollButton() || control.getShowNextYearScrollButton()) {
+            ColumnConstraints cc = new ColumnConstraints();
+            pane.getColumnConstraints().add(cc);
+            pane.add(nextYearButton, columnIndex++, 0);
+            nextYearButton.setVisible(control.getShowNextYearScrollButton());
         }
+        //pane.setGridLinesVisible(true);
     }
 
     @Override
@@ -223,6 +244,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     private MonthOfYearComboBox getMonthOfYearEditor() {
         if (monthOfYearEditor == null) {
             monthOfYearEditor = new MonthOfYearComboBox();
+            GridPane.setConstraints(monthOfYearEditor, monthColumnIndex, 0);
             monthOfYearEditor.setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
@@ -251,6 +273,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     private YearField getYearEditor() {
         if (yearEditor == null) {
             yearEditor = new YearField();
+            GridPane.setConstraints(yearEditor, yearColumnIndex, 0);
             yearEditor.setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override

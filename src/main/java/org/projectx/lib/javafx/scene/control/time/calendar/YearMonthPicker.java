@@ -31,6 +31,14 @@ public class YearMonthPicker extends Control {
     // TODO: should be configurable with CSS?
     private final BooleanProperty showNextYearScrollButton = new SimpleBooleanProperty(this, "showNextYearScrollButton",
             true);
+    // TODO: should be configurable with CSS?
+    private final BooleanProperty alwaysYearScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
+            "alwaysYearScrollButtonSpaceReserved",
+            false);
+    // TODO: should be configurable with CSS?
+    private final BooleanProperty alwaysMonthScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
+            "alwaysMonthScrollButtonSpaceReserved",
+            false);
 
     /**
      * Creates a new instance of this class. The style class is set to 'year-month-picker'.
@@ -102,5 +110,29 @@ public class YearMonthPicker extends Control {
 
     public BooleanProperty showNextYearScrollButtonProperty() {
         return showNextYearScrollButton;
+    }
+
+    public final boolean isAlwaysYearScrollButtonSpaceReserved() {
+        return alwaysYearScrollButtonSpaceReserved.get();
+    }
+
+    public final void setAlwaysYearScrollButtonSpaceReserved(boolean alwaysYearScrollButtonSpaceReserved) {
+        this.alwaysYearScrollButtonSpaceReserved.set(alwaysYearScrollButtonSpaceReserved);
+    }
+
+    public BooleanProperty alwaysYearScrollButtonSpaceReservedProperty() {
+        return alwaysYearScrollButtonSpaceReserved;
+    }
+
+    public final boolean isAlwaysMonthScrollButtonSpaceReserved() {
+        return alwaysMonthScrollButtonSpaceReserved.get();
+    }
+
+    public final void setAlwaysMonthScrollButtonSpaceReserved(boolean alwaysMonthScrollButtonSpaceReserved) {
+        this.alwaysMonthScrollButtonSpaceReserved.set(alwaysMonthScrollButtonSpaceReserved);
+    }
+
+    public BooleanProperty alwaysMonthScrollButtonSpaceReservedProperty() {
+        return alwaysMonthScrollButtonSpaceReserved;
     }
 }

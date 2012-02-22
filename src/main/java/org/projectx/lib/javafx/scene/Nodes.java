@@ -20,11 +20,19 @@ public class Nodes {
     }
 
     public static Point2D getScreenLocation(Node node) {
-        Bounds boundsInLocal = node.getBoundsInLocal(); // TODO: correct???
         Scene scene = node.getScene();
         Window window = scene.getWindow();
-        double x = window.getX() + scene.getX() + boundsInLocal.getMinX() + 300;
-        double y = window.getY() + scene.getY() + boundsInLocal.getMinY() + 250;
+        double x = window.getX() + scene.getX();
+        double y = window.getY() + scene.getY();
+
+        for (Node currentNode = node; currentNode != null;
+                currentNode = currentNode.getParent()) {
+            Bounds boundsInParent = currentNode.getBoundsInParent(); // TODO: correct???
+            x += boundsInParent.getMinX();
+            y += boundsInParent.getMinY();
+        }
+//        double x = window.getX() + scene.getX() + boundsInLocal.getMinX() + 300;
+//        double y = window.getY() + scene.getY() + boundsInLocal.getMinY() + 250;
         return new Point2D(x, y);
     }
 }

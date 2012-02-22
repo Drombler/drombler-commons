@@ -5,7 +5,6 @@
 package org.projectx.lib.javafx.scene.control.time.calendar.skin;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,23 +13,15 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Skin;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
-import javax.time.calendar.YearMonth;
-import javax.time.calendar.format.DateTimeFormatter;
 import org.projectx.lib.javafx.scene.Nodes;
-import org.projectx.lib.javafx.scene.control.CellRenderer;
 import org.projectx.lib.javafx.scene.control.FormattedTextField;
-import org.projectx.lib.javafx.scene.control.ObjectCellRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateCellRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateField;
-import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateFoo;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDatePicker;
-import org.projectx.lib.javafx.scene.control.time.calendar.YearMonthPicker;
-import org.projectx.lib.time.calendar.LocalDateUtils;
 import org.softsmithy.lib.text.Parser;
 
 /**
@@ -116,7 +107,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
                     Point2D screenLocation = Nodes.getScreenLocation(dateButton);
                     popup.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
                             screenLocation.getX() + dateButton.getWidth() - popup.getWidth(),
-                            screenLocation.getY() + dateButton.getHeight() - popup.getHeight());
+                            screenLocation.getY() + dateButton.getHeight());
                 }
             }
         });

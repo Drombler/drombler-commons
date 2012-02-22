@@ -18,6 +18,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javax.time.calendar.DateTimeFieldRule;
 import javax.time.calendar.DayOfWeek;
 import javax.time.calendar.ISOChronology;
@@ -92,6 +93,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
     private ColumnConstraints createColumnConstraints() {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setHalignment(HPos.CENTER);
+        columnConstraints.setHgrow(Priority.ALWAYS);
         return columnConstraints;
     }
 
@@ -150,6 +152,9 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
 
     private void layout() {
         dayOfMonthView = new GridPane();
+//        dayOfMonthView.setGridLinesVisible(true);
+//        dayOfMonthView.setStyle("-fx-background-color: rgba(0, 255, 255, 125)");
+
         //dayOfMonthView.setAlignment(Pos.CENTER);
         int columnIndex = control.getShowWeeks() ? 1 : 0;
         int rowIndex = 0;

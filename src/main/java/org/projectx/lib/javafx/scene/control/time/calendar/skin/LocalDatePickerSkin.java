@@ -13,14 +13,11 @@ import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javax.time.calendar.LocalDate;
-import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.YearMonth;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateFoo;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDatePicker;
 import org.projectx.lib.javafx.scene.control.time.calendar.YearMonthPicker;
 import org.projectx.lib.time.calendar.LocalDateUtils;
-import org.projectx.lib.time.calendar.YearMonthUtils;
-import org.softsmithy.lib.util.Lists;
 
 /**
  *
@@ -83,11 +80,13 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         localDateFoos = new ArrayList<>(months);
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             YearMonthPicker yearMonthPicker = new YearMonthPicker();
+            yearMonthPicker.setAlwaysYearScrollButtonSpaceReserved(months > 1 && control.getShowYearScrollButton());
+            yearMonthPicker.setAlwaysMonthScrollButtonSpaceReserved(months > 1 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowPreviousYearScrollButton(monthIndex == 0 && control.getShowYearScrollButton());
             yearMonthPicker.setShowPreviousMonthScrollButton(monthIndex == 0 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowNextMonthScrollButton(monthIndex == months - 1 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowNextYearScrollButton(monthIndex == months - 1 && control.getShowYearScrollButton());
-
+            
             final int currentMonthIndex = monthIndex;
             yearMonthPicker.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
 
@@ -128,6 +127,8 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
             BorderPane monthPane = new BorderPane();
             monthPane.setTop(yearMonthPickers.get(monthIndex));
             monthPane.setCenter(localDateFoos.get(monthIndex));
+//            monthPane.setStyle("-fx-background-color: " + (monthIndex == 1 ? "red" : "blue") + ";");
+
             pane.getChildren().add(monthPane);
         }
     }
