@@ -7,14 +7,14 @@ package org.projectx.lib.javafx.scene.control;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
-import org.softsmithy.lib.text.NumberFormatter;
+import org.softsmithy.lib.text.FormatFormatter;
 import org.softsmithy.lib.util.Comparables;
 
 /**
  *
  * @author puce
  */
-public class WholeNumberRenderer<T extends Number & Comparable<T>> extends AbstractFormatterDataRenderer<T> {
+public class WholeNumberRenderer<T extends Number & Comparable<T>> extends FormatterDataRenderer<T> {
 
     private final T zero;
 
@@ -23,7 +23,7 @@ public class WholeNumberRenderer<T extends Number & Comparable<T>> extends Abstr
     }
 
     public WholeNumberRenderer(NumberFormat numberFormat, T zero) {
-        super(new NumberFormatter<>(numberFormat));
+        super(new FormatFormatter<>(numberFormat));
         this.zero = zero;
     }
 

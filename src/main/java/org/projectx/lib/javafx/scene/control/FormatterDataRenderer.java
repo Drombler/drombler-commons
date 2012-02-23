@@ -13,11 +13,11 @@ import org.softsmithy.lib.text.Formatter;
  *
  * @author puce
  */
-public abstract class AbstractFormatterDataRenderer<T> extends AbstractDataRenderer<T> {
+public class FormatterDataRenderer<T> extends AbstractDataRenderer<T> {
 
     private final Formatter<? super T> formatter;
 
-    public AbstractFormatterDataRenderer(Formatter<? super T> formatter) {
+    public FormatterDataRenderer(Formatter<? super T> formatter) {
         this.formatter = formatter;
     }
 
@@ -28,7 +28,7 @@ public abstract class AbstractFormatterDataRenderer<T> extends AbstractDataRende
                 return formatter.format(item);
             } catch (FormatException ex) {
                 // TODO: good enough just to log?
-                Logger.getLogger(AbstractFormatterDataRenderer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormatterDataRenderer.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
         } else {

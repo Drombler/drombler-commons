@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
+import org.softsmithy.lib.text.Formatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
@@ -27,9 +28,13 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     private boolean adjusting = false;
 
     public FormattedTextField() {
-        this(null, null);
+        this((Formatter<? super T>) null, null);
     }
 
+    public FormattedTextField(Formatter<? super T> formatter, Parser<? extends T> parser) {
+        this(new FormatterDataRenderer<>(formatter), parser);
+        
+    }
     public FormattedTextField(DataRenderer<? super T> dataRenderer, Parser<? extends T> parser) {
         setDataRenderer(dataRenderer);
         setParser(parser);
