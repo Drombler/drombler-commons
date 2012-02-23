@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
+import org.projectx.lib.javafx.scene.renderer.WholeNumberRenderer;
 import java.text.NumberFormat;
 import org.softsmithy.lib.text.IntegerParser;
 

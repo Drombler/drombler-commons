@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
+import org.projectx.lib.javafx.scene.renderer.time.calendar.MonthOfYearRenderer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;

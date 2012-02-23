@@ -19,7 +19,7 @@ import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
 import org.projectx.lib.javafx.scene.Nodes;
 import org.projectx.lib.javafx.scene.control.FormattedTextField;
-import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateRenderer;
+import org.projectx.lib.javafx.scene.renderer.time.calendar.LocalDateRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateField;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDatePicker;
 import org.softsmithy.lib.text.Parser;

@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
+import org.projectx.lib.javafx.scene.renderer.time.calendar.DayOfMonthRenderer;
 import javax.time.calendar.LocalDate;
 import org.projectx.lib.javafx.scene.control.DataToggleButton;
 

@@ -5,12 +5,16 @@
 package org.projectx.lib.javafx.scene.control;
 
 import javafx.scene.control.Labeled;
+import org.projectx.lib.javafx.scene.renderer.DataRenderer;
 
 /**
  *
  * @author puce
  */
 public class LabeledUtils {
+
+    private LabeledUtils() {
+    }
 
     public static <T> void configure(Labeled labeled, DataRenderer<? super T> dataRenderer, T data) {
         labeled.setText(dataRenderer.getText(data));

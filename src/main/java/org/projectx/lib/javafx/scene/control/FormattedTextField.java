@@ -13,6 +13,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
+import org.projectx.lib.javafx.scene.renderer.DataRenderer;
+import org.projectx.lib.javafx.scene.renderer.FormatterDataRenderer;
 import org.softsmithy.lib.text.Formatter;
 import org.softsmithy.lib.text.Parser;
 

@@ -4,6 +4,8 @@
  */
 package org.projectx.lib.javafx.scene.control;
 
+import org.projectx.lib.javafx.scene.renderer.DataRenderer;
+import org.projectx.lib.javafx.scene.renderer.ObjectRenderer;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;

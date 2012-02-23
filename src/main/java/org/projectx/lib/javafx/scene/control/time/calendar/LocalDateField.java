@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
+import org.projectx.lib.javafx.scene.renderer.time.calendar.LocalDateRenderer;
 import java.util.Locale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -17,7 +18,7 @@ import javax.time.calendar.YearMonth;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatters;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
-import org.projectx.lib.javafx.scene.control.DataRenderer;
+import org.projectx.lib.javafx.scene.renderer.DataRenderer;
 import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
 import org.softsmithy.lib.text.Parser;
 
