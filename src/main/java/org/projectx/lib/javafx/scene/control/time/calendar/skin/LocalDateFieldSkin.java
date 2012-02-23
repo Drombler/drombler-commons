@@ -19,9 +19,10 @@ import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
 import org.projectx.lib.javafx.scene.Nodes;
 import org.projectx.lib.javafx.scene.control.FormattedTextField;
-import org.projectx.lib.javafx.scene.renderer.time.calendar.LocalDateRenderer;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDateField;
 import org.projectx.lib.javafx.scene.control.time.calendar.LocalDatePicker;
+import org.projectx.lib.javafx.scene.renderer.FormatterDataRenderer;
+import org.projectx.lib.time.calendar.format.CalendricalFormatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
@@ -39,7 +40,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
      * This control is used to represent the YearMonthPicker.
      */
     private HBox pane = new HBox();
-    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new LocalDateRenderer(),
+    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(new CalendricalFormatter()),
             new Parser<LocalDate>() {
 
                 @Override

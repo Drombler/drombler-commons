@@ -4,7 +4,6 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
-import org.projectx.lib.javafx.scene.renderer.time.calendar.LocalDateRenderer;
 import java.util.Locale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -15,11 +14,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
-import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatters;
 import org.projectx.lib.javafx.beans.property.FiniteComparableProperty;
-import org.projectx.lib.javafx.scene.renderer.DataRenderer;
 import org.projectx.lib.javafx.scene.control.skin.Stylesheets;
+import org.projectx.lib.javafx.scene.renderer.DataRenderer;
+import org.projectx.lib.javafx.scene.renderer.FormatterDataRenderer;
+import org.projectx.lib.time.calendar.format.CalendricalFormatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
@@ -29,8 +29,13 @@ import org.softsmithy.lib.text.Parser;
 // TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
 public class LocalDateField extends Control {
 
+    /**
+     * {@link DateTimeFormatters#longDate(java.util.Locale) }
+     * {@code new FormatterDataRenderer<>(new CalendricalFormatter(DateTimeFormatters.mediumDate(Locale.getDefault())))}
+     */
     private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
-            this, "dataRenderer", new LocalDateRenderer(DateTimeFormatters.longDate(Locale.getDefault())));
+            this, "dataRenderer",
+            new FormatterDataRenderer<>(new CalendricalFormatter(DateTimeFormatters.longDate(Locale.getDefault()))));
     private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
     private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -85,7 +90,7 @@ public class LocalDateField extends Control {
     public ObjectProperty<Parser<? extends LocalDate>> parserProperty() {
         return parser;
     }
-    
+
     public final LocalDate getSelectedDate() {
         return selectedDate.get();
     }
