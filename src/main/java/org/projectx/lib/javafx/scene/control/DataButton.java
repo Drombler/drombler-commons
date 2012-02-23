@@ -19,7 +19,7 @@ import org.projectx.lib.javafx.scene.renderer.ObjectRenderer;
 public class DataButton<T> extends Button {
 
     private final ObjectProperty<T> data = new SimpleObjectProperty<>(this, "data");
-    private final DataRenderer<? super T> dataRenderer;
+    private final ObjectProperty<DataRenderer<? super T>> dataRenderer = new SimpleObjectProperty<>(this, "dataRenderer");
 
     public final T getData() {
         return data.get();
@@ -46,14 +46,35 @@ public class DataButton<T> extends Button {
     }
 
     public DataButton(DataRenderer<? super T> dataRenderer, T data) {
-        this.dataRenderer = dataRenderer;
         this.data.addListener(new ChangeListener<T>() {
 
             @Override
             public void changed(ObservableValue<? extends T> ov, T oldData, T newData) {
-                LabeledUtils.configure(DataButton.this, DataButton.this.dataRenderer, newData);
+                LabeledUtils.configure(DataButton.this, getDataRenderer(), newData);
             }
         });
+
+        this.dataRenderer.addListener(new ChangeListener<DataRenderer<? super T>>() {
+
+            @Override
+            public void changed(ObservableValue<? extends DataRenderer<? super T>> ov, DataRenderer<? super T> oldData, DataRenderer<? super T> newData) {
+                LabeledUtils.configure(DataButton.this, newData, getData());
+            }
+        });
+
         setData(data);
+        setDataRenderer(dataRenderer);
+    }
+
+    public final DataRenderer<? super T> getDataRenderer() {
+        return dataRenderer.get();
+    }
+
+    public final void setDataRenderer(DataRenderer<? super T> dataRenderer) {
+        this.dataRenderer.set(dataRenderer);
+    }
+
+    public ObjectProperty<DataRenderer<? super T>> dataRendererProperty() {
+        return dataRenderer;
     }
 }
