@@ -4,9 +4,9 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar;
 
-import org.projectx.lib.javafx.scene.renderer.time.calendar.DayOfMonthRenderer;
 import javax.time.calendar.LocalDate;
 import org.projectx.lib.javafx.scene.control.DataToggleButton;
+import org.projectx.lib.javafx.scene.renderer.time.calendar.DayOfMonthRenderer;
 
 /**
  *
@@ -18,8 +18,8 @@ public class LocalDateButton extends DataToggleButton<LocalDate> {
         super(new DayOfMonthRenderer());
     }
 
-    public LocalDateButton(LocalDate data) {
-        super(new DayOfMonthRenderer(), data);
+    public LocalDateButton(LocalDate localDate) {
+        super(new DayOfMonthRenderer(), localDate);
     }
 
     @Override

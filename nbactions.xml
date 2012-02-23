@@ -39,4 +39,11 @@
             <activatedProfile>run-on-felix</activatedProfile>
         </activatedProfiles>
     </action>
+    <action>
+            <actionName>CUSTOM-site</actionName>
+            <displayName>site</displayName>
+            <goals>
+                <goal>site</goal>
+            </goals>
+        </action>
 </actions>
