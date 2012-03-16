@@ -16,6 +16,9 @@
     -fx-skin: "org.projectx.lib.javafx.scene.control.time.calendar.skin.LocalDateFieldSkin";
 }
 
+.local-date-field .popup-control{ 
+    -fx-background-color: yellow;
+}
 /**************************************************************************************************
  *                                                                                                *
  * LocalDateFoo                                                                                   *
@@ -34,7 +37,7 @@
 /* TODO: doesn't work!? */
 .local-date-foo .day-of-week{
     -fx-font-weight: bold;
-    -fx-color: red;
+    -fx-text-fill: red;
 }
 /**************************************************************************************************
  *                                                                                                *
