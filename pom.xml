@@ -23,5 +23,6 @@
     <modules>
         <module>projectx-lib-parent</module>
         <module>projectx-lib-javafx</module>
+        <module>projectx-lib-javafx-time</module>
     </modules>
 </project>

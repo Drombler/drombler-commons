@@ -7,6 +7,7 @@
         <groupId>org.projectx</groupId>
         <artifactId>projectx-oss-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
+        <relativePath></relativePath>
     </parent>
     <groupId>org.projectx.lib</groupId>
     <artifactId>projectx-lib-parent</artifactId>
