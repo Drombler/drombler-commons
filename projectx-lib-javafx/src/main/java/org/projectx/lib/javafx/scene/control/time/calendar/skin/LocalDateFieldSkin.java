@@ -4,6 +4,7 @@
  */
 package org.projectx.lib.javafx.scene.control.time.calendar.skin;
 
+import com.sun.javafx.scene.control.skin.ComboBoxPopupControl;
 import java.text.ParseException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +13,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.Skin;
+import javafx.scene.control.Skinnable;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
@@ -40,17 +43,38 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
      * This control is used to represent the YearMonthPicker.
      */
     private HBox pane = new HBox();
-    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(new CalendricalFormatter()),
+    private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(
+            new CalendricalFormatter()),
             new Parser<LocalDate>() {
 
                 @Override
-                public LocalDate parse(String text) throws ParseException {
+                public LocalDate parse(CharSequence text) throws ParseException {
                     throw new UnsupportedOperationException("Not supported yet.");
                 }
             });
     private LocalDatePicker datePicker = new LocalDatePicker();
     private Button dateButton = new Button("...");
-    private Popup popup = new Popup();
+    private PopupControl popupControl = new PopupControl() {
+
+        {
+            setSkin(new Skin() {
+
+                @Override
+                public Skinnable getSkinnable() {
+                    return LocalDateFieldSkin.this.getSkinnable();
+                }
+
+                @Override
+                public Node getNode() {
+                    return datePicker;
+                }
+
+                @Override
+                public void dispose() {
+                }
+            });
+        }
+    };
     private boolean showing = false;
 
     public LocalDateFieldSkin(LocalDateField control) {
@@ -66,16 +90,16 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         pane.getChildren().addAll(dateField, dateButton);
 
 
-        popup.getContent().add(datePicker);
-        popup.setAutoHide(true);
-        popup.setOnHiding(new EventHandler<WindowEvent>() {
+        //popupControl.getContent().add(datePicker);
+        popupControl.setAutoHide(true);
+        popupControl.setOnHiding(new EventHandler<WindowEvent>() {
 
             @Override
             public void handle(WindowEvent t) {
                 showing = false;
             }
         });
-        popup.setAutoFix(true);
+        popupControl.setAutoFix(true);
 
 
 
@@ -95,7 +119,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
                 dateField.setValue(newVal);
                 LocalDateFieldSkin.this.control.setSelectedDate(newVal);
 
-                popup.hide();
+                popupControl.hide();
             }
         });
 
@@ -105,9 +129,10 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             public void handle(ActionEvent t) {
                 if (!showing) {
                     showing = true;
+                    datePicker.setYearMonth(LocalDateFieldSkin.this.control.getYearMonth());
                     Point2D screenLocation = Nodes.getScreenLocation(dateButton);
-                    popup.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
-                            screenLocation.getX() + dateButton.getWidth() - popup.getWidth(),
+                    popupControl.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
+                            screenLocation.getX() + dateButton.getWidth() - popupControl.getWidth(),
                             screenLocation.getY() + dateButton.getHeight());
                 }
             }
@@ -136,6 +161,6 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         dateButton = null;
         dateField = null;
         datePicker = null;
-        popup = null;
+        popupControl = null;
     }
 }
