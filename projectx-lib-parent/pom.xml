@@ -14,7 +14,7 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>ProjectX - Utility Library - Parent</name>
+    <name>ProjectX Utility Library - Parent</name>
     <inceptionYear>2012</inceptionYear>
 
 <!-- Not inherited!?? -->

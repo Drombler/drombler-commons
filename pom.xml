@@ -12,7 +12,7 @@
     <artifactId>projectx-lib-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>ProjectX - Utility Library - All</name>
+    <name>ProjectX Utility Library - All</name>
     <inceptionYear>2012</inceptionYear>
 
 <!-- Not inherited!?? -->
