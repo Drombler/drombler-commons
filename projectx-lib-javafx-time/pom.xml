@@ -102,9 +102,7 @@
         <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
-            <type>jar</type>
-            <scope>system</scope>
-            <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
@@ -113,13 +111,10 @@
         <dependency>
             <groupId>javax.time</groupId>
             <artifactId>jsr-310-ri</artifactId>
-            <version>0.6.3</version>
         </dependency>
         <dependency>                            
             <groupId>javax.time</groupId>
             <artifactId>jsr-310-TZDB-all</artifactId>
-            <version>0.6.3</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

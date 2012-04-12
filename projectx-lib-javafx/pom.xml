@@ -97,9 +97,6 @@
         <dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
-            <type>jar</type>
-            <scope>system</scope>
-            <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>

@@ -37,6 +37,22 @@
                 <scope>system</scope>
                 <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
             </dependency>
+            <dependency>
+                <groupId>javax.time</groupId>
+                <artifactId>jsr-310-ri</artifactId>
+                <version>0.6.3</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar</systemPath>
+            </dependency>
+            <dependency>                            
+                <groupId>javax.time</groupId>
+                <artifactId>jsr-310-TZDB-all</artifactId>
+                <version>0.6.3</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar</systemPath>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
