@@ -32,10 +32,10 @@
             <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>jfxrt</artifactId>
-                <version>2.1.0-beta</version>
+                <version>2.2.0</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>${env.JAVAFX_HOME}/rt/lib/jfxrt.jar</systemPath>
+                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>javax.time</groupId>
