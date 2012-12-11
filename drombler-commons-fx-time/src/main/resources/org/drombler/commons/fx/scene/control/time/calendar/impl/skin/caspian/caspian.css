@@ -1,0 +1,80 @@
+/* 
+    Document   : caspian
+    Created on : 17.02.2012, 17:49:21
+    Author     : puce
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDateField                                                                                 *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-field { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFieldSkin";
+}
+
+.local-date-field .popup-control{ 
+    -fx-background-color: yellow;
+}
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDateFoo                                                                                   *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-foo { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFooSkin";
+}
+.local-date-foo .toggle-button{
+    -fx-background-color: aliceblue;
+    /*-fx-background-color: green;
+   -fx-border-color: black;*/
+}
+
+/* TODO: doesn't work!? */
+.local-date-foo .day-of-week{
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+/**************************************************************************************************
+ *                                                                                                *
+ * LocalDatePicker                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.local-date-picker { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDatePickerSkin";
+    /*-fx-background-color: -fx-background;*/
+    -fx-background-color: yellow;
+}
+
+/**************************************************************************************************
+ *                                                                                                *
+ * YearMonthPicker                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.year-month-picker { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.YearMonthPickerSkin";
+    /*-fx-background-color: blue, red;
+    -fx-background-insets: 10, 20;
+    -fx-border-color: black;*/
+    -fx-font-size: 1.166667em; /* 14pt - 2 more than the default font */
+
+}
+
+
+.year-month-picker .button {
+    -fx-background-color: transparent;
+    /*-fx-background-color: aqua;*/ 
+    /*-fx-border-color: black;*/
+}
+
+.year-month-picker .button:hover {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    /* -fx-color: -fx-hover-base; * already defined in default css?*/
+}
+

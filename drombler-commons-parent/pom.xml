@@ -1,0 +1,58 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.drombler</groupId>
+        <artifactId>drombler-oss-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+    <groupId>org.drombler.commons</groupId>
+    <artifactId>drombler-commons-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Drombler Commons - Parent</name>
+    <inceptionYear>2012</inceptionYear>
+
+<!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>1.4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javafx</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>2.2.0</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
+            </dependency>
+            <dependency>
+                <groupId>javax.time</groupId>
+                <artifactId>jsr-310-ri</artifactId>
+                <version>0.6.3</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar</systemPath>
+            </dependency>
+            <dependency>                            
+                <groupId>javax.time</groupId>
+                <artifactId>jsr-310-TZDB-all</artifactId>
+                <version>0.6.3</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar</systemPath>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,24 @@
+/* 
+    Document   : caspian
+    Created on : 17.02.2012, 17:49:21
+    Author     : puce
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+/**************************************************************************************************
+ *                                                                                                *
+ * WholeNumberCellRenderer                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+
+.number{
+    -fx-alignment: baseline-right; /*TODO: correct? */
+}
+
+.negative-number{
+    -fx-text-fill: red;
+}
+

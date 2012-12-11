@@ -1,18 +1,17 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.projectx.lib</groupId>
-        <artifactId>projectx-lib-parent</artifactId>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>projectx-lib-parent</relativePath>
+        <relativePath>drombler-commons-parent</relativePath>
     </parent>
-    <artifactId>projectx-lib-all</artifactId>
+    <artifactId>drombler-commons-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>ProjectX Utility Library - All</name>
+    <name>Drombler Commons - All</name>
     <inceptionYear>2012</inceptionYear>
 
 <!-- Not inherited!?? -->
@@ -21,8 +20,10 @@
     </prerequisites>
 
     <modules>
-        <module>projectx-lib-parent</module>
-        <module>projectx-lib-javafx</module>
-        <module>projectx-lib-javafx-time</module>
-    </modules>
+        <module>drombler-commons-parent</module>
+        <module>drombler-commons-fx</module>
+        <module>drombler-commons-fx-time</module>
+    <module>drombler-commons-security-srp-server</module>
+    <module>drombler-commons-security-srp-client</module>
+  </modules>
 </project>
