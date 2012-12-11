@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0</version>
         <relativePath></relativePath>
     </parent>
     <groupId>org.drombler.commons</groupId>
