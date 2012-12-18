@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.projectx.common.security.auth.message.module.srp.client;
+package org.drombler.commons.security.auth.message.module.srp.client;
 
 import java.util.Map;
 import javax.security.auth.Subject;

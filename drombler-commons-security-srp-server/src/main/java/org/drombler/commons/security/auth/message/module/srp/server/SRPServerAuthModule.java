@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.projectx.common.security.auth.message.module.srp.server;
+package org.drombler.commons.security.auth.message.module.srp.server;
 
 import java.math.BigInteger;
 import java.util.Map;

@@ -12,23 +12,39 @@
  *
  * Contributor(s): .
  */
-package org.projectx.common.security.auth.message.module.srp.server;
+package org.drombler.commons.security.auth.message.module.srp.server;
 
 import java.math.BigInteger;
 
 /**
- * Challenge???
+ *
  * @author puce
  */
-public class SRPChallenge {
-    //B
-    private BigInteger ephemeralServerPublicKey;
-    
-    //u
-    private BigInteger randomMessage;
+public class SRPCredentials {
+    private String username;
+    // v
+    private BigInteger passwordVerifier;
+    //s
+    private BigInteger salt;
 
-    SRPChallenge(BigInteger ephemeralServerPublicKey) {
-        this.ephemeralServerPublicKey = ephemeralServerPublicKey;
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
     }
-    
+
+    /**
+     * @return the passwordVerifier
+     */
+    public BigInteger getPasswordVerifier() {
+        return passwordVerifier;
+    }
+
+    /**
+     * @return the salt
+     */
+    public BigInteger getSalt() {
+        return salt;
+    }
 }
