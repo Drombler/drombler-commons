@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../drombler-commons-fx-ensemble-parent</relativePath>
+    </parent>
+    <artifactId>drombler-commons-fx-ensemble-application</artifactId>
+    <packaging>drombler-fx-application</packaging>
+
+    <name>Drombler Commons - FX - Ensemble - Application</name>
+
+    <build>
+        <plugins>
+            <plugin>  
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <brandingId>drombler-commons-fx-ensemble</brandingId>
+                    <title>Drombler Commons - FX - Ensemble ${project.version}</title>
+                    <width>1500</width>
+                    <height>1000</height>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <dependencies>      
+        <dependency>
+            <!-- Provides the Date and Time samples -->
+            <groupId>org.drombler.commons</groupId>
+            <artifactId>drombler-commons-fx-ensemble-time</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+ 
+        <dependency> 
+            <!-- Provides the JavaFX Application integration. 
+            You could omit this direct dependency as long as it stays a transitive dependency. 
+            (E.g. if you use drombler-fx-core-docking) -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-application</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!--  Provides JavaFX based implementations of the Docking Framework 
+            You could omit this dependency as long as it is a transitive dependency. 
+            (E.g. if you use a project such as drombler-commons-fx-ensemble-sample, which provides some DockingPanes) -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-core-docking</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- Provides the standard Docking Areas: left, right, top, bottom and center
+            You could replace this with your own definition of these Docking Areas. -->
+            <groupId>org.drombler.acp</groupId>
+            <artifactId>drombler-acp-core-standard-docking</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- Provides some localized resources. -->
+            <groupId>org.drombler.fx</groupId>
+            <artifactId>drombler-fx-locale-all</artifactId>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <scope>runtime</scope>
+            <!-- Seems to be necessary for org.apache.felix:org.apache.felix.scr:1.6.0-->
+        </dependency>
+    </dependencies>
+</project>

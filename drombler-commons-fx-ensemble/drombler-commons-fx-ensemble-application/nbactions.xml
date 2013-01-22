@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>CUSTOM-clean-install-e-X</actionName>
+        <displayName>clean-install-e-X</displayName>
+        <goals>
+            <goal>clean</goal>
+            <goal>install</goal>
+            <goal>-e</goal>
+            <goal>-X</goal>
+        </goals>
+        <properties>
+            <jpda.listen>maven</jpda.listen>
+        </properties>
+    </action>
+    <action>
+        <actionName>run</actionName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>   
+<!--            <goal>-e</goal>
+            <goal>-X</goal>-->
+        </goals>
+        <properties>
+<!--            <exec.args>-jar ${project.build.directory}/deployment/standalone/bin/projectx.jar</exec.args>-->
+            <exec.args>-Xbootclasspath/p:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/deployment/standalone/bin/drombler-commons-fx-ensemble.jar --userdir ${project.build.directory}/userdir</exec.args>
+<!--            <exec.longClasspath>true</exec.longClasspath>-->
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>runtime</exec.classpathScope>
+        </properties>
+    </action>
+<!--        <action>
+        <actionName>run</actionName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>   
+        </goals>
+        <properties>
+            <exec.args>-classpath %classpath org.richclientplatform.startup.main.Main</exec.args>
+                <exec.longClasspath>true</exec.longClasspath>
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>runtime</exec.classpathScope>
+        </properties>
+    </action>-->
+    <action>
+        <actionName>debug</actionName>
+        <goals>
+            <goal>package</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>   
+        </goals>
+        <properties>
+            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}  -Xbootclasspath/p:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar  -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/deployment/standalone/bin/drombler-commons-fx-ensemble.jar --userdir ${project.build.directory}/userdir</exec.args>
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>runtime</exec.classpathScope>
+            <jpda.listen>true</jpda.listen>
+        </properties>
+    </action>
+    
+</actions>

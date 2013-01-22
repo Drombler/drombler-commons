@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>drombler-commons-fx-ensemble-parent</relativePath>
+    </parent>
+    <artifactId>drombler-commons-fx-ensemble-all</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Drombler Commons - FX - Ensemble - All</name>
+
+
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+    
+    <modules>
+        <module>drombler-commons-fx-ensemble-parent</module>
+        <module>drombler-commons-fx-ensemble-application</module>
+        <module>drombler-commons-fx-ensemble-time</module>
+    </modules>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

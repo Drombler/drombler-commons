@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <!-- You might want to replace this parent with your Corporate POM (which might inherit from 
+        drombler-fx-parent or one of its parents in turn).
+        Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
+        <groupId>org.drombler.fx</groupId>
+        <artifactId>drombler-fx-parent</artifactId>
+        <version>0.1</version>
+        <relativePath></relativePath>
+    </parent>
+    <groupId>org.drombler.commons</groupId>
+    <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+ 
+    <name>Drombler Commons - FX - Ensemble - Parent</name>
+
+    <description>The parent POM of my drombler-commons-fx-ensemble project. This drombler-commons-fx-ensemble Parent POM should be the parent (either directly or indirectly) of every drombler-commons-fx-ensemble project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
+    <url>http://www.mycompany.com/drombler-commons-fx-ensemble</url>
+    <inceptionYear>2012</inceptionYear>
+    
+    <!-- Override the organization. 
+    Otherwise you would inherit the Drombler specific organization configuration, which wouldn't be correct.-->
+    <organization>
+        <name>My Company</name>
+        <url>http://www.mycompany.com</url>
+    </organization>
+    
+    <!-- Override the project licenses. 
+    Otherwise you would inherit the Drombler specific licenses configuration, which wouldn't be correct.-->
+    <licenses>
+        <license>
+            <name>My License Name</name>
+            <url>../LICENSE.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <!-- Override the project developers configuration. 
+    Otherwise you would inherit the Drombler specific developers configuration, which wouldn't be correct.-->
+    <developers>
+        <developer>
+            <id>someuser</id>
+            <name>Some Name</name>
+            <email>someuser@mycompany.com</email>
+            <url>http://www.mycompany.com/someuser</url>
+            <timezone>1</timezone>
+        </developer>
+    </developers>
+
+    <!-- Override the project scm configuration. 
+    Otherwise you would inherit the Drombler specific scm configuration, which wouldn't be correct.-->
+    <scm>
+        <connection>scm:hg:http://hg.mycompany.com/drombler-commons-fx-ensemble</connection>
+        <developerConnection>scm:hg:ssh://${username}@hg.mycompany.com/drombler-commons-fx-ensemble</developerConnection>
+        <url>http://hg.mycompany.com/drombler-commons-fx-ensemble</url>
+    </scm>
+    
+    <!-- Override the project issueManagement configuration. 
+    Otherwise you would inherit the Drombler specific issueManagement configuration, which wouldn't be correct.-->
+    <issueManagement>
+        <system>My System</system>
+        <url>http://issues.mycompany.com/drombler-commons-fx-ensemble</url>
+    </issueManagement>
+    
+    <properties>
+        <drombler-fx.version>0.1</drombler-fx.version>
+    </properties>
+    
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>  
+                    <groupId>org.drombler.fx</groupId>
+                    <artifactId>drombler-fx-maven-plugin</artifactId>
+                    <version>${drombler-fx.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-action</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-application</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-application-locale-de</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-commons</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-core-docking</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-locale-all</artifactId>
+                <type>pom</type>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-locale-de</artifactId>
+                <type>pom</type>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drombler.fx</groupId>
+                <artifactId>drombler-fx-startup-main</artifactId>
+                <version>${drombler-fx.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

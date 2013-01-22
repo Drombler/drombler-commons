@@ -28,7 +28,7 @@ Contributor(s): .
     <name>Drombler Commons - All</name>
     <inceptionYear>2012</inceptionYear>
 
-<!-- Not inherited!?? -->
+    <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
@@ -37,7 +37,19 @@ Contributor(s): .
         <module>drombler-commons-parent</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-fx-time</module>
-    <module>drombler-commons-security-srp-server</module>
-    <module>drombler-commons-security-srp-client</module>
-  </modules>
+        <module>drombler-commons-fx-ensemble</module>
+        <module>drombler-commons-security-srp-server</module>
+        <module>drombler-commons-security-srp-client</module>
+    </modules>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

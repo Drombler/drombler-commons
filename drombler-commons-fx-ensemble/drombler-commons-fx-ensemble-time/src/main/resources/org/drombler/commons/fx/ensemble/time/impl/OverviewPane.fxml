@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.drombler.fx.core.docking.*?>
+
+<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" >
+     <GridPane>
+        <Button text="%OverviewPane.dateTimeButton.text" GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="dateTimeButton" onAction="#showDateTimeEditor"/>
+     </GridPane>
+</fx:root>

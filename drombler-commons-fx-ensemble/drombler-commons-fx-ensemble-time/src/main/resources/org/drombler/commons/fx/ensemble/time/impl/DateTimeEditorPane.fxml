@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.drombler.fx.core.docking.*?>
+<?import org.drombler.commons.fx.scene.control.time.calendar.*?>
+
+<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" title="%DateTimeEditorPane.title">
+    <GridPane>
+        <Label text="LocalDateButton:" labelFor="$localDateButton" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <LocalDateButton GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDateButton"/>
+        <Label text="LocalDateField:" labelFor="$localDateField" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <LocalDateField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="localDateField"/>
+        <Label text="LocalDateFoo:" labelFor="$localDateFoo" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <LocalDateFoo GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="localDateFoo"/>
+        <Label text="LocalDatePicker:" labelFor="$localDatePicker" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <LocalDatePicker GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="localDatePicker"/>
+        <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <MonthOfYearComboBox GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="monthOfYearComboBox"/>
+        <Label text="YearField:" labelFor="$yearField" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <YearField GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="yearField"/>
+        <Label text="YearMonthPicker:" labelFor="$yearMonthPicker" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <YearMonthPicker GridPane.rowIndex="6" GridPane.columnIndex="1" fx:id="yearMonthPicker"/>
+    </GridPane>
+</fx:root>
