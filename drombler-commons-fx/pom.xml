@@ -29,7 +29,7 @@ Contributor(s): .
     <name>Drombler Commons - FX</name>
     <inceptionYear>2012</inceptionYear>
 
-<!-- Not inherited!?? -->
+    <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
@@ -39,10 +39,28 @@ Contributor(s): .
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
                 <extensions>true</extensions>
             </plugin>
+
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <detectLinks>true</detectLinks>
+                    <links>
+                        <!-- javadoc link for javax.persistence -->
+                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                    </links>
+                    <groups>
+                        <group>
+                            <title>${project.name}</title>
+                            <packages>org.drombler.commons*</packages>
+                        </group>
+                    </groups>
+                </configuration>
+            </plugin>
+            <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.0</version>
@@ -68,8 +86,8 @@ Contributor(s): .
                         </plugin>
                     </reportPlugins>
                 </configuration>
-            </plugin>
-<!--            <plugin>
+            </plugin>-->
+            <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>2.3.1</version>

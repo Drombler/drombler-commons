@@ -30,12 +30,80 @@ Contributor(s): .
 
     <name>Drombler Commons - Parent</name>
     <inceptionYear>2012</inceptionYear>
-
-<!-- Not inherited!?? -->
+    
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <name>Drombler Commons</name>
+            <url>file://drombler</url>
+        </site>
+    </distributionManagement>
+    <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
     </prerequisites>
-
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.9</version>
+                    <configuration>
+                        <detectLinks>true</detectLinks>
+                        <links>
+                            <!-- javadoc link for javax.persistence -->
+                            <link>http://docs.oracle.com/javaee/6/api/</link>
+                        </links>
+                        <groups>
+                            <group>
+                                <title>${project.name}</title>
+                                <packages>org.drombler.commons*</packages>
+                            </group>
+                        </groups>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <reportPlugins> 
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-project-info-reports-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                                <configuration>
+                                    <detectLinks>true</detectLinks>
+                                    <links>
+                                        <!-- javadoc link for javax.persistence -->
+                                        <link>http://docs.oracle.com/javaee/6/api/</link>
+                                    </links>
+                                    <groups>
+                                        <group>
+                                            <title>${project.name}</title>
+                                            <packages>org.softsmithy.*</packages>
+                                        </group>
+                                    </groups>
+                                </configuration>
+                            </plugin>
+                            <!--                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>cobertura-maven-plugin</artifactId>
+                            </plugin>-->
+                            <!--                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>taglist-maven-plugin</artifactId>
+                            </plugin>-->
+                        </reportPlugins>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
     <dependencyManagement>
         <dependencies>
             <dependency>
