@@ -76,10 +76,10 @@ Contributor(s): .
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-javadoc-plugin</artifactId>
-                                <configuration>
+<!--                                <configuration>
                                     <detectLinks>true</detectLinks>
                                     <links>
-                                        <!-- javadoc link for javax.persistence -->
+                                         javadoc link for javax.persistence 
                                         <link>http://docs.oracle.com/javaee/6/api/</link>
                                     </links>
                                     <groups>
@@ -88,7 +88,7 @@ Contributor(s): .
                                             <packages>org.softsmithy.*</packages>
                                         </group>
                                     </groups>
-                                </configuration>
+                                </configuration>-->
                             </plugin>
                             <!--                            <plugin>
                                 <groupId>org.codehaus.mojo</groupId>
@@ -110,14 +110,6 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>1.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javafx</groupId>
-                <artifactId>jfxrt</artifactId>
-                <version>2.2.0</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
             </dependency>
             <dependency>
                 <groupId>javax.time</groupId>

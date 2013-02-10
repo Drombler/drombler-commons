@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../drombler-commons-parent</relativePath>
+    </parent>
+    <artifactId>drombler-commons-fx-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Drombler Commons - FX - Parent</name>
+    <inceptionYear>2013</inceptionYear>
+    <properties>
+        <javafx.version>2.2</javafx.version>
+    </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
+                        <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
+                        <show>private</show>
+                        <links>
+                            <link>http://docs.oracle.com/javafx/2/api/</link>
+                        </links>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javafx</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>${javafx.version}</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

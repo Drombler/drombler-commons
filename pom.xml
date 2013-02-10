@@ -35,6 +35,7 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-parent</module>
+        <module>drombler-commons-fx-parent</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-fx-time</module>
         <module>drombler-commons-fx-ensemble</module>
