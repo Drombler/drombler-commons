@@ -24,7 +24,8 @@
         <properties>
 <!--            <exec.args>-jar ${project.build.directory}/deployment/standalone/bin/projectx.jar</exec.args>-->
             <exec.args>-Xbootclasspath/p:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar:${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/deployment/standalone/bin/drombler-commons-fx-ensemble.jar --userdir ${project.build.directory}/userdir</exec.args>
-<!--            <exec.longClasspath>true</exec.longClasspath>-->
+            <!-- -Duser.language=en -Duser.country=US -->
+            <!--            <exec.longClasspath>true</exec.longClasspath>-->
             <exec.executable>java</exec.executable>
             <exec.classpathScope>runtime</exec.classpathScope>
         </properties>

@@ -31,6 +31,15 @@ Contributor(s): .
     <name>Drombler Commons - Parent</name>
     <inceptionYear>2012</inceptionYear>
     
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../LICENSE.txt</url>
+        </license>
+    </licenses>
+    
     <distributionManagement>
         <site>
             <id>drombler</id>
@@ -54,13 +63,16 @@ Contributor(s): .
                         <links>
                             <!-- javadoc link for javax.persistence -->
                             <link>http://docs.oracle.com/javaee/6/api/</link>
+                            <link>http://www.softsmithy.org/lib/${dependency.softsmithy.version}/docs/api/softsmithy-lib-core</link>
+                            <link>http://threeten.sourceforge.net/apidocs-2011-01-07/</link>
+                            <link>http://docs.oracle.com/javafx/2/api/</link>
                         </links>
-                        <groups>
+                        <!--                        <groups>
                             <group>
                                 <title>${project.name}</title>
                                 <packages>org.drombler.commons*</packages>
                             </group>
-                        </groups>
+                        </groups>-->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -72,23 +84,45 @@ Contributor(s): .
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                                <version>2.6</version>
                             </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-javadoc-plugin</artifactId>
-<!--                                <configuration>
+                                <version>2.9</version>
+                                <reportSets>
+                                    <reportSet>
+                                        <id>default</id>
+                                        <configuration>
+                                            <detectOfflineLinks>true</detectOfflineLinks>
+                                        </configuration>
+                                        <reports>
+                                            <report>javadoc</report>
+                                        </reports>
+                                    </reportSet>
+                                    <reportSet>
+                                        <id>aggregate</id>
+                                        <reports>
+                                            <report>aggregate</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
+                                <configuration>
                                     <detectLinks>true</detectLinks>
                                     <links>
-                                         javadoc link for javax.persistence 
+                                        <!-- javadoc link for javax.persistence -->
                                         <link>http://docs.oracle.com/javaee/6/api/</link>
+                                        <link>http://www.softsmithy.org/lib/${dependency.softsmithy.version}/docs/api/softsmithy-lib-core</link>
+                                        <link>http://threeten.sourceforge.net/apidocs-2011-01-07/</link>
+                                        <link>http://docs.oracle.com/javafx/2/api/</link>
                                     </links>
-                                    <groups>
+                                    <!--                        <groups>
                                         <group>
                                             <title>${project.name}</title>
-                                            <packages>org.softsmithy.*</packages>
+                                            <packages>org.drombler.commons*</packages>
                                         </group>
-                                    </groups>
-                                </configuration>-->
+                                    </groups>-->
+                                </configuration>
                             </plugin>
                             <!--                            <plugin>
                                 <groupId>org.codehaus.mojo</groupId>

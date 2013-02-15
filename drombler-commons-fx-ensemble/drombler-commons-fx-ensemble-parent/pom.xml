@@ -65,6 +65,14 @@
         <url>http://issues.mycompany.com/drombler-commons-fx-ensemble</url>
     </issueManagement>
     
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <name>Drombler Commons</name>
+            <url>file://drombler</url>
+        </site>
+    </distributionManagement>
+    
     <properties>
         <drombler-fx.version>0.1</drombler-fx.version>
     </properties>

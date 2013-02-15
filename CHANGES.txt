@@ -1,0 +1,4 @@
+Changes:
+
+v${project.version} (Changeset: ${changeSet}):
+    - initial version

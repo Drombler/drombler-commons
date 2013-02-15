@@ -106,6 +106,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
                         1));
             }
         });
+        previousYearButton.prefWidthProperty().bind(previousYearButton.minWidthProperty());
         previousMonthButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override

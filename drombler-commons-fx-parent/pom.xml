@@ -25,9 +25,34 @@
                         <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
                         <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
                         <show>private</show>
-                        <links>
-                            <link>http://docs.oracle.com/javafx/2/api/</link>
-                        </links>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <!--<version>3.0</version>-->
+                    <configuration>
+                        <reportPlugins> 
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-project-info-reports-plugin</artifactId>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                                <configuration>
+                                    <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                                    <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
+                                    <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
+                                    <show>private</show>
+                                </configuration>
+                            </plugin>
+                            <!--                        <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>taglist-maven-plugin</artifactId>
+                                <version>2.4</version>
+                            </plugin>-->
+                        </reportPlugins>
                     </configuration>
                 </plugin>
             </plugins>
