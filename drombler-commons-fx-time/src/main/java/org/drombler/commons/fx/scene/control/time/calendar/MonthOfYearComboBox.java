@@ -14,10 +14,7 @@
  */
 package org.drombler.commons.fx.scene.control.time.calendar;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,17 +22,21 @@ import javafx.scene.control.ComboBox;
 import javax.time.calendar.MonthOfYear;
 import org.drombler.commons.fx.scene.control.RenderedListCellFactory;
 import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
-import org.drombler.commons.time.calendar.MonthOfYearComparator;
 
 /**
+ * A {@link ComboBox} for {@link MonthOfYear}.
  *
  * @author puce
  */
 public class MonthOfYearComboBox extends ComboBox<MonthOfYear> {
 
+    /**
+     * Creates a new instance of this class.
+     */
     public MonthOfYearComboBox() {
         super(getMonthOfYearList());
-        System.out.println(Locale.getDefault());
+//        System.out.println(Locale.getDefault());
+        
 //        setConverter(new StringConverter<MonthOfYear>() {
 //
 //            @Override
@@ -50,10 +51,12 @@ public class MonthOfYearComboBox extends ComboBox<MonthOfYear> {
 //        });
         setCellFactory(new RenderedListCellFactory<>(new MonthOfYearRenderer()));
     }
-    
-    private static ObservableList<MonthOfYear> getMonthOfYearList(){
-        List<MonthOfYear> monthOfYearList = new ArrayList<>(EnumSet.allOf(MonthOfYear.class));
-        Collections.sort(monthOfYearList, new MonthOfYearComparator());
-        return FXCollections.observableList(monthOfYearList);
+
+    private static ObservableList<MonthOfYear> getMonthOfYearList() {
+//        List<MonthOfYear> monthOfYearList = new ArrayList<>(EnumSet.allOf(MonthOfYear.class));
+//        Collections.sort(monthOfYearList, new MonthOfYearComparator());
+//        return FXCollections.observableList(monthOfYearList);
+
+        return FXCollections.observableList(Arrays.asList(MonthOfYear.values()));
     }
 }

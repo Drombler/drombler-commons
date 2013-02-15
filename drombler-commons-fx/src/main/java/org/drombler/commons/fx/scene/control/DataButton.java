@@ -23,25 +23,13 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 
 /**
- *
+ * A {@link Button} which can hold some data and knows how to render it.
  * @author puce
  */
 public class DataButton<T> extends Button {
 
     private final ObjectProperty<T> data = new SimpleObjectProperty<>(this, "data");
     private final ObjectProperty<DataRenderer<? super T>> dataRenderer = new SimpleObjectProperty<>(this, "dataRenderer");
-
-    public final T getData() {
-        return data.get();
-    }
-
-    public final void setData(T data) {
-        this.data.set(data);
-    }
-
-    public ObjectProperty<T> dataProperty() {
-        return data;
-    }
 
     public DataButton() {
         this(new ObjectRenderer());
@@ -57,7 +45,6 @@ public class DataButton<T> extends Button {
 
     public DataButton(DataRenderer<? super T> dataRenderer, T data) {
         this.data.addListener(new ChangeListener<T>() {
-
             @Override
             public void changed(ObservableValue<? extends T> ov, T oldData, T newData) {
                 LabeledUtils.configure(DataButton.this, getDataRenderer(), newData);
@@ -65,7 +52,6 @@ public class DataButton<T> extends Button {
         });
 
         this.dataRenderer.addListener(new ChangeListener<DataRenderer<? super T>>() {
-
             @Override
             public void changed(ObservableValue<? extends DataRenderer<? super T>> ov, DataRenderer<? super T> oldData, DataRenderer<? super T> newData) {
                 LabeledUtils.configure(DataButton.this, newData, getData());
@@ -74,6 +60,18 @@ public class DataButton<T> extends Button {
 
         setData(data);
         setDataRenderer(dataRenderer);
+    }
+
+    public final T getData() {
+        return data.get();
+    }
+
+    public final void setData(T data) {
+        this.data.set(data);
+    }
+
+    public ObjectProperty<T> dataProperty() {
+        return data;
     }
 
     public final DataRenderer<? super T> getDataRenderer() {

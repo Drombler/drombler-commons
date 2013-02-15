@@ -26,6 +26,8 @@ import javafx.scene.control.PopupControl;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Skinnable;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
 import org.drombler.commons.fx.scene.Nodes;
@@ -43,8 +45,10 @@ import org.softsmithy.lib.text.Parser;
 public class LocalDateFieldSkin implements Skin<LocalDateField> {
 
     /**
-     * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and
-     * a {@code Control}. When a {@code Skin} is set on a {@code Control}, this variable is automatically updated.
+     * The {@code Control} that is referencing this Skin. There is a one-to-one
+     * relationship between a {@code Skin} and a {@code Control}. When a
+     * {@code Skin} is set on a {@code Control}, this variable is automatically
+     * updated.
      */
     private LocalDateField control;
     /**
@@ -54,7 +58,6 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
     private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(
             new CalendricalFormatter()),
             new Parser<LocalDate>() {
-
                 @Override
                 public LocalDate parse(CharSequence text) throws ParseException {
                     throw new UnsupportedOperationException("Not supported yet.");
@@ -62,27 +65,32 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             });
     private LocalDatePicker datePicker = new LocalDatePicker();
     private Button dateButton = new Button("...");
-    private PopupControl popupControl = new PopupControl() {
-
-        {
-            setSkin(new Skin() {
-
-                @Override
-                public Skinnable getSkinnable() {
-                    return LocalDateFieldSkin.this.getSkinnable();
-                }
-
-                @Override
-                public Node getNode() {
-                    return datePicker;
-                }
-
-                @Override
-                public void dispose() {
-                }
-            });
-        }
-    };
+//    private PopupControl popupControl = new PopupControl() {
+//        {
+//            setSkin(new Skin<PopupControl>() {
+//                private PopupControl skinnable = popupControl;
+//                private Node node = datePicker;
+//                @Override
+//                public PopupControl getSkinnable() {
+//                    return skinnable;//LocalDateFieldSkin.this.getSkinnable();
+//                }
+//
+//                @Override
+//                public Node getNode() {
+//                    return node;
+//                }
+//
+//                @Override
+//                public void dispose() {
+//                    skinnable = null;
+//                    node = null;
+//                }
+//            });
+//
+//            getStyleClass().add("local-date-field-popup");
+//        }
+//    };
+    private Popup popupControl = new Popup();
     private boolean showing = false;
 
     public LocalDateFieldSkin(LocalDateField control) {
@@ -101,13 +109,19 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         //popupControl.getContent().add(datePicker);
         popupControl.setAutoHide(true);
         popupControl.setOnHiding(new EventHandler<WindowEvent>() {
-
             @Override
             public void handle(WindowEvent t) {
                 showing = false;
             }
         });
         popupControl.setAutoFix(true);
+        popupControl.getContent().add(datePicker);
+//        datePicker.getStyleClass().add("date-picker-popup");
+        popupControl.getScene().setFill(Color.YELLOW);// setOpacity(1.0);
+//        datePicker.setOpacity(1.0);
+//        datePicker.setStyle("-fx-background-color: slateblue;");
+
+//        popupControl.getStyleClass().add("local-date-field-popup");
 
 
 
@@ -121,7 +135,6 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         datePicker.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         datePicker.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
         datePicker.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
-
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 dateField.setValue(newVal);
@@ -132,7 +145,6 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         });
 
         dateButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 if (!showing) {

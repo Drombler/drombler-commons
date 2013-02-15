@@ -21,7 +21,7 @@ import javafx.scene.Scene;
 import javafx.stage.Window;
 
 /**
- *
+ * A utility class for {@link Node}s.
  * @author puce
  */
 public class Nodes {

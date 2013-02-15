@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.fx.scene.control.time.calendar;
 
+import java.util.Calendar;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -25,7 +26,6 @@ import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
-
 
 /**
  *
@@ -41,10 +41,11 @@ public class LocalDateFoo extends Control {
     // TODO: should be configurable with CSS?
     private final IntegerProperty nextWeeks = new SimpleIntegerProperty(this, "nextWeeks", 0);
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showWeeks = new SimpleBooleanProperty(this, "showWeeks", true);
+    private final BooleanProperty showWeekOfYear = new SimpleBooleanProperty(this, "showWeekOfYear", true);
 
     /**
-     * Creates a new instance of this class. The style class is set to 'year-month-picker'.
+     * Creates a new instance of this class. The style class is set to
+     * 'year-month-picker'.
      */
     public LocalDateFoo() {
         getStyleClass().setAll("local-date-foo");
@@ -63,6 +64,10 @@ public class LocalDateFoo extends Control {
         this.selectedDate.set(selectedDate);
     }
 
+    /**
+     * The currently selected {@link LocalDate}.<br/> <br/> Default:
+     * {@link LocalDate#now()}
+     */
     public FiniteComparableProperty<LocalDate> selectedDateProperty() {
         return selectedDate;
     }
@@ -75,6 +80,9 @@ public class LocalDateFoo extends Control {
         this.yearMonth.set(yearMonth);
     }
 
+    /**
+     * The currently displayed {@link YearMonth}.
+     */
     public ObjectProperty<YearMonth> yearMonthProperty() {
         return yearMonth;
     }
@@ -87,6 +95,9 @@ public class LocalDateFoo extends Control {
         this.previousWeeks.set(previousWeeks);
     }
 
+    /**
+     * The number of previous weeks to show.
+     */
     public IntegerProperty previousWeeksProperty() {
         return previousWeeks;
     }
@@ -99,19 +110,25 @@ public class LocalDateFoo extends Control {
         this.nextWeeks.set(nextWeeks);
     }
 
+    /**
+     * The number of next weeks to show.
+     */
     public IntegerProperty nextWeeksProperty() {
         return nextWeeks;
     }
 
-    public final boolean getShowWeeks() {
-        return showWeeks.get();
+    public final boolean isShowWeekOfYear() {
+        return showWeekOfYear.get();
     }
 
-    public final void setShowWeeks(boolean showWeeks) {
-        this.showWeeks.set(showWeeks);
+    public final void setShowWeekOfYear(boolean showWeekOfYear) {
+        this.showWeekOfYear.set(showWeekOfYear);
     }
 
-    public BooleanProperty showWeeksProperty() {
-        return showWeeks;
+    /**
+     * Flag if the week of year should be shown.
+     */
+    public BooleanProperty showWeekOfYearProperty() {
+        return showWeekOfYear;
     }
 }

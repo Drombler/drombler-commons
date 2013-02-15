@@ -26,15 +26,15 @@ import org.drombler.fx.core.docking.DockablePane;
 public class DateTimeEditorPane extends DockablePane {
 
     @FXML
-    private LocalDatePicker localDatePicker;
+    private LocalDatePicker localDatePicker1;
 
     public DateTimeEditorPane() throws IOException {
         loadFXML();
-
-        localDatePicker.selectedDateProperty().setMax(LocalDate.now());
-        localDatePicker.selectedDateProperty().setMin(LocalDate.now().minusYears(200));
-        localDatePicker.setPreviousMonths(1);
-        localDatePicker.setNextMonths(1);
+        final LocalDate now = LocalDate.now();
+        localDatePicker1.selectedDateProperty().setMax(now.plusWeeks(3));
+        localDatePicker1.selectedDateProperty().setMin(now.minusYears(200));
+        localDatePicker1.setPreviousMonths(1);
+        localDatePicker1.setNextMonths(1);
     }
 
     private void loadFXML() throws IOException {

@@ -17,17 +17,25 @@ package org.drombler.commons.fx.beans.property;
 import javafx.beans.property.Property;
 
 /**
+ * A {@link Property} with an optional minimum value and an optional maximum
+ * value.
  *
  * @author puce
  */
 public interface FiniteProperty<T> extends Property<T> {
 
+    /**
+     * The minimum value.
+     */
     Property<T> minProperty();
 
     T getMin();
 
     void setMin(T min);
 
+    /**
+     * The maximum value.
+     */
     Property<T> maxProperty();
 
     T getMax();

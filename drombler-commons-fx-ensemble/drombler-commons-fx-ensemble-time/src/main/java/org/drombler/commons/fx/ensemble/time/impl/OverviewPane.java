@@ -36,6 +36,7 @@ public class OverviewPane extends DockablePane {
     private Button dateTimeButton;
     public OverviewPane() throws IOException {
         loadFXML();
+        openDateTimeEditor();
     }
 
     private void loadFXML() throws IOException {
@@ -44,6 +45,10 @@ public class OverviewPane extends DockablePane {
     
     @FXML
     public void showDateTimeEditor(ActionEvent actionEvent) throws IOException{
+        openDateTimeEditor();
+    }
+
+    private void openDateTimeEditor() throws IOException {
         DateTimeEditorPane dateTimeEditorPane = new DateTimeEditorPane();
         dateTimeEditorPane.open();
     }

@@ -19,13 +19,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import org.softsmithy.lib.util.Comparables;
 
 /**
+ * An implementation of {@link FiniteProperty} for a {@link Comparable}.
  *
  * @author puce
  */
 public class FiniteComparableProperty<T extends Comparable<? super T>> extends SimpleObjectProperty<T> implements FiniteProperty<T> {
 
     private final ObjectProperty<T> min = new SimpleObjectProperty<T>(this, "min") {
-
         @Override
         public void set(T min) {
             if (min != null && getMax() != null) {
@@ -38,7 +38,6 @@ public class FiniteComparableProperty<T extends Comparable<? super T>> extends S
         }
     };
     private final ObjectProperty<T> max = new SimpleObjectProperty<T>(this, "max") {
-
         @Override
         public void set(T max) {
             if (max != null && getMin() != null) {
@@ -89,36 +88,57 @@ public class FiniteComparableProperty<T extends Comparable<? super T>> extends S
         setMax(max);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ObjectProperty<T> minProperty() {
         return min;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final T getMin() {
         return min.get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setMin(T min) {
         this.min.set(min);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ObjectProperty<T> maxProperty() {
         return max;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final T getMax() {
         return max.get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setMax(T max) {
         this.max.set(max);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void set(T t) {
         if (t != null) {

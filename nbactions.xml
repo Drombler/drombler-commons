@@ -7,12 +7,24 @@
                 <goal>site:site</goal>
                 <goal>site:stage</goal>
             </goals>
+            <activatedProfiles>
+                <activatedProfile>sonatype-oss-release</activatedProfile>
+            </activatedProfiles>
         </action>
         <action>
             <actionName>CUSTOM-javadoc</actionName>
             <displayName>javadoc</displayName>
             <goals>
                 <goal>javadoc:javadoc</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>rebuild</actionName>
+            <goals>
+                <goal>-T</goal>
+                <goal>1C</goal>
+                <goal>clean</goal>
+                <goal>install</goal>
             </goals>
         </action>
     </actions>

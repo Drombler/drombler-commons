@@ -20,7 +20,7 @@ import javafx.beans.property.ReadOnlyBooleanPropertyBase;
  * TODO: useful?
  * @author puce
  */
-public class FixedBooleanProperty extends ReadOnlyBooleanPropertyBase {
+class FixedBooleanProperty extends ReadOnlyBooleanPropertyBase {
     private final Object bean;
     private final String name;
     private final boolean value;
