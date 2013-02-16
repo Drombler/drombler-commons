@@ -31,22 +31,19 @@ import static org.junit.Assert.*;
  */
 public class DayOfWeekUtilsTest {
 
-    public DayOfWeekUtilsTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     @Test
-    public void testGetOrderedDaysOfWeek() {
+    public void testGetOrderedDaysOfWeekDeCh() {
         System.out.println("testGetOrderedDaysOfWeek");
         List<DayOfWeek> orderedDaysOfWeek = DayOfWeekUtils.getOrderedDaysOfWeek(new Locale("de", "CH"));
         assertEquals(7, orderedDaysOfWeek.size());
         assertEquals(Arrays.asList(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY), orderedDaysOfWeek);
+    }
+
+    @Test
+    public void testGetOrderedDaysOfWeekEnUs() {
+        System.out.println("testGetOrderedDaysOfWeek");
+        List<DayOfWeek> orderedDaysOfWeek = DayOfWeekUtils.getOrderedDaysOfWeek(new Locale("en", "US"));
+        assertEquals(7, orderedDaysOfWeek.size());
+        assertEquals(Arrays.asList(SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY), orderedDaysOfWeek);
     }
 }
