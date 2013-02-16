@@ -14,16 +14,13 @@
  */
 package org.drombler.commons.time.calendar;
 
-import org.drombler.commons.time.calendar.DayOfWeekUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import javax.time.calendar.DayOfWeek;
 import static javax.time.calendar.DayOfWeek.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *

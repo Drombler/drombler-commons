@@ -40,6 +40,7 @@ import org.drombler.commons.fx.scene.control.time.calendar.YearField;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
 import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
 import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
+import org.drombler.commons.time.calendar.YearUtils;
 import org.softsmithy.lib.util.Comparables;
 
 /**
@@ -49,8 +50,10 @@ import org.softsmithy.lib.util.Comparables;
 public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
 
     /**
-     * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and
-     * a {@code Control}. When a {@code Skin} is set on a {@code Control}, this variable is automatically updated.
+     * The {@code Control} that is referencing this Skin. There is a one-to-one
+     * relationship between a {@code Skin} and a {@code Control}. When a
+     * {@code Skin} is set on a {@code Control}, this variable is automatically
+     * updated.
      */
     private YearMonthSpinner control;
     /**
@@ -73,7 +76,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         //pane.setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
         //pane.setGridLinesVisible(true);
         control.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
-
             @Override
             public void changed(ObservableValue<? extends YearMonth> ov, YearMonth oldVal, YearMonth newVal) {
                 applyData(newVal);
@@ -81,7 +83,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         });
         layout();
         monthOfYearButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 pane.getChildren().set(monthColumnIndex, getMonthOfYearEditor());
@@ -89,7 +90,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         });
 
         yearButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 pane.getChildren().set(yearColumnIndex, getYearEditor());
@@ -97,7 +97,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         });
 
         previousYearButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().minusYears(
@@ -106,7 +105,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         });
         previousYearButton.prefWidthProperty().bind(previousYearButton.minWidthProperty());
         previousMonthButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().minusMonths(
@@ -114,7 +112,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             }
         });
         nextMonthButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().plusMonths(
@@ -122,7 +119,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             }
         });
         nextYearButton.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent t) {
                 YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().plusYears(
@@ -255,7 +251,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             monthOfYearEditor = new MonthOfYearComboBox();
             GridPane.setConstraints(monthOfYearEditor, monthColumnIndex, 0);
             monthOfYearEditor.setOnAction(new EventHandler<ActionEvent>() {
-
                 @Override
                 public void handle(ActionEvent t) {
                     System.out.println("Value selected");
@@ -264,7 +259,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
                 }
             });
             monthOfYearEditor.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
                 @Override
                 public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
                     if (!newVal) {
@@ -284,7 +278,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             yearEditor = new YearField();
             GridPane.setConstraints(yearEditor, yearColumnIndex, 0);
             yearEditor.setOnAction(new EventHandler<ActionEvent>() {
-
                 @Override
                 public void handle(ActionEvent t) {
                     System.out.println("Value selected");
@@ -293,7 +286,6 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
                 }
             });
             yearEditor.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
                 @Override
                 public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
                     if (!newVal) {
@@ -320,29 +312,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
     }
 
     private List<MonthOfYear> getMonthOfYearList() {
-        Set<MonthOfYear> monthOfYearSet = EnumSet.allOf(MonthOfYear.class);
         LimitedComparableProperty<YearMonth> yearMonth = control.yearMonthProperty();
-
-        if (yearMonth.getMax()
-                != null && Comparables.isEqual(yearMonth.get().getYear(), yearMonth.getMax().getYear())) {
-            for (MonthOfYear moy : MonthOfYear.values()) {
-                if (Comparables.isGreater(moy, yearMonth.getMax().getMonthOfYear())) {
-                    monthOfYearSet.remove(moy);
-                }
-            }
-        }
-
-        if (yearMonth.getMin()
-                != null && Comparables.isEqual(yearMonth.get().getYear(), yearMonth.getMin().getYear())) {
-            for (MonthOfYear moy : MonthOfYear.values()) {
-                if (Comparables.isLess(moy, yearMonth.getMax().getMonthOfYear())) {
-                    monthOfYearSet.remove(moy);
-                }
-            }
-        }
-        List<MonthOfYear> monthOfYearList = new ArrayList<>(monthOfYearSet);
-
-//        Collections.sort(monthOfYearList);
-        return monthOfYearList;
+        return YearUtils.getMonthOfYearList(Year.of(yearMonth.get().getYear()), yearMonth.getMin(), yearMonth.getMax());
     }
 }
