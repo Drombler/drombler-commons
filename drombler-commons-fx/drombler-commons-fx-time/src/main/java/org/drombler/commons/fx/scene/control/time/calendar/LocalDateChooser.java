@@ -26,12 +26,14 @@ import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
-
 /**
+ * A control which allows to select a {@link LocalDate}. It can show several
+ * {@link YearMonth} side by side and provides controls to change the currently
+ * visible {@link YearMonth}s.
  *
  * @author puce
  */
-public class LocalDatePicker extends Control {
+public class LocalDateChooser extends Control {
 
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -52,10 +54,11 @@ public class LocalDatePicker extends Control {
     private final BooleanProperty showYearScrollButton = new SimpleBooleanProperty(this, "showYearScrollButton", true);
 
     /**
-     * Creates a new instance of this class. The style class is set to 'year-month-picker'.
+     * Creates a new instance of this class. The style class is set to
+     * 'year-month-picker'.
      */
-    public LocalDatePicker() {
-        getStyleClass().setAll("local-date-picker");
+    public LocalDateChooser() {
+        getStyleClass().setAll("local-date-chooser");
     }
 
     @Override

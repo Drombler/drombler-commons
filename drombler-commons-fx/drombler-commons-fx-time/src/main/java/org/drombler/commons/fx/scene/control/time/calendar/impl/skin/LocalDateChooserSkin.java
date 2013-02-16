@@ -25,7 +25,7 @@ import javafx.scene.layout.HBox;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
 import org.drombler.commons.time.calendar.LocalDateUtils;
 
@@ -33,13 +33,13 @@ import org.drombler.commons.time.calendar.LocalDateUtils;
  *
  * @author puce
  */
-public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
+public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
 
     /**
      * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and
      * a {@code Control}. When a {@code Skin} is set on a {@code Control}, this variable is automatically updated.
      */
-    private LocalDatePicker control;
+    private LocalDateChooser control;
     /**
      * This control is used to represent the YearMonthPicker.
      */
@@ -48,7 +48,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
     private List<LocalDateFixedYearMonthChooser> localDateFixedYearMonthChoosers;
     private boolean adjusting = false;
 
-    public LocalDatePickerSkin(LocalDatePicker control) {
+    public LocalDateChooserSkin(LocalDateChooser control) {
         this.control = control;
         control.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
 
@@ -144,7 +144,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
     }
 
     @Override
-    public LocalDatePicker getSkinnable() {
+    public LocalDateChooser getSkinnable() {
         return control;
     }
 

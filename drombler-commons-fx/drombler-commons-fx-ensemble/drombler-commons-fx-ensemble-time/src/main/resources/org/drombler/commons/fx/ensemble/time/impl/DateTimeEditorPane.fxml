@@ -18,12 +18,12 @@
         <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
             <LocalDateFixedYearMonthChooser  fx:id="$localDateFixedYearMonthChooser"/>
         </AnchorPane>
-        <Label text="LocalDatePicker:" labelFor="$localDatePicker1" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label text="LocalDateChooser" labelFor="$localDateChooser1" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <LocalDatePicker  fx:id="localDatePicker1"/>
+            <LocalDateChooser  fx:id="localDateChooser1"/>
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="2">
-            <LocalDatePicker previousWeeks="2" nextWeeks="1" showWeeks="false" showYearScrollButton="false" fx:id="localDatePicker2"/>
+            <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeeks="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
         </AnchorPane>
         <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
         <AnchorPane GridPane.rowIndex="4" GridPane.columnIndex="1">

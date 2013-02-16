@@ -33,7 +33,7 @@ import javax.time.calendar.LocalDate;
 import org.drombler.commons.fx.scene.Nodes;
 import org.drombler.commons.fx.scene.control.FormattedTextField;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateField;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
 import org.drombler.commons.time.calendar.format.CalendricalFormatter;
 import org.softsmithy.lib.text.Parser;
@@ -63,7 +63,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
                     throw new UnsupportedOperationException("Not supported yet.");
                 }
             });
-    private LocalDatePicker datePicker = new LocalDatePicker();
+    private LocalDateChooser dateChooser = new LocalDateChooser();
     private Button dateButton = new Button("...");
 //    private PopupControl popupControl = new PopupControl() {
 //        {
@@ -115,7 +115,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             }
         });
         popupControl.setAutoFix(true);
-        popupControl.getContent().add(datePicker);
+        popupControl.getContent().add(dateChooser);
 //        datePicker.getStyleClass().add("date-picker-popup");
         popupControl.getScene().setFill(Color.YELLOW);// setOpacity(1.0);
 //        datePicker.setOpacity(1.0);
@@ -125,16 +125,16 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
 
 
 
-        datePicker.nextMonthsProperty().bind(this.control.nextMonthsProperty());
-        datePicker.nextWeeksProperty().bind(this.control.nextWeeksProperty());
-        datePicker.previousMonthsProperty().bind(this.control.previousMonthsProperty());
-        datePicker.previousWeeksProperty().bind(this.control.previousWeeksProperty());
-        datePicker.showMonthScrollButtonProperty().bind(this.control.showMonthScrollButtonProperty());
-        datePicker.showWeeksProperty().bind(this.control.showWeeksProperty());
-        datePicker.showYearScrollButtonProperty().bind(this.control.showYearScrollButtonProperty());
-        datePicker.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
-        datePicker.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
-        datePicker.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
+        dateChooser.nextMonthsProperty().bind(this.control.nextMonthsProperty());
+        dateChooser.nextWeeksProperty().bind(this.control.nextWeeksProperty());
+        dateChooser.previousMonthsProperty().bind(this.control.previousMonthsProperty());
+        dateChooser.previousWeeksProperty().bind(this.control.previousWeeksProperty());
+        dateChooser.showMonthScrollButtonProperty().bind(this.control.showMonthScrollButtonProperty());
+        dateChooser.showWeeksProperty().bind(this.control.showWeeksProperty());
+        dateChooser.showYearScrollButtonProperty().bind(this.control.showYearScrollButtonProperty());
+        dateChooser.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
+        dateChooser.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
+        dateChooser.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 dateField.setValue(newVal);
@@ -149,7 +149,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             public void handle(ActionEvent t) {
                 if (!showing) {
                     showing = true;
-                    datePicker.setYearMonth(LocalDateFieldSkin.this.control.getYearMonth());
+                    dateChooser.setYearMonth(LocalDateFieldSkin.this.control.getYearMonth());
                     Point2D screenLocation = Nodes.getScreenLocation(dateButton);
                     popupControl.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
                             screenLocation.getX() + dateButton.getWidth() - popupControl.getWidth(),
@@ -180,7 +180,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
         pane = null;
         dateButton = null;
         dateField = null;
-        datePicker = null;
+        dateChooser = null;
         popupControl = null;
     }
 }

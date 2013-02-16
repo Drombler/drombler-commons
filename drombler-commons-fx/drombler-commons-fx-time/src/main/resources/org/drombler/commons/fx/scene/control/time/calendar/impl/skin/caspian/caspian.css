@@ -114,8 +114,8 @@
  *                                                                                                *
  **************************************************************************************************/
 
-.local-date-picker { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDatePickerSkin";
+.local-date-chooser { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateChooserSkin";
 /*    -fx-background-color: black;
     -fx-background-insets: 0;
     -fx-fill: black;*/

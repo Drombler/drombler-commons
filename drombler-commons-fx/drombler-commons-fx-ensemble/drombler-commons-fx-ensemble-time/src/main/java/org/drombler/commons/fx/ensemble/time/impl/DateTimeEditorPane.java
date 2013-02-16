@@ -18,7 +18,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javax.time.calendar.LocalDate;
 import org.drombler.acp.core.docking.EditorDocking;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 
@@ -26,15 +26,15 @@ import org.drombler.fx.core.docking.DockablePane;
 public class DateTimeEditorPane extends DockablePane {
 
     @FXML
-    private LocalDatePicker localDatePicker1;
+    private LocalDateChooser localDateChooser1;
 
     public DateTimeEditorPane() throws IOException {
         loadFXML();
         final LocalDate now = LocalDate.now();
-        localDatePicker1.selectedDateProperty().setMax(now.plusWeeks(3));
-        localDatePicker1.selectedDateProperty().setMin(now.minusYears(200));
-        localDatePicker1.setPreviousMonths(1);
-        localDatePicker1.setNextMonths(1);
+        localDateChooser1.selectedDateProperty().setMax(now.plusWeeks(3));
+        localDateChooser1.selectedDateProperty().setMin(now.minusYears(200));
+        localDateChooser1.setPreviousMonths(1);
+        localDateChooser1.setNextMonths(1);
     }
 
     private void loadFXML() throws IOException {
