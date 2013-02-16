@@ -19,11 +19,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import org.softsmithy.lib.util.Comparables;
 
 /**
- * An implementation of {@link FiniteProperty} for a {@link Comparable}.
+ * An implementation of {@link LimitedProperty} for a {@link Comparable}.
  *
  * @author puce
  */
-public class FiniteComparableProperty<T extends Comparable<? super T>> extends SimpleObjectProperty<T> implements FiniteProperty<T> {
+public class LimitedComparableProperty<T extends Comparable<? super T>> extends SimpleObjectProperty<T> implements LimitedProperty<T> {
 
     private final ObjectProperty<T> min = new SimpleObjectProperty<T>(this, "min") {
         @Override
@@ -33,7 +33,7 @@ public class FiniteComparableProperty<T extends Comparable<? super T>> extends S
             }
             super.set(min);
             if (min != null) {
-                FiniteComparableProperty.this.set(FiniteComparableProperty.this.get());
+                LimitedComparableProperty.this.set(LimitedComparableProperty.this.get());
             }
         }
     };
@@ -45,44 +45,44 @@ public class FiniteComparableProperty<T extends Comparable<? super T>> extends S
             }
             super.set(max);
             if (max != null) {
-                FiniteComparableProperty.this.set(FiniteComparableProperty.this.get());
+                LimitedComparableProperty.this.set(LimitedComparableProperty.this.get());
             }
         }
     };
 
-    public FiniteComparableProperty() {
+    public LimitedComparableProperty() {
     }
 
-    public FiniteComparableProperty(T initialValue) {
+    public LimitedComparableProperty(T initialValue) {
         super(initialValue);
     }
 
-    public FiniteComparableProperty(Object bean, String name) {
+    public LimitedComparableProperty(Object bean, String name) {
         super(bean, name);
     }
 
-    public FiniteComparableProperty(Object bean, String name, T initialValue) {
+    public LimitedComparableProperty(Object bean, String name, T initialValue) {
         super(bean, name, initialValue);
     }
 
-    public FiniteComparableProperty(T min, T max) {
+    public LimitedComparableProperty(T min, T max) {
         setMin(min);
         setMax(max);
     }
 
-    public FiniteComparableProperty(T initialValue, T min, T max) {
+    public LimitedComparableProperty(T initialValue, T min, T max) {
         super(initialValue);
         setMin(min);
         setMax(max);
     }
 
-    public FiniteComparableProperty(Object bean, String name, T min, T max) {
+    public LimitedComparableProperty(Object bean, String name, T min, T max) {
         super(bean, name);
         setMin(min);
         setMax(max);
     }
 
-    public FiniteComparableProperty(Object bean, String name, T initialValue, T min, T max) {
+    public LimitedComparableProperty(Object bean, String name, T initialValue, T min, T max) {
         super(bean, name, initialValue);
         setMin(min);
         setMax(max);

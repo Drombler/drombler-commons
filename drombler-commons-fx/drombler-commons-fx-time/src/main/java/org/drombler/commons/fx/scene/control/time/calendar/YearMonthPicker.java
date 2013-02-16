@@ -18,7 +18,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Control;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
 
@@ -28,7 +28,7 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
  */
 public class YearMonthPicker extends Control {
 
-    private final FiniteComparableProperty<YearMonth> yearMonth = new FiniteComparableProperty<>(this, "yearMonth",
+    private final LimitedComparableProperty<YearMonth> yearMonth = new LimitedComparableProperty<>(this, "yearMonth",
             YearMonth.now());
     // TODO: should be configurable with CSS?
     private final BooleanProperty showPreviousMonthScrollButton = new SimpleBooleanProperty(this,
@@ -71,7 +71,7 @@ public class YearMonthPicker extends Control {
         this.yearMonth.set(yearMonth);
     }
 
-    public FiniteComparableProperty<YearMonth> yearMonthProperty() {
+    public LimitedComparableProperty<YearMonth> yearMonthProperty() {
         return yearMonth;
     }
 

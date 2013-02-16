@@ -22,7 +22,7 @@ import javafx.beans.property.Property;
  *
  * @author puce
  */
-public interface FiniteProperty<T> extends Property<T> {
+public interface LimitedProperty<T> extends Property<T> {
 
     /**
      * The minimum value.

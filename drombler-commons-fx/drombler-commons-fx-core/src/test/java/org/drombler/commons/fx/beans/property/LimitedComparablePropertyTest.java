@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.beans.property;
 
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -24,21 +23,18 @@ import org.junit.Test;
  *
  * @author puce
  */
-public class FiniteComparablePropertyTest {
+public class LimitedComparablePropertyTest {
 
-    private FiniteComparableProperty<Integer> test;
+    private LimitedComparableProperty<Integer> test;
 
-    public FiniteComparablePropertyTest() {
+    public LimitedComparablePropertyTest() {
     }
 
     @Before
     public void setUp() {
-        test = new FiniteComparableProperty<>();
+        test = new LimitedComparableProperty<>();
     }
 
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testSetWithMinMax() {

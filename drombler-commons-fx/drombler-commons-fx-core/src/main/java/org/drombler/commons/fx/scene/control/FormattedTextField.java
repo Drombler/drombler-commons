@@ -22,7 +22,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
 import org.softsmithy.lib.text.Formatter;
@@ -34,7 +34,7 @@ import org.softsmithy.lib.text.Parser;
  */
 public class FormattedTextField<T extends Comparable<? super T>> extends TextField {
 
-    private final FiniteComparableProperty<T> value = new FiniteComparableProperty<>(this, "value");
+    private final LimitedComparableProperty<T> value = new LimitedComparableProperty<>(this, "value");
     private final ObjectProperty<DataRenderer<? super T>> dataRenderer = new SimpleObjectProperty<>(this, "dataRenderer");
     private final ObjectProperty<Parser<? extends T>> parser = new SimpleObjectProperty<>(this, "parser");
     private boolean adjusting = false;
@@ -87,7 +87,7 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
         this.value.set(value);
     }
 
-    public FiniteComparableProperty<T> valueProperty() {
+    public LimitedComparableProperty<T> valueProperty() {
         return value;
     }
 

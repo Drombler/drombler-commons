@@ -18,7 +18,7 @@ import java.text.NumberFormat;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javax.time.calendar.Year;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.IntegerField;
 
 /**
@@ -27,7 +27,7 @@ import org.drombler.commons.fx.scene.control.IntegerField;
  */
 public class YearField extends IntegerField {
 
-    private final FiniteComparableProperty<Year> year = new FiniteComparableProperty<>(this, "year");
+    private final LimitedComparableProperty<Year> year = new LimitedComparableProperty<>(this, "year");
 
     public YearField() {
         super(createNumberFormat());
@@ -64,7 +64,7 @@ public class YearField extends IntegerField {
         this.year.set(year);
     }
 
-    public FiniteComparableProperty<Year> yearProperty() {
+    public LimitedComparableProperty<Year> yearProperty() {
         return year;
     }
 }

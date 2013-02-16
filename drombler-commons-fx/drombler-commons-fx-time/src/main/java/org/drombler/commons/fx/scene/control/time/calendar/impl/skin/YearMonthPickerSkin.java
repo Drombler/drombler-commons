@@ -15,7 +15,6 @@
 package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -34,13 +33,13 @@ import javafx.scene.layout.Priority;
 import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.Year;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.DataButton;
-import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
 import org.drombler.commons.fx.scene.control.time.calendar.MonthOfYearComboBox;
-import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
 import org.drombler.commons.fx.scene.control.time.calendar.YearField;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
+import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
+import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
 import org.softsmithy.lib.util.Comparables;
 
 /**
@@ -322,7 +321,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
     private List<MonthOfYear> getMonthOfYearList() {
         Set<MonthOfYear> monthOfYearSet = EnumSet.allOf(MonthOfYear.class);
-        FiniteComparableProperty<YearMonth> yearMonth = control.yearMonthProperty();
+        LimitedComparableProperty<YearMonth> yearMonth = control.yearMonthProperty();
 
         if (yearMonth.getMax()
                 != null && Comparables.isEqual(yearMonth.get().getYear(), yearMonth.getMax().getYear())) {

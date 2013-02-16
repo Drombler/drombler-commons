@@ -23,7 +23,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
 
@@ -33,7 +33,7 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
  */
 public class LocalDatePicker extends Control {
 
-    private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
+    private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
     private final ObjectProperty<YearMonth> yearMonth = new SimpleObjectProperty<>(this, "yearMonth", YearMonth.now());
     // TODO: should be configurable with CSS?
@@ -71,7 +71,7 @@ public class LocalDatePicker extends Control {
         this.selectedDate.set(selectedDate);
     }
 
-    public FiniteComparableProperty<LocalDate> selectedDateProperty() {
+    public LimitedComparableProperty<LocalDate> selectedDateProperty() {
         return selectedDate;
     }
 

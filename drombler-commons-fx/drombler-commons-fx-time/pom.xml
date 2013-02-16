@@ -83,7 +83,7 @@ Contributor(s): .
     <dependencies>
         <dependency>
             <groupId>org.drombler.commons</groupId>
-            <artifactId>drombler-commons-fx</artifactId>
+            <artifactId>drombler-commons-fx-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

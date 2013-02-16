@@ -25,7 +25,7 @@ import javafx.scene.control.Control;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import javax.time.calendar.format.DateTimeFormatters;
-import org.drombler.commons.fx.beans.property.FiniteComparableProperty;
+import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
@@ -47,7 +47,7 @@ public class LocalDateField extends Control {
             this, "dataRenderer",
             new FormatterDataRenderer<>(new CalendricalFormatter(DateTimeFormatters.longDate(Locale.getDefault()))));
     private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
-    private final FiniteComparableProperty<LocalDate> selectedDate = new FiniteComparableProperty<>(this, "selectedDate",
+    private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
     private final ObjectProperty<YearMonth> yearMonth = new SimpleObjectProperty<>(this, "yearMonth", YearMonth.now());
     // TODO: should be configurable with CSS?
@@ -109,7 +109,7 @@ public class LocalDateField extends Control {
         this.selectedDate.set(selectedDate);
     }
 
-    public FiniteComparableProperty<LocalDate> selectedDateProperty() {
+    public LimitedComparableProperty<LocalDate> selectedDateProperty() {
         return selectedDate;
     }
 
