@@ -23,10 +23,10 @@ Contributor(s): .
         <version>0.1-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-parent</relativePath>
     </parent>
-    <artifactId>drombler-commons-fx</artifactId>
+    <artifactId>drombler-commons-fx-core</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler Commons - FX</name>
+    <name>Drombler Commons - FX - Core</name>
     <inceptionYear>2012</inceptionYear>
 
     <!-- Not inherited!?? -->

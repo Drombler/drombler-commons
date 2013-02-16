@@ -22,18 +22,18 @@ Contributor(s): .
         <version>0.1-SNAPSHOT</version>
         <relativePath>drombler-commons-parent</relativePath>
     </parent>
-    <artifactId>drombler-commons-all</artifactId>
+    <artifactId>drombler-commons-fx-all</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - All</name>
-    <inceptionYear>2012</inceptionYear>
+    <name>Drombler Commons - FX - All</name>
+    <inceptionYear>2013</inceptionYear>
     
     <licenses>
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
             <!--<url>http://java.sun.com/spl.html</url>-->
-            <url>LICENSE.txt</url>
+            <url>../LICENSE.txt</url>
         </license>
     </licenses>
 
@@ -43,8 +43,10 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
-        <module>drombler-commons-parent</module>
-        <module>drombler-commons-fx</module>
+        <module>drombler-commons-fx-parent</module>
+        <module>drombler-commons-fx-core</module>
+        <module>drombler-commons-fx-time</module>
+        <module>drombler-commons-fx-ensemble</module>
     </modules>
     
     <build>
@@ -58,13 +60,4 @@ Contributor(s): .
         </plugins>
     </build>
     
-    <profiles>
-        <profile>
-            <id>all</id>
-            <modules>
-                <module>drombler-commons-security-srp-server</module>
-                <module>drombler-commons-security-srp-client</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>

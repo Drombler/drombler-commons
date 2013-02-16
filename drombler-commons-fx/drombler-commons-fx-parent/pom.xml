@@ -11,6 +11,14 @@
     <packaging>pom</packaging>
     <name>Drombler Commons - FX - Parent</name>
     <inceptionYear>2013</inceptionYear>
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../../LICENSE.txt</url>
+        </license>
+    </licenses>
     <properties>
         <javafx.version>2.2</javafx.version>
     </properties>
