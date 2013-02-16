@@ -63,18 +63,18 @@
 }*/
 /**************************************************************************************************
  *                                                                                                *
- * LocalDateFoo                                                                                   *
+ * LocalDateFixedYearMonthChooser                                                                                   *
  *                                                                                                *
  **************************************************************************************************/
 
-.local-date-foo { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFooSkin";
+.local-date-fixed-year-month-chooser { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFixedYearMonthChooserSkin";
     -fx-background-color: white;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     /*    -fx-fill: black;*/
 }
-.local-date-foo .toggle-button{
+.local-date-fixed-year-month-chooser .toggle-button{
     -fx-background-color: gray, white;/*transparent;*/
     -fx-background-insets: 0, 1;
     -fx-background-radius: 0, 0;
@@ -83,7 +83,7 @@
    -fx-border-color: black;*/
 }
 
-.local-date-foo .toggle-button:selected{
+.local-date-fixed-year-month-chooser .toggle-button:selected{
     -fx-background-color: gray, darkgray;/*transparent;*/
     -fx-background-insets: 0, 1;
     -fx-background-radius: 0, 0;
@@ -92,17 +92,17 @@
    -fx-border-color: black;*/
 }
 
-.local-date-foo .day-out-of-year-month{
+.local-date-fixed-year-month-chooser .day-out-of-year-month{
     -fx-text-fill: gray;
 }
 
 
 
-.local-date-foo .week-label{
+.local-date-fixed-year-month-chooser .week-label{
     -fx-background-color: lightgray;
 }
 
-.local-date-foo .day-of-week{
+.local-date-fixed-year-month-chooser .day-of-week{
     -fx-font-weight: bold;
     /*-fx-text-fill: red;*/
     /*    -fx-background-color: red, blue;

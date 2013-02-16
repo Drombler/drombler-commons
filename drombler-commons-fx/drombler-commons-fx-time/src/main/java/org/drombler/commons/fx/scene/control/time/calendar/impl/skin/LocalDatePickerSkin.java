@@ -24,7 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFoo;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
 import org.drombler.commons.time.calendar.LocalDateUtils;
@@ -45,7 +45,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
      */
     private HBox pane = new HBox();
     private List<YearMonthPicker> yearMonthPickers;
-    private List<LocalDateFoo> localDateFoos;
+    private List<LocalDateFixedYearMonthChooser> localDateFixedYearMonthChoosers;
     private boolean adjusting = false;
 
     public LocalDatePickerSkin(LocalDatePicker control) {
@@ -87,7 +87,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
     private void init() {
         int months = getMonths();
         yearMonthPickers = new ArrayList<>(months);
-        localDateFoos = new ArrayList<>(months);
+        localDateFixedYearMonthChoosers = new ArrayList<>(months);
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             YearMonthPicker yearMonthPicker = new YearMonthPicker();
             yearMonthPicker.setAlwaysYearScrollButtonSpaceReserved(months > 1 && control.getShowYearScrollButton());
@@ -115,7 +115,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
             });
             yearMonthPickers.add(yearMonthPicker);
 
-            LocalDateFoo localDateFoo = new LocalDateFoo();
+            LocalDateFixedYearMonthChooser localDateFoo = new LocalDateFixedYearMonthChooser();
             localDateFoo.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
 
                 @Override
@@ -123,7 +123,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
                     control.selectedDateProperty().set(newVal);
                 }
             });
-            localDateFoos.add(localDateFoo);
+            localDateFixedYearMonthChoosers.add(localDateFoo);
         }
         layout();
         setMaxYearMonth(control.selectedDateProperty().getMax());
@@ -136,7 +136,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             BorderPane monthPane = new BorderPane();
             monthPane.setTop(yearMonthPickers.get(monthIndex));
-            monthPane.setCenter(localDateFoos.get(monthIndex));
+            monthPane.setCenter(localDateFixedYearMonthChoosers.get(monthIndex));
 //            monthPane.setStyle("-fx-background-color: " + (monthIndex == 1 ? "red" : "blue") + ";");
 
             pane.getChildren().add(monthPane);
@@ -168,7 +168,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         YearMonth ym = startYearMonth;
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             yearMonthPickers.get(monthIndex).setYearMonth(ym);
-            localDateFoos.get(monthIndex).setYearMonth(ym);
+            localDateFixedYearMonthChoosers.get(monthIndex).setYearMonth(ym);
             ym = ym.plusMonths(1);
         }
     }
@@ -192,7 +192,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
                         monthIndex - control.getPreviousMonths()) : null);
             }
 
-            localDateFoos.get(monthIndex).selectedDateProperty().setMax(maxDate);
+            localDateFixedYearMonthChoosers.get(monthIndex).selectedDateProperty().setMax(maxDate);
         }
     }
 
@@ -211,14 +211,14 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
                         monthIndex - control.getPreviousMonths()) : null);
             }
 
-            localDateFoos.get(monthIndex).selectedDateProperty().setMin(minDate);
+            localDateFixedYearMonthChoosers.get(monthIndex).selectedDateProperty().setMin(minDate);
         }
     }
 
     private void setSelectedDate(LocalDate selectedDate) {
         int months = getMonths();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
-            localDateFoos.get(monthIndex).setSelectedDate(selectedDate);
+            localDateFixedYearMonthChoosers.get(monthIndex).setSelectedDate(selectedDate);
         }
     }
 }

@@ -43,7 +43,7 @@ import javax.time.calendar.ISOChronology;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFoo;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateToggleButton;
 import org.drombler.commons.time.calendar.DayOfWeekUtils;
 import org.drombler.commons.time.calendar.LocalDateUtils;
@@ -54,7 +54,7 @@ import org.softsmithy.lib.util.Comparables;
  *
  * @author puce
  */
-public class LocalDateFooSkin implements Skin<LocalDateFoo> {
+public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYearMonthChooser> {
 
     public static final int DAYS_IN_WEEK = 7;
     public static final int MAX_WEEKS_IN_MONTH = 6;
@@ -66,7 +66,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
      * {@code Skin} is set on a {@code Control}, this variable is automatically
      * updated.
      */
-    private LocalDateFoo control;
+    private LocalDateFixedYearMonthChooser control;
     /**
      * This control is used to represent the YearMonthPicker.
      */
@@ -79,7 +79,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
     private ToggleGroup dayButtonGroup;
     private boolean adjusting = false;
 
-    public LocalDateFooSkin(LocalDateFoo control) {
+    public LocalDateFixedYearMonthChooserSkin(LocalDateFixedYearMonthChooser control) {
         this.control = control;
         control.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
@@ -98,7 +98,7 @@ public class LocalDateFooSkin implements Skin<LocalDateFoo> {
     }
 
     @Override
-    public LocalDateFoo getSkinnable() {
+    public LocalDateFixedYearMonthChooser getSkinnable() {
         return control;
     }
 

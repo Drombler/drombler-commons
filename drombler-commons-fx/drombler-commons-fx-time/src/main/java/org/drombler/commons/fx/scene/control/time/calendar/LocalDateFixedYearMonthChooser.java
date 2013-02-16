@@ -27,10 +27,11 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
 /**
- *
+ * A control which allows the select a {@link LocalDate} for a fixed {@link YearMonth}.
+ * 
  * @author puce
  */
-public class LocalDateFoo extends Control {
+public class LocalDateFixedYearMonthChooser extends Control {
 
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -46,8 +47,8 @@ public class LocalDateFoo extends Control {
      * Creates a new instance of this class. The style class is set to
      * 'year-month-picker'.
      */
-    public LocalDateFoo() {
-        getStyleClass().setAll("local-date-foo");
+    public LocalDateFixedYearMonthChooser() {
+        getStyleClass().setAll("local-date-fixed-year-month-chooser");
     }
 
     @Override
