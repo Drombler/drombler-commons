@@ -21,7 +21,7 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * LocalDateField                                                                                 *
+ * LocalDatePicker                                                                                 *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -110,7 +110,7 @@
 }
 /**************************************************************************************************
  *                                                                                                *
- * LocalDatePicker                                                                                *
+ * LocalDateChooser                                                                                *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -131,12 +131,12 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * YearMonthPicker                                                                                *
+ * YearMonthSpinner                                                                                *
  *                                                                                                *
  **************************************************************************************************/
 
-.year-month-picker { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.YearMonthPickerSkin";
+.year-month-spinner { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.YearMonthSpinnerSkin";
     /*-fx-background-color: blue, red;
     -fx-background-insets: 10, 20;
     -fx-border-color: black;*/
@@ -148,13 +148,13 @@
 }
 
 
-.year-month-picker .button {
+.year-month-spinner .button {
     -fx-background-color: transparent;
     /*-fx-background-color: aqua;*/ 
     /*-fx-border-color: black;*/
 }
 
-.year-month-picker .button:hover {
+.year-month-spinner .button:hover {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
     /* -fx-color: -fx-hover-base; * already defined in default css?*/
 }

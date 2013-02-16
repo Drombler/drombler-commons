@@ -33,9 +33,9 @@
         <AnchorPane GridPane.rowIndex="5" GridPane.columnIndex="1">
             <YearField  fx:id="yearField"/>
         </AnchorPane>
-        <Label text="YearMonthPicker:" labelFor="$yearMonthPicker" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <Label text="YearMonthSpinner:" labelFor="$yearMonthSpinner" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
         <AnchorPane GridPane.rowIndex="6" GridPane.columnIndex="1">
-            <YearMonthPicker  fx:id="yearMonthPicker"/>
+            <YearMonthSpinner  fx:id="yearMonthSpinner"/>
         </AnchorPane>
     </GridPane>
 </fx:root>

@@ -26,7 +26,7 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
  *
  * @author puce
  */
-public class YearMonthPicker extends Control {
+public class YearMonthSpinner extends Control {
 
     private final LimitedComparableProperty<YearMonth> yearMonth = new LimitedComparableProperty<>(this, "yearMonth",
             YearMonth.now());
@@ -54,8 +54,8 @@ public class YearMonthPicker extends Control {
     /**
      * Creates a new instance of this class. The style class is set to 'year-month-picker'.
      */
-    public YearMonthPicker() {
-        getStyleClass().setAll("year-month-picker");
+    public YearMonthSpinner() {
+        getStyleClass().setAll("year-month-spinner");
     }
 
     @Override

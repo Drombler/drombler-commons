@@ -37,7 +37,7 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.DataButton;
 import org.drombler.commons.fx.scene.control.time.calendar.MonthOfYearComboBox;
 import org.drombler.commons.fx.scene.control.time.calendar.YearField;
-import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
+import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
 import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
 import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
 import org.softsmithy.lib.util.Comparables;
@@ -46,15 +46,15 @@ import org.softsmithy.lib.util.Comparables;
  *
  * @author puce
  */
-public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
+public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
 
     /**
      * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and
      * a {@code Control}. When a {@code Skin} is set on a {@code Control}, this variable is automatically updated.
      */
-    private YearMonthPicker control;
+    private YearMonthSpinner control;
     /**
-     * This control is used to represent the YearMonthPicker.
+     * This control is used to represent the YearMonthSpinner.
      */
     private GridPane pane = new GridPane();
     private DataButton<MonthOfYear> monthOfYearButton = new DataButton<>(new MonthOfYearRenderer());
@@ -68,7 +68,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     private int monthColumnIndex = 0;
     private int yearColumnIndex = 1;
 
-    public YearMonthPickerSkin(final YearMonthPicker control) {
+    public YearMonthSpinnerSkin(final YearMonthSpinner control) {
         this.control = control;
         //pane.setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
         //pane.setGridLinesVisible(true);
@@ -100,7 +100,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
             @Override
             public void handle(ActionEvent t) {
-                YearMonthPickerSkin.this.control.setYearMonth(YearMonthPickerSkin.this.control.getYearMonth().minusYears(
+                YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().minusYears(
                         1));
             }
         });
@@ -109,7 +109,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
             @Override
             public void handle(ActionEvent t) {
-                YearMonthPickerSkin.this.control.setYearMonth(YearMonthPickerSkin.this.control.getYearMonth().minusMonths(
+                YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().minusMonths(
                         1));
             }
         });
@@ -117,7 +117,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
             @Override
             public void handle(ActionEvent t) {
-                YearMonthPickerSkin.this.control.setYearMonth(YearMonthPickerSkin.this.control.getYearMonth().plusMonths(
+                YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().plusMonths(
                         1));
             }
         });
@@ -125,7 +125,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
 
             @Override
             public void handle(ActionEvent t) {
-                YearMonthPickerSkin.this.control.setYearMonth(YearMonthPickerSkin.this.control.getYearMonth().plusYears(
+                YearMonthSpinnerSkin.this.control.setYearMonth(YearMonthSpinnerSkin.this.control.getYearMonth().plusYears(
                         1));
             }
         });
@@ -183,7 +183,7 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     }
 
     @Override
-    public YearMonthPicker getSkinnable() {
+    public YearMonthSpinner getSkinnable() {
         return control;
     }
 

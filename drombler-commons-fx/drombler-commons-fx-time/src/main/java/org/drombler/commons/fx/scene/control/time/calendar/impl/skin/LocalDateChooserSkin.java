@@ -26,7 +26,7 @@ import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
+import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
 import org.drombler.commons.time.calendar.LocalDateUtils;
 
 /**
@@ -41,10 +41,10 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
      */
     private LocalDateChooser control;
     /**
-     * This control is used to represent the YearMonthPicker.
+     * This control is used to represent the YearMonthSpinner.
      */
     private HBox pane = new HBox();
-    private List<YearMonthPicker> yearMonthPickers;
+    private List<YearMonthSpinner> yearMonthSpinners;
     private List<LocalDateFixedYearMonthChooser> localDateFixedYearMonthChoosers;
     private boolean adjusting = false;
 
@@ -85,11 +85,11 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     }
 
     private void init() {
-        int months = getMonths();
-        yearMonthPickers = new ArrayList<>(months);
+        int months = getMonthsToShow();
+        yearMonthSpinners = new ArrayList<>(months);
         localDateFixedYearMonthChoosers = new ArrayList<>(months);
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
-            YearMonthPicker yearMonthPicker = new YearMonthPicker();
+            YearMonthSpinner yearMonthPicker = new YearMonthSpinner();
             yearMonthPicker.setAlwaysYearScrollButtonSpaceReserved(months > 1 && control.getShowYearScrollButton());
             yearMonthPicker.setAlwaysMonthScrollButtonSpaceReserved(months > 1 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowPreviousYearScrollButton(monthIndex == 0 && control.getShowYearScrollButton());
@@ -113,7 +113,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
                     }
                 }
             });
-            yearMonthPickers.add(yearMonthPicker);
+            yearMonthSpinners.add(yearMonthPicker);
 
             LocalDateFixedYearMonthChooser localDateFoo = new LocalDateFixedYearMonthChooser();
             localDateFoo.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
@@ -132,10 +132,10 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     }
 
     private void layout() {
-        int months = getMonths();
+        int months = getMonthsToShow();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             BorderPane monthPane = new BorderPane();
-            monthPane.setTop(yearMonthPickers.get(monthIndex));
+            monthPane.setTop(yearMonthSpinners.get(monthIndex));
             monthPane.setCenter(localDateFixedYearMonthChoosers.get(monthIndex));
 //            monthPane.setStyle("-fx-background-color: " + (monthIndex == 1 ? "red" : "blue") + ";");
 
@@ -157,38 +157,38 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     public void dispose() {
         control = null;
         pane = null;
-        yearMonthPickers.clear();
-        yearMonthPickers.clear();
+        yearMonthSpinners.clear();
+        yearMonthSpinners.clear();
     }
 
     private void showMonths(YearMonth yearMonth) {
         YearMonth startYearMonth = yearMonth.minusMonths(control.getPreviousMonths());
 
-        int months = getMonths();
+        int months = getMonthsToShow();
         YearMonth ym = startYearMonth;
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
-            yearMonthPickers.get(monthIndex).setYearMonth(ym);
+            yearMonthSpinners.get(monthIndex).setYearMonth(ym);
             localDateFixedYearMonthChoosers.get(monthIndex).setYearMonth(ym);
             ym = ym.plusMonths(1);
         }
     }
 
-    private int getMonths() {
+    private int getMonthsToShow() {
         return control.getPreviousMonths() + 1 + control.getNextMonths();
     }
 
     private void setMaxYearMonth(LocalDate maxDate) {
         YearMonth max = LocalDateUtils.getYearMonth(maxDate);
-        int months = getMonths();
+        int months = getMonthsToShow();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             if (monthIndex < control.getPreviousMonths()) {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMax(max != null ? max.minusMonths(
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMax(max != null ? max.minusMonths(
                         control.getPreviousMonths() - monthIndex) : null);
 
             } else if (monthIndex == control.getPreviousMonths()) {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMax(max);
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMax(max);
             } else {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMax(max != null ? max.plusMonths(
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMax(max != null ? max.plusMonths(
                         monthIndex - control.getPreviousMonths()) : null);
             }
 
@@ -198,16 +198,16 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
 
     private void setMinYearMonth(LocalDate minDate) {
         YearMonth min = LocalDateUtils.getYearMonth(minDate);
-        int months = getMonths();
+        int months = getMonthsToShow();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             if (monthIndex < control.getPreviousMonths()) {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMin(min != null ? min.minusMonths(
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMin(min != null ? min.minusMonths(
                         control.getPreviousMonths() - monthIndex) : null);
 
             } else if (monthIndex == control.getPreviousMonths()) {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMin(min);
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMin(min);
             } else {
-                yearMonthPickers.get(monthIndex).yearMonthProperty().setMin(min != null ? min.plusMonths(
+                yearMonthSpinners.get(monthIndex).yearMonthProperty().setMin(min != null ? min.plusMonths(
                         monthIndex - control.getPreviousMonths()) : null);
             }
 
@@ -216,7 +216,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     }
 
     private void setSelectedDate(LocalDate selectedDate) {
-        int months = getMonths();
+        int months = getMonthsToShow();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             localDateFixedYearMonthChoosers.get(monthIndex).setSelectedDate(selectedDate);
         }
