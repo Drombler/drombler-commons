@@ -41,7 +41,6 @@ import org.drombler.commons.fx.scene.control.time.calendar.MonthOfYearComboBox;
 import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
 import org.drombler.commons.fx.scene.control.time.calendar.YearField;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthPicker;
-import org.drombler.commons.time.calendar.MonthOfYearComparator;
 import org.softsmithy.lib.util.Comparables;
 
 /**
@@ -324,12 +323,11 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
     private List<MonthOfYear> getMonthOfYearList() {
         Set<MonthOfYear> monthOfYearSet = EnumSet.allOf(MonthOfYear.class);
         FiniteComparableProperty<YearMonth> yearMonth = control.yearMonthProperty();
-        MonthOfYearComparator moyComparator = new MonthOfYearComparator();
 
         if (yearMonth.getMax()
                 != null && Comparables.isEqual(yearMonth.get().getYear(), yearMonth.getMax().getYear())) {
             for (MonthOfYear moy : MonthOfYear.values()) {
-                if (Comparables.isGreater(moy, yearMonth.getMax().getMonthOfYear(), moyComparator)) {
+                if (Comparables.isGreater(moy, yearMonth.getMax().getMonthOfYear())) {
                     monthOfYearSet.remove(moy);
                 }
             }
@@ -338,14 +336,14 @@ public class YearMonthPickerSkin implements Skin<YearMonthPicker> {
         if (yearMonth.getMin()
                 != null && Comparables.isEqual(yearMonth.get().getYear(), yearMonth.getMin().getYear())) {
             for (MonthOfYear moy : MonthOfYear.values()) {
-                if (Comparables.isLess(moy, yearMonth.getMax().getMonthOfYear(), moyComparator)) {
+                if (Comparables.isLess(moy, yearMonth.getMax().getMonthOfYear())) {
                     monthOfYearSet.remove(moy);
                 }
             }
         }
         List<MonthOfYear> monthOfYearList = new ArrayList<>(monthOfYearSet);
 
-        Collections.sort(monthOfYearList, moyComparator);
+//        Collections.sort(monthOfYearList);
         return monthOfYearList;
     }
 }
