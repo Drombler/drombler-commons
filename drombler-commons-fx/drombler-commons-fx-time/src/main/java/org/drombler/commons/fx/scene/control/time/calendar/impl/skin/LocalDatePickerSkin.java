@@ -32,7 +32,7 @@ import javafx.stage.WindowEvent;
 import javax.time.calendar.LocalDate;
 import org.drombler.commons.fx.scene.Nodes;
 import org.drombler.commons.fx.scene.control.FormattedTextField;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateField;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
 import org.drombler.commons.time.calendar.format.CalendricalFormatter;
@@ -42,7 +42,7 @@ import org.softsmithy.lib.text.Parser;
  *
  * @author puce
  */
-public class LocalDateFieldSkin implements Skin<LocalDateField> {
+public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
 
     /**
      * The {@code Control} that is referencing this Skin. There is a one-to-one
@@ -50,7 +50,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
      * {@code Skin} is set on a {@code Control}, this variable is automatically
      * updated.
      */
-    private LocalDateField control;
+    private LocalDatePicker control;
     /**
      * This control is used to represent the YearMonthPicker.
      */
@@ -93,7 +93,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
     private Popup popupControl = new Popup();
     private boolean showing = false;
 
-    public LocalDateFieldSkin(LocalDateField control) {
+    public LocalDatePickerSkin(LocalDatePicker control) {
         this.control = control;
 //        this.control.cellRendererProperty().addListener(new ChangeListener<CellRenderer<? super LocalDate>>() {
 //
@@ -138,7 +138,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 dateField.setValue(newVal);
-                LocalDateFieldSkin.this.control.setSelectedDate(newVal);
+                LocalDatePickerSkin.this.control.setSelectedDate(newVal);
 
                 popupControl.hide();
             }
@@ -149,9 +149,9 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
             public void handle(ActionEvent t) {
                 if (!showing) {
                     showing = true;
-                    dateChooser.setYearMonth(LocalDateFieldSkin.this.control.getYearMonth());
+                    dateChooser.setYearMonth(LocalDatePickerSkin.this.control.getYearMonth());
                     Point2D screenLocation = Nodes.getScreenLocation(dateButton);
-                    popupControl.show(LocalDateFieldSkin.this.control.getScene().getWindow(),
+                    popupControl.show(LocalDatePickerSkin.this.control.getScene().getWindow(),
                             screenLocation.getX() + dateButton.getWidth() - popupControl.getWidth(),
                             screenLocation.getY() + dateButton.getHeight());
                 }
@@ -165,7 +165,7 @@ public class LocalDateFieldSkin implements Skin<LocalDateField> {
     }
 
     @Override
-    public LocalDateField getSkinnable() {
+    public LocalDatePicker getSkinnable() {
         return control;
     }
 

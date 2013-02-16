@@ -25,8 +25,8 @@
  *                                                                                                *
  **************************************************************************************************/
 
-.local-date-field { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFieldSkin";
+.local-date-picker { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDatePickerSkin";
 /*    -fx-background-color: black;
     -fx-background-insets: 0;
     -fx-fill: black;*/

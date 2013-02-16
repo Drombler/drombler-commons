@@ -12,8 +12,8 @@
     <GridPane>
         <Label text="LocalDateToggleButton:" labelFor="$localDateToggleButton" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <LocalDateToggleButton GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDateToggleButton"/>
-        <Label text="LocalDateField:" labelFor="$localDateField" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <LocalDateField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="localDateField"/>
+        <Label text="LocalDatePicker" labelFor="$localDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <LocalDatePicker GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="localDatePicker"/>
         <Label text="LocalDateFixedYearMonthChooser" labelFor="$localDateFixedYearMonthChooser" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
             <LocalDateFixedYearMonthChooser  fx:id="$localDateFixedYearMonthChooser"/>

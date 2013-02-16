@@ -37,7 +37,7 @@ import org.softsmithy.lib.text.Parser;
  * @author puce
  */
 // TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
-public class LocalDateField extends Control {
+public class LocalDatePicker extends Control {
 
     /**
      * {@link DateTimeFormatters#longDate(java.util.Locale) }
@@ -68,8 +68,8 @@ public class LocalDateField extends Control {
     /**
      * Creates a new instance of this class. The style class is set to 'year-month-picker'.
      */
-    public LocalDateField() {
-        getStyleClass().setAll("local-date-field");
+    public LocalDatePicker() {
+        getStyleClass().setAll("local-date-picker");
     }
 
     @Override
