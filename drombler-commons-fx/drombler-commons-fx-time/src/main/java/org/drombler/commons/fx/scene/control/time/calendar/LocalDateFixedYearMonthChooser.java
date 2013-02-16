@@ -27,7 +27,7 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
 /**
- * A control which allows the select a {@link LocalDate} for a fixed {@link YearMonth}.
+ * A control which allows to select a {@link LocalDate} for a fixed {@link YearMonth}.
  * 
  * @author puce
  */
