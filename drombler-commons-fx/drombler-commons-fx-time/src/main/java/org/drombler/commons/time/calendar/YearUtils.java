@@ -35,12 +35,14 @@ public class YearUtils {
     }
 
     public static List<MonthOfYear> getMonthOfYearList(Year year, YearMonth minYearMonth, YearMonth maxYearMonth) {
-        if (!Comparables.isInRange(year.getValue(), minYearMonth.getYear(), maxYearMonth.getYear())) {
+        Integer minYear = minYearMonth != null ? minYearMonth.getYear() : null;
+        Integer maxYear = maxYearMonth != null ? maxYearMonth.getYear() : null;
+        if (!Comparables.isInRange(year.getValue(), minYear, maxYear)) {
             return Collections.emptyList();
         } else {
             Set<MonthOfYear> monthOfYearSet = EnumSet.allOf(MonthOfYear.class);
 
-            if (minYearMonth != null && Comparables.isEqual(year.getValue(), minYearMonth.getYear())) {
+            if (minYearMonth != null && Comparables.isEqual(year.getValue(), minYear)) {
                 for (MonthOfYear moy : MonthOfYear.values()) {
                     if (Comparables.isLess(moy, minYearMonth.getMonthOfYear())) {
                         monthOfYearSet.remove(moy);
@@ -48,7 +50,7 @@ public class YearUtils {
                 }
             }
             
-            if (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYearMonth.getYear())) {
+            if (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYear)) {
                 for (MonthOfYear moy : MonthOfYear.values()) {
                     if (Comparables.isGreater(moy, maxYearMonth.getMonthOfYear())) {
                         monthOfYearSet.remove(moy);

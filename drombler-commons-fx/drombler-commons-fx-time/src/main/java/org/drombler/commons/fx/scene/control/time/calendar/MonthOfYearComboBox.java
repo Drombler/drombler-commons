@@ -34,29 +34,10 @@ public class MonthOfYearComboBox extends ComboBox<MonthOfYear> {
      * Creates a new instance of this class.
      */
     public MonthOfYearComboBox() {
-        super(getMonthOfYearList());
-//        System.out.println(Locale.getDefault());
-        
-//        setConverter(new StringConverter<MonthOfYear>() {
-//
-//            @Override
-//            public String toString(MonthOfYear moy) {
-//                return moy.getText(Locale.getDefault());
-//            }
-//
-//            @Override
-//            public MonthOfYear fromString(String string) {
-//                return MonthOfYear.valueOf(string);
-//            }
-//        });
-        setCellFactory(new RenderedListCellFactory<>(new MonthOfYearRenderer()));
-    }
-
-    private static ObservableList<MonthOfYear> getMonthOfYearList() {
-//        List<MonthOfYear> monthOfYearList = new ArrayList<>(EnumSet.allOf(MonthOfYear.class));
-//        Collections.sort(monthOfYearList, new MonthOfYearComparator());
-//        return FXCollections.observableList(monthOfYearList);
-
-        return FXCollections.observableList(Arrays.asList(MonthOfYear.values()));
+        super(FXCollections.observableList(Arrays.asList(MonthOfYear.values())));
+        setVisibleRowCount(MonthOfYear.values().length);
+        final RenderedListCellFactory<MonthOfYear> cellFactory = new RenderedListCellFactory<>(new MonthOfYearRenderer());
+        setButtonCell(cellFactory.call(null));
+        setCellFactory(cellFactory);
     }
 }
