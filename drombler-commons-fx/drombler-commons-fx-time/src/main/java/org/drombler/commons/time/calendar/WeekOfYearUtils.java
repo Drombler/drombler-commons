@@ -21,7 +21,7 @@ import javax.time.calendar.LocalDate;
  *
  * @author puce
  */
-public class WeekOfYearUtils {
+class WeekOfYearUtils {
 
     private WeekOfYearUtils() {
     }

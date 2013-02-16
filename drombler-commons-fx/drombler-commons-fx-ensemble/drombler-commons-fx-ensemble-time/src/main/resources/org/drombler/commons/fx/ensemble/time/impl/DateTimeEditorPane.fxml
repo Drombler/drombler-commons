@@ -10,19 +10,17 @@
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" title="%DateTimeEditorPane.title">
     <GridPane>
-        <Label text="LocalDateToggleButton:" labelFor="$localDateToggleButton" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <LocalDateToggleButton GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDateToggleButton"/>
-        <Label text="LocalDatePicker" labelFor="$localDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <LocalDatePicker GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="localDatePicker"/>
-        <Label text="LocalDateFixedYearMonthChooser" labelFor="$localDateFixedYearMonthChooser" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
+        <Label text="LocalDatePicker:" labelFor="$localDatePicker" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <LocalDatePicker GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDatePicker"/>
+        <Label text="LocalDateFixedYearMonthChooser:" labelFor="$localDateFixedYearMonthChooser" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1">
             <LocalDateFixedYearMonthChooser  fx:id="$localDateFixedYearMonthChooser"/>
         </AnchorPane>
-        <Label text="LocalDateChooser" labelFor="$localDateChooser1" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
+        <Label text="LocalDateChooser:" labelFor="$localDateChooser1" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
             <LocalDateChooser  fx:id="localDateChooser1"/>
         </AnchorPane>
-        <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="2">
+        <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
             <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeeks="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
         </AnchorPane>
         <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0"/>

@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
 
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;

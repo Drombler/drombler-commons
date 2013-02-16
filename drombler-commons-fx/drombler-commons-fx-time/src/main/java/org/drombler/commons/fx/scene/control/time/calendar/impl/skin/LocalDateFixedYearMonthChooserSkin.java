@@ -22,7 +22,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Skin;
@@ -36,16 +35,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javax.time.calendar.DateTimeFieldRule;
 import javax.time.calendar.DayOfWeek;
 import javax.time.calendar.ISOChronology;
 import javax.time.calendar.LocalDate;
-import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateToggleButton;
 import org.drombler.commons.time.calendar.DayOfWeekUtils;
+import static org.drombler.commons.time.calendar.DayOfWeekUtils.DAYS_IN_WEEK;
 import org.drombler.commons.time.calendar.LocalDateUtils;
 import org.drombler.commons.time.calendar.YearMonthUtils;
 import org.softsmithy.lib.util.Comparables;
@@ -56,7 +53,6 @@ import org.softsmithy.lib.util.Comparables;
  */
 public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYearMonthChooser> {
 
-    public static final int DAYS_IN_WEEK = 7;
     public static final int MAX_WEEKS_IN_MONTH = 6;
     private static final String DAY_OUT_OF_YEAR_MONTH_STYLE_CLASS = "day-out-of-year-month";
     private static final String DAY_IN_YEAR_MONTH_STYLE_CLASS = "day-in-year-month";
@@ -217,7 +213,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
                 dayButton.setSelected(day.equals(control.getSelectedDate()));
                 dayButton.setDisable(!Comparables.isInRange(day, control.selectedDateProperty().getMin(),
                         control.selectedDateProperty().getMax()));
-                if (LocalDateUtils.getYearMonth(day).equals(control.getYearMonth())){
+                if (LocalDateUtils.getYearMonth(day).equals(control.getYearMonth())) {
                     dayButton.getStyleClass().remove(DAY_OUT_OF_YEAR_MONTH_STYLE_CLASS);
                     dayButton.getStyleClass().add(DAY_IN_YEAR_MONTH_STYLE_CLASS);
                 } else {

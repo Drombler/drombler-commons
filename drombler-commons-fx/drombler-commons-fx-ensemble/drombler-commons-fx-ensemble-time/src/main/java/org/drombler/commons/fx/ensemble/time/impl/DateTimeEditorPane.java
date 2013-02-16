@@ -32,7 +32,7 @@ public class DateTimeEditorPane extends DockablePane {
         loadFXML();
         final LocalDate now = LocalDate.now();
         localDateChooser1.selectedDateProperty().setMax(now.plusWeeks(3));
-        localDateChooser1.selectedDateProperty().setMin(now.minusYears(200));
+        localDateChooser1.selectedDateProperty().setMin(now.minusMonths(19));
         localDateChooser1.setPreviousMonths(1);
         localDateChooser1.setNextMonths(1);
     }
