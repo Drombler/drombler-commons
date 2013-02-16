@@ -46,13 +46,5 @@ public class LocalDateToggleButton extends DataToggleButton<LocalDate> {
         super(new DayOfMonthRenderer(), localDate);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void fire() {
-        if (getToggleGroup() == null || !isSelected()) {
-            super.fire();
-        }
-    }
+
 }

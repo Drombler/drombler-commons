@@ -57,7 +57,6 @@ public class DataToggleButton<T> extends ToggleButton {
 
     public DataToggleButton(DataRenderer<? super T> dataRenderer, T data) {
         this.data.addListener(new ChangeListener<T>() {
-
             @Override
             public void changed(ObservableValue<? extends T> ov, T oldData, T newData) {
                 LabeledUtils.configure(DataToggleButton.this, getDataRenderer(), newData);
@@ -65,7 +64,6 @@ public class DataToggleButton<T> extends ToggleButton {
         });
 
         this.dataRenderer.addListener(new ChangeListener<DataRenderer<? super T>>() {
-
             @Override
             public void changed(ObservableValue<? extends DataRenderer<? super T>> ov, DataRenderer<? super T> oldData, DataRenderer<? super T> newData) {
                 LabeledUtils.configure(DataToggleButton.this, newData, getData());
@@ -86,5 +84,15 @@ public class DataToggleButton<T> extends ToggleButton {
 
     public ObjectProperty<DataRenderer<? super T>> dataRendererProperty() {
         return dataRenderer;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void fire() {
+        if (getToggleGroup() == null || !isSelected()) {
+            super.fire();
+        }
     }
 }
