@@ -89,8 +89,32 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
                 showYearMonth();
             }
         });
+        control.previousWeeksProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                numberOfWeeksChanged();
+            }
+        });
+        control.nextWeeksProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                numberOfWeeksChanged();
+            }
+        });
+        control.showWeekOfYearProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+                numberOfWeeksChanged();
+            }
+        });
         orderedDaysOfWeek = DayOfWeekUtils.getOrderedDaysOfWeek(Locale.getDefault());
         initDayOfMonthView();
+    }
+
+    private void numberOfWeeksChanged() {
+        initWeekLabels();
+        layout();
+        showYearMonth();
     }
 
     @Override

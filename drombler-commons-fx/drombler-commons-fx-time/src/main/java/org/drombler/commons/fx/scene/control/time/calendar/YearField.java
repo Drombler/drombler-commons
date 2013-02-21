@@ -36,7 +36,7 @@ public class YearField extends IntegerField {
 
             @Override
             public void changed(ObservableValue<? extends Year> ov, Year oldVal, Year newVal) {
-                System.out.println("year object changed: " + oldVal + "; " + newVal);
+//                System.out.println("year object changed: " + oldVal + "; " + newVal);
                 setValue(newVal.getValue());
             }
         });
@@ -44,7 +44,7 @@ public class YearField extends IntegerField {
 
             @Override
             public void changed(ObservableValue<? extends Integer> ov, Integer oldVal, Integer newVal) {
-                System.out.println("year int changed: " + oldVal + "; " + newVal);
+//                System.out.println("year int changed: " + oldVal + "; " + newVal);
                 setYear(Year.of(newVal));
             }
         });

@@ -35,32 +35,63 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
  */
 public class LocalDateChooser extends Control {
 
+    /**
+     * The currently selected {@link LocalDate}.<br/> <br/> Default:
+     * {@link LocalDate#now()}
+     */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
+    /**
+     * The currently displayed {@link YearMonth}.
+     */
     private final ObjectProperty<YearMonth> yearMonth = new SimpleObjectProperty<>(this, "yearMonth", YearMonth.now());
+    /**
+     * The number of previous weeks to show.
+     */
     // TODO: should be configurable with CSS?
     private final IntegerProperty previousWeeks = new SimpleIntegerProperty(this, "previousWeeks", 0);
+    /**
+     * The number of next weeks to show.
+     */
     // TODO: should be configurable with CSS?
     private final IntegerProperty nextWeeks = new SimpleIntegerProperty(this, "nextWeeks", 0);
+    /**
+     * Flag if the week of year should be shown.
+     */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showWeeks = new SimpleBooleanProperty(this, "showWeeks", true);
+    private final BooleanProperty showWeekOfYear = new SimpleBooleanProperty(this, "showWeekOfYear", true);
+    /**
+     * The number of previous months relative to {@link #yearMonth} to show.
+     */
     // TODO: should be configurable with CSS?
     private final IntegerProperty previousMonths = new SimpleIntegerProperty(this, "previousMonths", 0);
+    /**
+     * The number of next months relative to {@link #yearMonth} to show.
+     */
     // TODO: should be configurable with CSS?
     private final IntegerProperty nextMonths = new SimpleIntegerProperty(this, "nextMonths", 0);
+    /**
+     * Flag if the month scroll button should be shown.
+     */
     // TODO: should be configurable with CSS?
     private final BooleanProperty showMonthScrollButton = new SimpleBooleanProperty(this, "showMonthScrollButton", true);
+    /**
+     * Flag if the year scroll button should be shown.
+     */
     // TODO: should be configurable with CSS?
     private final BooleanProperty showYearScrollButton = new SimpleBooleanProperty(this, "showYearScrollButton", true);
 
     /**
      * Creates a new instance of this class. The style class is set to
-     * 'year-month-picker'.
+     * 'local-date-chooser'.
      */
     public LocalDateChooser() {
         getStyleClass().setAll("local-date-chooser");
     }
 
+    /**
+     * {@inheritDoc
+     */
     @Override
     protected String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
@@ -114,16 +145,16 @@ public class LocalDateChooser extends Control {
         return nextWeeks;
     }
 
-    public final boolean getShowWeeks() {
-        return showWeeks.get();
+    public final boolean isShowWeekOfYear() {
+        return showWeekOfYear.get();
     }
 
-    public final void setShowWeeks(boolean showWeeks) {
-        this.showWeeks.set(showWeeks);
+    public final void setShowWeekOfYear(boolean showWeekOfYear) {
+        this.showWeekOfYear.set(showWeekOfYear);
     }
 
-    public BooleanProperty showWeeksProperty() {
-        return showWeeks;
+    public BooleanProperty showWeekOfYearProperty() {
+        return showWeekOfYear;
     }
 
     public final int getPreviousMonths() {

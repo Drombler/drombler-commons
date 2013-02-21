@@ -21,7 +21,7 @@
             <LocalDateChooser  fx:id="localDateChooser1"/>
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeeks="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
+            <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeekOfYear="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
         </AnchorPane>
         <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
         <AnchorPane GridPane.rowIndex="4" GridPane.columnIndex="1">

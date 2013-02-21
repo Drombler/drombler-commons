@@ -27,6 +27,8 @@ public class DateTimeEditorPane extends DockablePane {
 
     @FXML
     private LocalDateChooser localDateChooser1;
+    @FXML
+    private LocalDateChooser localDateChooser2;
 
     public DateTimeEditorPane() throws IOException {
         loadFXML();
@@ -35,6 +37,10 @@ public class DateTimeEditorPane extends DockablePane {
         localDateChooser1.selectedDateProperty().setMin(now.minusMonths(19));
         localDateChooser1.setPreviousMonths(1);
         localDateChooser1.setNextMonths(1);
+        
+//        localDateChooser2.setShowWeekOfYear(false);
+//        localDateChooser2.setPreviousWeeks(2);
+//        localDateChooser2.setNextWeeks(1);
     }
 
     private void loadFXML() throws IOException {

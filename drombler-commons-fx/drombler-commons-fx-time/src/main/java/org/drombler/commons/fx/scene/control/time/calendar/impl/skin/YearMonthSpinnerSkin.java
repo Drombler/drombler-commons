@@ -129,6 +129,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
     }
 
     private void layout() {
+        pane.setHgap(5d);
         int columnIndex = 0;
         if (control.isAlwaysYearScrollButtonSpaceReserved() || control.getShowPreviousYearScrollButton() || control.getShowNextYearScrollButton()) {
             ColumnConstraints cc = new ColumnConstraints();
@@ -253,7 +254,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             monthOfYearEditor.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {
-                    System.out.println("Value selected");
+//                    System.out.println("Value selected");
                     control.setYearMonth(yearButton.getData().atMonth(monthOfYearEditor.getValue()));
                     showMonthOfYearView();
                 }
@@ -262,7 +263,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
                     if (!newVal) {
-                        System.out.println("Focus lost");
+//                        System.out.println("Focus lost");
                         showMonthOfYearView();
                     }
                 }
@@ -280,7 +281,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             yearEditor.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {
-                    System.out.println("Value selected");
+//                    System.out.println("Value selected");
                     control.setYearMonth(yearEditor.getYear().atMonth(monthOfYearButton.getData()));
                     showYearView();
                 }
@@ -289,7 +290,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
                     if (!newVal) {
-                        System.out.println("Focus lost");
+//                        System.out.println("Focus lost");
                         showYearView();
                     }
                 }

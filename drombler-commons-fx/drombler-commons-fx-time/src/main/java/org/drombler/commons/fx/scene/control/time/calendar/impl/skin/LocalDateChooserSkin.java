@@ -24,8 +24,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
+import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
 import org.drombler.commons.time.calendar.LocalDateUtils;
 
@@ -36,8 +36,10 @@ import org.drombler.commons.time.calendar.LocalDateUtils;
 public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
 
     /**
-     * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and
-     * a {@code Control}. When a {@code Skin} is set on a {@code Control}, this variable is automatically updated.
+     * The {@code Control} that is referencing this Skin. There is a one-to-one
+     * relationship between a {@code Skin} and a {@code Control}. When a
+     * {@code Skin} is set on a {@code Control}, this variable is automatically
+     * updated.
      */
     private LocalDateChooser control;
     /**
@@ -51,28 +53,24 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     public LocalDateChooserSkin(LocalDateChooser control) {
         this.control = control;
         control.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
-
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 setSelectedDate(newVal);
             }
         });
         control.selectedDateProperty().maxProperty().addListener(new ChangeListener<LocalDate>() {
-
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 setMaxYearMonth(newVal);
             }
         });
         control.selectedDateProperty().minProperty().addListener(new ChangeListener<LocalDate>() {
-
             @Override
             public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
                 setMinYearMonth(newVal);
             }
         });
         control.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
-
             @Override
             public void changed(ObservableValue<? extends YearMonth> ov, YearMonth oldVal, YearMonth newVal) {
                 adjusting = true;
@@ -80,6 +78,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
                 adjusting = false;
             }
         });
+
         init();
 
     }
@@ -96,10 +95,9 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
             yearMonthPicker.setShowPreviousMonthScrollButton(monthIndex == 0 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowNextMonthScrollButton(monthIndex == months - 1 && control.getShowMonthScrollButton());
             yearMonthPicker.setShowNextYearScrollButton(monthIndex == months - 1 && control.getShowYearScrollButton());
-            
+
             final int currentMonthIndex = monthIndex;
             yearMonthPicker.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
-
                 @Override
                 public void changed(ObservableValue<? extends YearMonth> ov, YearMonth oldVal, YearMonth newVal) {
                     if (!adjusting) {
@@ -114,16 +112,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
                 }
             });
             yearMonthSpinners.add(yearMonthPicker);
-
-            LocalDateFixedYearMonthChooser localDateFoo = new LocalDateFixedYearMonthChooser();
-            localDateFoo.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
-
-                @Override
-                public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
-                    control.selectedDateProperty().set(newVal);
-                }
-            });
-            localDateFixedYearMonthChoosers.add(localDateFoo);
+            localDateFixedYearMonthChoosers.add(createLocalDateFixedYearMonthChooser());
         }
         layout();
         setMaxYearMonth(control.selectedDateProperty().getMax());
@@ -131,7 +120,22 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
         showMonths(control.getYearMonth());
     }
 
+    private LocalDateFixedYearMonthChooser createLocalDateFixedYearMonthChooser() {
+        LocalDateFixedYearMonthChooser localDateFixedYearMonthChooser = new LocalDateFixedYearMonthChooser();
+        localDateFixedYearMonthChooser.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
+                control.selectedDateProperty().set(newVal);
+            }
+        });
+        localDateFixedYearMonthChooser.previousWeeksProperty().bind(control.previousWeeksProperty());
+        localDateFixedYearMonthChooser.nextWeeksProperty().bind(control.nextWeeksProperty());
+        localDateFixedYearMonthChooser.showWeekOfYearProperty().bind(control.showWeekOfYearProperty());
+        return localDateFixedYearMonthChooser;
+    }
+
     private void layout() {
+        pane.setSpacing(5d);
         int months = getMonthsToShow();
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             BorderPane monthPane = new BorderPane();

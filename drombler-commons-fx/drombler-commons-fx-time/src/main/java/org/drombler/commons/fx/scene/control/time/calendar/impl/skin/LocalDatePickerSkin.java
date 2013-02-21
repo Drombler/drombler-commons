@@ -117,7 +117,9 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         popupControl.setAutoFix(true);
         popupControl.getContent().add(dateChooser);
 //        datePicker.getStyleClass().add("date-picker-popup");
-        popupControl.getScene().setFill(Color.YELLOW);// setOpacity(1.0);
+        
+        // TODO: provide this fill via CSS
+        popupControl.getScene().setFill(Color.WHITE);// setOpacity(1.0);
 //        datePicker.setOpacity(1.0);
 //        datePicker.setStyle("-fx-background-color: slateblue;");
 
@@ -130,7 +132,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         dateChooser.previousMonthsProperty().bind(this.control.previousMonthsProperty());
         dateChooser.previousWeeksProperty().bind(this.control.previousWeeksProperty());
         dateChooser.showMonthScrollButtonProperty().bind(this.control.showMonthScrollButtonProperty());
-        dateChooser.showWeeksProperty().bind(this.control.showWeeksProperty());
+        dateChooser.showWeekOfYearProperty().bind(this.control.showWeekOfYearProperty());
         dateChooser.showYearScrollButtonProperty().bind(this.control.showYearScrollButtonProperty());
         dateChooser.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         dateChooser.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
@@ -150,10 +152,10 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
                 if (!showing) {
                     showing = true;
                     dateChooser.setYearMonth(LocalDatePickerSkin.this.control.getYearMonth());
-                    Point2D screenLocation = Nodes.getScreenLocation(dateButton);
+                    Point2D screenLocation = Nodes.getScreenLocation(dateField);
                     popupControl.show(LocalDatePickerSkin.this.control.getScene().getWindow(),
-                            screenLocation.getX() + dateButton.getWidth() - popupControl.getWidth(),
-                            screenLocation.getY() + dateButton.getHeight());
+                            screenLocation.getX() + dateField.getLayoutX(),
+                            screenLocation.getY() + dateField.getHeight());
                 }
             }
         });

@@ -21,7 +21,6 @@ import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
-
 /**
  *
  * @author puce
@@ -52,12 +51,16 @@ public class YearMonthSpinner extends Control {
             false);
 
     /**
-     * Creates a new instance of this class. The style class is set to 'year-month-picker'.
+     * Creates a new instance of this class. The style class is set to
+     * 'year-month-spinner'.
      */
     public YearMonthSpinner() {
         getStyleClass().setAll("year-month-spinner");
     }
 
+    /**
+     * {@inheritDoc
+     */
     @Override
     protected String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
