@@ -37,6 +37,8 @@ public class LocalDateFixedYearMonthChooser extends Control {
     /**
      * The currently selected {@link LocalDate}.<br/> <br/> Default:
      * {@link LocalDate#now()}
+     * 
+     * TODO: support multi-selection?
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -69,7 +71,7 @@ public class LocalDateFixedYearMonthChooser extends Control {
     }
 
     /**
-     * {@inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected String getUserAgentStylesheet() {

@@ -22,30 +22,54 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 
 /**
+ * A {@link YearMonth} spinner.
  *
  * @author puce
  */
 public class YearMonthSpinner extends Control {
 
+    /**
+     * The {@link YearMonth} value of ths spinner.
+     */
     private final LimitedComparableProperty<YearMonth> yearMonth = new LimitedComparableProperty<>(this, "yearMonth",
             YearMonth.now());
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the previous month scroll button should be shown.
+     */
     private final BooleanProperty showPreviousMonthScrollButton = new SimpleBooleanProperty(this,
             "showPreviousMonthScrollButton", true);
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the next month scroll button should be shown.
+     */
     private final BooleanProperty showNextMonthScrollButton = new SimpleBooleanProperty(this,
             "showNextMonthScrollButton", true);
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the previous year scroll button should be shown.
+     */
     private final BooleanProperty showPreviousYearScrollButton = new SimpleBooleanProperty(this,
             "showPreviousYearScrollButton", true);
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the next year scroll button should be shown.
+     */
     private final BooleanProperty showNextYearScrollButton = new SimpleBooleanProperty(this, "showNextYearScrollButton",
             true);
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the space for the year scroll buttons should always be reserved,
+     * even if the buttons are not shown.
+     */
     private final BooleanProperty alwaysYearScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
             "alwaysYearScrollButtonSpaceReserved",
             false);
     // TODO: should be configurable with CSS?
+    /**
+     * Flag if the space for the month scroll buttons should always be reserved,
+     * even if the buttons are not shown.
+     */
     private final BooleanProperty alwaysMonthScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
             "alwaysMonthScrollButtonSpaceReserved",
             false);
@@ -59,7 +83,7 @@ public class YearMonthSpinner extends Control {
     }
 
     /**
-     * {@inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected String getUserAgentStylesheet() {

@@ -22,13 +22,19 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.IntegerField;
 
 /**
- *
+ * A text field for {@link Year}.
  * @author puce
  */
 public class YearField extends IntegerField {
 
+    /**
+     * The {@link Year} value of the field.
+     */
     private final LimitedComparableProperty<Year> year = new LimitedComparableProperty<>(this, "year");
 
+    /**
+     * Creates a new instance of this class.
+     */
     public YearField() {
         super(createNumberFormat());
         setPrefColumnCount(4);

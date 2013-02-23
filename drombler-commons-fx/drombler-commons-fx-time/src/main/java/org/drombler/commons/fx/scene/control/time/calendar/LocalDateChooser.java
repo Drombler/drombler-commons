@@ -38,6 +38,8 @@ public class LocalDateChooser extends Control {
     /**
      * The currently selected {@link LocalDate}.<br/> <br/> Default:
      * {@link LocalDate#now()}
+     * 
+     * TODO: support multi-selection?
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -90,7 +92,7 @@ public class LocalDateChooser extends Control {
     }
 
     /**
-     * {@inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected String getUserAgentStylesheet() {

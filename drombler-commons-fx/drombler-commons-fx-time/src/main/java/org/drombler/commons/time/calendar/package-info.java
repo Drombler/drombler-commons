@@ -12,4 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.beans.property;
+/**
+ * Utility classes for classes in the {@link javax.time.calendar} package.
+ */
+package org.drombler.commons.time.calendar;

@@ -107,7 +107,7 @@ public class LocalDatePicker extends Control {
     }
 
     /**
-     * {@inheritDoc 
+     * {@inheritDoc} 
      */
     @Override
     protected String getUserAgentStylesheet() {

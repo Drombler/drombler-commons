@@ -20,7 +20,7 @@
         </license>
     </licenses>
     <properties>
-        <javafx.version>2.2</javafx.version>
+        <javafx.version>2.2.0</javafx.version>
     </properties>
     <build>
         <pluginManagement>
@@ -30,6 +30,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <!--<additionalparam>-javafx</additionalparam>-->
                         <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
                         <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
                         <show>private</show>
@@ -53,6 +54,7 @@
                                     <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
                                     <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
                                     <show>private</show>
+                                    <!--<additionalparam>-javafx</additionalparam>-->
                                 </configuration>
                             </plugin>
                             <!--                        <plugin>

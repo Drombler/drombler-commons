@@ -20,6 +20,7 @@ import java.util.Locale;
 import javax.time.calendar.DayOfWeek;
 
 /**
+ * Utility class for {@link DayOfWeek}.
  *
  * @author puce
  */
@@ -27,9 +28,13 @@ public class DayOfWeekUtils {
 
     private DayOfWeekUtils() {
     }
-    // TODO: use a method instead of a constant?
+    /**
+     * The number of days in a week.
+     * 
+     * TODO: use a method instead of a constant?
+     */
     public static final int DAYS_IN_WEEK = DayOfWeek.values().length;
-    
+
     public static List<DayOfWeek> getOrderedDaysOfWeek(Locale locale) {
         List<DayOfWeek> orderedDaysOfWeek = new ArrayList<>(DAYS_IN_WEEK);
         DayOfWeek firstDayOfWeek = DayOfWeek.firstDayOfWeekFor(locale);
