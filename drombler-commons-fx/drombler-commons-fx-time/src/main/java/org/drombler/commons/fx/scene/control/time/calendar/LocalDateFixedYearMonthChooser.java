@@ -30,6 +30,9 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
  * A control which allows to select a {@link LocalDate} for a fixed
  * {@link YearMonth}.
  *
+ * TODO: Useful as a public API? (e.g. for skinning?) Or should it be hidden as
+ * an implementation detail?
+ *
  * @author puce
  */
 public class LocalDateFixedYearMonthChooser extends Control {
@@ -37,7 +40,7 @@ public class LocalDateFixedYearMonthChooser extends Control {
     /**
      * The currently selected {@link LocalDate}.<br/> <br/> Default:
      * {@link LocalDate#now()}
-     * 
+     *
      * TODO: support multi-selection?
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
