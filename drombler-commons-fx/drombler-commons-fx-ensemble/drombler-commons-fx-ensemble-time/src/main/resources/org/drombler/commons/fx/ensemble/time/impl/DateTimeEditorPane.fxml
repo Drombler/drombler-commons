@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -9,31 +10,61 @@
 <?import org.drombler.commons.fx.scene.control.time.calendar.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" title="%DateTimeEditorPane.title">
-    <GridPane>
-        <Label text="LocalDatePicker:" labelFor="$localDatePicker" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <LocalDatePicker GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDatePicker"/>
-        <Label text="LocalDateFixedYearMonthChooser:" labelFor="$localDateFixedYearMonthChooser" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1">
-            <LocalDateFixedYearMonthChooser  fx:id="$localDateFixedYearMonthChooser"/>
-        </AnchorPane>
-        <Label text="LocalDateChooser:" labelFor="$localDateChooser1" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
-            <LocalDateChooser  fx:id="localDateChooser1"/>
-        </AnchorPane>
-        <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeekOfYear="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
-        </AnchorPane>
-        <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="4" GridPane.columnIndex="1">
-            <MonthOfYearComboBox  fx:id="monthOfYearComboBox"/>
-        </AnchorPane>
-        <Label text="YearField:" labelFor="$yearField" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="5" GridPane.columnIndex="1">
-            <YearField  fx:id="yearField"/>
-        </AnchorPane>
-        <Label text="YearMonthSpinner:" labelFor="$yearMonthSpinner" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-        <AnchorPane GridPane.rowIndex="6" GridPane.columnIndex="1">
-            <YearMonthSpinner  fx:id="yearMonthSpinner"/>
-        </AnchorPane>
-    </GridPane>
+    <ScrollPane>
+        <GridPane hgap="10" vgap="50">
+            <Label text="LocalDatePicker:" labelFor="$localDatePicker" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="10.0" />
+                </GridPane.margin>
+            </Label>
+            <LocalDatePicker GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="localDatePicker">
+                <GridPane.margin>
+                    <Insets bottom="150.0" left="0.0" right="0.0" top="10.0" />
+                </GridPane.margin>
+            </LocalDatePicker>
+            <Label text="LocalDateFixedYearMonthChooser:" labelFor="$localDateFixedYearMonthChooser" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+            </Label>
+            <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <LocalDateFixedYearMonthChooser  fx:id="$localDateFixedYearMonthChooser"/>
+            </AnchorPane>
+            <Label text="LocalDateChooser:" labelFor="$localDateChooser1" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+            </Label>
+            <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <LocalDateChooser  fx:id="localDateChooser1"/>
+            </AnchorPane>
+            <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeekOfYear="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
+            </AnchorPane>
+            <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+            </Label>
+            <AnchorPane GridPane.rowIndex="4" GridPane.columnIndex="1">
+                <MonthOfYearComboBox  fx:id="monthOfYearComboBox"/>
+            </AnchorPane>
+            <Label text="YearField:" labelFor="$yearField" GridPane.rowIndex="5" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+            </Label>
+            <AnchorPane GridPane.rowIndex="5" GridPane.columnIndex="1">
+                <YearField  fx:id="yearField"/>
+            </AnchorPane>
+            <Label text="YearMonthSpinner:" labelFor="$yearMonthSpinner" GridPane.rowIndex="6" GridPane.columnIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+            </Label>
+            <AnchorPane GridPane.rowIndex="6" GridPane.columnIndex="1">
+                <YearMonthSpinner  fx:id="yearMonthSpinner"/>
+            </AnchorPane>
+        </GridPane>
+    </ScrollPane>
 </fx:root>
