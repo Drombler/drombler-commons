@@ -36,9 +36,15 @@
                 </GridPane.margin>
             </Label>
             <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets bottom="100.0" left="0.0" right="0.0" top="0.0" />
+                </GridPane.margin>
                 <LocalDateChooser  fx:id="localDateChooser1"/>
             </AnchorPane>
             <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets bottom="100.0" left="0.0" right="0.0" top="0.0" />
+                </GridPane.margin>
                 <LocalDateChooser previousWeeks="2" nextWeeks="1" showWeekOfYear="false" showYearScrollButton="false" fx:id="localDateChooser2"/>
             </AnchorPane>
             <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
@@ -47,7 +53,10 @@
                 </GridPane.margin>
             </Label>
             <AnchorPane GridPane.rowIndex="4" GridPane.columnIndex="1">
-                <MonthOfYearComboBox  fx:id="monthOfYearComboBox"/>
+                <GridPane.margin>
+                    <Insets bottom="300.0" left="0.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+                <MonthOfYearComboBox  fx:id="monthOfYearComboBox" />
             </AnchorPane>
             <Label text="YearField:" labelFor="$yearField" GridPane.rowIndex="5" GridPane.columnIndex="0">
                 <GridPane.margin>
@@ -55,7 +64,7 @@
                 </GridPane.margin>
             </Label>
             <AnchorPane GridPane.rowIndex="5" GridPane.columnIndex="1">
-                <YearField  fx:id="yearField"/>
+                <YearField fx:id="yearField"/>
             </AnchorPane>
             <Label text="YearMonthSpinner:" labelFor="$yearMonthSpinner" GridPane.rowIndex="6" GridPane.columnIndex="0">
                 <GridPane.margin>
@@ -63,7 +72,10 @@
                 </GridPane.margin>
             </Label>
             <AnchorPane GridPane.rowIndex="6" GridPane.columnIndex="1">
-                <YearMonthSpinner  fx:id="yearMonthSpinner"/>
+                <GridPane.margin>
+                    <Insets bottom="300.0" left="0.0" right="0.0" top="0.0" />
+                </GridPane.margin>
+                <YearMonthSpinner fx:id="yearMonthSpinner"/>
             </AnchorPane>
         </GridPane>
     </ScrollPane>

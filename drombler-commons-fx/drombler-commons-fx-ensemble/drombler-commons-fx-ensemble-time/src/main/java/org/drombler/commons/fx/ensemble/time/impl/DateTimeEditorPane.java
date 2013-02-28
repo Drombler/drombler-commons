@@ -17,8 +17,12 @@ package org.drombler.commons.fx.ensemble.time.impl;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javax.time.calendar.LocalDate;
+import javax.time.calendar.Year;
+import javax.time.calendar.YearMonth;
 import org.drombler.acp.core.docking.EditorDocking;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
+import org.drombler.commons.fx.scene.control.time.calendar.MonthOfYearComboBox;
+import org.drombler.commons.fx.scene.control.time.calendar.YearField;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 
@@ -28,7 +32,9 @@ public class DateTimeEditorPane extends DockablePane {
     @FXML
     private LocalDateChooser localDateChooser1;
     @FXML
-    private LocalDateChooser localDateChooser2;
+    private MonthOfYearComboBox monthOfYearComboBox;
+    @FXML
+    private YearField yearField;
 
     public DateTimeEditorPane() throws IOException {
         loadFXML();
@@ -37,10 +43,10 @@ public class DateTimeEditorPane extends DockablePane {
         localDateChooser1.selectedDateProperty().setMin(now.minusMonths(19));
         localDateChooser1.setPreviousMonths(1);
         localDateChooser1.setNextMonths(1);
-        
-//        localDateChooser2.setShowWeekOfYear(false);
-//        localDateChooser2.setPreviousWeeks(2);
-//        localDateChooser2.setNextWeeks(1);
+
+        monthOfYearComboBox.getSelectionModel().select(YearMonth.now().getMonthOfYear());
+
+        yearField.setYear(Year.now());
     }
 
     private void loadFXML() throws IOException {
