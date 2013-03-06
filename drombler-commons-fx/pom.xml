@@ -18,16 +18,30 @@ Contributor(s): .
 
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-parent</artifactId>
+        <artifactId>drombler-commons-fx-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
-        <relativePath>drombler-commons-parent</relativePath>
+        <relativePath>drombler-commons-fx-parent</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-all</artifactId>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - FX - All</name>
+    <description>Drombler Commons - FX is a collection of reusable libraries and frameworks for JavaFX.</description>
     <inceptionYear>2013</inceptionYear>
     
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}</url>
+        </site>
+    </distributionManagement>
+
     <licenses>
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
@@ -36,6 +50,13 @@ Contributor(s): .
             <url>../LICENSE.txt</url>
         </license>
     </licenses>
+    
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
 
     <!-- Not inherited!?? -->
     <prerequisites>

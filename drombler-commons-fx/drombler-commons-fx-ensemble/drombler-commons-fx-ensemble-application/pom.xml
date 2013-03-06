@@ -12,6 +12,25 @@
 
     <name>Drombler Commons - FX - Ensemble - Application</name>
 
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+    
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
     <build>
         <plugins>
             <plugin>  

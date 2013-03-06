@@ -26,7 +26,27 @@ Contributor(s): .
     <packaging>pom</packaging>
 
     <name>Drombler Commons - All</name>
+    <description>Drombler Commons is a collection of reusable libraries and frameworks.</description>
     <inceptionYear>2012</inceptionYear>
+    
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}</url>
+        </site>
+    </distributionManagement>
+    
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
     
     <licenses>
         <license>

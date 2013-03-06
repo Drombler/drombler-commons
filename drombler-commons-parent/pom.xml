@@ -31,6 +31,12 @@ Contributor(s): .
     <name>Drombler Commons - Parent</name>
     <inceptionYear>2012</inceptionYear>
     
+    <scm>
+        <connection>${scm.parent.connection}</connection>
+        <developerConnection>${scm.parent.developerConnection}</developerConnection>
+        <url>${scm.parent.url}</url>
+    </scm>
+    
     <licenses>
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
@@ -44,9 +50,18 @@ Contributor(s): .
         <site>
             <id>drombler</id>
             <name>Drombler Commons</name>
-            <url>file://drombler</url>
+            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
         </site>
     </distributionManagement>
+
+    <properties>
+        <!-- Dev Environment Defaults -->
+        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
+        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
+        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
+        <distributionManagement.parent.url>file://drombler</distributionManagement.parent.url>
+    </properties>
+     
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>

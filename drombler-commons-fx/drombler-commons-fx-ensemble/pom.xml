@@ -12,6 +12,24 @@
 
     <name>Drombler Commons - FX - Ensemble - All</name>
 
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
 
     <!-- Not inherited!?? -->
     <prerequisites>

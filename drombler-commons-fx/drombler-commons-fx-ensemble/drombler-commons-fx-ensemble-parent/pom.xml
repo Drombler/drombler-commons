@@ -2,9 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <!-- You might want to replace this parent with your Corporate POM (which might inherit from 
-        drombler-fx-parent or one of its parents in turn).
-        Run 'mvn help:effective-pom' on this parent project to get an idea what you need to configure. -->
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.1</version>
@@ -21,6 +18,11 @@
     <url>http://www.mycompany.com/drombler-commons-fx-ensemble</url>
     <inceptionYear>2012</inceptionYear>
     
+    <scm>
+        <connection>${scm.parent.connection}</connection>
+        <developerConnection>${scm.parent.developerConnection}</developerConnection>
+        <url>${scm.parent.url}</url>
+    </scm>
     
     <licenses>
         <license>
@@ -35,11 +37,18 @@
         <site>
             <id>drombler</id>
             <name>Drombler Commons</name>
-            <url>file://drombler</url>
+            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
         </site>
-    </distributionManagement>
-    
-    <properties>
+    </distributionManagement>   
+     
+    <properties>   
+        <!-- Dev Environment Defaults -->
+        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
+        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
+        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
+        <distributionManagement.parent.url>file://drombler/drombler-commons-fx/drombler-commons-fx-ensemble</distributionManagement.parent.url>
+
+        <!-- Dependency Versions Defaults -->
         <drombler-fx.version>0.1</drombler-fx.version>
     </properties>
     
@@ -55,6 +64,14 @@
                     <groupId>org.drombler.fx</groupId>
                     <artifactId>drombler-fx-maven-plugin</artifactId>
                     <version>${drombler-fx.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                        <skipDeploy>true</skipDeploy>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

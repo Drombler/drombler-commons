@@ -10,7 +10,26 @@
     <artifactId>drombler-commons-fx-parent</artifactId>
     <packaging>pom</packaging>
     <name>Drombler Commons - FX - Parent</name>
+    <description>This Drombler Commons - FX - Parent POM should be the parent 
+        (either directly or indirectly) of every Drombler Commons - FX project 
+        unless there is a good reason to do otherwise 
+        (in which case the reason should be documented).
+    </description>
     <inceptionYear>2013</inceptionYear>
+    
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+    
     <licenses>
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
@@ -19,9 +38,16 @@
             <url>../../LICENSE.txt</url>
         </license>
     </licenses>
+    
     <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+        <distributionManagement.parent.url>file://drombler/drombler-commons-fx</distributionManagement.parent.url>
+    
         <javafx.version>2.2.0</javafx.version>
     </properties>
+    
     <build>
         <pluginManagement>
             <plugins>

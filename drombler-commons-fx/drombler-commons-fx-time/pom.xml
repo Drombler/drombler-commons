@@ -27,8 +27,31 @@ Contributor(s): .
     <packaging>bundle</packaging>
 
     <name>Drombler Commons - FX - Date and Time</name>
+    <description>Drombler Commons - FX - Date and Time is a collection of 
+        controls, utility classes and frameworks to work with the upcoming 
+        (Java 8) Date and Time API in JavaFX.
+    </description>
     <inceptionYear>2012</inceptionYear>
 
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>drombler</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
