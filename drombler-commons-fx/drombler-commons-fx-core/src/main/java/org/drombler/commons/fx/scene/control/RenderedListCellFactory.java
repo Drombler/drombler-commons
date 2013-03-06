@@ -20,6 +20,7 @@ import javafx.util.Callback;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
+ * A list cell factory using a {@link DataRenderer}.
  *
  * @author puce
  */
@@ -27,10 +28,18 @@ public class RenderedListCellFactory<T> implements Callback<ListView<T>, ListCel
 
     private final DataRenderer<? super T> dataRenderer;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dataRenderer a {@link DataRenderer}
+     */
     public RenderedListCellFactory(DataRenderer<? super T> dataRenderer) {
         this.dataRenderer = dataRenderer;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public ListCell<T> call(ListView<T> p) {
         return new RenderedListCell<>(dataRenderer); // TODO: create a new one or cache it?

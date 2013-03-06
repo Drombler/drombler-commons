@@ -24,25 +24,56 @@ import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 
 /**
  * A {@link Button} which can hold some data and knows how to render it.
+ *
  * @author puce
  */
 public class DataButton<T> extends Button {
 
+    /**
+     * The data of this button.
+     */
     private final ObjectProperty<T> data = new SimpleObjectProperty<>(this, "data");
+    /**
+     * The {@link DataRenderer} to render the {@link #data}.
+     */
     private final ObjectProperty<DataRenderer<? super T>> dataRenderer = new SimpleObjectProperty<>(this, "dataRenderer");
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to
+     * render the data.
+     */
     public DataButton() {
         this(new ObjectRenderer());
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
+     * of this button.
+     */
     public DataButton(DataRenderer<? super T> dataRenderer) {
         this(dataRenderer, null);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param data the data of this button.
+     */
     public DataButton(T data) {
         this(new ObjectRenderer(), data);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
+     * of this button.
+     * @param data the data of this button.
+     */
     public DataButton(DataRenderer<? super T> dataRenderer, T data) {
         this.data.addListener(new ChangeListener<T>() {
             @Override

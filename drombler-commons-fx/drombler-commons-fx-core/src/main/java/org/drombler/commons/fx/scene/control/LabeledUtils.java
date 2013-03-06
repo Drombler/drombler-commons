@@ -18,6 +18,7 @@ import javafx.scene.control.Labeled;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
+ * A utility class for {@link Labeled}.
  *
  * @author puce
  */
@@ -26,6 +27,15 @@ public class LabeledUtils {
     private LabeledUtils() {
     }
 
+    /**
+     * Configures a {@link Labeled} with some data and a corresponding
+     * {@link DataRenderer}.
+     *
+     * @param <T> the type of the data
+     * @param labeled the Labeled instance to be configured
+     * @param dataRenderer the DataRenderer to render the data
+     * @param data the data
+     */
     public static <T> void configure(Labeled labeled, DataRenderer<? super T> dataRenderer, T data) {
         labeled.setText(dataRenderer.getText(data));
         labeled.setGraphic(dataRenderer.getGraphic(data));

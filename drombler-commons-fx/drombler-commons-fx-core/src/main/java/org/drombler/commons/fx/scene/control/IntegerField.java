@@ -19,15 +19,25 @@ import org.drombler.commons.fx.scene.renderer.WholeNumberRenderer;
 import org.softsmithy.lib.text.IntegerParser;
 
 /**
+ * An Integer field.
  *
  * @author puce
  */
 public class IntegerField extends FormattedTextField<Integer> {
 
+    /**
+     * Creates a new instance of this class.
+     */
     public IntegerField() {
         super(new WholeNumberRenderer<>(0), new IntegerParser());
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param numberFormat the {@link NumberFormat} to configure the
+     * {@link #dataRendererProperty()} and the {@link #parserProperty()}
+     */
     public IntegerField(NumberFormat numberFormat) {
         super(new WholeNumberRenderer<>(numberFormat, 0), new IntegerParser(numberFormat));
     }

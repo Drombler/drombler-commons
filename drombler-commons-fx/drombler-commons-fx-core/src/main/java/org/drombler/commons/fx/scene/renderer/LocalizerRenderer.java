@@ -19,17 +19,34 @@ import javafx.scene.text.TextAlignment;
 import org.softsmithy.lib.text.Localizer;
 
 /**
+ * A {@link DataRenderer} implementation which uses a {@link Localizer} to get a
+ * text representation of the items to render. This renderer provides no
+ * graphical representations of items and no style classes by default.
  *
+ * @param <T> the type of the data to render
  * @author puce
  */
 public class LocalizerRenderer<T> extends AbstractDataRenderer<T> {
 
     private final Localizer<? super T> localizer;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param localizer a {@link Localizer} to get a text representation of the
+     * items to render
+     */
     public LocalizerRenderer(Localizer<? super T> localizer) {
         this.localizer = localizer;
     }
 
+    /**
+     * Gets a text representation of the item.
+     *
+     * @see Localizer#getDisplayString(java.lang.Object, java.util.Locale)
+     * @param item the item to render
+     * @return a text representation of the item
+     */
     @Override
     public String getText(T item) {
         String localizedString = null;

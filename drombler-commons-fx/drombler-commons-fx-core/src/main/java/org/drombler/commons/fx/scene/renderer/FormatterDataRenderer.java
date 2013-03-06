@@ -20,17 +20,34 @@ import org.softsmithy.lib.text.FormatException;
 import org.softsmithy.lib.text.Formatter;
 
 /**
+ * A {@link DataRenderer} implementation which uses a {@link Formatter} to get a
+ * text representation of the item to render. This renderer provides no
+ * graphical representations of items and no style classes by default.
  *
+ * @param <T> the type of the data to render
  * @author puce
  */
 public class FormatterDataRenderer<T> extends AbstractDataRenderer<T> {
 
     private final Formatter<? super T> formatter;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param formatter a {@link Formatter} to get a text representation for the
+     * items to render.
+     */
     public FormatterDataRenderer(Formatter<? super T> formatter) {
         this.formatter = formatter;
     }
 
+    /**
+     * Gets a text representation of the item.
+     *
+     * @see Formatter#format(java.lang.Object)
+     * @param item the item to render
+     * @return a text representation of the item
+     */
     @Override
     public String getText(T item) {
         if (item != null) {

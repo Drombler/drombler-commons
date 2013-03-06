@@ -15,18 +15,27 @@
 package org.drombler.commons.fx.scene.renderer;
 
 /**
+ * A {@link DataRenderer} implementation which uses a {@link Object#toString()}
+ * to get a text representation of the item to render. This renderer provides no
+ * graphical representations of items and no style classes by default.
  *
  * @author puce
  */
 public class ObjectRenderer extends AbstractDataRenderer<Object> {
 
+    /**
+     * Gets a text representation of the item.
+     *
+     * @see Object#toString()
+     * @param item the item to render
+     * @return a text representation of the item
+     */
     @Override
     public String getText(Object item) {
-        if (item != null){
+        if (item != null) {
             return item.toString();
         } else {
             return null;
         }
     }
-    
 }

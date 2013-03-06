@@ -29,29 +29,57 @@ import org.softsmithy.lib.text.Formatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
+ * A formatted {@link TextField}. A {@link Parser} specifies how to convert the
+ * text to the {@link #value}. A {@link DataRenderer} specifies how to render
+ * the {@link #value}.
  *
  * @author puce
  */
 public class FormattedTextField<T extends Comparable<? super T>> extends TextField {
 
+    /**
+     * The value of this text field.
+     */
     private final LimitedComparableProperty<T> value = new LimitedComparableProperty<>(this, "value");
+    /**
+     * The {@link DataRenderer} to render the {@link #value}.
+     */
     private final ObjectProperty<DataRenderer<? super T>> dataRenderer = new SimpleObjectProperty<>(this, "dataRenderer");
+    /**
+     * The {@link Parser} to parse the {@link #value}.
+     */
     private final ObjectProperty<Parser<? extends T>> parser = new SimpleObjectProperty<>(this, "parser");
     private boolean adjusting = false;
 
+    /**
+     * Creates a new instance of this class.
+     */
     public FormattedTextField() {
         this((Formatter<? super T>) null, null);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param formatter a {@link Formatter} to configure the
+     * {@link #dataRenderer}
+     * @param parser a {@link Parser} to parse the {@link #value}
+     */
     public FormattedTextField(Formatter<? super T> formatter, Parser<? extends T> parser) {
         this(new FormatterDataRenderer<>(formatter), parser);
-        
+
     }
+
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #value}
+     * @param parser the {@link Parser} to parse the {@link #value}.
+     */
     public FormattedTextField(DataRenderer<? super T> dataRenderer, Parser<? extends T> parser) {
         setDataRenderer(dataRenderer);
         setParser(parser);
         value.addListener(new ChangeListener<T>() {
-
             @Override
             public void changed(ObservableValue<? extends T> ov, T oldValue, T newValue) {
                 adjusting = true;
@@ -64,7 +92,6 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
             }
         });
         textProperty().addListener(new ChangeListener<String>() {
-
             @Override
             public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
                 if (!adjusting && getParser() != null) {

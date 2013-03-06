@@ -12,4 +12,7 @@
  *
  * Contributor(s): .
  */
+/**
+ * Utility classes and extensions for the {@link javafx.beans.property} package.
+ */
 package org.drombler.commons.fx.beans.property;

@@ -26,6 +26,8 @@ public interface LimitedProperty<T> extends Property<T> {
 
     /**
      * The minimum value.
+     * 
+     * TODO: should this be a LimitedProperty?
      */
     Property<T> minProperty();
 
@@ -35,6 +37,8 @@ public interface LimitedProperty<T> extends Property<T> {
 
     /**
      * The maximum value.
+     * 
+     * TODO: should this be a LimitedProperty?
      */
     Property<T> maxProperty();
 

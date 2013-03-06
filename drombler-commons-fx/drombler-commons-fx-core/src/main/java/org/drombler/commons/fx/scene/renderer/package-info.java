@@ -12,4 +12,12 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.beans.property;
+/**
+ * This package provides a {@link DataRenderer}-framework, which e.g. allows to
+ * share implementations across different types of cells.
+ *
+ * @see RenderedListCellFactory
+ */
+package org.drombler.commons.fx.scene.renderer;
+
+import org.drombler.commons.fx.scene.control.RenderedListCellFactory;

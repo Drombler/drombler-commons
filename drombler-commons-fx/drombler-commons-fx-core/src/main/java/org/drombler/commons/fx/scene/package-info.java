@@ -12,4 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.beans.property;
+/**
+ * Utility classes and extensions for the {@link javafx.scene} package.
+ */
+package org.drombler.commons.fx.scene;

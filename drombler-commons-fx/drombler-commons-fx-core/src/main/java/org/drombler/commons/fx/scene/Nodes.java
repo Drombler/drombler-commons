@@ -29,6 +29,12 @@ public class Nodes {
     private Nodes() {
     }
 
+    /**
+     * Gets the location of a {@link Node} in screen coordinates.
+     * 
+     * @param node a {@link Node}
+     * @return the location of the node in screen coordinates
+     */
     public static Point2D getScreenLocation(Node node) {
         Scene scene = node.getScene();
         Window window = scene.getWindow();

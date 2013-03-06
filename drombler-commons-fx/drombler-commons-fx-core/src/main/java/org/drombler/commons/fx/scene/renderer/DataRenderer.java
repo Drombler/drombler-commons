@@ -20,6 +20,7 @@ import javafx.scene.Node;
 /**
  * Note: more methods might be added
  *
+ * @param <T> the type of the data to render
  * @author puce
  */
 public interface DataRenderer<T> {
@@ -29,13 +30,38 @@ public interface DataRenderer<T> {
 //    ObjectProperty<TextAlignment> textAlignmentProperty();
 //
 //    ObjectProperty<Node> graphicProperty();
+    /**
+     * Gets a text representation of the item.
+     *
+     * @param item the item to render
+     * @return a text representation of the item
+     */
     String getText(T item); // TODO: is it possible to set the locale of a node? if yes, pass it as parameter.
 
     //TextAlignment getTextAlignment();
-
+    /**
+     * Gets a graphical representation of the item.
+     *
+     * @param item the item to render
+     * @return a graphical representation of the item
+     */
     Node getGraphic(T item);// TODO: is it possible to set the locale of a node? if yes, pass it as parameter.
 
+    /**
+     * Gets a list of style classes for the specified item.
+     *
+     * @param item the item to render
+     * @return a list of style classes for the specified item
+     */
     List<String> getStyleClass(T item);
 
+    /**
+     * Gets all possible style classes for any item.
+     *
+     * E.g. if getStyleClass(a) returns ["foo"] and getStyleClass(b) returns
+     * ["bar"], then this method should return ["foo", "bar"].
+     *
+     * @return all possible style classes for any item
+     */
     List<String> getStyleClass();
 }

@@ -21,22 +21,43 @@ import org.softsmithy.lib.text.FormatFormatter;
 import org.softsmithy.lib.util.Comparables;
 
 /**
+ * A {@link DataRenderer} for whole numbers. This renderer provides no graphical
+ * representations by default.
  *
+ * @param <T> the number type of the data to render
  * @author puce
  */
 public class WholeNumberRenderer<T extends Number & Comparable<T>> extends FormatterDataRenderer<T> {
 
     private final T zero;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param zero the zero representation of the used number type
+     */
     public WholeNumberRenderer(T zero) {
         this(NumberFormat.getIntegerInstance(), zero);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param numberFormat A {@link NumberFormat} used to format the numbers
+     * @param zero the zero representation of the used number type
+     */
     public WholeNumberRenderer(NumberFormat numberFormat, T zero) {
         super(new FormatFormatter<>(numberFormat));
         this.zero = zero;
     }
 
+    /**
+     * Gets all possible style classes for any item.
+     *
+     * @see #getStyleClass()
+     *
+     * @return all possible style classes for any item
+     */
     @Override
     public List<String> getStyleClass() {
         List<String> styleClass = super.getStyleClass();
@@ -44,6 +65,13 @@ public class WholeNumberRenderer<T extends Number & Comparable<T>> extends Forma
         return styleClass;
     }
 
+    /**
+     * Gets a ["number"] for numbers with value zero or greater and ["number",
+     * "negative-number"] for numbers with values less than zero.
+     *
+     * @param item the item to render
+     * @return a list of style classes for the specified item
+     */
     @Override
     public List<String> getStyleClass(T item) {
         List<String> styleClass = super.getStyleClass(); // TODO: correct??? Not super.getStyleClass(T item) ???

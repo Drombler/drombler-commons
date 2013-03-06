@@ -19,18 +19,24 @@ import java.util.List;
 import javafx.scene.Node;
 
 /**
+ * An abstract base implementation of {@link DataRenderer}.
  *
+ * @param <T> the type of the data to render
  * @author puce
  */
 public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
 
-
+    /**
+     * This DataRenderer returns no graphic node by default (null).
+     *
+     * @param item the item to render
+     * @return null
+     */
     @Override
     public Node getGraphic(T item) {
         return null;
     }
-    
-    
+
 //    private final StringProperty displayStringProperty = new SimpleStringProperty();
 //    private final ObjectProperty<TextAlignment> textAlignmentProperty = new SimpleObjectProperty<>();
 //    private final ObjectProperty<Node> graphicProperty = new SimpleObjectProperty<>();
@@ -49,16 +55,24 @@ public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
 //    public ObjectProperty<Node> graphicProperty() {
 //        return graphicProperty;
 //    }
-
+    /**
+     * Returns an empty list of style classes by default.
+     *
+     * @param item the item to render
+     * @return an empty list of style classes by default
+     */
     @Override
     public List<String> getStyleClass(T item) {
         return new ArrayList<>();
     }
 
+    /**
+     * Returns an empty list of style classes by default.
+     *
+     * @return an empty list of style classes by default
+     */
     @Override
     public List<String> getStyleClass() {
         return new ArrayList<>();
     }
-    
-    
 }
