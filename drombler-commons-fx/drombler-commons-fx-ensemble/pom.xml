@@ -21,7 +21,7 @@
     <distributionManagement>
         <site>
             <id>drombler</id>
-            <url>${distributionManagement.parent.url}</url>
+            <url>${distributionManagement.parent.url}/</url>
         </site>
     </distributionManagement>
 

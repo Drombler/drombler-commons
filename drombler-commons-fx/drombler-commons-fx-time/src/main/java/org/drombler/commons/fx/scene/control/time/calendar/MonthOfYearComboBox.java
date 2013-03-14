@@ -15,9 +15,7 @@
 package org.drombler.commons.fx.scene.control.time.calendar;
 
 import java.util.Arrays;
-import java.util.Locale;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javax.time.calendar.MonthOfYear;
 import org.drombler.commons.fx.scene.control.RenderedListCellFactory;

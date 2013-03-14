@@ -18,6 +18,7 @@ import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 
 /**
+ * Utility class for {@link LocalDate}.
  *
  * @author puce
  */
@@ -26,6 +27,12 @@ public class LocalDateUtils {
     private LocalDateUtils() {
     }
 
+    /**
+     * Gets the {@link YearMonth} of a specified {@link LocalDate}.
+     *
+     * @param localDate a {@link LocalDate}
+     * @return the {@link YearMonth} of a specified {@link LocalDate}
+     */
     public static YearMonth getYearMonth(LocalDate localDate) {
         return localDate != null ? YearMonth.of(localDate.getYear(), localDate.getMonthOfYear()) : null;
     }

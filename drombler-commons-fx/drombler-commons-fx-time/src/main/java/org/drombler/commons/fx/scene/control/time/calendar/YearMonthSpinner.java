@@ -29,7 +29,7 @@ import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets
 public class YearMonthSpinner extends Control {
 
     /**
-     * The {@link YearMonth} value of ths spinner.
+     * The {@link YearMonth} value of this spinner.
      */
     private final LimitedComparableProperty<YearMonth> yearMonth = new LimitedComparableProperty<>(this, "yearMonth",
             YearMonth.now());

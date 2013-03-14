@@ -16,13 +16,18 @@ package org.drombler.commons.fx.scene.renderer.time.calendar;
 
 import javax.time.calendar.LocalDate;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
+import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
+ * A {@link DataRenderer} for {@link LocalDate} based on {@link LocalDate#getDayOfMonth()}.
  *
  * @author puce
  */
 public class DayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
 
+    /**
+     * {@inheritDoc} 
+     */
     @Override
     public String getText(LocalDate localDate) {
         if (localDate != null) {

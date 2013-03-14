@@ -16,9 +16,10 @@ package org.drombler.commons.fx.scene.renderer.time.calendar;
 
 import javax.time.calendar.Year;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
+import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
- *
+ * A {@link DataRenderer} for {@link Year}-
  * @author puce
  */
 public class YearRenderer extends AbstractDataRenderer<Year> {

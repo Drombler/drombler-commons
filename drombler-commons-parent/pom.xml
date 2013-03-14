@@ -50,7 +50,7 @@ Contributor(s): .
         <site>
             <id>drombler</id>
             <name>Drombler Commons</name>
-            <url>${distributionManagement.parent.url}/${project.artifactId}</url>
+            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
 

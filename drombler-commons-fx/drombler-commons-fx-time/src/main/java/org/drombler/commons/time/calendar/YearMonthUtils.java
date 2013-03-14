@@ -18,6 +18,7 @@ import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 
 /**
+ * Utility class for {@link YearMonth}.
  *
  * @author puce
  */
@@ -26,10 +27,25 @@ public class YearMonthUtils {
     private YearMonthUtils() {
     }
 
+    /**
+     * Gets the first day of the specified {@link YearMonth}.
+     *
+     * @see YearMonth#atDay(int)
+     * @param yearMonth a{@link YearMonth}
+     * @return the first day of the specified {@link YearMonth}
+     */
     public static LocalDate atFirstDay(YearMonth yearMonth) {
         return yearMonth.atDay(1);
     }
 
+    /**
+     * Gets the last day of the specified {@link YearMonth}.
+     *
+     * @see YearMonth#atDay(int)
+     * @see YearMonth#lengthInDays()
+     * @param yearMonth a{@link YearMonth}
+     * @return the last day of the specified {@link YearMonth}
+     */
     public static LocalDate atLastDay(YearMonth yearMonth) {
         return yearMonth.atDay(yearMonth.lengthInDays());
     }

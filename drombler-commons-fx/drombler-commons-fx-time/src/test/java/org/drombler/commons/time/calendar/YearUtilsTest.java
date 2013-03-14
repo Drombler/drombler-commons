@@ -13,35 +13,142 @@
  * Contributor(s): .
  */
 package org.drombler.commons.time.calendar;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
+import javax.time.calendar.MonthOfYear;
 import javax.time.calendar.Year;
 import javax.time.calendar.YearMonth;
-import org.junit.Test;
 
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author puce
  */
 public class YearUtilsTest {
-    
-    public YearUtilsTest() {
+
+    @Test
+    public void testGetMonthOfYearListNoMinNoMax() {
+        Year year = Year.of(2013);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, null, null);
+        MonthOfYear[] monthOfYears = MonthOfYear.values();
+        assertEquals(Arrays.asList(monthOfYears), result);
     }
 
     @Test
-    @Ignore
-    public void testGetMonthOfYearList() {
-        System.out.println("getMonthOfYearList");
-        Year year = null;
-        YearMonth minYearMonth = null;
-        YearMonth maxYearMonth = null;
-        List expResult = null;
-        List result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    public void testGetMonthOfYearListNotSameYear() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2012, MonthOfYear.SEPTEMBER);
+        YearMonth maxYearMonth = YearMonth.of(2014, MonthOfYear.MARCH);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        MonthOfYear[] monthOfYears = MonthOfYear.values();
+        assertEquals(Arrays.asList(monthOfYears), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListOutOfRange() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2014, MonthOfYear.MAY);
+        YearMonth maxYearMonth = YearMonth.of(2014, MonthOfYear.NOVEMBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinNoMax() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, null);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.FEBRUARY, MonthOfYear.DECEMBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMaxNoMin() {
+        Year year = Year.of(2013);
+        YearMonth maxYearMonth = YearMonth.of(2013, MonthOfYear.OCTOBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, null, maxYearMonth);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.JANUARY, MonthOfYear.OCTOBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinAndMax() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        YearMonth maxYearMonth = YearMonth.of(2013, MonthOfYear.OCTOBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.FEBRUARY, MonthOfYear.OCTOBER)), result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetMonthOfYearListException() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2013, MonthOfYear.OCTOBER);
+        YearMonth maxYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMaxFutureYear() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        YearMonth maxYearMonth = YearMonth.of(2014, MonthOfYear.OCTOBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.FEBRUARY, MonthOfYear.DECEMBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMaxFutureYearMinNull() {
+        Year year = Year.of(2013);
+        YearMonth maxYearMonth = YearMonth.of(2014, MonthOfYear.OCTOBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, null, maxYearMonth);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.JANUARY, MonthOfYear.DECEMBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinPreviousYear() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2012, MonthOfYear.FEBRUARY);
+        YearMonth maxYearMonth = YearMonth.of(2013, MonthOfYear.OCTOBER);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.JANUARY, MonthOfYear.OCTOBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinPreviousYearMaxNull() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2012, MonthOfYear.FEBRUARY);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, null);
+        assertEquals(new ArrayList<>(EnumSet.range(MonthOfYear.JANUARY, MonthOfYear.DECEMBER)), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinFutureYearMaxNull() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2014, MonthOfYear.FEBRUARY);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, null);
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMaxPreviousYearMinNull() {
+        Year year = Year.of(2013);
+        YearMonth maxYearMonth = YearMonth.of(2012, MonthOfYear.FEBRUARY);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, null, maxYearMonth);
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testGetMonthOfYearListMinMaxEqual() {
+        Year year = Year.of(2013);
+        YearMonth minYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        YearMonth maxYearMonth = YearMonth.of(2013, MonthOfYear.FEBRUARY);
+        List<MonthOfYear> result = YearUtils.getMonthOfYearList(year, minYearMonth, maxYearMonth);
+        assertEquals(Arrays.asList(MonthOfYear.FEBRUARY), result);
     }
 }

@@ -26,6 +26,7 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.softsmithy.lib.util.Comparables;
 
 /**
+ * Utility class for {@link Year}.
  *
  * @author puce
  */
@@ -34,31 +35,40 @@ public class YearUtils {
     private YearUtils() {
     }
 
+    /**
+     * Gets the {@link MonthOfYear}s of a specified {@link Year}. An optional
+     * min {@link YearMonth} and max {@link YearMonth} will truncate the list of
+     * {@link MonthOfYear}.
+     *
+     * E.g.:
+     *
+     * <ul> <li>year=2013, min = null, max=null: [JANUARY - DECEMBER] </li>
+     * <li>year=2013, min = 2012-10, max=2014-02: [JANUARY - DECEMBER] </li>
+     * <li>year=2013, min = 2013-02, max=2013-10: [FEBRUARY - OCTOBER] </li>
+     * <li>year=2014, min = 2013-02, max=2013-10: [] </li> </ul>
+     *
+     * @param year the Year
+     * @param minYearMonth the min {@link YearMonth} or null
+     * @param maxYearMonth the max {@link YearMonth} or null
+     * @return the {@link MonthOfYear}s of a specified {@link Year}
+     */
     public static List<MonthOfYear> getMonthOfYearList(Year year, YearMonth minYearMonth, YearMonth maxYearMonth) {
+        if (minYearMonth != null && maxYearMonth != null && Comparables.isLess(maxYearMonth, minYearMonth)) {
+            throw new IllegalArgumentException("minYearMonth must not be greater than maxYearMonth!");
+        }
         Integer minYear = minYearMonth != null ? minYearMonth.getYear() : null;
         Integer maxYear = maxYearMonth != null ? maxYearMonth.getYear() : null;
         if (!Comparables.isInRange(year.getValue(), minYear, maxYear)) {
             return Collections.emptyList();
         } else {
-            Set<MonthOfYear> monthOfYearSet = EnumSet.allOf(MonthOfYear.class);
+            MonthOfYear min = (minYearMonth != null && Comparables.isEqual(year.getValue(), minYear))
+                    ? minYearMonth.getMonthOfYear()
+                    : MonthOfYear.JANUARY;
+            MonthOfYear max = (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYear))
+                    ? maxYearMonth.getMonthOfYear()
+                    : MonthOfYear.DECEMBER;
 
-            if (minYearMonth != null && Comparables.isEqual(year.getValue(), minYear)) {
-                for (MonthOfYear moy : MonthOfYear.values()) {
-                    if (Comparables.isLess(moy, minYearMonth.getMonthOfYear())) {
-                        monthOfYearSet.remove(moy);
-                    }
-                }
-            }
-            
-            if (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYear)) {
-                for (MonthOfYear moy : MonthOfYear.values()) {
-                    if (Comparables.isGreater(moy, maxYearMonth.getMonthOfYear())) {
-                        monthOfYearSet.remove(moy);
-                    }
-                }
-            }
-
-            return new ArrayList<>(monthOfYearSet);
+            return new ArrayList<>(EnumSet.range(min, max));
         }
     }
 }

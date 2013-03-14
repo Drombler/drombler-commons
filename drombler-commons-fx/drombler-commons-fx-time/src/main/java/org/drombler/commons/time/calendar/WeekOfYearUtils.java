@@ -18,7 +18,7 @@ import javax.time.calendar.DateTimeFieldRule;
 import javax.time.calendar.LocalDate;
 
 /**
- *
+ * 
  * @author puce
  */
 class WeekOfYearUtils {

@@ -30,11 +30,21 @@ public class DayOfWeekUtils {
     }
     /**
      * The number of days in a week.
-     * 
+     *
      * TODO: use a method instead of a constant?
      */
     public static final int DAYS_IN_WEEK = DayOfWeek.values().length;
 
+    /**
+     * Gets the {@link DayOfWeek}s in locale-sensitive order.
+     *
+     * E.g.: <ul> <li>locale=de_CH: [MONDAY - SUNDAY] </li> <li>locale=en_US:
+     * [SUNDAY - SATURDAY] </li></ul>
+     *
+     * @see DayOfWeek#firstDayOfWeekFor(java.util.Locale)
+     * @param locale the {@link Locale}
+     * @return the {@link DayOfWeek}s in locale-sensitive order
+     */
     public static List<DayOfWeek> getOrderedDaysOfWeek(Locale locale) {
         List<DayOfWeek> orderedDaysOfWeek = new ArrayList<>(DAYS_IN_WEEK);
         DayOfWeek firstDayOfWeek = DayOfWeek.firstDayOfWeekFor(locale);
