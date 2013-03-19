@@ -21,7 +21,7 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * LocalDatePicker                                                                                 *
+ * LocalDatePicker                                                                                *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -63,7 +63,7 @@
 }*/
 /**************************************************************************************************
  *                                                                                                *
- * LocalDateFixedYearMonthChooser                                                                                   *
+ * LocalDateFixedYearMonthChooser                                                                 *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -74,6 +74,7 @@
     -fx-background-radius: 0;
     /*    -fx-fill: black;*/
 }
+
 .local-date-fixed-year-month-chooser .toggle-button{
     -fx-background-color: gray, white;/*transparent;*/
     -fx-background-insets: 0, 1;
@@ -104,13 +105,16 @@
 
 .local-date-fixed-year-month-chooser .day-of-week{
     -fx-font-weight: bold;
+/*    -fx-background-color: gray, white;transparent;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 0, 0;    */
     /*-fx-text-fill: red;*/
     /*    -fx-background-color: red, blue;
         -fx-background-insets: 0, 1;*/
 }
 /**************************************************************************************************
  *                                                                                                *
- * LocalDateChooser                                                                                *
+ * LocalDateChooser                                                                               *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -131,13 +135,13 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * YearMonthSpinner                                                                                *
+ * YearMonthSpinner                                                                               *
  *                                                                                                *
  **************************************************************************************************/
 
 .year-month-spinner { 
     -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.YearMonthSpinnerSkin";
-    /*-fx-background-color: blue, red;
+/*    -fx-background-color: blue, red;
     -fx-background-insets: 10, 20;
     -fx-border-color: black;*/
     -fx-font-size: 1.166667em; /* 14pt - 2 more than the default font */
