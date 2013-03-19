@@ -101,7 +101,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
                 numberOfWeeksChanged();
             }
         });
-        control.showWeekOfYearProperty().addListener(new ChangeListener<Boolean>() {
+        control.showingWeekOfYearProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
                 numberOfWeeksChanged();
@@ -207,7 +207,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
 
     private void layout() {
         node.setTop(createDayOfWeekPane());
-        if (control.isShowWeekOfYear()) {
+        if (control.isShowingWeekOfYear()) {
             node.setLeft(weekLabelParent);
         }
         node.setCenter(createDayOfMonthPane());
@@ -226,7 +226,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
         weekFormat.setMinimumIntegerDigits(2);
         for (int weekIndex = 0; weekIndex < weeks; weekIndex++) {
             int week = weekOfWeekBasedYearRule.getInt(day);
-            if (control.isShowWeekOfYear()) {
+            if (control.isShowingWeekOfYear()) {
                 Label weekLabel = weekLabels.get(weekIndex);
                 weekLabel.setText(weekFormat.format(week));
             }
@@ -271,15 +271,18 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
 
     private Pane createDayOfWeekPane() {
         HBox dayOfWeekPane = new HBox();
-        if (control.isShowWeekOfYear()) {
+        if (control.isShowingWeekOfYear()) {
             Label placeHolderLabel = new Label();
 //            placeHolderLabel.setMaxWidth(Double.MAX_VALUE);
 //            HBox.setHgrow(placeHolderLabel, Priority.ALWAYS);
             placeHolderLabel.prefWidthProperty().bind(weekLabels.get(0).widthProperty());
             dayOfWeekPane.getChildren().add(placeHolderLabel);
         }
+        int dayInWeekIndex = 0;
         for (Label dayOfWeekLabel : orderedDayOfWeekLabels) {
+            dayOfWeekLabel.prefWidthProperty().bind(dayButtons.get(0).get(dayInWeekIndex).widthProperty());
             dayOfWeekPane.getChildren().add(dayOfWeekLabel);
+            dayInWeekIndex++;
         }
         return dayOfWeekPane;
     }

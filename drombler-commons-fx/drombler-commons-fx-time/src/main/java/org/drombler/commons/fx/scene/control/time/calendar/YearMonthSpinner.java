@@ -37,41 +37,41 @@ public class YearMonthSpinner extends Control {
     /**
      * Flag if the previous month scroll button should be shown.
      */
-    private final BooleanProperty showPreviousMonthScrollButton = new SimpleBooleanProperty(this,
-            "showPreviousMonthScrollButton", true);
+    private final BooleanProperty showingPreviousMonthScrollButton = new SimpleBooleanProperty(this,
+            "showingPreviousMonthScrollButton", true);
     // TODO: should be configurable with CSS?
     /**
      * Flag if the next month scroll button should be shown.
      */
-    private final BooleanProperty showNextMonthScrollButton = new SimpleBooleanProperty(this,
-            "showNextMonthScrollButton", true);
+    private final BooleanProperty showingNextMonthScrollButton = new SimpleBooleanProperty(this,
+            "showingNextMonthScrollButton", true);
     // TODO: should be configurable with CSS?
     /**
      * Flag if the previous year scroll button should be shown.
      */
-    private final BooleanProperty showPreviousYearScrollButton = new SimpleBooleanProperty(this,
-            "showPreviousYearScrollButton", true);
+    private final BooleanProperty showingPreviousYearScrollButton = new SimpleBooleanProperty(this,
+            "showingPreviousYearScrollButton", true);
     // TODO: should be configurable with CSS?
     /**
      * Flag if the next year scroll button should be shown.
      */
-    private final BooleanProperty showNextYearScrollButton = new SimpleBooleanProperty(this, "showNextYearScrollButton",
+    private final BooleanProperty showingNextYearScrollButton = new SimpleBooleanProperty(this, "showingNextYearScrollButton",
             true);
     // TODO: should be configurable with CSS?
     /**
      * Flag if the space for the year scroll buttons should always be reserved,
      * even if the buttons are not shown.
      */
-    private final BooleanProperty alwaysYearScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
-            "alwaysYearScrollButtonSpaceReserved",
+    private final BooleanProperty alwaysReservingYearScrollButtonSpace = new SimpleBooleanProperty(this,
+            "alwaysReservingYearScrollButtonSpace",
             false);
     // TODO: should be configurable with CSS?
     /**
      * Flag if the space for the month scroll buttons should always be reserved,
      * even if the buttons are not shown.
      */
-    private final BooleanProperty alwaysMonthScrollButtonSpaceReserved = new SimpleBooleanProperty(this,
-            "alwaysMonthScrollButtonSpaceReserved",
+    private final BooleanProperty alwaysReservingMonthScrollButtonSpace = new SimpleBooleanProperty(this,
+            "alwaysReservingMonthScrollButtonSpace",
             false);
 
     /**
@@ -102,75 +102,75 @@ public class YearMonthSpinner extends Control {
         return yearMonth;
     }
 
-    public final boolean getShowPreviousMonthScrollButton() {
-        return showPreviousMonthScrollButton.get();
+    public final boolean isShowingPreviousMonthScrollButton() {
+        return showingPreviousMonthScrollButton.get();
     }
 
-    public final void setShowPreviousMonthScrollButton(boolean showPreviousMonthScrollButton) {
-        this.showPreviousMonthScrollButton.set(showPreviousMonthScrollButton);
+    public final void setShowingPreviousMonthScrollButton(boolean showingPreviousMonthScrollButton) {
+        this.showingPreviousMonthScrollButton.set(showingPreviousMonthScrollButton);
     }
 
-    public BooleanProperty showPreviousMonthScrollButtonProperty() {
-        return showPreviousMonthScrollButton;
+    public BooleanProperty showingPreviousMonthScrollButtonProperty() {
+        return showingPreviousMonthScrollButton;
     }
 
-    public final boolean getShowPreviousYearScrollButton() {
-        return showPreviousYearScrollButton.get();
+    public final boolean isShowingPreviousYearScrollButton() {
+        return showingPreviousYearScrollButton.get();
     }
 
-    public final void setShowPreviousYearScrollButton(boolean showPreviousYearScrollButton) {
-        this.showPreviousYearScrollButton.set(showPreviousYearScrollButton);
+    public final void setShowingPreviousYearScrollButton(boolean showingPreviousYearScrollButton) {
+        this.showingPreviousYearScrollButton.set(showingPreviousYearScrollButton);
     }
 
-    public BooleanProperty showPreviousYearScrollButtonProperty() {
-        return showPreviousYearScrollButton;
+    public BooleanProperty showingPreviousYearScrollButtonProperty() {
+        return showingPreviousYearScrollButton;
     }
 
-    public final boolean getShowNextMonthScrollButton() {
-        return showNextMonthScrollButton.get();
+    public final boolean isShowingNextMonthScrollButton() {
+        return showingNextMonthScrollButton.get();
     }
 
-    public final void setShowNextMonthScrollButton(boolean showNextMonthScrollButton) {
-        this.showNextMonthScrollButton.set(showNextMonthScrollButton);
+    public final void setShowingNextMonthScrollButton(boolean showingNextMonthScrollButton) {
+        this.showingNextMonthScrollButton.set(showingNextMonthScrollButton);
     }
 
-    public BooleanProperty showNextMonthScrollButtonProperty() {
-        return showNextMonthScrollButton;
+    public BooleanProperty showingNextMonthScrollButtonProperty() {
+        return showingNextMonthScrollButton;
     }
 
-    public final boolean getShowNextYearScrollButton() {
-        return showNextYearScrollButton.get();
+    public final boolean isShowingNextYearScrollButton() {
+        return showingNextYearScrollButton.get();
     }
 
-    public final void setShowNextYearScrollButton(boolean showNextYearScrollButton) {
-        this.showNextYearScrollButton.set(showNextYearScrollButton);
+    public final void setShowingNextYearScrollButton(boolean showingNextYearScrollButton) {
+        this.showingNextYearScrollButton.set(showingNextYearScrollButton);
     }
 
-    public BooleanProperty showNextYearScrollButtonProperty() {
-        return showNextYearScrollButton;
+    public BooleanProperty showingNextYearScrollButtonProperty() {
+        return showingNextYearScrollButton;
     }
 
-    public final boolean isAlwaysYearScrollButtonSpaceReserved() {
-        return alwaysYearScrollButtonSpaceReserved.get();
+    public final boolean isAlwaysReservingYearScrollButtonSpace() {
+        return alwaysReservingYearScrollButtonSpace.get();
     }
 
-    public final void setAlwaysYearScrollButtonSpaceReserved(boolean alwaysYearScrollButtonSpaceReserved) {
-        this.alwaysYearScrollButtonSpaceReserved.set(alwaysYearScrollButtonSpaceReserved);
+    public final void setAlwaysReservingYearScrollButtonSpace(boolean alwaysReservingYearScrollButtonSpace) {
+        this.alwaysReservingYearScrollButtonSpace.set(alwaysReservingYearScrollButtonSpace);
     }
 
-    public BooleanProperty alwaysYearScrollButtonSpaceReservedProperty() {
-        return alwaysYearScrollButtonSpaceReserved;
+    public BooleanProperty alwaysReservingYearScrollButtonSpaceProperty() {
+        return alwaysReservingYearScrollButtonSpace;
     }
 
-    public final boolean isAlwaysMonthScrollButtonSpaceReserved() {
-        return alwaysMonthScrollButtonSpaceReserved.get();
+    public final boolean isAlwaysReservingMonthScrollButtonSpace() {
+        return alwaysReservingMonthScrollButtonSpace.get();
     }
 
-    public final void setAlwaysMonthScrollButtonSpaceReserved(boolean alwaysMonthScrollButtonSpaceReserved) {
-        this.alwaysMonthScrollButtonSpaceReserved.set(alwaysMonthScrollButtonSpaceReserved);
+    public final void setAlwaysReservingMonthScrollButtonSpace(boolean alwaysReservingMonthScrollButtonSpace) {
+        this.alwaysReservingMonthScrollButtonSpace.set(alwaysReservingMonthScrollButtonSpace);
     }
 
-    public BooleanProperty alwaysMonthScrollButtonSpaceReservedProperty() {
-        return alwaysMonthScrollButtonSpaceReserved;
+    public BooleanProperty alwaysReservingMonthScrollButtonSpaceProperty() {
+        return alwaysReservingMonthScrollButtonSpace;
     }
 }

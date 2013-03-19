@@ -89,12 +89,12 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
         localDateFixedYearMonthChoosers = new ArrayList<>(months);
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
             YearMonthSpinner yearMonthPicker = new YearMonthSpinner();
-            yearMonthPicker.setAlwaysYearScrollButtonSpaceReserved(months > 1 && control.getShowYearScrollButton());
-            yearMonthPicker.setAlwaysMonthScrollButtonSpaceReserved(months > 1 && control.getShowMonthScrollButton());
-            yearMonthPicker.setShowPreviousYearScrollButton(monthIndex == 0 && control.getShowYearScrollButton());
-            yearMonthPicker.setShowPreviousMonthScrollButton(monthIndex == 0 && control.getShowMonthScrollButton());
-            yearMonthPicker.setShowNextMonthScrollButton(monthIndex == months - 1 && control.getShowMonthScrollButton());
-            yearMonthPicker.setShowNextYearScrollButton(monthIndex == months - 1 && control.getShowYearScrollButton());
+            yearMonthPicker.setAlwaysReservingYearScrollButtonSpace(months > 1 && control.isShowingYearScrollButton());
+            yearMonthPicker.setAlwaysReservingMonthScrollButtonSpace(months > 1 && control.isShowingMonthScrollButton());
+            yearMonthPicker.setShowingPreviousYearScrollButton(monthIndex == 0 && control.isShowingYearScrollButton());
+            yearMonthPicker.setShowingPreviousMonthScrollButton(monthIndex == 0 && control.isShowingMonthScrollButton());
+            yearMonthPicker.setShowingNextMonthScrollButton(monthIndex == months - 1 && control.isShowingMonthScrollButton());
+            yearMonthPicker.setShowingNextYearScrollButton(monthIndex == months - 1 && control.isShowingYearScrollButton());
 
             final int currentMonthIndex = monthIndex;
             yearMonthPicker.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
@@ -130,7 +130,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
         });
         localDateFixedYearMonthChooser.previousWeeksProperty().bind(control.previousWeeksProperty());
         localDateFixedYearMonthChooser.nextWeeksProperty().bind(control.nextWeeksProperty());
-        localDateFixedYearMonthChooser.showWeekOfYearProperty().bind(control.showWeekOfYearProperty());
+        localDateFixedYearMonthChooser.showingWeekOfYearProperty().bind(control.showWeekOfYearProperty());
         return localDateFixedYearMonthChooser;
     }
 

@@ -76,12 +76,12 @@ public class LocalDateChooser extends Control {
      * Flag if the month scroll button should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showMonthScrollButton = new SimpleBooleanProperty(this, "showMonthScrollButton", true);
+    private final BooleanProperty showingMonthScrollButton = new SimpleBooleanProperty(this, "showingMonthScrollButton", true);
     /**
      * Flag if the year scroll button should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showYearScrollButton = new SimpleBooleanProperty(this, "showYearScrollButton", true);
+    private final BooleanProperty showingYearScrollButton = new SimpleBooleanProperty(this, "showingYearScrollButton", true);
 
     /**
      * Creates a new instance of this class. The style class is set to
@@ -183,27 +183,27 @@ public class LocalDateChooser extends Control {
         return nextMonths;
     }
 
-    public final boolean getShowMonthScrollButton() {
-        return showMonthScrollButton.get();
+    public final boolean isShowingMonthScrollButton() {
+        return showingMonthScrollButton.get();
     }
 
-    public final void setShowMonthScrollButton(boolean showMonthScrollButton) {
-        this.showMonthScrollButton.set(showMonthScrollButton);
+    public final void setShowingMonthScrollButton(boolean showingMonthScrollButton) {
+        this.showingMonthScrollButton.set(showingMonthScrollButton);
     }
 
-    public BooleanProperty showMonthScrollButtonProperty() {
-        return showMonthScrollButton;
+    public BooleanProperty showingMonthScrollButtonProperty() {
+        return showingMonthScrollButton;
     }
 
-    public final boolean getShowYearScrollButton() {
-        return showYearScrollButton.get();
+    public final boolean isShowingYearScrollButton() {
+        return showingYearScrollButton.get();
     }
 
-    public final void setShowYearScrollButton(boolean showYearScrollButton) {
-        this.showYearScrollButton.set(showYearScrollButton);
+    public final void setShowingYearScrollButton(boolean showingYearScrollButton) {
+        this.showingYearScrollButton.set(showingYearScrollButton);
     }
 
-    public BooleanProperty showYearScrollButtonProperty() {
-        return showYearScrollButton;
+    public BooleanProperty showingYearScrollButtonProperty() {
+        return showingYearScrollButton;
     }
 }

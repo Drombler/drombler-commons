@@ -131,9 +131,9 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         dateChooser.nextWeeksProperty().bind(this.control.nextWeeksProperty());
         dateChooser.previousMonthsProperty().bind(this.control.previousMonthsProperty());
         dateChooser.previousWeeksProperty().bind(this.control.previousWeeksProperty());
-        dateChooser.showMonthScrollButtonProperty().bind(this.control.showMonthScrollButtonProperty());
-        dateChooser.showWeekOfYearProperty().bind(this.control.showWeekOfYearProperty());
-        dateChooser.showYearScrollButtonProperty().bind(this.control.showYearScrollButtonProperty());
+        dateChooser.showingMonthScrollButtonProperty().bind(this.control.showingMonthScrollButtonProperty());
+        dateChooser.showWeekOfYearProperty().bind(this.control.showingWeekOfYearProperty());
+        dateChooser.showingYearScrollButtonProperty().bind(this.control.showingYearScrollButtonProperty());
         dateChooser.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         dateChooser.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
         dateChooser.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {

@@ -76,7 +76,7 @@ public class LocalDatePicker extends Control {
      * Flag if the week of year should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showWeekOfYear = new SimpleBooleanProperty(this, "showWeekOfYear", true);
+    private final BooleanProperty showingWeekOfYear = new SimpleBooleanProperty(this, "showingWeekOfYear", true);
     /**
      * The number of previous months relative to {@link #yearMonth} to show.
      */
@@ -91,12 +91,12 @@ public class LocalDatePicker extends Control {
      * Flag if the month scroll button should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showMonthScrollButton = new SimpleBooleanProperty(this, "showMonthScrollButton", true);
+    private final BooleanProperty showingMonthScrollButton = new SimpleBooleanProperty(this, "showingMonthScrollButton", true);
     /**
      * Flag if the year scroll button should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showYearScrollButton = new SimpleBooleanProperty(this, "showYearScrollButton", true);
+    private final BooleanProperty showingYearScrollButton = new SimpleBooleanProperty(this, "showingYearScrollButton", true);
 
     /**
      * Creates a new instance of this class. The style class is set to
@@ -186,16 +186,16 @@ public class LocalDatePicker extends Control {
         return nextWeeks;
     }
 
-    public final boolean isShowWeekOfYear() {
-        return showWeekOfYear.get();
+    public final boolean isShowingWeekOfYear() {
+        return showingWeekOfYear.get();
     }
 
-    public final void setShowWeekOfYear(boolean showWeekOfYear) {
-        this.showWeekOfYear.set(showWeekOfYear);
+    public final void setShowingWeekOfYear(boolean showingWeekOfYear) {
+        this.showingWeekOfYear.set(showingWeekOfYear);
     }
 
-    public BooleanProperty showWeekOfYearProperty() {
-        return showWeekOfYear;
+    public BooleanProperty showingWeekOfYearProperty() {
+        return showingWeekOfYear;
     }
 
     public final int getPreviousMonths() {
@@ -222,27 +222,27 @@ public class LocalDatePicker extends Control {
         return nextMonths;
     }
 
-    public final boolean getShowMonthScrollButton() {
-        return showMonthScrollButton.get();
+    public final boolean isShowingMonthScrollButton() {
+        return showingMonthScrollButton.get();
     }
 
-    public final void setShowMonthScrollButton(boolean showMonthScrollButton) {
-        this.showMonthScrollButton.set(showMonthScrollButton);
+    public final void setShowingMonthScrollButton(boolean showingMonthScrollButton) {
+        this.showingMonthScrollButton.set(showingMonthScrollButton);
     }
 
-    public BooleanProperty showMonthScrollButtonProperty() {
-        return showMonthScrollButton;
+    public BooleanProperty showingMonthScrollButtonProperty() {
+        return showingMonthScrollButton;
     }
 
-    public final boolean getShowYearScrollButton() {
-        return showYearScrollButton.get();
+    public final boolean isShowingYearScrollButton() {
+        return showingYearScrollButton.get();
     }
 
-    public final void setShowYearScrollButton(boolean showYearScrollButton) {
-        this.showYearScrollButton.set(showYearScrollButton);
+    public final void setShowingYearScrollButton(boolean showingYearScrollButton) {
+        this.showingYearScrollButton.set(showingYearScrollButton);
     }
 
-    public BooleanProperty showYearScrollButtonProperty() {
-        return showYearScrollButton;
+    public BooleanProperty showingYearScrollButtonProperty() {
+        return showingYearScrollButton;
     }
 }

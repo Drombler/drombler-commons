@@ -131,17 +131,17 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
     private void layout() {
         pane.setHgap(5d);
         int columnIndex = 0;
-        if (control.isAlwaysYearScrollButtonSpaceReserved() || control.getShowPreviousYearScrollButton() || control.getShowNextYearScrollButton()) {
+        if (control.isAlwaysReservingYearScrollButtonSpace() || control.isShowingPreviousYearScrollButton() || control.isShowingNextYearScrollButton()) {
             ColumnConstraints cc = new ColumnConstraints();
             pane.getColumnConstraints().add(cc);
             pane.add(previousYearButton, columnIndex++, 0);
-            previousYearButton.setVisible(control.getShowPreviousYearScrollButton());
+            previousYearButton.setVisible(control.isShowingPreviousYearScrollButton());
         }
-        if (control.isAlwaysMonthScrollButtonSpaceReserved() || control.getShowPreviousMonthScrollButton() || control.getShowNextMonthScrollButton()) {
+        if (control.isAlwaysReservingMonthScrollButtonSpace() || control.isShowingPreviousMonthScrollButton() || control.isShowingNextMonthScrollButton()) {
             ColumnConstraints cc = new ColumnConstraints();
             pane.getColumnConstraints().add(cc);
             pane.add(previousMonthButton, columnIndex++, 0);
-            previousMonthButton.setVisible(control.getShowPreviousMonthScrollButton());
+            previousMonthButton.setVisible(control.isShowingPreviousMonthScrollButton());
         }
 
 //        HBox.setHgrow(monthOfYearButton, Priority.ALWAYS);
@@ -164,17 +164,17 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
         yearColumnIndex = columnIndex;
         pane.add(yearButton, columnIndex++, 0);
 
-        if (control.isAlwaysMonthScrollButtonSpaceReserved() || control.getShowPreviousMonthScrollButton() || control.getShowNextMonthScrollButton()) {
+        if (control.isAlwaysReservingMonthScrollButtonSpace() || control.isShowingPreviousMonthScrollButton() || control.isShowingNextMonthScrollButton()) {
             ColumnConstraints cc = new ColumnConstraints();
             pane.getColumnConstraints().add(cc);
             pane.add(nextMonthButton, columnIndex++, 0);
-            nextMonthButton.setVisible(control.getShowNextMonthScrollButton());
+            nextMonthButton.setVisible(control.isShowingNextMonthScrollButton());
         }
-        if (control.isAlwaysYearScrollButtonSpaceReserved() || control.getShowPreviousYearScrollButton() || control.getShowNextYearScrollButton()) {
+        if (control.isAlwaysReservingYearScrollButtonSpace() || control.isShowingPreviousYearScrollButton() || control.isShowingNextYearScrollButton()) {
             ColumnConstraints cc = new ColumnConstraints();
             pane.getColumnConstraints().add(cc);
             pane.add(nextYearButton, columnIndex++, 0);
-            nextYearButton.setVisible(control.getShowNextYearScrollButton());
+            nextYearButton.setVisible(control.isShowingNextYearScrollButton());
         }
         //pane.setGridLinesVisible(true);
     }
@@ -211,14 +211,14 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
 
     private void configureScrollButtonStates() {
         if (control.yearMonthProperty().getMin() != null) {
-            if (control.getShowPreviousYearScrollButton()) {
+            if (control.isShowingPreviousYearScrollButton()) {
                 if (!previousYearButton.isDisabled() && control.getYearMonth().getYear() == control.yearMonthProperty().getMin().getYear()) {
                     previousYearButton.setDisable(true);
                 } else if (previousYearButton.isDisabled() && control.getYearMonth().getYear() > control.yearMonthProperty().getMin().getYear()) {
                     previousYearButton.setDisable(false);
                 }
             }
-            if (control.getShowPreviousMonthScrollButton()) {
+            if (control.isShowingPreviousMonthScrollButton()) {
                 if (!previousMonthButton.isDisabled() && control.getYearMonth().equals(
                         control.yearMonthProperty().getMin())) {
                     previousMonthButton.setDisable(true);
@@ -229,7 +229,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
             }
         }
         if (control.yearMonthProperty().getMax() != null) {
-            if (control.getShowNextMonthScrollButton()) {
+            if (control.isShowingNextMonthScrollButton()) {
                 if (!nextMonthButton.isDisabled() && control.getYearMonth().equals(control.yearMonthProperty().getMax())) {
                     nextMonthButton.setDisable(true);
                 } else if (nextMonthButton.isDisabled() && !control.getYearMonth().equals(
@@ -237,7 +237,7 @@ public class YearMonthSpinnerSkin implements Skin<YearMonthSpinner> {
                     nextMonthButton.setDisable(false);
                 }
             }
-            if (control.getShowNextYearScrollButton()) {
+            if (control.isShowingNextYearScrollButton()) {
                 if (!nextYearButton.isDisabled() && control.getYearMonth().getYear() == control.yearMonthProperty().getMax().getYear()) {
                     nextYearButton.setDisable(true);
                 } else if (nextYearButton.isDisabled() && control.getYearMonth().getYear() < control.yearMonthProperty().getMax().getYear()) {

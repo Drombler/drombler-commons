@@ -63,7 +63,7 @@ public class LocalDateFixedYearMonthChooser extends Control {
      * Flag if the week of year should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showWeekOfYear = new SimpleBooleanProperty(this, "showWeekOfYear", true);
+    private final BooleanProperty showingWeekOfYear = new SimpleBooleanProperty(this, "showingWeekOfYear", true);
 
     /**
      * Creates a new instance of this class. The style class is set to
@@ -129,15 +129,15 @@ public class LocalDateFixedYearMonthChooser extends Control {
         return nextWeeks;
     }
 
-    public final boolean isShowWeekOfYear() {
-        return showWeekOfYear.get();
+    public final boolean isShowingWeekOfYear() {
+        return showingWeekOfYear.get();
     }
 
-    public final void setShowWeekOfYear(boolean showWeekOfYear) {
-        this.showWeekOfYear.set(showWeekOfYear);
+    public final void setShowingWeekOfYear(boolean showWeekOfYear) {
+        this.showingWeekOfYear.set(showWeekOfYear);
     }
 
-    public BooleanProperty showWeekOfYearProperty() {
-        return showWeekOfYear;
+    public BooleanProperty showingWeekOfYearProperty() {
+        return showingWeekOfYear;
     }
 }
