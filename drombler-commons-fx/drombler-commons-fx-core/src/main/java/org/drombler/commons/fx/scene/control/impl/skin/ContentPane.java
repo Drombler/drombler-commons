@@ -12,7 +12,9 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.layout;
+package org.drombler.commons.fx.scene.control.impl.skin;
+
+// TODO: move to package org.drombler.commons.fx.scene.layout
 
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
