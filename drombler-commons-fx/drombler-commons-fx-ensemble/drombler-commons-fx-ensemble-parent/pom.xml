@@ -35,9 +35,9 @@
     
     <distributionManagement>
         <site>
-            <id>drombler</id>
+            <id>drombler.sourceforge.net</id>
             <name>Drombler Commons</name>
-            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>   
      
@@ -46,7 +46,7 @@
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>file://drombler/drombler-commons-fx/drombler-commons-fx-ensemble</distributionManagement.parent.url>
+        <distributionManagement.fx.ensemble.parent.url>scp://shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-ensemble</distributionManagement.fx.ensemble.parent.url>
 
         <!-- Dependency Versions Defaults -->
         <drombler-fx.version>0.1</drombler-fx.version>
@@ -58,6 +58,13 @@
     </prerequisites>
     
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.2</version>
+            </extension>
+        </extensions>  
         <pluginManagement>
             <plugins>
                 <plugin>  

@@ -37,7 +37,7 @@ Contributor(s): .
 
     <distributionManagement>
         <site>
-            <id>drombler</id>
+            <id>drombler.sourceforge.net</id>
             <url>${distributionManagement.parent.url}/</url>
         </site>
     </distributionManagement>

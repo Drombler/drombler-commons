@@ -41,8 +41,8 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler</id>
-            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+            <id>drombler.sourceforge.net</id>
+            <url>${distributionManagement.fx.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
 

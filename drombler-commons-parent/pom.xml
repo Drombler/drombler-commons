@@ -48,7 +48,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler</id>
+            <id>drombler.sourceforge.net</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
@@ -59,7 +59,7 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>file://drombler</distributionManagement.parent.url>
+        <distributionManagement.parent.url>scp://shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}</distributionManagement.parent.url>
     </properties>
      
     <!-- Not inherited!?? -->
@@ -67,6 +67,13 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.2</version>
+            </extension>
+        </extensions>  
         <pluginManagement>
             <plugins>                
                 <plugin>

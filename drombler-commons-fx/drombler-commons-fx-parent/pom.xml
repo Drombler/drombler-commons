@@ -25,7 +25,7 @@
     
     <distributionManagement>
         <site>
-            <id>drombler</id>
+            <id>drombler.sourceforge.net</id>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
@@ -43,7 +43,7 @@
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
-        <distributionManagement.parent.url>file://drombler/drombler-commons-fx</distributionManagement.parent.url>
+        <distributionManagement.fx.parent.url>${distributionManagement.parent.url}/drombler-commons-fx</distributionManagement.fx.parent.url>
     
         <javafx.version>2.2.0</javafx.version>
     </properties>

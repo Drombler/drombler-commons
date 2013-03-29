@@ -20,8 +20,8 @@
     
     <distributionManagement>
         <site>
-            <id>drombler</id>
-            <url>${distributionManagement.parent.url}/</url>
+            <id>drombler.sourceforge.net</id>
+            <url>${distributionManagement.fx.ensemble.parent.url}/</url>
         </site>
     </distributionManagement>
 
