@@ -22,6 +22,7 @@ import org.softsmithy.lib.text.FormatException;
 import org.softsmithy.lib.text.Formatter;
 
 /**
+ * A {@link Formatter} for {@link Calendrical}.
  *
  * @author puce
  */
@@ -29,10 +30,24 @@ public class CalendricalFormatter implements Formatter<Calendrical> {
 
     private final DateTimeFormatter dateTimeFormatter;
 
+    /**
+     * Creates a new instance of this class. Uses
+     * {@link DateTimeFormatters#fullDate(java.util.Locale)} by default.
+     *
+     * @see DateTimeFormatters#fullDate(java.util.Locale)
+     */
     public CalendricalFormatter() {
         this(DateTimeFormatters.fullDate(Locale.getDefault()));
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dateTimeFormatter a {@link DateTimeFormatter} which supports
+     * printing
+     *
+     * @see DateTimeFormatter#isPrintSupported()
+     */
     public CalendricalFormatter(DateTimeFormatter dateTimeFormatter) {
         if (!dateTimeFormatter.isPrintSupported()) {
             throw new IllegalArgumentException("The specified DateTimeFormatter does not support the 'print' operation!");
@@ -40,6 +55,9 @@ public class CalendricalFormatter implements Formatter<Calendrical> {
         this.dateTimeFormatter = dateTimeFormatter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String format(Calendrical calendrical) throws FormatException {
         try {
@@ -49,6 +67,9 @@ public class CalendricalFormatter implements Formatter<Calendrical> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void format(Calendrical calendrical, Appendable appendable) throws FormatException {
         try {
