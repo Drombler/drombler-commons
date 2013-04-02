@@ -61,7 +61,7 @@ public class LocalDateChooser extends Control {
      * Flag if the week of year should be shown.
      */
     // TODO: should be configurable with CSS?
-    private final BooleanProperty showWeekOfYear = new SimpleBooleanProperty(this, "showWeekOfYear", true);
+    private final BooleanProperty showingWeekOfYear = new SimpleBooleanProperty(this, "showingWeekOfYear", true);
     /**
      * The number of previous months relative to {@link #yearMonth} to show.
      */
@@ -147,16 +147,16 @@ public class LocalDateChooser extends Control {
         return nextWeeks;
     }
 
-    public final boolean isShowWeekOfYear() {
-        return showWeekOfYear.get();
+    public final boolean isShowingWeekOfYear() {
+        return showingWeekOfYear.get();
     }
 
-    public final void setShowWeekOfYear(boolean showWeekOfYear) {
-        this.showWeekOfYear.set(showWeekOfYear);
+    public final void setShowingWeekOfYear(boolean showingWeekOfYear) {
+        this.showingWeekOfYear.set(showingWeekOfYear);
     }
 
-    public BooleanProperty showWeekOfYearProperty() {
-        return showWeekOfYear;
+    public BooleanProperty showingWeekOfYearProperty() {
+        return showingWeekOfYear;
     }
 
     public final int getPreviousMonths() {

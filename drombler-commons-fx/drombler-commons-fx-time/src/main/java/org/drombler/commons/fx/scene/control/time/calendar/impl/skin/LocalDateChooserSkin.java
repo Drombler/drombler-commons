@@ -130,7 +130,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
         });
         localDateFixedYearMonthChooser.previousWeeksProperty().bind(control.previousWeeksProperty());
         localDateFixedYearMonthChooser.nextWeeksProperty().bind(control.nextWeeksProperty());
-        localDateFixedYearMonthChooser.showingWeekOfYearProperty().bind(control.showWeekOfYearProperty());
+        localDateFixedYearMonthChooser.showingWeekOfYearProperty().bind(control.showingWeekOfYearProperty());
         return localDateFixedYearMonthChooser;
     }
 

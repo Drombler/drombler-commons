@@ -22,9 +22,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.PopupControl;
 import javafx.scene.control.Skin;
-import javafx.scene.control.Skinnable;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
@@ -132,7 +130,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         dateChooser.previousMonthsProperty().bind(this.control.previousMonthsProperty());
         dateChooser.previousWeeksProperty().bind(this.control.previousWeeksProperty());
         dateChooser.showingMonthScrollButtonProperty().bind(this.control.showingMonthScrollButtonProperty());
-        dateChooser.showWeekOfYearProperty().bind(this.control.showingWeekOfYearProperty());
+        dateChooser.showingWeekOfYearProperty().bind(this.control.showingWeekOfYearProperty());
         dateChooser.showingYearScrollButtonProperty().bind(this.control.showingYearScrollButtonProperty());
         dateChooser.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         dateChooser.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
