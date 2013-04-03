@@ -19,7 +19,7 @@ import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
- * A {@link DataRenderer} for {@link Year}-
+ * A {@link DataRenderer} for {@link Year}.
  * @author puce
  */
 public class YearRenderer extends AbstractDataRenderer<Year> {
