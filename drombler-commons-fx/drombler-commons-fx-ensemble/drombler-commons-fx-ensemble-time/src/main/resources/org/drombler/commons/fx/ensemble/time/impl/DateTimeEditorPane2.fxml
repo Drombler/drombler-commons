@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.drombler.fx.core.docking.*?>
+<?import org.drombler.commons.fx.scene.control.time.calendar.*?>
+
+<fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" title="%DateTimeEditorPane.title">
+    <BorderPane>
+        <center>
+                <LocalDateChooser  fx:id="localDateChooser1"/>
+
+        </center>
+    </BorderPane>
+</fx:root>

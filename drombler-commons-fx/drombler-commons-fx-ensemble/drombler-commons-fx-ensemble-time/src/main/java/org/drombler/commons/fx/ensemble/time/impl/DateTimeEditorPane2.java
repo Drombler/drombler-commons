@@ -12,9 +12,23 @@
  *
  * Contributor(s): .
  */
-/**
- * JavaFX {@link DataRenderer}s for classes in the {@link javax.time.calendar} package.
- */
-package org.drombler.commons.fx.scene.renderer.time.calendar;
+package org.drombler.commons.fx.ensemble.time.impl;
 
-import org.drombler.commons.fx.scene.renderer.DataRenderer;
+import java.io.IOException;
+import org.drombler.acp.core.docking.EditorDocking;
+import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
+import org.drombler.fx.core.docking.DockablePane;
+
+@EditorDocking(areaId = "center")
+public class DateTimeEditorPane2 extends DockablePane {
+
+
+    public DateTimeEditorPane2() throws IOException {
+        loadFXML();
+        
+    }
+
+    private void loadFXML() throws IOException {
+        FXMLLoaders.loadRoot(this);
+    }
+}

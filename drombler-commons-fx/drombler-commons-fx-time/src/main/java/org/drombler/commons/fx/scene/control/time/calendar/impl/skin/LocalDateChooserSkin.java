@@ -18,10 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javax.time.calendar.LocalDate;
 import javax.time.calendar.YearMonth;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
@@ -45,7 +50,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     /**
      * This control is used to represent the YearMonthSpinner.
      */
-    private HBox pane = new HBox();
+    private GridPane pane = new GridPane();
     private List<YearMonthSpinner> yearMonthSpinners;
     private List<LocalDateFixedYearMonthChooser> localDateFixedYearMonthChoosers;
     private boolean adjusting = false;
@@ -88,16 +93,16 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
         yearMonthSpinners = new ArrayList<>(months);
         localDateFixedYearMonthChoosers = new ArrayList<>(months);
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
-            YearMonthSpinner yearMonthPicker = new YearMonthSpinner();
-            yearMonthPicker.setAlwaysReservingYearScrollButtonSpace(months > 1 && control.isShowingYearScrollButton());
-            yearMonthPicker.setAlwaysReservingMonthScrollButtonSpace(months > 1 && control.isShowingMonthScrollButton());
-            yearMonthPicker.setShowingPreviousYearScrollButton(monthIndex == 0 && control.isShowingYearScrollButton());
-            yearMonthPicker.setShowingPreviousMonthScrollButton(monthIndex == 0 && control.isShowingMonthScrollButton());
-            yearMonthPicker.setShowingNextMonthScrollButton(monthIndex == months - 1 && control.isShowingMonthScrollButton());
-            yearMonthPicker.setShowingNextYearScrollButton(monthIndex == months - 1 && control.isShowingYearScrollButton());
+            YearMonthSpinner yearMonthSpinner = new YearMonthSpinner();
+            yearMonthSpinner.setAlwaysReservingYearScrollButtonSpace(months > 1 && control.isShowingYearScrollButton());
+            yearMonthSpinner.setAlwaysReservingMonthScrollButtonSpace(months > 1 && control.isShowingMonthScrollButton());
+            yearMonthSpinner.setShowingPreviousYearScrollButton(monthIndex == 0 && control.isShowingYearScrollButton());
+            yearMonthSpinner.setShowingPreviousMonthScrollButton(monthIndex == 0 && control.isShowingMonthScrollButton());
+            yearMonthSpinner.setShowingNextMonthScrollButton(monthIndex == months - 1 && control.isShowingMonthScrollButton());
+            yearMonthSpinner.setShowingNextYearScrollButton(monthIndex == months - 1 && control.isShowingYearScrollButton());
 
             final int currentMonthIndex = monthIndex;
-            yearMonthPicker.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
+            yearMonthSpinner.yearMonthProperty().addListener(new ChangeListener<YearMonth>() {
                 @Override
                 public void changed(ObservableValue<? extends YearMonth> ov, YearMonth oldVal, YearMonth newVal) {
                     if (!adjusting) {
@@ -111,7 +116,7 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
                     }
                 }
             });
-            yearMonthSpinners.add(yearMonthPicker);
+            yearMonthSpinners.add(yearMonthSpinner);
             localDateFixedYearMonthChoosers.add(createLocalDateFixedYearMonthChooser());
         }
         layout();
@@ -135,16 +140,39 @@ public class LocalDateChooserSkin implements Skin<LocalDateChooser> {
     }
 
     private void layout() {
-        pane.setSpacing(5d);
+        pane.setHgap(5d);
         int months = getMonthsToShow();
+        pane.getRowConstraints().add(createYearMonthSpinnerRowConstraints());
+        pane.getRowConstraints().add(createChooserRowConstraints());
         for (int monthIndex = 0; monthIndex < months; monthIndex++) {
-            BorderPane monthPane = new BorderPane();
-            monthPane.setTop(yearMonthSpinners.get(monthIndex));
-            monthPane.setCenter(localDateFixedYearMonthChoosers.get(monthIndex));
+            pane.getColumnConstraints().add(createColumnConstraints());
+            
+            pane.add(yearMonthSpinners.get(monthIndex), monthIndex, 0);
+            pane.add(localDateFixedYearMonthChoosers.get(monthIndex), monthIndex, 1);
 //            monthPane.setStyle("-fx-background-color: " + (monthIndex == 1 ? "red" : "blue") + ";");
-
-            pane.getChildren().add(monthPane);
         }
+    }
+
+    private RowConstraints createYearMonthSpinnerRowConstraints() {
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.NEVER);
+        rowConstraints.setFillHeight(true);
+        return rowConstraints;
+    }
+
+    private RowConstraints createChooserRowConstraints() {
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.ALWAYS);
+        rowConstraints.setFillHeight(true);
+        return rowConstraints;
+    }
+
+    private ColumnConstraints createColumnConstraints() {
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHalignment(HPos.CENTER);
+        columnConstraints.setHgrow(Priority.ALWAYS);
+        columnConstraints.setFillWidth(true);
+        return columnConstraints;
     }
 
     @Override

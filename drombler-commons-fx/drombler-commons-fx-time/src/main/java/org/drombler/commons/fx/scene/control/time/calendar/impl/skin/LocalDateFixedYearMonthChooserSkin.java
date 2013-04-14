@@ -290,6 +290,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
     private LocalDateToggleButton createDayButton() {
         LocalDateToggleButton dayButton = new LocalDateToggleButton();
         dayButton.setMaxWidth(Double.MAX_VALUE);
+        dayButton.setMaxHeight(Double.MAX_VALUE);
         return dayButton;
     }
 
