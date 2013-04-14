@@ -59,7 +59,7 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>scp://shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}</distributionManagement.parent.url>
+        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}</distributionManagement.parent.url>
     </properties>
      
     <!-- Not inherited!?? -->
