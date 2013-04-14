@@ -5,11 +5,11 @@
         <groupId>org.drombler.fx</groupId>
         <artifactId>drombler-fx-parent</artifactId>
         <version>0.1</version>
-        <relativePath />
+        <relativePath></relativePath>
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
  
     <name>Drombler Commons - FX - Ensemble - Parent</name>
