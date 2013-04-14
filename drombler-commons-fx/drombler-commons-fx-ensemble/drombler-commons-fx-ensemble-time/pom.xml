@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
         <relativePath>../drombler-commons-fx-ensemble-parent</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-ensemble-time</artifactId>
