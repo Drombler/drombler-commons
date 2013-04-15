@@ -167,6 +167,14 @@ Contributor(s): .
                         </reportPlugins>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>-Psonatype-oss-release -Dusername=${username}</arguments>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
