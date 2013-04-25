@@ -47,7 +47,7 @@
                 </GridPane.margin>
                 <LocalDateChooser previousWeeks="2" nextWeeks="1" showingWeekOfYear="false" showingYearScrollButton="false" fx:id="localDateChooser2"/>
             </AnchorPane>
-            <Label text="MonthOfYearComboBox:" labelFor="$monthOfYearComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
+            <Label text="MonthComboBox:" labelFor="$monthComboBox" GridPane.rowIndex="4" GridPane.columnIndex="0">
                 <GridPane.margin>
                     <Insets bottom="0.0" left="10.0" right="0.0" top="0.0" />
                 </GridPane.margin>
@@ -56,7 +56,7 @@
                 <GridPane.margin>
                     <Insets bottom="300.0" left="0.0" right="0.0" top="0.0" />
                 </GridPane.margin>
-                <MonthOfYearComboBox  fx:id="monthOfYearComboBox" />
+                <MonthComboBox  fx:id="monthComboBox" />
             </AnchorPane>
             <Label text="YearField:" labelFor="$yearField" GridPane.rowIndex="5" GridPane.columnIndex="0">
                 <GridPane.margin>

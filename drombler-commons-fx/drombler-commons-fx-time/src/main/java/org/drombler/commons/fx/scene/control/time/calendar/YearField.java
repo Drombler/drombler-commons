@@ -17,7 +17,7 @@ package org.drombler.commons.fx.scene.control.time.calendar;
 import java.text.NumberFormat;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javax.time.calendar.Year;
+import java.time.Year;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.IntegerField;
 

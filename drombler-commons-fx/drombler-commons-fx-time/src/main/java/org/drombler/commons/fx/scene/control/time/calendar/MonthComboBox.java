@@ -14,27 +14,27 @@
  */
 package org.drombler.commons.fx.scene.control.time.calendar;
 
+import java.time.Month;
 import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
-import javax.time.calendar.MonthOfYear;
 import org.drombler.commons.fx.scene.control.RenderedListCellFactory;
-import org.drombler.commons.fx.scene.renderer.time.calendar.MonthOfYearRenderer;
+import org.drombler.commons.fx.scene.renderer.time.calendar.MonthRenderer;
 
 /**
  * A {@link ComboBox} for {@link MonthOfYear}.
  *
  * @author puce
  */
-public class MonthOfYearComboBox extends ComboBox<MonthOfYear> {
+public class MonthComboBox extends ComboBox<Month> {
 
     /**
      * Creates a new instance of this class.
      */
-    public MonthOfYearComboBox() {
-        super(FXCollections.observableList(Arrays.asList(MonthOfYear.values())));
-        setVisibleRowCount(MonthOfYear.values().length);
-        final RenderedListCellFactory<MonthOfYear> cellFactory = new RenderedListCellFactory<>(new MonthOfYearRenderer());
+    public MonthComboBox() {
+        super(FXCollections.observableList(Arrays.asList(Month.values())));
+        setVisibleRowCount(Month.values().length);
+        final RenderedListCellFactory<Month> cellFactory = new RenderedListCellFactory<>(new MonthRenderer());
         setButtonCell(cellFactory.call(null));
         setCellFactory(cellFactory);
     }

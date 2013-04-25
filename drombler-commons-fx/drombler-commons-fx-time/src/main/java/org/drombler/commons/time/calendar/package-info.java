@@ -13,6 +13,6 @@
  * Contributor(s): .
  */
 /**
- * Utility classes for classes in the {@link javax.time.calendar} package.
+ * Utility classes for classes in the {@link java.time} package.
  */
 package org.drombler.commons.time.calendar;

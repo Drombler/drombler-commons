@@ -15,6 +15,12 @@
 package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
 
 import java.text.NumberFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.TextStyle;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,12 +41,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javax.time.calendar.DateTimeFieldRule;
-import javax.time.calendar.DayOfWeek;
-import javax.time.calendar.ISOChronology;
-import javax.time.calendar.LocalDate;
-import javax.time.calendar.YearMonth;
+import org.drombler.commons.fx.scene.control.LabeledUtils;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
+import org.drombler.commons.fx.scene.renderer.time.calendar.DayOfWeekRenderer;
 import org.drombler.commons.time.calendar.DayOfWeekUtils;
 import static org.drombler.commons.time.calendar.DayOfWeekUtils.DAYS_IN_WEEK;
 import org.drombler.commons.time.calendar.LocalDateUtils;
@@ -72,6 +75,7 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
     private final List<Label> weekLabels = new ArrayList<>();
     private final List<List<LocalDateToggleButton>> dayButtons = new ArrayList<>();
     private final VBox weekLabelParent = new VBox();
+    private final DayOfWeekRenderer dayOfWeekRenderer = new DayOfWeekRenderer(TextStyle.SHORT);;
     private ToggleGroup dayButtonGroup;
     private boolean adjusting = false;
 
@@ -219,13 +223,13 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
         int firstDayOfWeekIndex = orderedDaysOfWeek.indexOf(firstDayOfMonth.getDayOfWeek());
         LocalDate startDay = firstDayOfMonth.minusDays(firstDayOfWeekIndex).minusWeeks(control.getPreviousWeeks());
 
-        DateTimeFieldRule<Integer> weekOfWeekBasedYearRule = ISOChronology.weekOfWeekBasedYearRule();
+        TemporalField weekOfYear = WeekFields.of(Locale.getDefault()).weekOfYear(); // TODO: correct?
         int weeks = getWeeks();
         LocalDate day = startDay;
         NumberFormat weekFormat = NumberFormat.getIntegerInstance();
         weekFormat.setMinimumIntegerDigits(2);
         for (int weekIndex = 0; weekIndex < weeks; weekIndex++) {
-            int week = weekOfWeekBasedYearRule.getInt(day);
+            int week = day.get(weekOfYear);
             if (control.isShowingWeekOfYear()) {
                 Label weekLabel = weekLabels.get(weekIndex);
                 weekLabel.setText(weekFormat.format(week));
@@ -295,7 +299,8 @@ public class LocalDateFixedYearMonthChooserSkin implements Skin<LocalDateFixedYe
     }
 
     private Label createDayOfWeekLabel(DayOfWeek dayOfWeek) {
-        Label dayOfWeekLabel = new Label(dayOfWeek.getShortText(Locale.getDefault()));
+        Label dayOfWeekLabel = new Label();
+        LabeledUtils.configure(dayOfWeekLabel, dayOfWeekRenderer, dayOfWeek);
         dayOfWeekLabel.getStyleClass().add("day-of-week");
         dayOfWeekLabel.setAlignment(Pos.BASELINE_CENTER);
         dayOfWeekLabel.setMaxWidth(Double.MAX_VALUE);

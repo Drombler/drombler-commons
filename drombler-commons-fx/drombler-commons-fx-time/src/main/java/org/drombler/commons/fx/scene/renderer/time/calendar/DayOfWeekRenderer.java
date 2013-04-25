@@ -14,22 +14,35 @@
  */
 package org.drombler.commons.fx.scene.renderer.time.calendar;
 
-import java.time.Year;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
-import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
- * A {@link DataRenderer} for {@link Year}.
+ *
  * @author puce
  */
-public class YearRenderer extends AbstractDataRenderer<Year> {
+
+
+public class DayOfWeekRenderer extends AbstractDataRenderer<DayOfWeek> {
+    private final TextStyle textStyle;
+
+    public DayOfWeekRenderer() {
+        this(TextStyle.FULL);
+    }
+
+    public DayOfWeekRenderer(TextStyle textStyle) {
+        this.textStyle = textStyle;
+    }
 
     @Override
-    public String getText(Year year) {
-        if (year != null) {
-            return Integer.toString(year.getValue());
+    public String getText(DayOfWeek dayOfWeek) {
+        if (dayOfWeek != null) {
+            return dayOfWeek.getDisplayName(textStyle, Locale.getDefault());
         } else {
             return null;
         }
     }
+    
 }

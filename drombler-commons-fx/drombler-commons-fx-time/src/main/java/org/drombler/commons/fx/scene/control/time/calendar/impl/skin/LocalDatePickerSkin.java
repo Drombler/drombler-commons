@@ -27,13 +27,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
-import javax.time.calendar.LocalDate;
+import java.time.LocalDate;
 import org.drombler.commons.fx.scene.Nodes;
 import org.drombler.commons.fx.scene.control.FormattedTextField;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
 import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
-import org.drombler.commons.time.calendar.format.CalendricalFormatter;
+import org.drombler.commons.time.calendar.format.TemporalAccessorFormatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
@@ -54,7 +54,7 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
      */
     private HBox pane = new HBox();
     private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(
-            new CalendricalFormatter()),
+            new TemporalAccessorFormatter()),
             new Parser<LocalDate>() {
                 @Override
                 public LocalDate parse(CharSequence text) throws ParseException {

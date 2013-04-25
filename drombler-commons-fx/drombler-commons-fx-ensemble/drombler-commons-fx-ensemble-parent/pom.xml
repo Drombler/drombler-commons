@@ -47,7 +47,10 @@
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
         <distributionManagement.fx.ensemble.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-ensemble</distributionManagement.fx.ensemble.parent.url>
-
+        <java.min.version>1.8</java.min.version>
+        <javafx.version>8.0</javafx.version>
+        <jdk8Home>/opt/jdk1.8.0</jdk8Home>
+        
         <!-- Dependency Versions Defaults -->
         <drombler-fx.version>0.1</drombler-fx.version>
     </properties>
@@ -85,6 +88,34 @@
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>${java.min.version}</version>
+                            <vendor>oracle</vendor>
+                        </jdk>
+                    </toolchains>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -135,6 +166,14 @@
                 <groupId>org.drombler.fx</groupId>
                 <artifactId>drombler-fx-startup-main</artifactId>
                 <version>${drombler-fx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javafx</groupId>
+                <artifactId>jfxrt</artifactId>
+                <version>${javafx.version}</version>
+                <type>jar</type>
+                <scope>system</scope>
+                <systemPath>${jdk8Home}/jre/lib/ext/jfxrt.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>

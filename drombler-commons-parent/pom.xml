@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
@@ -66,13 +66,6 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>2.2</version>
-            </extension>
-        </extensions>  
         <pluginManagement>
             <plugins>                
                 <plugin>
@@ -104,7 +97,6 @@ Contributor(s): .
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
                     <configuration>
                         <reportPlugins> 
                             <plugin>
@@ -166,40 +158,7 @@ Contributor(s): .
                         </reportPlugins>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                        <mavenExecutorId>forked-path</mavenExecutorId>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <arguments>-Psonatype-oss-release -Dusername=${username}</arguments>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>1.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.time</groupId>
-                <artifactId>jsr-310-ri</artifactId>
-                <version>0.6.3</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-ri-0.6.3.jar</systemPath>
-            </dependency>
-            <dependency>                            
-                <groupId>javax.time</groupId>
-                <artifactId>jsr-310-TZDB-all</artifactId>
-                <version>0.6.3</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${env.JAVAX_TIME_0_6_3_HOME}/jsr-310-TZDB-all-0.6.3.jar</systemPath>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

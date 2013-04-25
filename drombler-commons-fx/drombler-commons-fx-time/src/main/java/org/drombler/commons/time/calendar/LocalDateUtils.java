@@ -14,8 +14,8 @@
  */
 package org.drombler.commons.time.calendar;
 
-import javax.time.calendar.LocalDate;
-import javax.time.calendar.YearMonth;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 /**
  * Utility class for {@link LocalDate}.
@@ -34,6 +34,6 @@ public class LocalDateUtils {
      * @return the {@link YearMonth} of a specified {@link LocalDate}
      */
     public static YearMonth getYearMonth(LocalDate localDate) {
-        return localDate != null ? YearMonth.of(localDate.getYear(), localDate.getMonthOfYear()) : null;
+        return localDate != null ? YearMonth.of(localDate.getYear(), localDate.getMonth()) : null;
     }
 }

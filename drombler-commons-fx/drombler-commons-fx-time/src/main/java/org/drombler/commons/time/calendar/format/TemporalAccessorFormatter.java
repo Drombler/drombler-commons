@@ -14,44 +14,39 @@
  */
 package org.drombler.commons.time.calendar.format;
 
-import java.util.Locale;
-import javax.time.calendar.Calendrical;
-import javax.time.calendar.format.DateTimeFormatter;
-import javax.time.calendar.format.DateTimeFormatters;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
 import org.softsmithy.lib.text.FormatException;
 import org.softsmithy.lib.text.Formatter;
 
 /**
- * A {@link Formatter} for {@link Calendrical}.
+ * A {@link Formatter} for {@link TemporalAccessor}.
  *
  * @author puce
  */
-public class CalendricalFormatter implements Formatter<Calendrical> {
+public class TemporalAccessorFormatter implements Formatter<TemporalAccessor> {
 
     private final DateTimeFormatter dateTimeFormatter;
 
     /**
      * Creates a new instance of this class. Uses
-     * {@link DateTimeFormatters#fullDate(java.util.Locale)} by default.
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)} and
+     * {@link FormatStyle#FULL} by default.
      *
-     * @see DateTimeFormatters#fullDate(java.util.Locale)
+     * @see DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)
+     * @see FormatStyle#FULL
      */
-    public CalendricalFormatter() {
-        this(DateTimeFormatters.fullDate(Locale.getDefault()));
+    public TemporalAccessorFormatter() {
+        this(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
     }
 
     /**
      * Creates a new instance of this class.
      *
-     * @param dateTimeFormatter a {@link DateTimeFormatter} which supports
-     * printing
-     *
-     * @see DateTimeFormatter#isPrintSupported()
+     * @param dateTimeFormatter a {@link DateTimeFormatter}
      */
-    public CalendricalFormatter(DateTimeFormatter dateTimeFormatter) {
-        if (!dateTimeFormatter.isPrintSupported()) {
-            throw new IllegalArgumentException("The specified DateTimeFormatter does not support the 'print' operation!");
-        }
+    public TemporalAccessorFormatter(DateTimeFormatter dateTimeFormatter) {
         this.dateTimeFormatter = dateTimeFormatter;
     }
 
@@ -59,9 +54,9 @@ public class CalendricalFormatter implements Formatter<Calendrical> {
      * {@inheritDoc}
      */
     @Override
-    public String format(Calendrical calendrical) throws FormatException {
+    public String format(TemporalAccessor temporalAccessor) throws FormatException {
         try {
-            return dateTimeFormatter.print(calendrical);
+            return dateTimeFormatter.format(temporalAccessor);
         } catch (Exception ex) {
             throw new FormatException(ex);
         }
@@ -71,9 +66,9 @@ public class CalendricalFormatter implements Formatter<Calendrical> {
      * {@inheritDoc}
      */
     @Override
-    public void format(Calendrical calendrical, Appendable appendable) throws FormatException {
+    public void format(TemporalAccessor temporalAccessor, Appendable appendable) throws FormatException {
         try {
-            dateTimeFormatter.print(calendrical, appendable);
+            dateTimeFormatter.formatTo(temporalAccessor, appendable);
         } catch (Exception ex) {
             throw new FormatException(ex);
         }

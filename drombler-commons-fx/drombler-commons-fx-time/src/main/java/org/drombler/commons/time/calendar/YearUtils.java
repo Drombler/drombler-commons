@@ -19,9 +19,9 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import javax.time.calendar.MonthOfYear;
-import javax.time.calendar.Year;
-import javax.time.calendar.YearMonth;
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.softsmithy.lib.util.Comparables;
 
@@ -52,7 +52,7 @@ public class YearUtils {
      * @param maxYearMonth the max {@link YearMonth} or null
      * @return the {@link MonthOfYear}s of a specified {@link Year}
      */
-    public static List<MonthOfYear> getMonthOfYearList(Year year, YearMonth minYearMonth, YearMonth maxYearMonth) {
+    public static List<Month> getMonthList(Year year, YearMonth minYearMonth, YearMonth maxYearMonth) {
         if (minYearMonth != null && maxYearMonth != null && Comparables.isLess(maxYearMonth, minYearMonth)) {
             throw new IllegalArgumentException("minYearMonth must not be greater than maxYearMonth!");
         }
@@ -61,12 +61,12 @@ public class YearUtils {
         if (!Comparables.isInRange(year.getValue(), minYear, maxYear)) {
             return Collections.emptyList();
         } else {
-            MonthOfYear min = (minYearMonth != null && Comparables.isEqual(year.getValue(), minYear))
-                    ? minYearMonth.getMonthOfYear()
-                    : MonthOfYear.JANUARY;
-            MonthOfYear max = (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYear))
-                    ? maxYearMonth.getMonthOfYear()
-                    : MonthOfYear.DECEMBER;
+            Month min = (minYearMonth != null && Comparables.isEqual(year.getValue(), minYear))
+                    ? minYearMonth.getMonth()
+                    : Month.JANUARY;
+            Month max = (maxYearMonth != null && Comparables.isEqual(year.getValue(), maxYear))
+                    ? maxYearMonth.getMonth()
+                    : Month.DECEMBER;
 
             return new ArrayList<>(EnumSet.range(min, max));
         }

@@ -21,8 +21,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
-import javax.time.calendar.LocalDate;
-import javax.time.calendar.YearMonth;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 

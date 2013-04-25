@@ -14,7 +14,7 @@
  */
 package org.drombler.commons.fx.scene.renderer.time.calendar;
 
-import javax.time.calendar.LocalDate;
+import java.time.LocalDate;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
@@ -23,7 +23,7 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
  *
  * @author puce
  */
-public class DayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
+public class LocalDateDayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
 
     /**
      * {@inheritDoc} 

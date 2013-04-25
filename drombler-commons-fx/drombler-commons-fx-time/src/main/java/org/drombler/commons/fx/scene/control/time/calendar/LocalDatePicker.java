@@ -22,18 +22,21 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
-import javax.time.calendar.LocalDate;
-import javax.time.calendar.YearMonth;
-import javax.time.calendar.format.DateTimeFormatters;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
-import org.drombler.commons.time.calendar.format.CalendricalFormatter;
+import org.drombler.commons.time.calendar.format.TemporalAccessorFormatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
- * A {@link LocalDate} text field which allows to pick the LocalDate from a control.
+ * A {@link LocalDate} text field which allows to pick the LocalDate from a
+ * control.
+ *
  * @author puce
  */
 // TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
@@ -41,12 +44,17 @@ public class LocalDatePicker extends Control {
 
     /**
      * The {@link DataRenderer} used to format the {@link LocalDate} in the text
-     * field. null null null null null null null null     {@link DateTimeFormatters#longDate(java.util.Locale) }
-     * {@code new FormatterDataRenderer<>(new CalendricalFormatter(DateTimeFormatters.mediumDate(Locale.getDefault())))}
+     * field. The default DataRenderer uses
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
+     * and {@link FormatStyle#LONG}. <br/><br/> Here is a sample how you could
+     * create a DataRenderer which uses
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
+     * and {@link FormatStyle#MEDIUM}:<br/><br/>
+     * {@code new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))}
      */
     private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
             this, "dataRenderer",
-            new FormatterDataRenderer<>(new CalendricalFormatter(DateTimeFormatters.longDate(Locale.getDefault()))));
+            new FormatterDataRenderer<>(new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))));
     /**
      * The {@link Parser} used to parse the text of text field to a
      * {@link LocalDate}.
@@ -107,7 +115,7 @@ public class LocalDatePicker extends Control {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     protected String getUserAgentStylesheet() {

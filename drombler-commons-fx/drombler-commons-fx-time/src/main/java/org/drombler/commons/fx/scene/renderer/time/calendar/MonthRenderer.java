@@ -14,54 +14,48 @@
  */
 package org.drombler.commons.fx.scene.renderer.time.calendar;
 
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.Locale;
-import javax.time.calendar.MonthOfYear;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
- * A {@link DataRenderer} for {@link MonthOfYear}.
+ * A {@link DataRenderer} for {@link Month}.
  *
  * @author puce
  */
-public class MonthOfYearRenderer extends AbstractDataRenderer<MonthOfYear> {
+public class MonthRenderer extends AbstractDataRenderer<Month> {
 
-    private final boolean shortText;
+    private final TextStyle textStyle;
 
     /**
      * Creates a new instance of this class. Uses
-     * {@link MonthOfYear#getText(java.util.Locale)} to get a text
-     * representation.
+     * {@link Month#getDisplayName(java.time.format.TextStyle, java.util.Locale)}
+     * and {@link TextStyle#FULL} to get a text representation.
      */
-    public MonthOfYearRenderer() {
-        this(false);
+    public MonthRenderer() {
+        this(TextStyle.FULL);
     }
 
     /**
      * Creates a new instance of this class. Uses
-     * {@link MonthOfYear#getText(java.util.Locale)} or
-     * {@link MonthOfYear#getShortText(java.util.Locale)} to get a text
-     * representation.
+     * {@link Month#getDisplayName(java.time.format.TextStyle, java.util.Locale)}
+     * to get a text representation.
      *
-     * @param shortText if true uses
-     * {@link MonthOfYear#getShortText(java.util.Locale)} to get a text
-     * representation, else {@link MonthOfYear#getText(java.util.Locale)}
+     * @param textStyle the {@link TextStyle}
      */
-    public MonthOfYearRenderer(boolean shortText) {
-        this.shortText = shortText;
+    public MonthRenderer(TextStyle textStyle) {
+        this.textStyle = textStyle;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getText(MonthOfYear moy) {
-        if (moy != null) {
-            if (shortText) {
-                return moy.getShortText(Locale.getDefault());
-            } else {
-                return moy.getText(Locale.getDefault());
-            }
+    public String getText(Month month) {
+        if (month != null) {
+            return month.getDisplayName(textStyle, Locale.getDefault());
         } else {
             return null;
         }

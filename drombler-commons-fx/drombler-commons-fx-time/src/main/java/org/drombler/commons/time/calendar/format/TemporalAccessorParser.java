@@ -15,43 +15,41 @@
 package org.drombler.commons.time.calendar.format;
 
 import java.text.ParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
-import javax.time.calendar.Calendrical;
-import javax.time.calendar.format.DateTimeFormatter;
-import javax.time.calendar.format.DateTimeFormatters;
 import org.softsmithy.lib.text.AbstractParser;
 import org.softsmithy.lib.text.Parser;
 
 /**
- * A {@link Parser} for {@link Calendrical}.
+ * A {@link Parser} for {@link TemporalAccessor}.
  *
  * @author puce
  */
-public class CalendricalParser extends AbstractParser<Calendrical> {
+public class TemporalAccessorParser extends AbstractParser<TemporalAccessor> {
 
     private final DateTimeFormatter dateTimeFormatter;
 
     /**
      * Creates a new instance of this class. Uses
-     * {@link DateTimeFormatters#fullDate(java.util.Locale)} by default.
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)} and
+     * {@link FormatStyle#FULL} by default.
      *
-     * @see DateTimeFormatters#fullDate(java.util.Locale)
+     * @see DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)
+     * @see FormatStyle#FULL
      */
-    public CalendricalParser() {
-        this(DateTimeFormatters.fullDate(Locale.getDefault()));
+    public TemporalAccessorParser() {
+        this(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
     }
 
     /**
      * Creates a new instance of this class.
      *
-     * @param dateTimeFormatter a {@link DateTimeFormatter} which supports parsing
-     * 
-     * @see DateTimeFormatter#isParseSupported() 
+     * @param dateTimeFormatter a {@link DateTimeFormatter}
+     *
      */
-    public CalendricalParser(DateTimeFormatter dateTimeFormatter) {
-        if (!dateTimeFormatter.isParseSupported()) {
-            throw new IllegalArgumentException("The specified DateTimeFormatter does not support the 'parse' operation!");
-        }
+    public TemporalAccessorParser(DateTimeFormatter dateTimeFormatter) {
         this.dateTimeFormatter = dateTimeFormatter;
     }
 
@@ -59,7 +57,7 @@ public class CalendricalParser extends AbstractParser<Calendrical> {
      * {@inheritDoc}
      */
     @Override
-    public Calendrical parseString(String text) throws ParseException {
+    public TemporalAccessor parseString(String text) throws ParseException {
         return dateTimeFormatter.parse(text);
     }
 }

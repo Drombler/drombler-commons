@@ -17,7 +17,8 @@ package org.drombler.commons.time.calendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import javax.time.calendar.DayOfWeek;
+import java.time.DayOfWeek;
+import java.time.temporal.WeekFields;
 
 /**
  * Utility class for {@link DayOfWeek}.
@@ -47,9 +48,9 @@ public class DayOfWeekUtils {
      */
     public static List<DayOfWeek> getOrderedDaysOfWeek(Locale locale) {
         List<DayOfWeek> orderedDaysOfWeek = new ArrayList<>(DAYS_IN_WEEK);
-        DayOfWeek firstDayOfWeek = DayOfWeek.firstDayOfWeekFor(locale);
+        DayOfWeek firstDayOfWeek = WeekFields.of(locale).getFirstDayOfWeek();
         orderedDaysOfWeek.add(firstDayOfWeek);
-        for (DayOfWeek dayOfWeek = firstDayOfWeek.next(); !dayOfWeek.equals(firstDayOfWeek); dayOfWeek = dayOfWeek.next()) {
+        for (DayOfWeek dayOfWeek = firstDayOfWeek.plus(1); !dayOfWeek.equals(firstDayOfWeek); dayOfWeek = dayOfWeek.plus(1)) {
             orderedDaysOfWeek.add(dayOfWeek);
         }
         return orderedDaysOfWeek;

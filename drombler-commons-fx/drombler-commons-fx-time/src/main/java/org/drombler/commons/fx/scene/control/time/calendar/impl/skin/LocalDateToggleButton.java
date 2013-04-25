@@ -14,15 +14,15 @@
  */
 package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
 
+import java.time.LocalDate;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javax.time.calendar.LocalDate;
 import org.drombler.commons.fx.scene.control.DataToggleButton;
-import org.drombler.commons.fx.scene.renderer.time.calendar.DayOfMonthRenderer;
+import org.drombler.commons.fx.scene.renderer.time.calendar.LocalDateDayOfMonthRenderer;
 
 /**
  * This is a {@link ToggleButton} for a {@link LocalDate}. The default renderer
- * is a {@link DayOfMonthRenderer}. If it is a member of a {@link ToggleGroup},
+ * is a {@link LocalDateDayOfMonthRenderer}. If it is a member of a {@link ToggleGroup},
  * then it can only be deselected by selecting another member of the
  * ToggleGroup.
  *
@@ -34,7 +34,7 @@ public class LocalDateToggleButton extends DataToggleButton<LocalDate> {
      * Creates a new instance of this class.
      */
     public LocalDateToggleButton() {
-        super(new DayOfMonthRenderer());
+        super(new LocalDateDayOfMonthRenderer());
     }
 
     /**
@@ -43,7 +43,7 @@ public class LocalDateToggleButton extends DataToggleButton<LocalDate> {
      * @param localDate the {@link LocalDate}
      */
     public LocalDateToggleButton(LocalDate localDate) {
-        super(new DayOfMonthRenderer(), localDate);
+        super(new LocalDateDayOfMonthRenderer(), localDate);
     }
 
 
