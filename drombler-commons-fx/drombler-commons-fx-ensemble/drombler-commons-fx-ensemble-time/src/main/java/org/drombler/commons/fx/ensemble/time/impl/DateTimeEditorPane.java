@@ -20,9 +20,9 @@ import java.time.Month;
 import java.time.Year;
 import javafx.fxml.FXML;
 import org.drombler.acp.core.docking.EditorDocking;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.MonthComboBox;
-import org.drombler.commons.fx.scene.control.time.calendar.YearField;
+import org.drombler.commons.fx.scene.control.time.LocalDateChooser;
+import org.drombler.commons.fx.scene.control.time.MonthComboBox;
+import org.drombler.commons.fx.scene.control.time.YearField;
 import org.drombler.fx.core.commons.fx.fxml.FXMLLoaders;
 import org.drombler.fx.core.docking.DockablePane;
 

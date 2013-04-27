@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.drombler.fx.core.docking.*?>
-<?import org.drombler.commons.fx.scene.control.time.calendar.*?>
+<?import org.drombler.commons.fx.scene.control.time.*?>
 
 <fx:root type="DockablePane" xmlns:fx="http://javafx.com/fxml" title="%DateTimeEditorPane.title">
     <BorderPane>
