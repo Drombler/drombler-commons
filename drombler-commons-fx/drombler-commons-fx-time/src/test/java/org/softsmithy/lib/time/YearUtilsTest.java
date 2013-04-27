@@ -12,9 +12,8 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar;
+package org.softsmithy.lib.time;
 
-import org.drombler.commons.time.YearUtils;
 import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;

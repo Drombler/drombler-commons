@@ -14,10 +14,10 @@
  */
 package org.drombler.commons.fx.scene.control.time.impl.skin;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.List;
-import java.util.Set;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,9 +30,6 @@ import javafx.scene.control.Skin;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import java.time.Month;
-import java.time.Year;
-import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.DataButton;
 import org.drombler.commons.fx.scene.control.time.MonthComboBox;
@@ -40,8 +37,7 @@ import org.drombler.commons.fx.scene.control.time.YearField;
 import org.drombler.commons.fx.scene.control.time.YearMonthSpinner;
 import org.drombler.commons.fx.scene.renderer.time.MonthRenderer;
 import org.drombler.commons.fx.scene.renderer.time.YearRenderer;
-import org.drombler.commons.time.YearUtils;
-import org.softsmithy.lib.util.Comparables;
+import org.softsmithy.lib.time.YearUtils;
 
 /**
  *

@@ -12,7 +12,20 @@
  *
  * Contributor(s): .
  */
+package org.softsmithy.lib.time;
+
+//import java.time.calendar.DateTimeFieldRule;
+
 /**
- * Utility classes for classes in the {@link java.time.format} package.
+ * 
+ * @author puce
  */
-package org.drombler.commons.time.format;
+class WeekOfYearUtils {
+
+    private WeekOfYearUtils() {
+    }
+    
+//    public static int getWeeksOfYear(LocalDate startDate, LocalDate endDate, DateTimeFieldRule<Integer> weekOfYearRule){
+//        return weekOfYearRule.getInt(endDate) - weekOfYearRule.getInt(startDate) + 1;
+//    }
+}

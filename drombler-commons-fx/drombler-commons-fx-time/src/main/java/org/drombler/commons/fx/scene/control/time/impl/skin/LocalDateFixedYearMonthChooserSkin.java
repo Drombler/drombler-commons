@@ -44,10 +44,10 @@ import javafx.scene.layout.VBox;
 import org.drombler.commons.fx.scene.control.LabeledUtils;
 import org.drombler.commons.fx.scene.control.time.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.renderer.time.DayOfWeekRenderer;
-import org.drombler.commons.time.DayOfWeekUtils;
-import static org.drombler.commons.time.DayOfWeekUtils.DAYS_IN_WEEK;
-import org.drombler.commons.time.LocalDateUtils;
-import org.drombler.commons.time.YearMonthUtils;
+import org.softsmithy.lib.time.DayOfWeekUtils;
+import static org.softsmithy.lib.time.DayOfWeekUtils.DAYS_IN_WEEK;
+import org.softsmithy.lib.time.LocalDateUtils;
+import org.softsmithy.lib.time.YearMonthUtils;
 import org.softsmithy.lib.util.Comparables;
 
 /**

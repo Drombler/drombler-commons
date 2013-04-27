@@ -29,8 +29,8 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
-import org.drombler.commons.time.format.TemporalAccessorFormatter;
 import org.softsmithy.lib.text.Parser;
+import org.softsmithy.lib.time.format.TemporalAccessorFormatter;
 
 /**
  * A {@link LocalDate} text field which allows to pick the LocalDate from a

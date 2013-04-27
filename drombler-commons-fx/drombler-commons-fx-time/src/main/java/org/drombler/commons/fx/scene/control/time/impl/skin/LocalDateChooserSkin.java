@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.fx.scene.control.time.impl.skin;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
@@ -21,18 +23,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import java.time.LocalDate;
-import java.time.YearMonth;
 import org.drombler.commons.fx.scene.control.time.LocalDateChooser;
 import org.drombler.commons.fx.scene.control.time.LocalDateFixedYearMonthChooser;
 import org.drombler.commons.fx.scene.control.time.YearMonthSpinner;
-import org.drombler.commons.time.LocalDateUtils;
+import org.softsmithy.lib.time.LocalDateUtils;
 
 /**
  *

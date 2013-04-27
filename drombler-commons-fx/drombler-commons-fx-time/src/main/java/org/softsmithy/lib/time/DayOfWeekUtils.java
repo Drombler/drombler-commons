@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time;
+package org.softsmithy.lib.time;
 
 import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;

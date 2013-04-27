@@ -12,29 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time;
-
-import java.time.LocalDate;
-import java.time.YearMonth;
-
 /**
- * Utility class for {@link YearMonth}.
- *
- * @author puce
+ * Utility classes for classes in the {@link java.time} package.
  */
-public class YearMonthUtils {
-
-    private YearMonthUtils() {
-    }
-
-    /**
-     * Gets the first day of the specified {@link YearMonth}.
-     *
-     * @see YearMonth#atDay(int)
-     * @param yearMonth a{@link YearMonth}
-     * @return the first day of the specified {@link YearMonth}
-     */
-    public static LocalDate atFirstDay(YearMonth yearMonth) {
-        return yearMonth.atDay(1);
-    }
-}
+package org.softsmithy.lib.time;

@@ -12,20 +12,29 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time;
+package org.softsmithy.lib.time;
 
-//import java.time.calendar.DateTimeFieldRule;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 /**
- * 
+ * Utility class for {@link YearMonth}.
+ *
  * @author puce
  */
-class WeekOfYearUtils {
+public class YearMonthUtils {
 
-    private WeekOfYearUtils() {
+    private YearMonthUtils() {
     }
-    
-//    public static int getWeeksOfYear(LocalDate startDate, LocalDate endDate, DateTimeFieldRule<Integer> weekOfYearRule){
-//        return weekOfYearRule.getInt(endDate) - weekOfYearRule.getInt(startDate) + 1;
-//    }
+
+    /**
+     * Gets the first day of the specified {@link YearMonth}.
+     *
+     * @see YearMonth#atDay(int)
+     * @param yearMonth a{@link YearMonth}
+     * @return the first day of the specified {@link YearMonth}
+     */
+    public static LocalDate atFirstDay(YearMonth yearMonth) {
+        return yearMonth.atDay(1);
+    }
 }

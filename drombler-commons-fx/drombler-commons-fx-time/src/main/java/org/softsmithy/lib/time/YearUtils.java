@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time;
+package org.softsmithy.lib.time;
 
 import java.time.Month;
 import java.time.Year;
