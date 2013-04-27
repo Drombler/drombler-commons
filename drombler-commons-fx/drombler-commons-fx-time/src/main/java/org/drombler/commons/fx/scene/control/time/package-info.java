@@ -12,18 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
-
 /**
- *
- * @author puce
+ * JavaFX controls for classes in the {@link java.time} package.
  */
-public class Stylesheets {
-
-    private Stylesheets() {
-    }
-    
-    public static String getDefaultStylesheet(){
-        return Stylesheets.class.getResource("caspian/caspian.css").toExternalForm();
-    }
-}
+package org.drombler.commons.fx.scene.control.time;

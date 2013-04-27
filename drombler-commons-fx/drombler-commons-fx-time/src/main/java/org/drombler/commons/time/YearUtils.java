@@ -12,17 +12,15 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar;
+package org.drombler.commons.time;
 
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
-import java.time.Month;
-import java.time.Year;
-import java.time.YearMonth;
-import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.softsmithy.lib.util.Comparables;
 
 /**

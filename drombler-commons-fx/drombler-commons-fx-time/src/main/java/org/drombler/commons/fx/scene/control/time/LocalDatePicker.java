@@ -12,8 +12,12 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,25 +25,43 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
-import java.time.LocalDate;
-import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
-import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
+import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
+import org.drombler.commons.fx.scene.renderer.DataRenderer;
+import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
+import org.drombler.commons.time.format.TemporalAccessorFormatter;
+import org.softsmithy.lib.text.Parser;
 
 /**
- * A control which allows to select a {@link LocalDate}. It can show several
- * {@link YearMonth} side by side and provides controls to change the currently
- * visible {@link YearMonth}s.
+ * A {@link LocalDate} text field which allows to pick the LocalDate from a
+ * control.
  *
  * @author puce
  */
-public class LocalDateChooser extends Control {
+// TODO: good to have this in a separate class? Or should a property on LocalDatePicker be used to show "as field"
+public class LocalDatePicker extends Control {
 
+    /**
+     * The {@link DataRenderer} used to format the {@link LocalDate} in the text
+     * field. The default DataRenderer uses
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
+     * and {@link FormatStyle#LONG}. <br/><br/> Here is a sample how you could
+     * create a DataRenderer which uses
+     * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
+     * and {@link FormatStyle#MEDIUM}:<br/><br/>
+     * {@code new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))}
+     */
+    private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
+            this, "dataRenderer",
+            new FormatterDataRenderer<>(new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))));
+    /**
+     * The {@link Parser} used to parse the text of text field to a
+     * {@link LocalDate}.
+     */
+    private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
     /**
      * The currently selected {@link LocalDate}.<br/> <br/> Default:
      * {@link LocalDate#now()}
-     * 
-     * TODO: support multi-selection?
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
@@ -85,10 +107,10 @@ public class LocalDateChooser extends Control {
 
     /**
      * Creates a new instance of this class. The style class is set to
-     * 'local-date-chooser'.
+     * 'local-date-picker'.
      */
-    public LocalDateChooser() {
-        getStyleClass().setAll("local-date-chooser");
+    public LocalDatePicker() {
+        getStyleClass().setAll("local-date-picker");
     }
 
     /**
@@ -97,6 +119,30 @@ public class LocalDateChooser extends Control {
     @Override
     protected String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
+    }
+
+    public final DataRenderer<? super LocalDate> getDataRenderer() {
+        return dataRenderer.get();
+    }
+
+    public final void setDataRenderer(DataRenderer<? super LocalDate> dataRenderer) {
+        this.dataRenderer.set(dataRenderer);
+    }
+
+    public ObjectProperty<DataRenderer<? super LocalDate>> dataRendererProperty() {
+        return dataRenderer;
+    }
+
+    public final Parser<? extends LocalDate> getParser() {
+        return parser.get();
+    }
+
+    public final void setParser(Parser<? extends LocalDate> parser) {
+        this.parser.set(parser);
+    }
+
+    public ObjectProperty<Parser<? extends LocalDate>> parserProperty() {
+        return parser;
     }
 
     public final LocalDate getSelectedDate() {

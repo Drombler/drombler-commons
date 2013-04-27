@@ -12,13 +12,13 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar;
+package org.drombler.commons.time;
 
+import java.time.DayOfWeek;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.time.DayOfWeek;
-import java.time.temporal.WeekFields;
 
 /**
  * Utility class for {@link DayOfWeek}.

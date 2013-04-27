@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -35,12 +35,12 @@ import java.time.Year;
 import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.DataButton;
-import org.drombler.commons.fx.scene.control.time.calendar.MonthComboBox;
-import org.drombler.commons.fx.scene.control.time.calendar.YearField;
-import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
-import org.drombler.commons.fx.scene.renderer.time.calendar.MonthRenderer;
-import org.drombler.commons.fx.scene.renderer.time.calendar.YearRenderer;
-import org.drombler.commons.time.calendar.YearUtils;
+import org.drombler.commons.fx.scene.control.time.MonthComboBox;
+import org.drombler.commons.fx.scene.control.time.YearField;
+import org.drombler.commons.fx.scene.control.time.YearMonthSpinner;
+import org.drombler.commons.fx.scene.renderer.time.MonthRenderer;
+import org.drombler.commons.fx.scene.renderer.time.YearRenderer;
+import org.drombler.commons.time.YearUtils;
 import org.softsmithy.lib.util.Comparables;
 
 /**

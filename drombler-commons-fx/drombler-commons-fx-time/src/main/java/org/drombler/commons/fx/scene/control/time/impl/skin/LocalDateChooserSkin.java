@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
-import org.drombler.commons.fx.scene.control.time.calendar.YearMonthSpinner;
-import org.drombler.commons.time.calendar.LocalDateUtils;
+import org.drombler.commons.fx.scene.control.time.LocalDateChooser;
+import org.drombler.commons.fx.scene.control.time.LocalDateFixedYearMonthChooser;
+import org.drombler.commons.fx.scene.control.time.YearMonthSpinner;
+import org.drombler.commons.time.LocalDateUtils;
 
 /**
  *

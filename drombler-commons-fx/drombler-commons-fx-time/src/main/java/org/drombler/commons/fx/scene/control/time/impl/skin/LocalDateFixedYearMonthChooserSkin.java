@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.text.NumberFormat;
 import java.time.DayOfWeek;
@@ -42,12 +42,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import org.drombler.commons.fx.scene.control.LabeledUtils;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateFixedYearMonthChooser;
-import org.drombler.commons.fx.scene.renderer.time.calendar.DayOfWeekRenderer;
-import org.drombler.commons.time.calendar.DayOfWeekUtils;
-import static org.drombler.commons.time.calendar.DayOfWeekUtils.DAYS_IN_WEEK;
-import org.drombler.commons.time.calendar.LocalDateUtils;
-import org.drombler.commons.time.calendar.YearMonthUtils;
+import org.drombler.commons.fx.scene.control.time.LocalDateFixedYearMonthChooser;
+import org.drombler.commons.fx.scene.renderer.time.DayOfWeekRenderer;
+import org.drombler.commons.time.DayOfWeekUtils;
+import static org.drombler.commons.time.DayOfWeekUtils.DAYS_IN_WEEK;
+import org.drombler.commons.time.LocalDateUtils;
+import org.drombler.commons.time.YearMonthUtils;
 import org.softsmithy.lib.util.Comparables;
 
 /**

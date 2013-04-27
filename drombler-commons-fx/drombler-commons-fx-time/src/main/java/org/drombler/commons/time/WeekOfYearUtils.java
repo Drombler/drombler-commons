@@ -12,28 +12,20 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar;
+package org.drombler.commons.time;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
+//import java.time.calendar.DateTimeFieldRule;
 
 /**
- * Utility class for {@link LocalDate}.
- *
+ * 
  * @author puce
  */
-public class LocalDateUtils {
+class WeekOfYearUtils {
 
-    private LocalDateUtils() {
+    private WeekOfYearUtils() {
     }
-
-    /**
-     * Gets the {@link YearMonth} of a specified {@link LocalDate}.
-     *
-     * @param localDate a {@link LocalDate}
-     * @return the {@link YearMonth} of a specified {@link LocalDate}
-     */
-    public static YearMonth getYearMonth(LocalDate localDate) {
-        return localDate != null ? YearMonth.of(localDate.getYear(), localDate.getMonth()) : null;
-    }
+    
+//    public static int getWeeksOfYear(LocalDate startDate, LocalDate endDate, DateTimeFieldRule<Integer> weekOfYearRule){
+//        return weekOfYearRule.getInt(endDate) - weekOfYearRule.getInt(startDate) + 1;
+//    }
 }

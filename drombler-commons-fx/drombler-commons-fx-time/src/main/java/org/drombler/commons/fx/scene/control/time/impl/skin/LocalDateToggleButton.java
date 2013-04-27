@@ -12,13 +12,13 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.time.LocalDate;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import org.drombler.commons.fx.scene.control.DataToggleButton;
-import org.drombler.commons.fx.scene.renderer.time.calendar.LocalDateDayOfMonthRenderer;
+import org.drombler.commons.fx.scene.renderer.time.LocalDateDayOfMonthRenderer;
 
 /**
  * This is a {@link ToggleButton} for a {@link LocalDate}. The default renderer

@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar.format;
+package org.drombler.commons.time.format;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;

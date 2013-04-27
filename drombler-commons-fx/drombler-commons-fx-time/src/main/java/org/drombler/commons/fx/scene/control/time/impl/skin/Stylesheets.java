@@ -12,29 +12,18 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar;
-
-import java.time.LocalDate;
-import java.time.YearMonth;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 /**
- * Utility class for {@link YearMonth}.
  *
  * @author puce
  */
-public class YearMonthUtils {
+public class Stylesheets {
 
-    private YearMonthUtils() {
+    private Stylesheets() {
     }
-
-    /**
-     * Gets the first day of the specified {@link YearMonth}.
-     *
-     * @see YearMonth#atDay(int)
-     * @param yearMonth a{@link YearMonth}
-     * @return the first day of the specified {@link YearMonth}
-     */
-    public static LocalDate atFirstDay(YearMonth yearMonth) {
-        return yearMonth.atDay(1);
+    
+    public static String getDefaultStylesheet(){
+        return Stylesheets.class.getResource("caspian/caspian.css").toExternalForm();
     }
 }

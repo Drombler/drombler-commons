@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.time.calendar;
 
+import org.drombler.commons.time.DayOfWeekUtils;
 import java.time.DayOfWeek;
 import static java.time.DayOfWeek.*;
 import java.util.Arrays;

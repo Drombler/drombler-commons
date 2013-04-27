@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.renderer.time.calendar;
+package org.drombler.commons.fx.scene.renderer.time;
 
 import java.time.Month;
 import java.time.format.TextStyle;

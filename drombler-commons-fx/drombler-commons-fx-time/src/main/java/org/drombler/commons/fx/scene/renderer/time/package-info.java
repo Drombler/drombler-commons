@@ -13,6 +13,8 @@
  * Contributor(s): .
  */
 /**
- * Utility classes for classes in the {@link java.time.format} package.
+ * JavaFX {@link DataRenderer}s for classes in the {@link java.time} package.
  */
-package org.drombler.commons.time.calendar.format;
+package org.drombler.commons.fx.scene.renderer.time;
+
+import org.drombler.commons.fx.scene.renderer.DataRenderer;

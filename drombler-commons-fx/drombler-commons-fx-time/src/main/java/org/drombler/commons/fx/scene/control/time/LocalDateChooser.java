@@ -12,8 +12,10 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,26 +23,22 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
-import java.time.LocalDate;
-import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
-import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
+import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
 
 /**
- * A control which allows to select a {@link LocalDate} for a fixed
- * {@link YearMonth}.
- *
- * TODO: Useful as a public API? (e.g. for skinning?) Or should it be hidden as
- * an implementation detail?
+ * A control which allows to select a {@link LocalDate}. It can show several
+ * {@link YearMonth} side by side and provides controls to change the currently
+ * visible {@link YearMonth}s.
  *
  * @author puce
  */
-public class LocalDateFixedYearMonthChooser extends Control {
+public class LocalDateChooser extends Control {
 
     /**
      * The currently selected {@link LocalDate}.<br/> <br/> Default:
      * {@link LocalDate#now()}
-     *
+     * 
      * TODO: support multi-selection?
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
@@ -64,13 +62,33 @@ public class LocalDateFixedYearMonthChooser extends Control {
      */
     // TODO: should be configurable with CSS?
     private final BooleanProperty showingWeekOfYear = new SimpleBooleanProperty(this, "showingWeekOfYear", true);
+    /**
+     * The number of previous months relative to {@link #yearMonth} to show.
+     */
+    // TODO: should be configurable with CSS?
+    private final IntegerProperty previousMonths = new SimpleIntegerProperty(this, "previousMonths", 0);
+    /**
+     * The number of next months relative to {@link #yearMonth} to show.
+     */
+    // TODO: should be configurable with CSS?
+    private final IntegerProperty nextMonths = new SimpleIntegerProperty(this, "nextMonths", 0);
+    /**
+     * Flag if the month scroll button should be shown.
+     */
+    // TODO: should be configurable with CSS?
+    private final BooleanProperty showingMonthScrollButton = new SimpleBooleanProperty(this, "showingMonthScrollButton", true);
+    /**
+     * Flag if the year scroll button should be shown.
+     */
+    // TODO: should be configurable with CSS?
+    private final BooleanProperty showingYearScrollButton = new SimpleBooleanProperty(this, "showingYearScrollButton", true);
 
     /**
      * Creates a new instance of this class. The style class is set to
-     * 'local-date-fixed-year-month-chooser'.
+     * 'local-date-chooser'.
      */
-    public LocalDateFixedYearMonthChooser() {
-        getStyleClass().setAll("local-date-fixed-year-month-chooser");
+    public LocalDateChooser() {
+        getStyleClass().setAll("local-date-chooser");
     }
 
     /**
@@ -133,11 +151,59 @@ public class LocalDateFixedYearMonthChooser extends Control {
         return showingWeekOfYear.get();
     }
 
-    public final void setShowingWeekOfYear(boolean showWeekOfYear) {
-        this.showingWeekOfYear.set(showWeekOfYear);
+    public final void setShowingWeekOfYear(boolean showingWeekOfYear) {
+        this.showingWeekOfYear.set(showingWeekOfYear);
     }
 
     public BooleanProperty showingWeekOfYearProperty() {
         return showingWeekOfYear;
+    }
+
+    public final int getPreviousMonths() {
+        return previousMonths.get();
+    }
+
+    public final void setPreviousMonths(int previousMonths) {
+        this.previousMonths.set(previousMonths);
+    }
+
+    public IntegerProperty previousMonthsProperty() {
+        return previousMonths;
+    }
+
+    public final int getNextMonths() {
+        return nextMonths.get();
+    }
+
+    public final void setNextMonths(int nextMonths) {
+        this.nextMonths.set(nextMonths);
+    }
+
+    public IntegerProperty nextMonthsProperty() {
+        return nextMonths;
+    }
+
+    public final boolean isShowingMonthScrollButton() {
+        return showingMonthScrollButton.get();
+    }
+
+    public final void setShowingMonthScrollButton(boolean showingMonthScrollButton) {
+        this.showingMonthScrollButton.set(showingMonthScrollButton);
+    }
+
+    public BooleanProperty showingMonthScrollButtonProperty() {
+        return showingMonthScrollButton;
+    }
+
+    public final boolean isShowingYearScrollButton() {
+        return showingYearScrollButton.get();
+    }
+
+    public final void setShowingYearScrollButton(boolean showingYearScrollButton) {
+        this.showingYearScrollButton.set(showingYearScrollButton);
+    }
+
+    public BooleanProperty showingYearScrollButtonProperty() {
+        return showingYearScrollButton;
     }
 }

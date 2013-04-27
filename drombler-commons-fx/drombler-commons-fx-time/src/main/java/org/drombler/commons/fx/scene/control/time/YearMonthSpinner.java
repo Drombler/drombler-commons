@@ -12,14 +12,14 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time;
 
+import java.time.YearMonth;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Control;
-import java.time.YearMonth;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
-import org.drombler.commons.fx.scene.control.time.calendar.impl.skin.Stylesheets;
+import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
 
 /**
  * A {@link YearMonth} spinner.

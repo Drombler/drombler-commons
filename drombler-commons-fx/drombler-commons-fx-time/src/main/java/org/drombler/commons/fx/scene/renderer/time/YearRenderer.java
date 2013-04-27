@@ -12,26 +12,22 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.renderer.time.calendar;
+package org.drombler.commons.fx.scene.renderer.time;
 
-import java.time.LocalDate;
+import java.time.Year;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
- * A {@link DataRenderer} for {@link LocalDate} based on {@link LocalDate#getDayOfMonth()}.
- *
+ * A {@link DataRenderer} for {@link Year}.
  * @author puce
  */
-public class LocalDateDayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
+public class YearRenderer extends AbstractDataRenderer<Year> {
 
-    /**
-     * {@inheritDoc} 
-     */
     @Override
-    public String getText(LocalDate localDate) {
-        if (localDate != null) {
-            return Integer.toString(localDate.getDayOfMonth());
+    public String getText(Year year) {
+        if (year != null) {
+            return Integer.toString(year.getValue());
         } else {
             return null;
         }

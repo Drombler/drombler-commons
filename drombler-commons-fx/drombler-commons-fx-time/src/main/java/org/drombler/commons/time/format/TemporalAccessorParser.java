@@ -12,13 +12,12 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.time.calendar.format;
+package org.drombler.commons.time.format;
 
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
-import java.util.Locale;
 import org.softsmithy.lib.text.AbstractParser;
 import org.softsmithy.lib.text.Parser;
 

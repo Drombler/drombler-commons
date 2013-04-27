@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar.impl.skin;
+package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.text.ParseException;
 import javafx.beans.value.ChangeListener;
@@ -30,10 +30,10 @@ import javafx.stage.WindowEvent;
 import java.time.LocalDate;
 import org.drombler.commons.fx.scene.Nodes;
 import org.drombler.commons.fx.scene.control.FormattedTextField;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDatePicker;
-import org.drombler.commons.fx.scene.control.time.calendar.LocalDateChooser;
+import org.drombler.commons.fx.scene.control.time.LocalDatePicker;
+import org.drombler.commons.fx.scene.control.time.LocalDateChooser;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
-import org.drombler.commons.time.calendar.format.TemporalAccessorFormatter;
+import org.drombler.commons.time.format.TemporalAccessorFormatter;
 import org.softsmithy.lib.text.Parser;
 
 /**

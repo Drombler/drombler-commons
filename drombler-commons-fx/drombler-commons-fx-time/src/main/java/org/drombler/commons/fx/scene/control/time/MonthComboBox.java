@@ -12,14 +12,14 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time;
 
 import java.time.Month;
 import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import org.drombler.commons.fx.scene.control.RenderedListCellFactory;
-import org.drombler.commons.fx.scene.renderer.time.calendar.MonthRenderer;
+import org.drombler.commons.fx.scene.renderer.time.MonthRenderer;
 
 /**
  * A {@link ComboBox} for {@link MonthOfYear}.

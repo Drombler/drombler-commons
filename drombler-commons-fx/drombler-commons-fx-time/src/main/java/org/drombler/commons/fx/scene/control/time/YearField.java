@@ -12,12 +12,12 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.control.time.calendar;
+package org.drombler.commons.fx.scene.control.time;
 
 import java.text.NumberFormat;
+import java.time.Year;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import java.time.Year;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.IntegerField;
 
