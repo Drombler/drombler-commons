@@ -28,7 +28,7 @@ import org.drombler.fx.core.docking.DockablePane;
  *
  * @author puce
  */
-@ViewDocking(areaId = "left", displayName = "#OverviewPane.displayName", position = 10, menuEntry =
+@ViewDocking(areaId = "left", displayName = "%OverviewPane.displayName", position = 10, menuEntry =
 @WindowMenuEntry(path = "", position = 10))
 public class OverviewPane extends DockablePane {
 
