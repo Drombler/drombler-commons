@@ -56,7 +56,7 @@
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>${env.JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
+                <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -76,7 +76,7 @@ Contributor(s): .
                         <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
                         <!--<additionalparam>-javafx</additionalparam>-->
                         <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
-                        <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
+                        <docletPath>${java.home}/../lib/javafx-doclet.jar</docletPath>
                         <show>private</show>
                         <detectLinks>true</detectLinks>
                         <links>
@@ -128,7 +128,7 @@ Contributor(s): .
                                 <configuration>
                                     <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
                                     <doclet>com.javafx.tools.doclets.formats.html.HtmlDoclet</doclet>
-                                    <docletPath>${env.JAVA_HOME}/lib/javafx-doclet.jar</docletPath>
+                                    <docletPath>${java.home}/../lib/javafx-doclet.jar</docletPath>
                                     <show>private</show>
                                     <!--<additionalparam>-javafx</additionalparam>-->
                                     <detectLinks>true</detectLinks>
