@@ -51,7 +51,7 @@ Contributor(s): .
         <scm.url>${scm.parent.url}</scm.url>
         <java.min.version>1.8</java.min.version>
         <javafx.version>8.0</javafx.version>
-        <jdk8Home>/opt/jdk1.8.0</jdk8Home>
+        <!--<jdk8Home>/opt/jdk1.8.0</jdk8Home>-->
     </properties>
     
     <!-- Not inherited!?? -->
@@ -103,7 +103,7 @@ Contributor(s): .
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>${jdk8Home}/jre/lib/ext/jfxrt.jar</systemPath>
+                <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>
