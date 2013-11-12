@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.drombler.commons.fx.sample8.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" >
+    <center>
+        <TabPane>
+            <Tab text="Date &amp; Time">
+                <DateTimeEditorPane/>
+            </Tab>
+            <Tab text="Date &amp; Time 2">
+                <DateTimeEditorPane2/>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
