@@ -115,7 +115,7 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
-            <artifactId>softsmithy-lib-core</artifactId>
+            <artifactId>softsmithy-lib-time</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
