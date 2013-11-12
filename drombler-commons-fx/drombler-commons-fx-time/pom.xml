@@ -95,7 +95,7 @@ Contributor(s): .
             </plugin>
         </plugins>
     </build>
-    <dependencyManagement>
+<!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>javafx</groupId>
@@ -106,7 +106,7 @@ Contributor(s): .
                 <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
     <dependencies>
         <dependency>
             <groupId>org.drombler.commons</groupId>
