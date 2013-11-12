@@ -39,7 +39,7 @@
     <modules>
         <module>drombler-commons-fx-ensemble-parent</module>
         <module>drombler-commons-fx-ensemble-application</module>
-        <module>drombler-commons-fx-ensemble-time</module>
+        <!--<module>drombler-commons-fx-ensemble-time</module>-->
     </modules>
     
     <build>
