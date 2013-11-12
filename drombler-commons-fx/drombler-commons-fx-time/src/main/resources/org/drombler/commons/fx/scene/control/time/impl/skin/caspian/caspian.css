@@ -26,7 +26,7 @@
  **************************************************************************************************/
 
 .local-date-picker { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDatePickerSkin";
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.impl.skin.LocalDatePickerSkin";
 /*    -fx-background-color: black;
     -fx-background-insets: 0;
     -fx-fill: black;*/
@@ -68,7 +68,7 @@
  **************************************************************************************************/
 
 .local-date-fixed-year-month-chooser { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateFixedYearMonthChooserSkin";
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.impl.skin.LocalDateFixedYearMonthChooserSkin";
     -fx-background-color: white;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
@@ -119,7 +119,7 @@
  **************************************************************************************************/
 
 .local-date-chooser { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.LocalDateChooserSkin";
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.impl.skin.LocalDateChooserSkin";
 /*    -fx-background-color: black;
     -fx-background-insets: 0;
     -fx-fill: black;*/
@@ -140,7 +140,7 @@
  **************************************************************************************************/
 
 .year-month-spinner { 
-    -fx-skin: "org.drombler.commons.fx.scene.control.time.calendar.impl.skin.YearMonthSpinnerSkin";
+    -fx-skin: "org.drombler.commons.fx.scene.control.time.impl.skin.YearMonthSpinnerSkin";
 /*    -fx-background-color: blue, red;
     -fx-background-insets: 10, 20;
     -fx-border-color: black;*/
