@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
@@ -83,7 +83,6 @@ Contributor(s): .
                             <!-- javadoc link for javax.persistence -->
                             <link>http://docs.oracle.com/javaee/6/api/</link>
                             <link>http://www.softsmithy.org/lib/${dependency.softsmithy.version}/docs/api/softsmithy-lib-core</link>
-                            <link>http://threeten.sourceforge.net/apidocs-2011-01-07/</link>
                             <link>http://docs.oracle.com/javafx/2/api/</link>
                         </links>
                         <!--                        <groups>
@@ -136,7 +135,6 @@ Contributor(s): .
                                         <!-- javadoc link for javax.persistence -->
                                         <link>http://docs.oracle.com/javaee/6/api/</link>
                                         <link>http://www.softsmithy.org/lib/${dependency.softsmithy.version}/docs/api/softsmithy-lib-core</link>
-                                        <link>http://threeten.sourceforge.net/apidocs-2011-01-07/</link>
                                         <link>http://docs.oracle.com/javafx/2/api/</link>
                                     </links>
                                     <!--                        <groups>
