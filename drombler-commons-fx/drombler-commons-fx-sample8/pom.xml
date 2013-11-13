@@ -44,7 +44,7 @@
                         <skipDeploy>true</skipDeploy>
                     </configuration>
                 </plugin>
-<!--                <plugin>
+                <!--                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
@@ -97,6 +97,13 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>2.0</version>
@@ -114,7 +121,7 @@
             </plugin>
         </plugins>
     </build>
-    <dependencyManagement>
+<!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>javafx</groupId>
@@ -125,7 +132,7 @@
                 <systemPath>/usr/lib/jvm/java-8-oracle/jre/lib/ext/jfxrt.jar</systemPath>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
     <dependencies>      
         <dependency>
             <groupId>org.drombler.commons</groupId>
