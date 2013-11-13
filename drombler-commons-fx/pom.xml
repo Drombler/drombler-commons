@@ -68,6 +68,7 @@ Contributor(s): .
         <module>drombler-commons-fx-core</module>
         <module>drombler-commons-fx-time</module>
         <module>drombler-commons-fx-ensemble</module>
+        <module>drombler-commons-fx-sample8</module>
     </modules>
     
     <build>
