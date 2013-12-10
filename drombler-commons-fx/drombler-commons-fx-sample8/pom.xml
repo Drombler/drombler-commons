@@ -151,7 +151,7 @@
     </build>
     <dependencyManagement>
         <dependencies>
-<!--            <dependency>
+            <!--            <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>jfxrt</artifactId>
                 <version>${javafx.version}</version>
@@ -166,6 +166,10 @@
             <groupId>org.drombler.commons</groupId>
             <artifactId>drombler-commons-fx-time</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
     </dependencies>
 </project>
