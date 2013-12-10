@@ -24,7 +24,7 @@ Contributor(s): .
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-parent</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
@@ -34,7 +34,7 @@ Contributor(s): .
         <connection>${scm.parent.connection}</connection>
         <developerConnection>${scm.parent.developerConnection}</developerConnection>
         <url>${scm.parent.url}</url>
-      <tag>drombler-commons-all-0.2</tag>
+      <tag>HEAD</tag>
   </scm>
     
     <licenses>
