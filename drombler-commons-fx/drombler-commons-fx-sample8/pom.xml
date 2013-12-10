@@ -5,7 +5,7 @@
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-parent</artifactId>
         <version>0.2-SNAPSHOT</version>
-        <relativePath>../drombler-commons-fx-ensemble-parent</relativePath>
+        <relativePath>../drombler-commons-fx-parent</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-sample8</artifactId>
     <packaging>jar</packaging>
@@ -149,18 +149,18 @@
             </plugin>
         </plugins>
     </build>
-    <!--    <dependencyManagement>
+    <dependencyManagement>
         <dependencies>
-            <dependency>
+<!--            <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>jfxrt</artifactId>
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
-                <systemPath>/usr/lib/jvm/java-8-oracle/jre/lib/ext/jfxrt.jar</systemPath>
-            </dependency>
+                <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+            </dependency>-->
         </dependencies>
-    </dependencyManagement>-->
+    </dependencyManagement>
     <dependencies>      
         <dependency>
             <groupId>org.drombler.commons</groupId>
