@@ -5,7 +5,7 @@
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
         <version>0.2-SNAPSHOT</version>
-        <relativePath>../drombler-commons-fx-ensemble-parent</relativePath>
+        <relativePath>../drombler-commons-fx-ensemble-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-ensemble-time</artifactId>
     <packaging>bundle</packaging>
