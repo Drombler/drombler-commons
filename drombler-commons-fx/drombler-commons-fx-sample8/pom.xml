@@ -42,6 +42,34 @@
                     <configuration>
                         <skip>true</skip>
                         <skipDeploy>true</skipDeploy>
+                        <reportPlugins> 
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                                <version>2.9</version>
+                                <reportSets>
+                                    <reportSet>
+                                        <id>default</id>
+                                        <configuration>
+                                            <skip>true</skip>
+                                        </configuration>
+                                        <reports>
+                                            <report>javadoc</report>
+                                        </reports>
+                                    </reportSet>
+                                </reportSets>
+                                <configuration>
+                                    <skip>true</skip>
+                                </configuration>
+                            </plugin>
+                        </reportPlugins>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
                     </configuration>
                 </plugin>
                 <!--                <plugin>
@@ -121,7 +149,7 @@
             </plugin>
         </plugins>
     </build>
-<!--    <dependencyManagement>
+    <!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>javafx</groupId>

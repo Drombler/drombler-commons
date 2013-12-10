@@ -122,6 +122,9 @@ Contributor(s): .
                                         <reports>
                                             <report>aggregate</report>
                                         </reports>
+                                        <configuration>
+                                            <excludePackageNames>${excludePackageNames}:org.drombler.commons.fx.sample8</excludePackageNames>
+                                        </configuration>
                                     </reportSet>
                                 </reportSets>
                                 <configuration>
