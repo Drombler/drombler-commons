@@ -106,7 +106,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-toolchains-plugin</artifactId>
-                <version>1.0</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
