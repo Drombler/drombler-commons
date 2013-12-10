@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2</version>
         <relativePath>drombler-commons-fx-ensemble-parent</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-ensemble-all</artifactId>
@@ -16,7 +16,8 @@
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-    </scm>
+      <tag>drombler-commons-all-0.2</tag>
+  </scm>
     
     <distributionManagement>
         <site>
