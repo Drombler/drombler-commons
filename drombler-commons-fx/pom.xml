@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-parent</artifactId>
-        <version>0.2</version>
+        <version>0.2-SNAPSHOT</version>
         <relativePath>drombler-commons-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-all</artifactId>
@@ -33,8 +33,7 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>drombler-commons-all-0.2</tag>
-  </scm>
+    </scm>
     
     <distributionManagement>
         <site>
