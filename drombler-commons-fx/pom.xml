@@ -33,8 +33,8 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     
     <distributionManagement>
         <site>
@@ -83,4 +83,23 @@ Contributor(s): .
         </plugins>
     </build>
     
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-parent</artifactId>
+                <version>${project.version}}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-core</artifactId>
+                <version>${project.version}}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-time</artifactId>
+                <version>${project.version}}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
