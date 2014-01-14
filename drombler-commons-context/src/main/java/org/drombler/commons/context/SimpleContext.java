@@ -20,6 +20,8 @@ import java.util.Collection;
  * A simple context with a writable content.
  *
  * @author puce
+ * <br>
+ * TODO: Better name?
  */
 public class SimpleContext extends AbstractContext {
 

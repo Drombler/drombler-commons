@@ -28,6 +28,8 @@ import java.util.Set;
  * A simple writable in-memory context content.
  *
  * @author puce
+ * <br>
+ * TODO: Better name?
  */
 public class SimpleContextContent {
 
