@@ -14,17 +14,14 @@
  */
 package org.drombler.commons.context;
 
-import org.drombler.commons.context.ProxyContext;
-import org.drombler.commons.context.Context;
-import org.drombler.commons.context.SimpleContext;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import org.junit.After;
-import org.junit.Before;
+import static org.drombler.commons.context.ContextTests.assertEqualsMyCustomFoo;
+import static org.drombler.commons.context.ContextTests.assertEqualsMyCustomFooList;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.drombler.commons.context.ContextTests.*;
 
 /**
  *
@@ -32,19 +29,7 @@ import static org.drombler.commons.context.ContextTests.*;
  */
 public class ProxyContextTest {
 
-    private ProxyContext context;
-
-    public ProxyContextTest() {
-    }
-
-    @Before
-    public void setUp() {
-        context = new ProxyContext();
-    }
-
-    @After
-    public void tearDown() {
-    }
+    private final ProxyContext context = new ProxyContext();
 
     @Test
     public void testFindNoContext() {
@@ -57,19 +42,20 @@ public class ProxyContextTest {
     public void testFindSingleContext() {
         System.out.println("testFindSingleContext");
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
 
         context.addContext(context1);
         MyCustomFoo foo = new MyCustomFoo();
-        context1.add(foo);
+        content1.add(foo);
 
         assertEqualsMyCustomFoo(context, foo);
 
-        context1.remove(foo);
+        content1.remove(foo);
 
         assertEqualsMyCustomFoo(context, null);
 
-        context1.add(foo);
+        content1.add(foo);
 
         assertEqualsMyCustomFoo(context, foo);
 
@@ -82,22 +68,24 @@ public class ProxyContextTest {
     public void testFindTwoContexts() {
         System.out.println("testFindTwoContexts");
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         context.addContext(context1);
 
-        SimpleContext context2 = new SimpleContext();
+        SimpleContextContent content2 = new SimpleContextContent();
+        SimpleContext context2 = new SimpleContext(content2);
         context.addContext(context2);
 
         MyCustomFoo foo = new MyCustomFoo();
-        context1.add(foo);
+        content1.add(foo);
 
         assertEqualsMyCustomFoo(context, foo);
 
-        context1.remove(foo);
+        content1.remove(foo);
 
         assertEqualsMyCustomFoo(context, null);
 
-        context2.add(foo);
+        content2.add(foo);
 
         assertEqualsMyCustomFoo(context, foo);
 
@@ -114,22 +102,23 @@ public class ProxyContextTest {
     public void testFindAll() {
         System.out.println("findAll");
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         context.addContext(context1);
 
         MyCustomFoo foo1 = new MyCustomFoo();
-        context1.add(foo1);
+        content1.add(foo1);
 
         assertEqualsMyCustomFooList(context, Arrays.asList(foo1));
 
-        SimpleContext context2 = new SimpleContext();
+        SimpleContextContent content2 = new SimpleContextContent();
+        SimpleContext context2 = new SimpleContext(content2);
         context.addContext(context2);
 
         MyCustomFoo foo2 = new MyCustomFoo();
-        context2.add(foo2);
+        content2.add(foo2);
 
         assertEqualsMyCustomFooList(context, Arrays.asList(foo1, foo2));
-
 
         context.removeContext(context1);
 
@@ -139,16 +128,16 @@ public class ProxyContextTest {
 
         assertEqualsMyCustomFooList(context, Collections.<MyCustomFoo>emptyList());
 
-
     }
 
     @Test
     public void testSetContextsList() {
         System.out.println("setContextsList");
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         MyCustomFoo foo1 = new MyCustomFoo();
-        context1.add(foo1);
+        content1.add(foo1);
 
         TestContextListener fooContextListener = new TestContextListener();
         context.addContextListener(Foo.class, fooContextListener);
@@ -176,14 +165,15 @@ public class ProxyContextTest {
         assertTrue(fooContextListener.isContextChanged());
 
     }
-    
-     @Test
+
+    @Test
     public void testSetContextsVarArgs() {
         System.out.println("setContextsVarArgs");
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         MyCustomFoo foo1 = new MyCustomFoo();
-        context1.add(foo1);
+        content1.add(foo1);
 
         TestContextListener fooContextListener = new TestContextListener();
         context.addContextListener(Foo.class, fooContextListener);
@@ -224,7 +214,8 @@ public class ProxyContextTest {
 
         TestContextListener dateContextListener = new TestContextListener();
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         context.addContext(context1);
 
         context.addContextListener(MyCustomFoo.class, myCustomFooContextListener);
@@ -240,7 +231,7 @@ public class ProxyContextTest {
         assertFalse(dateContextListener.isContextChanged());
 
         Foo foo1 = new MyCustomFoo();
-        context1.add(foo1);
+        content1.add(foo1);
 
         assertTrue(fooContextListener.isContextChanged());
         assertTrue(myCustomFooContextListener.isContextChanged());
@@ -303,7 +294,7 @@ public class ProxyContextTest {
 
         assertFalse(dateContextListener.isContextChanged());
 
-        context1.remove(foo1);
+        content1.remove(foo1);
 
         assertTrue(fooContextListener.isContextChanged());
         assertTrue(myCustomFooContextListener.isContextChanged());
@@ -337,11 +328,12 @@ public class ProxyContextTest {
 
         context.removeContextListener(Date.class, dateContextListener);
 
-        SimpleContext context1 = new SimpleContext();
+        SimpleContextContent content1 = new SimpleContextContent();
+        SimpleContext context1 = new SimpleContext(content1);
         context.addContext(context1);
 
         Foo foo1 = new MyCustomFoo();
-        context1.add(foo1);
+        content1.add(foo1);
 
         assertFalse(fooContextListener.isContextChanged());
         assertFalse(myCustomFooContextListener.isContextChanged());
@@ -359,7 +351,7 @@ public class ProxyContextTest {
 
         assertFalse(dateContextListener.isContextChanged());
 
-        context1.remove(foo1);
+        content1.remove(foo1);
 
         assertFalse(fooContextListener.isContextChanged());
         assertFalse(myCustomFooContextListener.isContextChanged());

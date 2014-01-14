@@ -14,89 +14,41 @@
  */
 package org.drombler.commons.context;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
+ * A simple context with a writable content.
  *
  * @author puce
  */
 public class SimpleContext extends AbstractContext {
 
-    private final Map<Class<?>, List<Object>> objects = new HashMap<>();
+    private final SimpleContextContent contextContent;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param contextContent a writable content
+     */
+    public SimpleContext(SimpleContextContent contextContent) {
+        this.contextContent = contextContent;
+        this.contextContent.setContext(this);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public <T> T find(Class<T> type) {
-        if (objects.containsKey(type)) {
-            List<Object> objs = objects.get(type);
-            if (!objs.isEmpty()) {
-                return type.cast(objs.get(0));
-            }
-        }
-        return null;
+        return contextContent.find(type);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
-    @SuppressWarnings("unchecked")
     public <T> Collection<? extends T> findAll(Class<T> type) {
-        if (objects.containsKey(type)) {
-            return (Collection<? extends T>) Collections.unmodifiableList(objects.get(type));
-        }
-        return Collections.emptyList();
+        return contextContent.findAll(type);
     }
 
-    public void add(Object obj) {
-        Set<Class<?>> types = getTypes(obj);
-        for (Class<?> type : types) {
-            add(type, obj);
-        }
-
-        for (Class<?> type : types) {
-            fireContextEvent(type);
-        }
-    }
-
-    private void add(Class<?> type, Object obj) {
-        if (!objects.containsKey(type)) {
-            objects.put(type, new ArrayList<>());
-        }
-        objects.get(type).add(obj);
-    }
-
-    private Set<Class<?>> getTypes(Object obj) {
-        Set<Class<?>> types = new HashSet<>();
-        Class<?> type = obj.getClass();
-        while (type != null) {
-            types.add(type);
-            types.addAll(Arrays.asList(type.getInterfaces()));
-            type = type.getSuperclass();
-        }
-        return types;
-    }
-
-    public void remove(Object obj) {
-        if (obj != null) {
-            Set<Class<?>> types = getTypes(obj);
-            for (Class<?> type : types) {
-                remove(type, obj);
-            }
-
-            for (Class<?> type : types) {
-                fireContextEvent(type);
-            }
-        }
-    }
-
-    private void remove(Class<?> type, Object obj) {
-        if (objects.containsKey(type)) {
-            objects.get(type).remove(obj);
-        }
-    }
 }
