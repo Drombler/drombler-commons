@@ -17,13 +17,32 @@ package org.drombler.commons.context;
 import java.util.EventObject;
 
 /**
+ * An event which indicates the content of a {@link Context} changed.
  *
  * @author puce
  */
-public class ContextEvent extends EventObject{
+public class ContextEvent extends EventObject {
 
-    public ContextEvent(Object source) {
-        super(source);
+    private final Context sourceContext;
+
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param sourceContext
+     */
+    public ContextEvent(Context sourceContext) {
+        super(sourceContext);
+        this.sourceContext = sourceContext;
     }
-    
+
+    /**
+     * {@inheritDoc }
+     *
+     * @return the source Context
+     */
+    @Override
+    public Context getSource() {
+        return sourceContext;
+    }
+
 }

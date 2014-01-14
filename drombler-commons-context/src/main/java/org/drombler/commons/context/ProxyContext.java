@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A {@link Context} which proxies other contexts.
  *
  * @author puce
  */
@@ -28,6 +29,9 @@ public class ProxyContext extends AbstractContext {
 
     private final List<Context> contexts = new ArrayList<>();
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public <T> T find(Class<T> type) {
         for (Context context : contexts) {
@@ -39,6 +43,9 @@ public class ProxyContext extends AbstractContext {
         return null;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public <T> Collection<? extends T> findAll(Class<T> type) {
         List<T> result = new ArrayList<>();
@@ -50,6 +57,9 @@ public class ProxyContext extends AbstractContext {
         return result;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addContextListener(Class<?> type, ContextListener listener) {
         super.addContextListener(type, listener);
@@ -59,6 +69,9 @@ public class ProxyContext extends AbstractContext {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void removeContextListener(Class<?> type, ContextListener listener) {
         super.removeContextListener(type, listener);
@@ -75,6 +88,11 @@ public class ProxyContext extends AbstractContext {
 //            }
 //        }
 //    }
+    /**
+     * Adds another {@link Context} to be proxied by this context.
+     *
+     * @param context a Context to be proxied
+     */
     public void addContext(Context context) {
         addContextOnly(context);
         fireContextEvents(Arrays.asList(context));
@@ -89,6 +107,11 @@ public class ProxyContext extends AbstractContext {
         }
     }
 
+    /**
+     * Removes a {@link Context} from being proxied by this context
+     *
+     * @param context the context to removed
+     */
     public void removeContext(Context context) {
         removeContextOnly(context);
         fireContextEvents(Arrays.asList(context));
@@ -103,10 +126,20 @@ public class ProxyContext extends AbstractContext {
         }
     }
 
+    /**
+     * Sets the contexts to be proxied by this context. This will remove all contexts registered before.
+     *
+     * @param contexts the contexts to be proxied
+     */
     public void setContexts(Context... contexts) {
         setContexts(Arrays.asList(contexts));
     }
 
+    /**
+     * Sets the contexts to be proxied by this context. This will remove all contexts registered before.
+     *
+     * @param contexts the contexts to be proxied
+     */
     public void setContexts(List<? extends Context> contexts) {
         List<Context> contextsToRemove = new ArrayList<>(this.contexts);
         contextsToRemove.removeAll(contexts);

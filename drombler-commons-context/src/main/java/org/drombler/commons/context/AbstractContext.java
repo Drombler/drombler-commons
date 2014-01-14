@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A base class for {@link Context} implementations.
  *
  * @author puce
  */
@@ -27,6 +28,9 @@ public abstract class AbstractContext implements Context {
 
     private final Map<Class<?>, List<ContextListener>> listeners = new HashMap<>();
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addContextListener(Class<?> type, ContextListener listener) {
         if (!listeners.containsKey(type)) {
@@ -36,6 +40,9 @@ public abstract class AbstractContext implements Context {
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void removeContextListener(Class<?> type, ContextListener listener) {
         if (getListeners().containsKey(type)) {
@@ -43,6 +50,11 @@ public abstract class AbstractContext implements Context {
         }
     }
 
+    /**
+     * Fires a {@link ContextEvent} to each {@link ContextListener} listening for instances of type {@code type}.
+     *
+     * @param type
+     */
     protected void fireContextEvent(Class<?> type) {
         if (getListeners().containsKey(type)) {
             ContextEvent event = new ContextEvent(this);
@@ -52,6 +64,12 @@ public abstract class AbstractContext implements Context {
         }
     }
 
+    /**
+     * Gets all registered {@link ContextListener}.
+     *
+     * @return a {@link Map} grouping all registered {@link ContextListener} by the type of instances they are listening
+     * for.
+     */
     protected Map<Class<?>, List<ContextListener>> getListeners() {
         return listeners;
     }

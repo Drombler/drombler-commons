@@ -18,18 +18,50 @@ import java.util.Collection;
 
 /**
  * A Context to find context-sensitive data.
- * 
+ *
  * @author puce
  */
 public interface Context {
 
+    /**
+     * Finds an instance of the specified type in this context. If this context has more than one instance of the
+     * specified type, the first one found will be returned.
+     *
+     * @param <T> the specified type
+     * @param type the specified type
+     * @return the first instance found in this context with the specified type, or {@code null} if no instance was
+     * found.
+     */
     <T> T find(Class<T> type);
 
-    //TODO: retunr List? 
-    //TODO: return <T> instead of <? extends T>?
+    /**
+     * Finds all instances of the specified type in this context.
+     *
+     * @param <T> the specified type
+     * @param type the specified type
+     * @return a collection with all instances found in this context with the specified type, or an empty collection if
+     * no instance was found
+     *
+     * TODO: return List instead of Collection? <br>
+     * TODO: return <T> instead of <? extends T>?
+     */
     <T> Collection<? extends T> findAll(Class<T> type);
 
+    /**
+     * Registers a {@link ContextListener} for a specified type.
+     *
+     * The listener will be notified when instances of the specified type get added or removed.
+     *
+     * @param type the type to listen for
+     * @param listener the ContextListener
+     */
     void addContextListener(Class<?> type, ContextListener listener);
 
+    /**
+     * Unegisters a {@link ContextListener} for a specified type.
+     *
+     * @param type the type to listen for
+     * @param listener the ContextListener
+     */
     void removeContextListener(Class<?> type, ContextListener listener);
 }

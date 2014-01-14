@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
+ * A utility class for {@link Context}s.
  *
  * @author puce
  */
@@ -28,6 +29,11 @@ public class Contexts {
     private Contexts() {
     }
 
+    /**
+     * Returns an immutable empty {@link Context}.
+     *
+     * @return an immutable empty Context
+     */
     public static Context emptyContext() {
         if (EMPTY_CONTEXT == null) {
             EMPTY_CONTEXT = new Context() {

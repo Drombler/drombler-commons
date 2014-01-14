@@ -8,25 +8,11 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2014 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
-package org.drombler.commons.context;
-
-import java.util.EventListener;
-
 /**
- * A listener to listen for changes in a {@link Context}.
- *
- * @author puce
+ * Context is a framework to work with objects available in a given context.
  */
-public interface ContextListener extends EventListener {
-
-    /**
-     * A call-back method which gets called when a {@link Context} changed.
-     *
-     * @param event
-     */
-    void contextChanged(ContextEvent event);
-}
+package org.drombler.commons.context;
