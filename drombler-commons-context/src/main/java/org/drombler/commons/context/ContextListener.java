@@ -26,7 +26,7 @@ public interface ContextListener extends EventListener {
     /**
      * A call-back method which gets called when a {@link Context} changed.
      *
-     * @param event
+     * @param event the context event
      */
     void contextChanged(ContextEvent event);
 }
