@@ -15,11 +15,22 @@
 package org.drombler.commons.context;
 
 /**
+ * An active context provider.
+ *
+ * If there are more than one context available, this provider provides the active one.
+ *
+ * TODO: Good package/ bundle? SPI?
+ *
+ * TODO: Replace with CDI?
  *
  * @author puce
  */
-//TODO: Good package/ bundle? SPI?
 public interface ActiveContextProvider {
 
+    /**
+     * Gets the active context.
+     *
+     * @return the active context
+     */
     Context getActiveContext();
 }

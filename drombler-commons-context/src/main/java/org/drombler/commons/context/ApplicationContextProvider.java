@@ -15,12 +15,23 @@
 package org.drombler.commons.context;
 
 /**
+ * The application context provider provides the application wide context.
+ *
+ *
+ * TODO: Good name? GlobalContextProvider?
+ *
+ * TODO: Good package/ bundle? SPI?
+ *
+ * TODO: Replace with CDI?
  *
  * @author puce
  */
-//TODO: Good name? GlobalContextProvider?
-//TODO: Good package/ bundle? SPI?
 public interface ApplicationContextProvider {
 
+    /**
+     * Gets the application-wide context.
+     *
+     * @return the application-wide context
+     */
     Context getApplicationContext();
 }

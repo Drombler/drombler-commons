@@ -15,10 +15,18 @@
 package org.drombler.commons.context;
 
 /**
+ * A context provider provides a context.
+ *
+ * TODO: Replace with CDI?
  *
  * @author puce
  */
 public interface ContextProvider {
 
+    /**
+     * Gets a context.
+     *
+     * @return a context
+     */
     Context getContext();
 }
