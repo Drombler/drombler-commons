@@ -15,6 +15,7 @@
 package org.drombler.commons.context;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import java.util.Map;
 public abstract class AbstractContext implements Context {
 
     private final Map<Class<?>, List<ContextListener>> listeners = new HashMap<>();
+    private final Map<Class<?>, List<ContextListener>> unmodifiableListeners = Collections.unmodifiableMap(listeners);
 
     /**
      * {@inheritDoc }
@@ -34,9 +36,9 @@ public abstract class AbstractContext implements Context {
     @Override
     public void addContextListener(Class<?> type, ContextListener listener) {
         if (!listeners.containsKey(type)) {
-            getListeners().put(type, new ArrayList<ContextListener>());
+            listeners.put(type, new ArrayList<ContextListener>());
         }
-        getListeners().get(type).add(listener);
+        listeners.get(type).add(listener);
 
     }
 
@@ -45,8 +47,8 @@ public abstract class AbstractContext implements Context {
      */
     @Override
     public void removeContextListener(Class<?> type, ContextListener listener) {
-        if (getListeners().containsKey(type)) {
-            getListeners().get(type).remove(listener);
+        if (listeners.containsKey(type)) {
+            listeners.get(type).remove(listener);
         }
     }
 
@@ -56,9 +58,9 @@ public abstract class AbstractContext implements Context {
      * @param type
      */
     protected void fireContextEvent(Class<?> type) {
-        if (getListeners().containsKey(type)) {
+        if (listeners.containsKey(type)) {
             ContextEvent event = new ContextEvent(this);
-            for (ContextListener listener : getListeners().get(type)) {
+            for (ContextListener listener : listeners.get(type)) {
                 listener.contextChanged(event);
             }
         }
@@ -70,7 +72,7 @@ public abstract class AbstractContext implements Context {
      * @return a {@link Map} grouping all registered {@link ContextListener} by the type of instances they are listening
      * for.
      */
-    protected Map<Class<?>, List<ContextListener>> getListeners() {
-        return listeners;
+    protected final Map<Class<?>, List<ContextListener>> getListeners() {
+        return unmodifiableListeners;
     }
 }
