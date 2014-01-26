@@ -12,15 +12,16 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.client.geometry;
+package org.drombler.commons.fx.scene;
+
+import javafx.scene.Node;
 
 /**
- * The orientation of e.g. a control.
  *
  * @author puce
  */
-public enum Orientation {
 
-    HORIZONTAL, VERTICAL;
 
+public interface GraphicFactory {
+    Node createGraphic(int size);
 }
