@@ -70,7 +70,9 @@ Contributor(s): .
         <module>drombler-commons-fx-time</module>
         <module>drombler-commons-fx-ensemble</module>
         <module>drombler-commons-fx-sample8</module>
-    </modules>
+        <module>drombler-commons-fx-docking</module>
+        <module>drombler-commons-fx-samples</module>
+  </modules>
     
     <build>
         <plugins>
@@ -88,17 +90,22 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-fx-parent</artifactId>
-                <version>${project.version}}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-fx-core</artifactId>
-                <version>${project.version}}</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-docking</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-fx-time</artifactId>
-                <version>${project.version}}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
