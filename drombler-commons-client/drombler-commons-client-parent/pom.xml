@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+
+The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+Version 1.0 (the "License"); you may not use this file except in
+compliance with the License. A copy of the License is available at
+http://www.opensource.org/licenses/cddl1.txt
+
+The Original Code is Drombler.org. The Initial Developer of the
+Original Code is Florian Brunner (Sourceforge.net user: puce).
+Copyright 2014 Drombler.org. All Rights Reserved.
+
+Contributor(s): .
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-parent</artifactId>
+        <version>0.3-SNAPSHOT</version>
+        <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>drombler-commons-client-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Drombler Commons - Client - Parent</name>
+    <description>This Drombler Commons - Client - Parent POM should be the parent 
+        (either directly or indirectly) of every Drombler Commons - Client project 
+        unless there is a good reason to do otherwise 
+        (in which case the reason should be documented).
+    </description>
+    <inceptionYear>2014</inceptionYear>
+    
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>drombler.sourceforge.net</id>
+            <url>${distributionManagement.client.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../../LICENSE.txt</url>
+        </license>
+    </licenses>
+    
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+        <distributionManagement.client.parent.url>${distributionManagement.parent.url}/drombler-commons-client</distributionManagement.client.parent.url>
+    </properties>
+    
+</project>
