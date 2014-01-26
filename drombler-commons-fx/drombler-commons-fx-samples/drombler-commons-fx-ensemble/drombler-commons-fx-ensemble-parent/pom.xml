@@ -30,7 +30,7 @@
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
             <!--<url>http://java.sun.com/spl.html</url>-->
-            <url>../../../LICENSE.txt</url>
+            <url>../../../../LICENSE.txt</url>
         </license>
     </licenses>
     
@@ -47,7 +47,7 @@
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.fx.ensemble.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-ensemble</distributionManagement.fx.ensemble.parent.url>
+        <distributionManagement.fx.ensemble.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-ensemble</distributionManagement.fx.ensemble.parent.url>
 <!--        <java.min.version>1.8</java.min.version>
         <javafx.version>8.0</javafx.version>-->
         <!--<jdk8Home>/opt/jdk1.8.0</jdk8Home>-->

@@ -51,6 +51,8 @@
   <modules>
       <module>drombler-commons-fx-samples-parent</module>
       <module>drombler-commons-fx-samples-docking</module>
+      <module>drombler-commons-fx-ensemble</module>
+      <module>drombler-commons-fx-sample8</module>
   </modules>
     
 </project>

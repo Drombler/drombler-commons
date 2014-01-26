@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-fx-parent</artifactId>
+        <artifactId>drombler-commons-fx-samples-parent</artifactId>
         <version>0.3-SNAPSHOT</version>
-        <relativePath>../drombler-commons-fx-parent/pom.xml</relativePath>
+        <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-sample8</artifactId>
     <packaging>jar</packaging>
