@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+        <artifactId>drombler-commons-fx-samples-ensemble-parent</artifactId>
         <version>0.3-SNAPSHOT</version>
-        <relativePath>../drombler-commons-fx-ensemble-parent/pom.xml</relativePath>
+        <relativePath>../drombler-commons-fx-samples-ensemble-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-fx-ensemble-application</artifactId>
+    <artifactId>drombler-commons-fx-samples-ensemble-application</artifactId>
     <packaging>drombler-fx-application</packaging>
 
-    <name>Drombler Commons - FX - Ensemble - Application</name>
+    <name>Drombler Commons - FX - Samples - Ensemble - Application</name>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -22,7 +22,7 @@
     <distributionManagement>
         <site>
             <id>drombler.sourceforge.net</id>
-            <url>${distributionManagement.fx.ensemble.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
     
@@ -39,8 +39,8 @@
                 <artifactId>drombler-fx-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <brandingId>drombler-commons-fx-ensemble</brandingId>
-                    <title>Drombler Commons - FX - Ensemble ${project.version}</title>
+                    <brandingId>drombler-commons-fx-samples-ensemble</brandingId>
+                    <title>Drombler Commons - FX - Samples - Ensemble ${project.version}</title>
                     <width>1500</width>
                     <height>1000</height>
                 </configuration>

@@ -8,13 +8,13 @@
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
-    <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+    <artifactId>drombler-commons-fx-samples-ensemble-parent</artifactId>
     <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
  
-    <name>Drombler Commons - FX - Ensemble - Parent</name>
+    <name>Drombler Commons - FX - Samples - Ensemble - Parent</name>
 
-    <description>The parent POM of my drombler-commons-fx-ensemble project. This drombler-commons-fx-ensemble Parent POM should be the parent (either directly or indirectly) of every drombler-commons-fx-ensemble project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
+    <description>The parent POM of my drombler-commons-fx-samples-ensemble project. This drombler-commons-fx-samples-ensemble Parent POM should be the parent (either directly or indirectly) of every drombler-commons-fx-samples-ensemble project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <url>http://www.mycompany.com/drombler-commons-fx-ensemble</url>
     <inceptionYear>2012</inceptionYear>
     
@@ -38,7 +38,7 @@
         <site>
             <id>drombler.sourceforge.net</id>
             <name>Drombler Commons</name>
-            <url>${distributionManagement.fx.ensemble.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>   
      
@@ -47,7 +47,7 @@
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.fx.ensemble.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-ensemble</distributionManagement.fx.ensemble.parent.url>
+        <distributionManagement.fx.samples.ensemble.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}/drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-ensemble</distributionManagement.fx.samples.ensemble.parent.url>
 <!--        <java.min.version>1.8</java.min.version>
         <javafx.version>8.0</javafx.version>-->
         <!--<jdk8Home>/opt/jdk1.8.0</jdk8Home>-->

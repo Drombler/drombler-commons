@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-fx-ensemble-parent</artifactId>
+        <artifactId>drombler-commons-fx-samples-ensemble-parent</artifactId>
         <version>0.3-SNAPSHOT</version>
-        <relativePath>../drombler-commons-fx-ensemble-parent/pom.xml</relativePath>
+        <relativePath>../drombler-commons-fx-samples-ensemble-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-fx-ensemble-time</artifactId>
+    <artifactId>drombler-commons-fx-samples-ensemble-time</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler Commons - FX - Ensemble - Date and Time</name>
+    <name>Drombler Commons - FX - Samples - Ensemble - Date &amp; Time</name>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -21,7 +21,7 @@
     <distributionManagement>
         <site>
             <id>drombler.sourceforge.net</id>
-            <url>${distributionManagement.fx.ensemble.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
     

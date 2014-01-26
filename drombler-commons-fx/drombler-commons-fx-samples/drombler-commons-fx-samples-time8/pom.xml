@@ -7,10 +7,10 @@
         <version>0.3-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-fx-sample8</artifactId>
+    <artifactId>drombler-commons-fx-samples-time8</artifactId>
     <packaging>jar</packaging>
 
-    <name>Drombler Commons - FX - Sample 8 - Application</name>
+    <name>Drombler Commons - FX - Samples - Date &amp; Time FX8</name>
 
     <scm>
         <connection>${scm.connection}</connection>
