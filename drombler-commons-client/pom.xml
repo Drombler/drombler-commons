@@ -21,7 +21,7 @@ Contributor(s): .
         <relativePath>drombler-commons-client-parent/pom.xml</relativePath>
     </parent>
     
-    <artifactId>drombler-commons-client-all</artifactId>
+    <artifactId>drombler-commons-client</artifactId>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Client - All</name>
@@ -69,24 +69,8 @@ Contributor(s): .
         <module>drombler-commons-client-docking</module>
   </modules>
     
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-client-parent</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-client-core</artifactId>

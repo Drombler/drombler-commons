@@ -22,7 +22,7 @@ Contributor(s): .
         <version>0.3-SNAPSHOT</version>
         <relativePath>drombler-commons-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-all</artifactId>
+    <artifactId>drombler-commons</artifactId>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - All</name>
@@ -70,24 +70,8 @@ Contributor(s): .
         <module>drombler-commons-client</module>
     </modules>
     
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-parent</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-context</artifactId>
@@ -95,14 +79,14 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-client-all</artifactId>
+                <artifactId>drombler-commons-client</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-fx-all</artifactId>
+                <artifactId>drombler-commons-fx</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
