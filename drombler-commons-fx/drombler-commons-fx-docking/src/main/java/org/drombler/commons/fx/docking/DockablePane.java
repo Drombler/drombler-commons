@@ -33,16 +33,29 @@ import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
  *
  * TODO: Should this class extend javafx.scene.layout.Pane instead of Control?
  *
+ * Note: This class might be removed in the future!
+ *
  * @author puce
  */
 @DefaultProperty("content")
 public class DockablePane extends Control implements Dockable {
 
     private static final String DEFAULT_STYLE_CLASS = "dockable-pane";
+    /**
+     * The title of this {@link Dockable}. It is used to represent this dockable e.g. in menus or tabs.
+     */
     private final StringProperty title = new SimpleStringProperty(this, "titleProperty", "");
+    /**
+     * The graphic of this {@link Dockable}. It is used to represent this dockable e.g. in menus or tabs.
+     */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
-    ;
+    /**
+     * The actual content of this {@link Dockable}.
+     */
     private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
+    /**
+     * The local context of this {@link Dockable}.
+     */
     private final ContextProperty context = new ContextProperty();
 
     public DockablePane() {
@@ -104,6 +117,9 @@ public class DockablePane extends Control implements Dockable {
         return context;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void requestActive() {
         requestFocus();
