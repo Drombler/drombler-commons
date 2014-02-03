@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking;
+package org.drombler.commons.fx.docking.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,7 @@ import org.drombler.commons.client.docking.SplitLevel;
  * @author puce
  */
 // TODO: check thread safty
-class DockingAreaManager {
+public class DockingAreaManager {
 
     private final Map<Integer, DockingAreaPane> dockingAreas = new HashMap<>();
     private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();

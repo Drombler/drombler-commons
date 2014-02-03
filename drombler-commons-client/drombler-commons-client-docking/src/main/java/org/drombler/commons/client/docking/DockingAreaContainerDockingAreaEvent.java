@@ -29,7 +29,7 @@ public class DockingAreaContainerDockingAreaEvent<A, D> extends EventObject {
 //    private Orientation splitOrientation;
     private final A dockingArea;
 
-    public DockingAreaContainerDockingAreaEvent(DockingAreaContainer<A, D> source, String areaId, A dockingArea) {
+    public DockingAreaContainerDockingAreaEvent(DockingAreaContainer<D> source, String areaId, A dockingArea) {
         super(source);
         this.areaId = areaId;
         this.dockingArea = dockingArea;

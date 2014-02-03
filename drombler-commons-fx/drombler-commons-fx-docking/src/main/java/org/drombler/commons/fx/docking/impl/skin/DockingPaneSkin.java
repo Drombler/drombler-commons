@@ -23,9 +23,9 @@ import org.drombler.commons.client.docking.DockingAreaContainerDockingAreaEvent;
 import org.drombler.commons.client.docking.DockingAreaContainerListener;
 import org.drombler.commons.client.docking.SplitLevel;
 import org.drombler.commons.fx.docking.DockablePane;
-import org.drombler.commons.fx.docking.DockingAreaPane;
+import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.DockingPane;
-import org.drombler.commons.fx.docking.DockingSplitPane;
+import org.drombler.commons.fx.docking.impl.DockingSplitPane;
 import org.softsmithy.lib.util.PositionableAdapter;
 
 /**

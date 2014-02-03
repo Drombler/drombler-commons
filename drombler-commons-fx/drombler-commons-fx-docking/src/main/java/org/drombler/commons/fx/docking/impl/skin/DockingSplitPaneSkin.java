@@ -26,8 +26,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SplitPane;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
-import org.drombler.commons.fx.docking.DockingSplitPane;
-import org.drombler.commons.fx.docking.DockingSplitPaneChildBase;
+import org.drombler.commons.fx.docking.impl.DockingSplitPane;
+import org.drombler.commons.fx.docking.impl.DockingSplitPaneChildBase;
+
 
 /**
  *

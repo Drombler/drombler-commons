@@ -15,9 +15,9 @@
 package org.drombler.commons.fx.docking;
 
 import org.drombler.commons.client.docking.SplitLevel;
-import org.drombler.commons.fx.docking.DockingSplitPane;
-import org.drombler.commons.fx.docking.DockingAreaPane;
-import org.drombler.commons.fx.docking.DockingAreaManager;
+import org.drombler.commons.fx.docking.impl.DockingSplitPane;
+import org.drombler.commons.fx.docking.impl.DockingAreaPane;
+import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;

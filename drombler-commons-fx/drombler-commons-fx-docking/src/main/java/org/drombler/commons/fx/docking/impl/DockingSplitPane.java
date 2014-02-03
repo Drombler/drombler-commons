@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking;
+package org.drombler.commons.fx.docking.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;

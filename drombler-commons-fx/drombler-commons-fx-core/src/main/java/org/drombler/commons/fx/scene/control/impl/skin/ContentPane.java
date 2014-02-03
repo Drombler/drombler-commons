@@ -20,9 +20,7 @@ import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
-import org.drombler.commons.fx.scene.control.impl.skin.Stylesheets;
 
 /**
  *

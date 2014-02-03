@@ -166,7 +166,7 @@ public class ProxyContext extends AbstractContext {
             for (Context context : changedContexts) {
                 if (!context.findAll(type).isEmpty()) {
                     fireContextEvent(type);
-                    break;
+                    break; // TODO: correct?
                 }
             }
         }

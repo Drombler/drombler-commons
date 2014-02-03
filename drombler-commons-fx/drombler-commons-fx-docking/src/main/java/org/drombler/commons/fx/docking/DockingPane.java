@@ -30,9 +30,13 @@ import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockingAreaContainer;
 import org.drombler.commons.client.docking.DockingAreaContainerDockingAreaEvent;
 import org.drombler.commons.client.docking.DockingAreaContainerListener;
+import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.SplitLevel;
 import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextWrapper;
 import org.drombler.commons.context.ProxyContext;
+import org.drombler.commons.fx.docking.impl.DockingAreaManager;
+import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 import org.softsmithy.lib.util.PositionableAdapter;
 
@@ -40,7 +44,7 @@ import org.softsmithy.lib.util.PositionableAdapter;
  *
  * @author puce
  */
-public class DockingPane extends Control implements DockingAreaContainer<DockingAreaPane, DockablePane> {//extends BorderPane {// GridPane {
+public class DockingPane extends Control implements DockingAreaContainer<DockablePane> {//extends BorderPane {// GridPane {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-pane";
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
@@ -50,6 +54,8 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
     private final ProxyContext applicationContext = new ProxyContext();
     private final ProxyContext activeContext = new ProxyContext();
+    private final Context applicationContextWrapper = new ContextWrapper(applicationContext);
+    private final Context activeContextWrapper = new ContextWrapper(activeContext);
 
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -61,8 +67,9 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
     }
 
     @Override
-    public void addDockingArea(List<Integer> path, final DockingAreaPane dockingArea) {
+    public void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
 //        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+        DockingAreaPane dockingArea = createDockingArea(dockingAreaDescriptor);
 
         dockingArea.getSelectionModel().selectedItemProperty().
                 addListener(new ChangeListener<PositionableAdapter<DockablePane>>() {
@@ -111,13 +118,19 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //            }
 //        });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
-        rootDockingAreaManager.addDockingArea(path, dockingArea);
+        rootDockingAreaManager.addDockingArea(dockingAreaDescriptor.getPath(), dockingArea);
         resolveUnresolvedDockables(dockingArea.getAreaId());
         DockingAreaContainerDockingAreaEvent<DockingAreaPane, DockablePane> event
                 = new DockingAreaContainerDockingAreaEvent<>(this, dockingArea.getAreaId(), dockingArea);
         fireDockingPaneChangeEvent(event);
     }
 
+    private DockingAreaPane createDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
+        DockingAreaPane dockingAreaPane = new DockingAreaPane(dockingAreaDescriptor.getId(),
+                dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent());
+        dockingAreaPane.setLayoutConstraints(dockingAreaDescriptor.getLayoutConstraints());
+        return dockingAreaPane;
+    }
 //    private DockingAreaPane getCurrentDockingArea() {
 //        DockingSplitPane splitPane = rootSplitPane;
 //        DockingSplitPane currentSplitPane = splitPane;
@@ -153,6 +166,7 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //    private Side getSide(DockingAreaPane currentDockingAreaPane, DockingAreaPane dockingAreaPane) {
 //        return Side.BOTTOM;
 //    }
+
     @Override
     public void addDockable(DockablePane dockablePane, DockablePreferences dockablePreferences) {
         DockingAreaPane dockingArea = getDockingArea(dockablePreferences.getAreaId());
@@ -177,20 +191,21 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
             activeContext.removeContext(adapter.getAdapted().getContext());
         }
     }
+
     /*
      * package-private, for unit testing
      */
-
+    // TODO remove DockingAreaPane in signature
     DockingAreaPane getDockingArea(String areaId) {
         return dockingAreaPanes.get(areaId);
     }
 
-    @Override
+    // TODO remove DockingAreaPane in signature
     public void addDockingAreaContainerListener(DockingAreaContainerListener<DockingAreaPane, DockablePane> listener) {
         listeners.add(listener);
     }
 
-    @Override
+    // TODO remove DockingAreaPane in signature
     public void removeDockingAreaContainerListener(DockingAreaContainerListener<DockingAreaPane, DockablePane> listener) {
         listeners.remove(listener);
     }
@@ -234,16 +249,17 @@ public class DockingPane extends Control implements DockingAreaContainer<Docking
 //        }
 //    }
 
+    // TODO remove DockingAreaPane in signature
     public Collection<DockingAreaPane> getAllDockingAreas() {
         return dockingAreaPanes.values();
     }
 
     public Context getApplicationContext() {
-        return applicationContext;
+        return applicationContextWrapper;
     }
 
     public Context getActiveContext() {
-        return activeContext;
+        return activeContextWrapper;
     }
 
     public ChangeListener<Node> getFocusOwnerChangeListener() {

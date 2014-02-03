@@ -17,7 +17,9 @@ package org.drombler.commons.fx.docking;
 import java.util.Arrays;
 import java.util.List;
 import org.drombler.commons.client.docking.DockablePreferences;
+import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.ShortPathPart;
+import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.skin.DockingPaneSkin;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -313,7 +315,17 @@ public class DockingPaneTest {
     }
 
     private void addDockingAreaPermanent(int position, String areaId, Integer... path) {
-        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(areaId, position, true));
+        dockingPane.addDockingArea(createDockingAreaDescriptor(areaId, position, true, path));
+    }
+
+    private DockingAreaDescriptor createDockingAreaDescriptor(String areaId, int position, boolean permanent,
+            Integer... path) {
+        DockingAreaDescriptor dockingAreaDescriptor = new DockingAreaDescriptor();
+        dockingAreaDescriptor.setId(areaId);
+        dockingAreaDescriptor.setPosition(position);
+        dockingAreaDescriptor.setPath(Arrays.asList(path));
+        dockingAreaDescriptor.setPermanent(permanent);
+        return dockingAreaDescriptor;
     }
 
 //    private List<Integer> getDockingAreaPath(String dockingAreaId) {
@@ -339,7 +351,7 @@ public class DockingPaneTest {
     }
 
     private void addDockingAreaNonPermanentEmpty(int position, String areaId, Integer... path) {
-        dockingPane.addDockingArea(Arrays.asList(path), new DockingAreaPane(areaId, position, false));
+        dockingPane.addDockingArea(createDockingAreaDescriptor(areaId, position, false, path));
     }
 
     private void addDockablePane(String areaId) {

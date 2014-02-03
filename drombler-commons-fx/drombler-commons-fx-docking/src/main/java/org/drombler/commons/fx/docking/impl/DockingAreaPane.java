@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking;
+package org.drombler.commons.fx.docking.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.ShortPathPart;
+import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
 import org.softsmithy.lib.util.PositionableAdapter;

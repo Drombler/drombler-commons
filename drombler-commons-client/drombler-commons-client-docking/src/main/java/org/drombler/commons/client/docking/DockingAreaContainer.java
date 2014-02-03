@@ -14,21 +14,19 @@
  */
 package org.drombler.commons.client.docking;
 
-import java.util.List;
-
 /**
  *
  * @author puce
- * @param <A>
  * @param <D>
  */
-public interface DockingAreaContainer<A, D> {
+public interface DockingAreaContainer<D> {
 
-    void addDockingArea(List<Integer> path, A dockingArea);
+    void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor);
 
     void addDockable(D dockable, DockablePreferences dockablePreferences);
 
-    public void addDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
+//    void addDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
+//
+//    void removeDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
 
-    public void removeDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
 }

@@ -23,6 +23,9 @@ import org.drombler.commons.client.geometry.Orientation;
  */
 public class SplitLevel {
 
+    /**
+     * TODO: field or method?
+     */
     public static final SplitLevel ROOT = new SplitLevel(0);
     private final int level;
     private final Orientation orientation;
