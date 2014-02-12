@@ -14,18 +14,22 @@
  */
 package org.drombler.commons.client.docking;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * TODO: Thread-safe?
  *
  * @author puce
  */
 public class SimpleDockablePreferencesManager<D> implements DockablePreferencesManager<D> {
 
     // TODO: Consider to use weak references
-    private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = new HashMap<>();
-    private final Map<D, DockablePreferences> dockablePreferencesMap = new HashMap<>();
+    private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = Collections.synchronizedMap(
+            new HashMap<Class<?>, DockablePreferences>());
+    private final Map<D, DockablePreferences> dockablePreferencesMap = Collections.synchronizedMap(
+            new HashMap<D, DockablePreferences>());
 
     @Override
     public DockablePreferences getDockablePreferences(D dockable) {
@@ -41,11 +45,10 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
         defaultDockablePreferencesMap.put(dockableClass, dockablePreferences);
     }
 
-    @Override
-    public void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences) {
-        dockablePreferencesMap.put(dockable, dockablePreferences);
-    }
-
+//    @Override
+//    public void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences) {
+//        dockablePreferencesMap.put(dockable, dockablePreferences);
+//    }
     @Override
     public DockablePreferences unregisterDockablePreferences(D dockable) {
         return dockablePreferencesMap.remove(dockable);

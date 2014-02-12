@@ -24,12 +24,15 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockablePreferencesManager;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 
 /**
@@ -52,6 +55,8 @@ public class DockingSampleApplication extends Application {
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
+        ContextManager contextManager = new ContextManager();
+        DockingManager dockingManager = new DockingManager(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -66,33 +71,37 @@ public class DockingSampleApplication extends Application {
 
         LeftTestPane leftTestPane = new LeftTestPane();
         leftTestPane.setTitle("Left");
-        dockingPane.addDockable(leftTestPane, dockablePreferencesManager.getDockablePreferences(leftTestPane));
+        dockingPane.addDockable(new DockableEntry<>(leftTestPane, dockablePreferencesManager.getDockablePreferences(
+                leftTestPane)));
         MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftTestPane, dockingPane, dockablePreferencesManager);
         windowMenu.getItems().add(leftTestPaneMenuItem);
 
         RightTestPane rightTestPane = new RightTestPane();
         rightTestPane.setTitle("Right");
-        dockingPane.addDockable(rightTestPane, dockablePreferencesManager.getDockablePreferences(rightTestPane));
+        dockingPane.addDockable(new DockableEntry<>(rightTestPane, dockablePreferencesManager.getDockablePreferences(
+                rightTestPane)));
         MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(rightTestPaneMenuItem);
 
         TopTestPane topTestPane = new TopTestPane();
         topTestPane.setTitle("Top");
-        dockingPane.addDockable(topTestPane, dockablePreferencesManager.getDockablePreferences(topTestPane));
+        dockingPane.addDockable(new DockableEntry<>(topTestPane, dockablePreferencesManager.getDockablePreferences(
+                topTestPane)));
         MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(topTestPanePaneMenuItem);
 
         BottomTestPane bottomTestPane = new BottomTestPane();
         bottomTestPane.setTitle("Bottom");
-        dockingPane.addDockable(bottomTestPane, dockablePreferencesManager.getDockablePreferences(bottomTestPane));
+        dockingPane.addDockable(new DockableEntry<>(bottomTestPane, dockablePreferencesManager.getDockablePreferences(
+                bottomTestPane)));
         MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(bottomTestPanePaneMenuItem);
 
         // Set active context
-        rightTestPane.setActiveContext(dockingPane.getActiveContext());
+        rightTestPane.setActiveContext(contextManager.getActiveContext());
 
         Scene scene = new Scene(borderPane, 1500, 1000);
 
@@ -192,7 +201,8 @@ public class DockingSampleApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
-            dockingPane.addDockable(dockablePane, dockablePreferencesManager.getDockablePreferences(dockablePane));
+            dockingPane.addDockable(new DockableEntry<>(dockablePane, dockablePreferencesManager.getDockablePreferences(
+                    dockablePane)));
         }
     }
 

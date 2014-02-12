@@ -15,6 +15,7 @@
 package org.drombler.commons.client.docking;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -99,4 +100,30 @@ public class DockingAreaDescriptor {
     public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
         this.layoutConstraints = layoutConstraints;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof DockingAreaDescriptor)) {
+            return false;
+        }
+        final DockingAreaDescriptor other = (DockingAreaDescriptor) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "DockingAreaDescriptor{" + "id=" + id + ", position=" + position + ", path=" + path + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
+    }
+
+
 }

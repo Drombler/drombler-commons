@@ -16,16 +16,12 @@ package org.drombler.commons.fx.docking;
 
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import org.drombler.commons.client.docking.Dockable;
-import org.drombler.commons.context.Context;
-import org.drombler.commons.context.Contexts;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 
 /**
@@ -53,10 +49,10 @@ public class DockablePane extends Control implements Dockable {
      * The actual content of this {@link Dockable}.
      */
     private final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
-    /**
-     * The local context of this {@link Dockable}.
-     */
-    private final ContextProperty context = new ContextProperty();
+//    /**
+//     * The local context of this {@link Dockable}.
+//     */
+//    private final ContextProperty context = new ContextProperty();
 
     public DockablePane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
@@ -104,18 +100,18 @@ public class DockablePane extends Control implements Dockable {
         return content;
     }
 
-    @Override
-    public Context getContext() {
-        return contextProperty().get();
-    }
-
-    protected void setContext(Context context) {
-        this.context.set(context);
-    }
-
-    public ReadOnlyObjectProperty<Context> contextProperty() {
-        return context;
-    }
+//    @Override
+//    public Context getContext() {
+//        return contextProperty().get();
+//    }
+//
+//    protected void setContext(Context context) {
+//        this.context.set(context);
+//    }
+//
+//    public ReadOnlyObjectProperty<Context> contextProperty() {
+//        return context;
+//    }
 
     /**
      * {@inheritDoc }
@@ -129,28 +125,28 @@ public class DockablePane extends Control implements Dockable {
 //        Node root = (Node) FXMLLoaders.load(this);
 //        setContent(root);
 //    }
-    private class ContextProperty extends ReadOnlyObjectPropertyBase<Context> {
-
-        private Context context = Contexts.emptyContext();
-
-        @Override
-        public final Context get() {
-            return context;
-        }
-
-        private void set(Context newValue) {
-            context = newValue;
-            fireValueChangedEvent();
-        }
-
-        @Override
-        public Object getBean() {
-            return DockablePane.this;
-        }
-
-        @Override
-        public String getName() {
-            return "context";
-        }
-    }
+//    private class ContextProperty extends ReadOnlyObjectPropertyBase<Context> {
+//
+//        private Context context = Contexts.emptyContext();
+//
+//        @Override
+//        public final Context get() {
+//            return context;
+//        }
+//
+//        private void set(Context newValue) {
+//            context = newValue;
+//            fireValueChangedEvent();
+//        }
+//
+//        @Override
+//        public Object getBean() {
+//            return DockablePane.this;
+//        }
+//
+//        @Override
+//        public String getName() {
+//            return "context";
+//        }
+//    }
 }

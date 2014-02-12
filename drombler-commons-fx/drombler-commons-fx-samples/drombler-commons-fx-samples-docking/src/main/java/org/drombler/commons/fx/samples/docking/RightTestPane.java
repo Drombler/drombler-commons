@@ -12,12 +12,13 @@ import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
 import org.drombler.commons.context.ContextListener;
+import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.docking.DockablePane;
 
 
-public class RightTestPane extends DockablePane implements ActiveContextSensitive {
+public class RightTestPane extends DockablePane implements ActiveContextSensitive, LocalContextProvider {
 
     private static final String FXML_EXTENSION = ".fxml";
 
@@ -30,7 +31,6 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
     private Sample sample;
 
     public RightTestPane() {//throws IOException {
-        setContext(context);
 //        loadFXML();
 //        initColoredRectangleImageViewsMap();
     }
@@ -75,5 +75,9 @@ public class RightTestPane extends DockablePane implements ActiveContextSensitiv
         contextContent.add(sample);
     }
 
-}
+    @Override
+    public Context getLocalContext() {
+        return context;
+    }
 
+}

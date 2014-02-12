@@ -21,7 +21,9 @@ import java.util.EventListener;
  *
  * @author puce
  */
-public interface DockingAreaContainerListener<A, D> extends EventListener {
+public interface DockingAreaContainerListener<D> extends EventListener {
 
-    void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<A, D> event);
+    void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<D> event);
+
+    void dockingAreaRemoved(DockingAreaContainerDockingAreaEvent<D> event);
 }

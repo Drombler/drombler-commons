@@ -12,18 +12,25 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.client.docking;
+package org.drombler.commons.context;
 
 /**
+ * The local context provider provides a local context.
+ *
+ *
+ *
+ * TODO: Good package/ bundle? SPI?
+ *
+ * TODO: Replace with CDI?
  *
  * @author puce
  */
-// TODO: useful?
-public interface Dockable {
-//    String getTitle();
+public interface LocalContextProvider {
 
-    void requestActive();
-
-    // TODO: needed?
-//    Context getContext();
+    /**
+     * Gets the local context.
+     *
+     * @return the local context
+     */
+    Context getLocalContext();
 }

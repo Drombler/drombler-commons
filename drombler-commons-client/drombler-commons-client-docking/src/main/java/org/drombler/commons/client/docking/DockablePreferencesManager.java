@@ -24,7 +24,7 @@ public interface DockablePreferencesManager<D> {
 
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
     
-    void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences);
+//    void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences);
 
     DockablePreferences unregisterDockablePreferences(D dockable);
     

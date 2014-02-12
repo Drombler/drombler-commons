@@ -21,12 +21,12 @@ package org.drombler.commons.client.docking;
  */
 public interface DockingAreaContainer<D> {
 
-    void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor);
+    boolean addDockingArea(DockingAreaDescriptor dockingAreaDescriptor);
 
-    void addDockable(D dockable, DockablePreferences dockablePreferences);
+    boolean addDockable(DockableEntry<? extends D> dockableEntry);
 
-//    void addDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
-//
-//    void removeDockingAreaContainerListener(DockingAreaContainerListener<A, D> listener);
+    void addDockingAreaContainerListener(DockingAreaContainerListener<D> listener);
+
+    void removeDockingAreaContainerListener(DockingAreaContainerListener<D> listener);
 
 }
