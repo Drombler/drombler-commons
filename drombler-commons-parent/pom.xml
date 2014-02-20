@@ -34,8 +34,8 @@ Contributor(s): .
         <connection>${scm.parent.connection}</connection>
         <developerConnection>${scm.parent.developerConnection}</developerConnection>
         <url>${scm.parent.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     
     <licenses>
         <license>
@@ -163,4 +163,14 @@ Contributor(s): .
             </plugins>
         </pluginManagement>
     </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- TODO: Move to Drombler OSS - Parent or SoftSmithy Parent -->
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

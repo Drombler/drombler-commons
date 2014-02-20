@@ -34,6 +34,8 @@ import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
@@ -41,6 +43,7 @@ import org.softsmithy.lib.util.PositionableAdapter;
  * @author puce
  */
 public class DockingPaneSkin implements Skin<DockingPane> {
+    private static final Logger LOG = LoggerFactory.getLogger(DockingPaneSkin.class);
 
     private DockingPane control;
     private BorderPane pane = new BorderPane();
@@ -59,10 +62,10 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         }
     };
 
-    private final SetChangeListener<DockableEntry> dockableEntrySetChangeListener = new SetChangeListener<DockableEntry>() {
+    private final SetChangeListener<DockableEntry<? extends DockablePane>> dockableEntrySetChangeListener = new SetChangeListener<DockableEntry<? extends DockablePane>>() {
 
         @Override
-        public void onChanged(SetChangeListener.Change<? extends DockableEntry> change) {
+        public void onChanged(SetChangeListener.Change<? extends DockableEntry<? extends DockablePane>> change) {
             if (change.wasAdded()) {
                 addDockable(change.getElementAdded());
             } else if (change.wasRemoved()) {
@@ -81,7 +84,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             addDockingArea(dockingAreaDescriptor);
         }
 
-        for (DockableEntry dockableEntry : this.control.getDockables()) {
+        for (DockableEntry<? extends DockablePane> dockableEntry : this.control.getDockables()) {
             addDockable(dockableEntry);
         }
     }
@@ -106,7 +109,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     }
 
     private void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
-//        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
+        LOG.debug("Added docking area: {}", dockingAreaDescriptor.getId());
         DockingAreaPane dockingArea = createDockingArea(dockingAreaDescriptor);
 
         dockingArea.getSelectionModel().selectedItemProperty().
@@ -158,7 +161,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         return dockingAreaPane;
     }
 
-    private void addDockable(DockableEntry<DockablePane> dockableEntry) {
+    private void addDockable(DockableEntry<? extends DockablePane> dockableEntry) {
         addDockable(dockableEntry.getDockable(), dockableEntry.getDockablePreferences());
     }
 
@@ -168,6 +171,8 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             dockingArea.addDockable(new PositionableAdapter<>(dockablePane,
                     dockablePreferences.getPosition()));
             this.control.setActiveDockable(dockablePane);
+            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockablePane.getTitle(), dockablePreferences.
+                    getAreaId());
         }
     }
 
@@ -176,7 +181,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     }
 
     private void handleDockingArea(DockingAreaPane dockingArea) {
-//        System.out.println(DockingPaneSkin.class.getName() + ": adding docking area: " + dockingArea.getAreaId());
+        LOG.debug("Adding docking area: {}", dockingArea.getAreaId());
         if (!dockingArea.isPermanent()) {
             dockingArea.getDockables().addListener(new DockingAreaChangeListener(dockingArea));
         }

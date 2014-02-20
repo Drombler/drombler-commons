@@ -12,20 +12,22 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking;
+package org.drombler.commons.fx.docking.impl;
 
-import org.drombler.commons.client.docking.SplitLevel;
-import org.drombler.commons.fx.docking.impl.DockingSplitPane;
-import org.drombler.commons.fx.docking.impl.DockingAreaPane;
-import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Orientation;
+import org.drombler.commons.client.docking.SplitLevel;
 import org.drombler.commons.fx.docking.DockablePane;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.softsmithy.lib.util.PositionableAdapter;

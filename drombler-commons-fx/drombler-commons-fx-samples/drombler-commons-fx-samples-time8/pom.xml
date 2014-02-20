@@ -150,16 +150,16 @@
         </plugins>
     </build>
     <dependencyManagement>
-        <dependencies>
-            <!--            <dependency>
+        <!--        <dependencies>
+            <dependency>
                 <groupId>javafx</groupId>
                 <artifactId>jfxrt</artifactId>
                 <version>${javafx.version}</version>
                 <type>jar</type>
                 <scope>system</scope>
                 <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
-            </dependency>-->
-        </dependencies>
+            </dependency>
+        </dependencies>-->
     </dependencyManagement>
     <dependencies>      
         <dependency>
