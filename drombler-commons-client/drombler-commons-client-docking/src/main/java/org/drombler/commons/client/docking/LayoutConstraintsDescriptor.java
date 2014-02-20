@@ -20,8 +20,8 @@ package org.drombler.commons.client.docking;
  */
 public class LayoutConstraintsDescriptor {
 
-    private double prefWidth;
-    private double prefHeight;
+    private double prefWidth = -1.0;
+    private double prefHeight = -1.0;
 
     /**
      * @return the prefWidth

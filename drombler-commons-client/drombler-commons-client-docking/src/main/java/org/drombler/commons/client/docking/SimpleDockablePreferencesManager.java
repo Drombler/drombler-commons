@@ -33,6 +33,7 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
 
     @Override
     public DockablePreferences getDockablePreferences(D dockable) {
+        // TODO: not thread-safe (map can change between calls)
         if (dockablePreferencesMap.containsKey(dockable)) {
             return dockablePreferencesMap.get(dockable);
         } else {
