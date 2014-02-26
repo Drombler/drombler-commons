@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.client.docking;
+package org.drombler.commons.client.docking.spi;
 
 import org.drombler.commons.client.geometry.Orientation;
 import static org.junit.Assert.assertEquals;

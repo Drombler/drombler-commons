@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.client.docking;
+package org.drombler.commons.client.docking.spi;
 
 import java.util.Objects;
 import org.drombler.commons.client.geometry.Orientation;

@@ -67,7 +67,8 @@ Contributor(s): .
         <module>drombler-commons-client-parent</module>
         <module>drombler-commons-client-core</module>
         <module>drombler-commons-client-docking</module>
-  </modules>
+        <module>drombler-commons-client-docking-spi</module>
+    </modules>
     
     <dependencyManagement>
         <dependencies>
@@ -79,6 +80,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-client-docking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-client-docking-spi</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
