@@ -28,7 +28,7 @@ import javafx.scene.layout.BorderPane;
 import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
-import org.drombler.commons.client.docking.SplitLevel;
+import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.impl.DockingAreaManager;

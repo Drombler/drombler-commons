@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.drombler.commons.client.docking.ShortPathPart;
-import org.drombler.commons.client.docking.SplitLevel;
+import org.drombler.commons.client.docking.spi.ShortPathPart;
+import org.drombler.commons.client.docking.spi.SplitLevel;
 
 /**
  *

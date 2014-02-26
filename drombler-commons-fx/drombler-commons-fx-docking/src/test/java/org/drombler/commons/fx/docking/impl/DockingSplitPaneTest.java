@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Orientation;
-import org.drombler.commons.client.docking.SplitLevel;
+import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.DockablePane;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

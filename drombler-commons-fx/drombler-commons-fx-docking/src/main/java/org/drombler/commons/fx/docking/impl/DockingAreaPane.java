@@ -25,7 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
-import org.drombler.commons.client.docking.ShortPathPart;
+import org.drombler.commons.client.docking.spi.ShortPathPart;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
