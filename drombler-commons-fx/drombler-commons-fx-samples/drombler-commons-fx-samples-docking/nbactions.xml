@@ -3,13 +3,13 @@
     <action>
         <actionName>run</actionName>
         <goals>
-            <goal>-e</goal>
-            <goal>-X</goal>
+            <!--            <goal>-e</goal>
+            <goal>-X</goal>-->
             <goal>package</goal>
             <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
         </goals>
         <properties>
-            <exec.args>-Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/jfx/app/drombler-commons-fx-samples-docking-0.3-SNAPSHOT-jfx.jar</exec.args>
+            <exec.args>-Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=${project.build.directory}/jfx/app/logging.properties -jar ${project.build.directory}/jfx/app/${project.build.finalName}-jfx.jar</exec.args>
             <exec.executable>java</exec.executable>
             <exec.classpathScope>runtime</exec.classpathScope>
         </properties>
@@ -17,13 +17,13 @@
     <action>
         <actionName>debug</actionName>
         <goals>
-            <goal>-e</goal>
-            <goal>-X</goal>
+            <!--            <goal>-e</goal>
+            <goal>-X</goal>-->
             <goal>package</goal>
             <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
         </goals>
         <properties>
-            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/jfx/app/drombler-commons-fx-samples-docking-0.3-SNAPSHOT-jfx.jar</exec.args>
+            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=${project.build.directory}/jfx/app/logging.properties -jar ${project.build.directory}/jfx/app/${project.build.finalName}-jfx.jar</exec.args>
             <exec.executable>java</exec.executable>
             <exec.classpathScope>runtime</exec.classpathScope>
             <jpda.listen>true</jpda.listen>
@@ -32,25 +32,14 @@
     <action>
         <actionName>profile</actionName>
         <goals>
-            <goal>-e</goal>
-            <goal>-X</goal>
+            <!--            <goal>-e</goal>
+            <goal>-X</goal>-->
             <goal>package</goal>
             <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
         </goals>
         <properties>
-            <exec.args>${profiler.args} -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/jfx/app/drombler-commons-fx-samples-docking-0.3-SNAPSHOT-jfx.jar</exec.args>
+            <exec.args>${profiler.args} -Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=${project.build.directory}/jfx/app/logging.properties -jar ${project.build.directory}/jfx/app/${project.build.finalName}-jfx.jar</exec.args>
             <exec.executable>${profiler.java}</exec.executable>
         </properties>
     </action>
-    <action>
-            <actionName>CUSTOM-site-deploy</actionName>
-            <displayName>site-deploy</displayName>
-            <goals>
-                <goal>site-deploy</goal>
-                <goal>-Dusername=puce</goal>
-            </goals>
-            <activatedProfiles>
-                <activatedProfile>sonatype-oss-release</activatedProfile>
-            </activatedProfiles>
-        </action>
 </actions>

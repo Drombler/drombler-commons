@@ -60,6 +60,9 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
         <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}</distributionManagement.parent.url>
+        
+        <!-- Dependency Versions -->
+        <dependency.slf4j.version>1.7.6</dependency.slf4j.version>
     </properties>
      
     <!-- Not inherited!?? -->
@@ -169,7 +172,13 @@ Contributor(s): .
                 <!-- TODO: Move to Drombler OSS - Parent or SoftSmithy Parent -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.6</version>
+                <version>${dependency.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <!-- TODO: Move to Drombler OSS - Parent or SoftSmithy Parent -->
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${dependency.slf4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
