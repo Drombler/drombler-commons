@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @author puce
  */
-public class DockingAreaDescriptor {
+public final class DockingAreaDescriptor {
 
     private String id;
     private int position;

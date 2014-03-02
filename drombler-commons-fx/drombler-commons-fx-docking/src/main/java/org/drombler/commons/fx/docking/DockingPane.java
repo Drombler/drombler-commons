@@ -14,10 +14,8 @@
  */
 package org.drombler.commons.fx.docking;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.beans.property.ObjectProperty;
@@ -26,15 +24,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.drombler.commons.client.docking.DockableEntry;
-import org.drombler.commons.client.docking.DockingAreaContainer;
-import org.drombler.commons.client.docking.DockingAreaContainerDockingAreaEvent;
-import org.drombler.commons.client.docking.DockingAreaContainerListener;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 
@@ -42,12 +38,11 @@ import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
  *
  * @author puce
  */
-public class DockingPane extends Control implements DockingAreaContainer<DockablePane> {//extends BorderPane {// GridPane {
+public class DockingPane extends Control {//extends BorderPane {// GridPane {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-pane";
 
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
-    private final List<DockingAreaContainerListener<DockablePane>> listeners = new ArrayList<>();
 
 //    private final ChangeListener<DockablePane> dockableSelectionChangeListener = new DockableSelectionChangeListener();
 //    private final ProxyContext applicationContext = new ProxyContext();
@@ -74,6 +69,29 @@ public class DockingPane extends Control implements DockingAreaContainer<Dockabl
                 }
             }
         });
+        dockingAreaDescriptors.addListener(new SetChangeListener<DockingAreaDescriptor>() {
+
+            @Override
+            public void onChanged(SetChangeListener.Change<? extends DockingAreaDescriptor> change) {
+                if (change.wasAdded()) {
+                    dockingAreaIds.add(change.getElementAdded().getId());
+                } else if (change.wasRemoved()) {
+                    dockingAreaIds.remove(change.getElementRemoved().getId());
+                }
+            }
+        });
+        dockables.addListener(new SetChangeListener<DockableEntry<? extends DockablePane>>() {
+
+            @Override
+            public void onChanged(SetChangeListener.Change<? extends DockableEntry<? extends DockablePane>> change) {
+                if (change.wasAdded()) {
+//                if (dockingAreaIds.contains(dockableEntry.getDockablePreferences().getAreaId())) { // TODO: needed?
+                    dockableEntryMap.put(change.getElementAdded().getDockable(), change.getElementAdded());
+                } else if (change.wasRemoved()) {
+                    dockableEntryMap.remove(change.getElementRemoved().getDockable());
+                }
+            }
+        });
     }
 
     @Override
@@ -81,32 +99,8 @@ public class DockingPane extends Control implements DockingAreaContainer<Dockabl
         return Stylesheets.getDefaultStylesheet();
     }
 
-    @Override
-    public boolean addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
-//        System.out.println(DockingPane.class.getName() + ": added docking area: " + dockingArea.getAreaId());
-
-        if (dockingAreaIds.add(dockingAreaDescriptor.getId())) {
-            dockingAreaDescriptors.add(dockingAreaDescriptor);
-            fireDockingAreaAdded(dockingAreaDescriptor.getId());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addDockable(DockableEntry<? extends DockablePane> dockableEntry) {
-        if (dockingAreaIds.contains(dockableEntry.getDockablePreferences().getAreaId())) { // TODO: needed?
-            dockables.add(dockableEntry);
-            dockableEntryMap.put(dockableEntry.getDockable(), dockableEntry);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void removeDockable(DockablePane dockable) {
-        DockableEntry<? extends DockablePane> dockableEntry = dockableEntryMap.remove(dockable);
+        DockableEntry<? extends DockablePane> dockableEntry = dockableEntryMap.get(dockable);
         if (dockableEntry != null) {
             dockables.remove(dockableEntry);
         }
@@ -132,23 +126,6 @@ public class DockingPane extends Control implements DockingAreaContainer<Dockabl
         return activeDockable;
     }
 
-    @Override
-    public void addDockingAreaContainerListener(DockingAreaContainerListener<DockablePane> listener) {
-        listeners.add(listener);
-    }
-
-    @Override
-    public void removeDockingAreaContainerListener(DockingAreaContainerListener<DockablePane> listener) {
-        listeners.remove(listener);
-    }
-
-    private void fireDockingAreaAdded(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<DockablePane> event = new DockingAreaContainerDockingAreaEvent<>(this,
-                dockingAreaId);
-        for (DockingAreaContainerListener<DockablePane> listener : listeners) {
-            listener.dockingAreaAdded(event);
-        }
-    }
 //
 //    private void removeContext(DockablePane dockable) {
 //        applicationContext.removeContext(dockable.getContext());
@@ -162,9 +139,6 @@ public class DockingPane extends Control implements DockingAreaContainer<Dockabl
 //    public Context getActiveContext() {
 //        return activeContextWrapper;
 //    }
-
-
-
 //    public ChangeListener<Node> getFocusOwnerChangeListener() {
 //        return focusOwnerChangeListener;
 //    }

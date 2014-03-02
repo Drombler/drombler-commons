@@ -71,31 +71,35 @@ public class DockingSampleApplication extends Application {
 
         LeftTestPane leftTestPane = new LeftTestPane();
         leftTestPane.setTitle("Left");
-        dockingPane.addDockable(new DockableEntry<>(leftTestPane, dockablePreferencesManager.getDockablePreferences(
-                leftTestPane)));
+        dockingPane.getDockables().add(new DockableEntry<>(leftTestPane, dockablePreferencesManager.
+                getDockablePreferences(
+                        leftTestPane)));
         MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftTestPane, dockingPane, dockablePreferencesManager);
         windowMenu.getItems().add(leftTestPaneMenuItem);
 
         RightTestPane rightTestPane = new RightTestPane();
         rightTestPane.setTitle("Right");
-        dockingPane.addDockable(new DockableEntry<>(rightTestPane, dockablePreferencesManager.getDockablePreferences(
-                rightTestPane)));
+        dockingPane.getDockables().add(new DockableEntry<>(rightTestPane, dockablePreferencesManager.
+                getDockablePreferences(
+                        rightTestPane)));
         MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(rightTestPaneMenuItem);
 
         TopTestPane topTestPane = new TopTestPane();
         topTestPane.setTitle("Top");
-        dockingPane.addDockable(new DockableEntry<>(topTestPane, dockablePreferencesManager.getDockablePreferences(
-                topTestPane)));
+        dockingPane.getDockables().add(new DockableEntry<>(topTestPane, dockablePreferencesManager.
+                getDockablePreferences(
+                        topTestPane)));
         MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(topTestPanePaneMenuItem);
 
         BottomTestPane bottomTestPane = new BottomTestPane();
         bottomTestPane.setTitle("Bottom");
-        dockingPane.addDockable(new DockableEntry<>(bottomTestPane, dockablePreferencesManager.getDockablePreferences(
-                bottomTestPane)));
+        dockingPane.getDockables().add(new DockableEntry<>(bottomTestPane, dockablePreferencesManager.
+                getDockablePreferences(
+                        bottomTestPane)));
         MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(bottomTestPanePaneMenuItem);
@@ -179,11 +183,11 @@ public class DockingSampleApplication extends Application {
         rightLayoutConstraintsDescriptor.setPrefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 
-        dockingPane.addDockingArea(centerAreaDescriptor);
-        dockingPane.addDockingArea(topAreaDescriptor);
-        dockingPane.addDockingArea(bottomAreaDescriptor);
-        dockingPane.addDockingArea(leftAreaDescriptor);
-        dockingPane.addDockingArea(rightAreaDescriptor);
+        dockingPane.getDockingAreaDescriptors().add(centerAreaDescriptor);
+        dockingPane.getDockingAreaDescriptors().add(topAreaDescriptor);
+        dockingPane.getDockingAreaDescriptors().add(bottomAreaDescriptor);
+        dockingPane.getDockingAreaDescriptors().add(leftAreaDescriptor);
+        dockingPane.getDockingAreaDescriptors().add(rightAreaDescriptor);
     }
 
     private static class OpenDockablePaneActionHandler implements EventHandler<ActionEvent> {
@@ -201,8 +205,8 @@ public class DockingSampleApplication extends Application {
 
         @Override
         public void handle(ActionEvent t) {
-            dockingPane.addDockable(new DockableEntry<>(dockablePane, dockablePreferencesManager.getDockablePreferences(
-                    dockablePane)));
+            dockingPane.getDockables().add(new DockableEntry<>(dockablePane, dockablePreferencesManager.
+                    getDockablePreferences(dockablePane)));
         }
     }
 
