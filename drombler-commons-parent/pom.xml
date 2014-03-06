@@ -28,6 +28,8 @@ Contributor(s): .
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
+    <url>http://www.drombler.org</url>
+    <description>The parent POM of the Drombler Commons project. This Drombler Commons Parent POM should be the parent (either directly or indirectly) of every Drombler Commons project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
     <scm>
