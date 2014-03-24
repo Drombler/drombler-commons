@@ -96,7 +96,7 @@ Contributor(s): .
             </plugin>
         </plugins>
     </build>
-<!--    <dependencyManagement>
+    <!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>javafx</groupId>

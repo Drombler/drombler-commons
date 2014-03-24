@@ -28,7 +28,7 @@ Contributor(s): .
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
-    <url>http://www.drombler.org</url>
+    <url>http://www.drombler.org/DromblerCommons/docs/site/${project.version}</url>
     <description>The parent POM of the Drombler Commons project. This Drombler Commons Parent POM should be the parent (either directly or indirectly) of every Drombler Commons project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -58,6 +58,7 @@ Contributor(s): .
 
     <properties>
         <!-- Dev Environment Defaults -->
+        <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>

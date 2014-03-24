@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import org.drombler.fx.core.docking.*?>
 <?import org.drombler.commons.fx.scene.control.time.*?>
 
 <fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml">
