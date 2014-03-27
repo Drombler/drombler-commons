@@ -35,6 +35,10 @@ import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 
 /**
+ * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using
+ * the dividers. Each Docking Area can hold any number of Dockable Panes, which are layed out as Tabs.
+ *
+ * Wiki: http://wiki.drombler.org/DockingFramework
  *
  * @author puce
  */
@@ -50,11 +54,18 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
 //    private final Context applicationContextWrapper = new ContextWrapper(applicationContext);
 //    private final Context activeContextWrapper = new ContextWrapper(activeContext);
     private final ObservableSet<DockingAreaDescriptor> dockingAreaDescriptors = FXCollections.observableSet();
-    private final ObservableSet<DockableEntry<? extends DockablePane>> dockables = FXCollections.observableSet();
+    private final ObservableSet<DockableEntry<? extends DockablePane>> dockables = FXCollections.
+            <DockableEntry<? extends DockablePane>>observableSet();
+    /**
+     * The active Dockable.
+     */
     private final ObjectProperty<DockablePane> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
     private final Set<String> dockingAreaIds = new HashSet<>();
     private final Map<DockablePane, DockableEntry<? extends DockablePane>> dockableEntryMap = new HashMap<>();
 
+    /**
+     * Creates a new instance of this class.
+     */
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
         sceneProperty().addListener(new ChangeListener<Scene>() {
@@ -94,6 +105,9 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
@@ -106,10 +120,20 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         }
     }
 
+    /**
+     * Gets the {@link DockingAreaDescriptor}s.
+     *
+     * @return the DockingAreaDescriptors
+     */
     public ObservableSet<DockingAreaDescriptor> getDockingAreaDescriptors() {
         return dockingAreaDescriptors;
     }
 
+    /**
+     * Gets the Dockables.
+     *
+     * @return the Dockables.
+     */
     public ObservableSet<DockableEntry<? extends DockablePane>> getDockables() {
         return dockables;
     }
