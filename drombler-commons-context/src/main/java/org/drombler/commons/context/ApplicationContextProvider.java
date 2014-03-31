@@ -29,7 +29,7 @@ package org.drombler.commons.context;
 public interface ApplicationContextProvider {
 
     /**
-     * Gets the application-wide context.
+     * Gets the application-wide context. It provides access to the combined content of all registered local Contexts.
      *
      * @return the application-wide context
      */

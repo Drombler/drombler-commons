@@ -18,6 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * This {@link Context} manager allows to register local contexts for objects and manages the Application Context and
+ * the current Active Context.<br>
+ * <br>
+ * The <b>Active Context</b> provides access to the content of the currently active local Context.<br>
+ * <br>
+ * The <b>Application-wide Context</b> provides access to the combined content of all registered local Contexts.
  *
  * @author puce
  */
@@ -31,16 +37,28 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     private final Map<Object, Context> localContexts = new HashMap<>();
     private Object activeObject = null;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Context getApplicationContext() {
         return applicationContextWrapper;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Context getActiveContext() {
         return activeContextWrapper;
     }
 
+    /**
+     * Sets a local context active. Its content can be accessed from the Active Context. The local context of the
+     * specified object has to be registered prior to calling this method.
+     *
+     * @param obj the object whose local context should be set active
+     */
     // TODO clear active context
     public void setLocalContextActive(Object obj) {
         if (localContexts.containsKey(obj)) {
@@ -49,6 +67,14 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
         }
     }
 
+    /**
+     * Registers a local context for the given Object. Its content will be available from the application-wide context
+     * and it can be set active afterwards.
+     *
+     * @param obj an object
+     * @param context the local context of the object
+     */
+    // TODO: Good name? registerLocalContext?
     public void putLocalContext(Object obj, Context context) {
         if (context == null) {
             // TODO error message
@@ -72,6 +98,14 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
         }
     }
 
+    /**
+     * Unregisters a local context. Its content won't be available from the application-wide context anymore and it
+     * can't be set active anymore.
+     *
+     * @param obj the object whose local context should be unregistered.
+     * @return the registered context
+     */
+    // TODO: Good name? unregisterLocalContext?
     public Context removeLocalContext(Object obj) {
         if (localContexts.containsKey(obj)) {
             Context oldContext = localContexts.remove(obj);

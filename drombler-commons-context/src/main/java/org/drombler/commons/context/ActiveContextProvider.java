@@ -28,7 +28,7 @@ package org.drombler.commons.context;
 public interface ActiveContextProvider {
 
     /**
-     * Gets the active context.
+     * Gets the active context. It provides access to the content of the currently active local Context.
      *
      * @return the active context
      */
