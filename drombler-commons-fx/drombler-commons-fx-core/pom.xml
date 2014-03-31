@@ -28,6 +28,8 @@ Contributor(s): .
     <name>Drombler Commons - FX - Core</name>
     <description>Drombler Commons - FX - Core is a collection of utility classes and frameworks for JavaFX.</description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

@@ -28,6 +28,8 @@ Contributor(s): .
     <name>Drombler Commons - Context</name>
     <description>Drombler Commons - Context is a framework to work with objects available in a given context.</description>
     <inceptionYear>2014</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

@@ -27,6 +27,8 @@ Contributor(s): .
     <name>Drombler Commons - FX - Docking</name>
     <description>Drombler Commons - FX - Docking provides a docking framework for JavaFX.</description>
     <inceptionYear>2014</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

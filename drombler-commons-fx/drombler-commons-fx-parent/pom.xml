@@ -30,6 +30,8 @@ Contributor(s): .
         (in which case the reason should be documented).
     </description>
     <inceptionYear>2013</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -55,6 +57,7 @@ Contributor(s): .
     </licenses>
     
     <properties>
+        <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>

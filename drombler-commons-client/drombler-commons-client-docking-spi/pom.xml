@@ -27,7 +27,9 @@ Contributor(s): .
     <name>Drombler Commons - Client - Docking - SPI</name>
     <description>Drombler Commons - Client - Docking - SPI provides some utility classes and frameworks to help building a 
         client side docking framework.</description>
-    <inceptionYear>2014</inceptionYear>
+        <inceptionYear>2014</inceptionYear>
+        <!-- required for Javadoc (apidocs) linking -->
+        <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

@@ -31,6 +31,8 @@ Contributor(s): .
         (Java 8) Date and Time API in JavaFX.
     </description>
     <inceptionYear>2012</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

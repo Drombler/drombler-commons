@@ -28,7 +28,7 @@ Contributor(s): .
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
-    <url>http://www.drombler.org/DromblerCommons/docs/site/${project.version}</url>
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler Commons project. This Drombler Commons Parent POM should be the parent (either directly or indirectly) of every Drombler Commons project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -62,8 +62,8 @@ Contributor(s): .
         <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/docs/site/${project.version}</distributionManagement.parent.url>
-        
+        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/${project.version}/docs/site</distributionManagement.parent.url>
+        <!--<url.parent>http://www.drombler.org/DromblerCommons/${project.version}/docs/site/</url.parent>-->
         <!-- Dependency Versions -->
         <dependency.slf4j.version>1.7.6</dependency.slf4j.version>
     </properties>

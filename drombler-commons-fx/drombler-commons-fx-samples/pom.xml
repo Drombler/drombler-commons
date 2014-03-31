@@ -26,6 +26,8 @@ Contributor(s): .
   <name>Drombler Commons - FX - Samples - All</name>
   <description>Drombler Commons - FX - Samples is a collection of samples showing features of Drombler Commons - FX.</description>
   <inceptionYear>2014</inceptionYear>
+  <!-- required for Javadoc (apidocs) linking -->
+  <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
   <scm>
       <connection>${scm.connection}</connection>

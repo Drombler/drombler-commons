@@ -25,6 +25,9 @@ Contributor(s): .
     <packaging>jar</packaging>
 
     <name>Drombler Commons - FX - Samples - Date &amp; Time FX8</name>
+    
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -36,7 +39,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>drombler.sourceforge.net</id>
-            <url>${distributionManagement.fx.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.samples.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
     
