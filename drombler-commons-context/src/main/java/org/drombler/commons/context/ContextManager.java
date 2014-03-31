@@ -38,6 +38,12 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     private Object activeObject = null;
 
     /**
+     * Creates a new instance of this class.
+     */
+    public ContextManager() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override
