@@ -15,6 +15,7 @@
 package org.drombler.commons.client.docking;
 
 /**
+ * The dockable preferences defines the preferred Docking Area and the preferred position in that Docking Area.
  *
  * @author puce
  */
@@ -24,33 +25,44 @@ public class DockablePreferences {
     private int position;
 
     /**
-     * @return the areaId
+     * Gets the preferred Docking Area ID.
+     *
+     * @return the preferred Docking Area ID
      */
     public String getAreaId() {
         return areaId;
     }
 
     /**
-     * @param areaId the areaId to set
+     * Sets the preferred Docking Area ID.
+     *
+     * @param areaId the preferred Docking Area ID
      */
     public void setAreaId(String areaId) {
         this.areaId = areaId;
     }
 
     /**
-     * @return the position
+     * Gets the preferred position in the Docking Area.
+     *
+     * @return the preferred position in the Docking Area
      */
     public int getPosition() {
         return position;
     }
 
     /**
-     * @param position the position to set
+     * Sets the preferred position in the Docking Area.
+     *
+     * @param position the preferred position in the Docking Area
      */
     public void setPosition(int position) {
         this.position = position;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "DockablePreferences{" + "areaId=" + areaId + ", position=" + position + '}';

@@ -16,30 +16,49 @@ package org.drombler.commons.client.docking;
 
 import java.util.Objects;
 
+/**
+ * An entry in the Docking System, which groups a Dockable with its {@link DockablePreferences}.
+ *
+ * @author puce
+ * @param <D> the Dockable type
+ */
 public class DockableEntry<D> {
 
     private final D dockable;
     private final DockablePreferences dockablePreferences;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dockable the Dockable
+     * @param dockablePreferences the {@link DockablePreferences} of the Dockable
+     */
     public DockableEntry(D dockable, DockablePreferences dockablePreferences) {
         this.dockable = dockable;
         this.dockablePreferences = dockablePreferences;
     }
 
     /**
-     * @return the dockable
+     * Gets the Dockable.
+     *
+     * @return the Dockable
      */
     public D getDockable() {
         return dockable;
     }
 
     /**
-     * @return the dockablePreferences
+     * Gets the dockable preferences.
+     *
+     * @return the dockable preferences
      */
     public DockablePreferences getDockablePreferences() {
         return dockablePreferences;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -47,6 +66,9 @@ public class DockableEntry<D> {
         return hash;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

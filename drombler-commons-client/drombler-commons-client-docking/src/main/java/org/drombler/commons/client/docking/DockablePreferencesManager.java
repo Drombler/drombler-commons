@@ -15,18 +15,42 @@
 package org.drombler.commons.client.docking;
 
 /**
+ * A manager to manage the {@link DockablePreferences}.
+ *
+ * Note: This class is some pre-work for changing (once drag'n'drop is supported) DockablePreferences.
  *
  * @author puce
+ * @param <D> the Dockable type
  */
 public interface DockablePreferencesManager<D> {
 
+    /**
+     * Gets the {@link DockablePreferences} of the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @return the DockablePreferences of the specified Dockable
+     */
     DockablePreferences getDockablePreferences(D dockable);
 
+    /**
+     * Registers the default {@link DockablePreferences}
+     *
+     * @param dockableClass
+     * @param dockablePreferences
+     */
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
     
 //    void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences);
-
+    /**
+     * Unregisters the {@link DockablePreferences} of the specified Dockable.
+     *
+     * @param dockable the {@link DockablePreferences} of the specified Dockable
+     * @return
+     */
     DockablePreferences unregisterDockablePreferences(D dockable);
-    
+
+    /**
+     * Resets the {@link DockablePreferences} of all Dockables to their default values.
+     */
     void reset();
 }

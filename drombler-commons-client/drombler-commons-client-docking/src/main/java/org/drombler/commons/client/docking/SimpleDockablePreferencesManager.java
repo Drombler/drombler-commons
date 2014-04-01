@@ -19,9 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A simple in-memory {@link DockablePreferencesManager}.
+ *
+ * Note: This class is some pre-work changing (once drag'n'drop * is supported) DockablePreferences.
+ *
  * TODO: Thread-safe?
  *
  * @author puce
+ * @param <D> the Dockable type
  */
 public class SimpleDockablePreferencesManager<D> implements DockablePreferencesManager<D> {
 
@@ -31,6 +36,15 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
     private final Map<D, DockablePreferences> dockablePreferencesMap = Collections.synchronizedMap(
             new HashMap<D, DockablePreferences>());
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public SimpleDockablePreferencesManager() {
+    }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public DockablePreferences getDockablePreferences(D dockable) {
         // TODO: not thread-safe (map can change between calls)
@@ -41,6 +55,9 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         defaultDockablePreferencesMap.put(dockableClass, dockablePreferences);
@@ -50,11 +67,17 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
 //    public void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences) {
 //        dockablePreferencesMap.put(dockable, dockablePreferences);
 //    }
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public DockablePreferences unregisterDockablePreferences(D dockable) {
         return dockablePreferencesMap.remove(dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void reset() {
         dockablePreferencesMap.clear();

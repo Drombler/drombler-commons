@@ -150,7 +150,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             }
         });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
-        rootDockingAreaManager.addDockingArea(dockingAreaDescriptor.getPath(), dockingArea);
+        rootDockingAreaManager.addDockingArea(dockingAreaDescriptor.getParentPath(), dockingArea);
         handleDockingArea(dockingArea);
     }
 

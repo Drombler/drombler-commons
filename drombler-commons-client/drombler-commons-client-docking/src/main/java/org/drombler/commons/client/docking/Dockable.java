@@ -15,6 +15,9 @@
 package org.drombler.commons.client.docking;
 
 /**
+ * An abstract container which can be docked in the Docking System.
+ *
+ * Note: This interface might be removed in the future!
  *
  * @author puce
  */
@@ -22,6 +25,9 @@ package org.drombler.commons.client.docking;
 public interface Dockable {
 //    String getTitle();
 
+    /**
+     * Requests that this Dockable should become active.
+     */
     void requestActive();
 
     // TODO: needed?

@@ -15,6 +15,7 @@
 package org.drombler.commons.client.docking;
 
 /**
+ * The layout constraints of a Docking Area.
  *
  * @author puce
  */
@@ -24,28 +25,42 @@ public class LayoutConstraintsDescriptor {
     private double prefHeight = -1.0;
 
     /**
-     * @return the prefWidth
+     * Creates a new instance of this class.
+     */
+    public LayoutConstraintsDescriptor() {
+    }
+
+    /**
+     * Gets the preferred width of the Docking Area. Can be negative to indicate a flexible width (default).
+     *
+     * @return the preferred width of the Docking Area
      */
     public double getPrefWidth() {
         return prefWidth;
     }
 
     /**
-     * @param prefWidth the prefWidth to set
+     * Sets the preferred width of the Docking Area. Can be negative to indicate a flexible width (default).
+     *
+     * @param prefWidth the preferred width of the Docking Area
      */
     public void setPrefWidth(double prefWidth) {
         this.prefWidth = prefWidth;
     }
 
     /**
-     * @return the prefHeight
+     * Gets the preferred height of the Docking Area. Can be negative to indicate a flexible height (default).
+     *
+     * @return the preferred height of the Docking Area
      */
     public double getPrefHeight() {
         return prefHeight;
     }
 
     /**
-     * @param prefHeight the prefHeight to set
+     * Sets the preferred height of the Docking Area. Can be negative to indicate a flexible height (default).
+     *
+     * @param prefHeight the preferred height of the Docking Area
      */
     public void setPrefHeight(double prefHeight) {
         this.prefHeight = prefHeight;

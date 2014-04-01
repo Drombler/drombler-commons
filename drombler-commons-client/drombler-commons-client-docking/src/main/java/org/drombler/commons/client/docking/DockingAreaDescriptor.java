@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * The Docking Area descriptor describes a Docking Area.
  *
  * @author puce
  */
@@ -25,82 +26,113 @@ public final class DockingAreaDescriptor {
 
     private String id;
     private int position;
-    private List<Integer> path;
-    private boolean permanent;
+    private List<Integer> parentPath;
+    private boolean permanent = false;
     private LayoutConstraintsDescriptor layoutConstraints;
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public DockingAreaDescriptor() {
+    }
 
 
     /**
-     * @return the id
+     * Gets the Docking Area ID.
+     *
+     * @return the Docking Area ID
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * Sets the Docking Area ID.
+     *
+     * @param id the Docking Area ID
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return the position
+     * Gets the position of the Docking Area in the parent split pane.
+     *
+     * @return the position of the Docking Area in the parent split pane
      */
     public int getPosition() {
         return position;
     }
 
     /**
-     * @param position the position to set
+     * Sets the position of the Docking Area in the parent split pane.
+     *
+     * @param position the position of the Docking Area in the parent split pane
      */
     public void setPosition(int position) {
         this.position = position;
     }
 
     /**
-     * @return the pathDescriptors
+     * Gets the path positions of the parent split pane.
+     *
+     * @return the path positions of the parent split pane
      */
-    public List<Integer> getPath() {
-        return path;
+    public List<Integer> getParentPath() {
+        return parentPath;
     }
 
     /**
-     * @param path the path to set
+     * Sets the path positions of the parent split pane.
+     *
+     * @param parentPath the path positions of the parent split pane
      */
-    public void setPath(List<Integer> path) {
-        this.path = path;
+    public void setParentPath(List<Integer> parentPath) {
+        this.parentPath = parentPath;
     }
 
     /**
-     * @return the permanent
+     * Returns true, if the Docking Area is visible also when it's empty (permanently visible), and returns false, if
+     * the Docking Area is only visible when it's not empty
+     *
+     * @return true if permanently visible, else false
      */
     public boolean isPermanent() {
         return permanent;
     }
 
     /**
-     * @param permanent the permanent to set
+     * Specifies if the Docking Area should be permanently visible. If true, the Docking Area is visible also when it's
+     * empty (permanently visible), else the Docking Area is only     * visible when it's not empty.
+     *
+     * @param permanent If true, the Docking Area is visible also when it's empty (permanently visible), else the
+     * Docking Area is only visible when it's not empty
      */
     public void setPermanent(boolean permanent) {
         this.permanent = permanent;
     }
 
     /**
-     * @return the layoutConstraints
+     * Gets the layout constraints of the Docking Area.
+     *
+     * @return the layout constraints of the Docking Area
      */
     public LayoutConstraintsDescriptor getLayoutConstraints() {
         return layoutConstraints;
     }
 
     /**
-     * @param layoutConstraints the layoutConstraints to set
+     * Sets the layout constraints of the Docking Area.
+     *
+     * @param layoutConstraints the layout constraints of the Docking Area
      */
     public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
         this.layoutConstraints = layoutConstraints;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -108,6 +140,9 @@ public final class DockingAreaDescriptor {
         return hash;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -120,9 +155,12 @@ public final class DockingAreaDescriptor {
         return Objects.equals(this.id, other.id);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
-        return "DockingAreaDescriptor{" + "id=" + id + ", position=" + position + ", path=" + path + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
+        return "DockingAreaDescriptor{" + "id=" + id + ", position=" + position + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
     }
 
 
