@@ -28,6 +28,7 @@ import org.drombler.commons.client.docking.spi.SplitLevel;
  * @author puce
  */
 // TODO: check thread safty
+// TODO: move this class to Client - Docking - SPI
 public class DockingAreaManager {
 
     private final Map<Integer, DockingAreaPane> dockingAreas = new HashMap<>();

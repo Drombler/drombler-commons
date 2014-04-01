@@ -55,11 +55,17 @@ public class ShortPathPart {
         return inActualLevel;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int hashCode() {
         return Objects.hash(position, inActualLevel);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -75,6 +81,9 @@ public class ShortPathPart {
                 && Objects.equals(inActualLevel, other.inActualLevel);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "ShortPathPart[" + "position=" + position + ", inActualLevel=" + inActualLevel + ']';

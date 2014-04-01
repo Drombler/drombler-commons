@@ -18,6 +18,12 @@ import java.util.Objects;
 import org.drombler.commons.client.geometry.Orientation;
 
 /**
+ * The split level in a multi split pane.
+ *
+ * The root level is at level 0 and has a {@link Orientation#VERTICAL} orientation.
+ *
+ * Each even level has a {@link Orientation#VERTICAL} orientation and each odd level a {@link Orientation#HORIZONTAL}
+ * orientation.
  *
  * @author puce
  */
@@ -40,6 +46,8 @@ public class SplitLevel {
     }
 
     /**
+     * Gets the level.
+     *
      * @return the level
      */
     public int getLevel() {
@@ -47,12 +55,20 @@ public class SplitLevel {
     }
 
     /**
+     * Gets the orientation.
+     *
      * @return the orientation
      */
     public Orientation getOrientation() {
         return orientation;
     }
 
+    /**
+     * Returns a SplitLevel for the given level.
+     *
+     * @param level the level
+     * @return a SplitLevel for the given level
+     */
     public static SplitLevel valueOf(int level) {
         if (level == ROOT.level) {
             return ROOT;
@@ -61,11 +77,17 @@ public class SplitLevel {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int hashCode() {
         return Objects.hash(level, orientation);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -81,6 +103,9 @@ public class SplitLevel {
                 && Objects.equals(orientation, other.orientation);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "SplitLevel[" + "level=" + level + ", orientation=" + orientation + ']';

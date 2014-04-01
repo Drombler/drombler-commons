@@ -54,6 +54,9 @@ public class DockablePane extends Control implements Dockable {
 //     */
 //    private final ContextProperty context = new ContextProperty();
 
+    /**
+     * Creates a new instance of this class.
+     */
     public DockablePane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
