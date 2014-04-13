@@ -44,6 +44,8 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      */
     private final String areaId;
     private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
+    private final ObservableList<PositionableAdapter<DockablePane>> unmodifiableDockables = FXCollections.
+            unmodifiableObservableList(dockables);
     private final Set<DockablePane> dockableSet = new HashSet<>();
     private final int position;
     /**
@@ -129,7 +131,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      * @return the dockablePanes
      */
     public ObservableList<PositionableAdapter<DockablePane>> getDockables() {
-        return FXCollections.unmodifiableObservableList(dockables);
+        return unmodifiableDockables;
     }
 
     /**
