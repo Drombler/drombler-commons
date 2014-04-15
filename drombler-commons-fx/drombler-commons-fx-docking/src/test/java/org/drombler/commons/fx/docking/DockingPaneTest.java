@@ -33,6 +33,10 @@ public class DockingPaneTest {
     private static final String CENTER = "center";
     private final DockingPane dockingPane = new DockingPane();
 
+//    static {
+//        SimpleControlLauncher.main(new String[]{});
+//    }
+
     @Before
     public void setUp() {
         dockingPane.setSkin(new DockingPaneSkin(dockingPane));

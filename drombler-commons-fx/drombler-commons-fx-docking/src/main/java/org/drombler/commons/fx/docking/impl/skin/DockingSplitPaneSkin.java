@@ -17,7 +17,6 @@ package org.drombler.commons.fx.docking.impl.skin;
 import java.util.Arrays;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.geometry.Orientation;
@@ -41,17 +40,16 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     private DockingSplitPane control;
     private SplitPane splitPane = new SplitPane();
 
+    private final ListChangeListener<Node> splitPaneItemsListener = change -> recalculateDividerPositions();
+
+    private final ChangeListener<Number> sizeChangeListener = (ov, oldValue, newValue) -> recalculateDividerPositions();
+
     public DockingSplitPaneSkin(DockingSplitPane control) {
         this.control = control;
         splitPane.orientationProperty().bind(this.control.orientationProperty());
 //        splitPane.getItems().addAll(control.getDockingSplitPaneChildren());
         Bindings.bindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
-        this.splitPane.getItems().addListener(new ListChangeListener<Node>() {
-            @Override
-            public void onChanged(Change<? extends Node> change) {
-                recalculateDividerPositions();
-            }
-        });
+        this.splitPane.getItems().addListener(splitPaneItemsListener);
 
         this.control.getDockingSplitPaneChildren().addListener(new ListChangeListener<Node>() {
             @Override
@@ -97,19 +95,8 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
 //            }
 //        });
 
-        control.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-                recalculateDividerPositions();
-            }
-        });
-
-        control.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-                recalculateDividerPositions();
-            }
-        });
+        control.widthProperty().addListener(sizeChangeListener);
+        control.heightProperty().addListener(sizeChangeListener);
         recalculateDividerPositions();
     }
 
@@ -212,6 +199,11 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
 
     @Override
     public void dispose() {
+        Bindings.unbindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
+        splitPane.getItems().removeListener(splitPaneItemsListener);
+        control.widthProperty().removeListener(sizeChangeListener);
+        control.heightProperty().removeListener(sizeChangeListener);
+
         control = null;
         splitPane = null;
     }

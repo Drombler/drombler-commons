@@ -58,8 +58,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      */
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel
-            = new SimpleObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>>(
-                    this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
+            = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
     private LayoutConstraintsDescriptor layoutConstraints;
 
     public DockingAreaPane(String areaId, int position, boolean permanent) {

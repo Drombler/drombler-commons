@@ -149,10 +149,6 @@ Contributor(s): .
 
     <dependencies>
         <dependency>
-            <groupId>javafx</groupId>
-            <artifactId>jfxrt</artifactId>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-client-core</artifactId>
             <version>${project.version}</version>

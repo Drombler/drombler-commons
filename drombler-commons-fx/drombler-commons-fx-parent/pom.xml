@@ -57,25 +57,10 @@ Contributor(s): .
     </licenses>
     
     <properties>
-        <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
         <distributionManagement.fx.parent.url>${distributionManagement.parent.url}/drombler-commons-fx</distributionManagement.fx.parent.url>
-    
-        <javafx.version>2.2.0</javafx.version>
     </properties>
     
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>javafx</groupId>
-                <artifactId>jfxrt</artifactId>
-                <version>${javafx.version}</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

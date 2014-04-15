@@ -27,7 +27,7 @@ Contributor(s): .
 
     <name>Drombler Commons - FX - Date and Time</name>
     <description>Drombler Commons - FX - Date and Time is a collection of 
-        controls, utility classes and frameworks to work with the upcoming 
+        controls, utility classes and frameworks to work with the new 
         (Java 8) Date and Time API in JavaFX.
     </description>
     <inceptionYear>2012</inceptionYear>
@@ -52,9 +52,6 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
-        <java.min.version>1.8</java.min.version>
-        <javafx.version>8.0</javafx.version>
-        <!--<jdk8Home>/opt/jdk1.8.0</jdk8Home>-->
     </properties>
     
     <!-- Not inherited!?? -->
@@ -69,47 +66,9 @@ Contributor(s): .
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-toolchains-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>toolchain</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <toolchains>
-                        <jdk>
-                            <version>${java.min.version}</version>
-                            <vendor>oracle</vendor>
-                        </jdk>
-                    </toolchains>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    <!--    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>javafx</groupId>
-                <artifactId>jfxrt</artifactId>
-                <version>${javafx.version}</version>
-                <type>jar</type>
-                <scope>system</scope>
-                <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>-->
+
     <dependencies>
         <dependency>
             <groupId>org.drombler.commons</groupId>

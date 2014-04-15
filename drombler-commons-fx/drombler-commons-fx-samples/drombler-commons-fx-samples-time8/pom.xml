@@ -24,7 +24,7 @@ Contributor(s): .
     <artifactId>drombler-commons-fx-samples-time8</artifactId>
     <packaging>jar</packaging>
 
-    <name>Drombler Commons - FX - Samples - Date &amp; Time FX8</name>
+    <name>Drombler Commons - FX - Samples - Date &amp; Time</name>
     
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
@@ -47,8 +47,6 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
-        <java.min.version>1.8</java.min.version>
-        <javafx.version>8.0</javafx.version>
     </properties>
     
     <build>
@@ -117,33 +115,6 @@ Contributor(s): .
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-toolchains-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>toolchain</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <toolchains>
-                        <jdk>
-                            <version>${java.min.version}</version>
-                            <vendor>oracle</vendor>
-                        </jdk>
-                    </toolchains>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
