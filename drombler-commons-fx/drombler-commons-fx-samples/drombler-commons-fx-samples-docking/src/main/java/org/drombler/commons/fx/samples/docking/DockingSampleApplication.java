@@ -116,10 +116,10 @@ public class DockingSampleApplication extends Application {
 
     private MenuItem createDockablePaneMenuItem(DockablePane dockablePane, DockingPane dockingPane,
             DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        MenuItem leftTestPaneMenuItem = new MenuItem(dockablePane.getTitle());
-        leftTestPaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
+        MenuItem openDockablePaneMenuItem = new MenuItem(dockablePane.getTitle());
+        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
                 dockablePreferencesManager));
-        return leftTestPaneMenuItem;
+        return openDockablePaneMenuItem;
     }
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
