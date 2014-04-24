@@ -46,6 +46,7 @@ Contributor(s): .
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
+        <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
     </properties>
     
     <build>
@@ -100,6 +101,11 @@ Contributor(s): .
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-docking</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
