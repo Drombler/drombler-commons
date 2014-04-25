@@ -8,7 +8,7 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2014 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
@@ -103,9 +103,6 @@ public class DockingSampleApplication extends Application {
         MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomTestPane, dockingPane,
                 dockablePreferencesManager);
         windowMenu.getItems().add(bottomTestPanePaneMenuItem);
-
-        // Set active context
-        rightTestPane.setActiveContext(contextManager.getActiveContext());
 
         Scene scene = new Scene(borderPane, 1500, 1000);
 
