@@ -24,6 +24,14 @@ public class DockablePreferences {
     private String areaId;
     private int position;
 
+    public DockablePreferences() {
+    }
+
+    public DockablePreferences(DockablePreferences dockablePreferences) {
+        this.areaId = dockablePreferences.areaId;
+        this.position = dockablePreferences.position;
+    }
+
     /**
      * Gets the preferred Docking Area ID.
      *
@@ -65,7 +73,7 @@ public class DockablePreferences {
      */
     @Override
     public String toString() {
-        return "DockablePreferences{" + "areaId=" + areaId + ", position=" + position + '}';
+        return "DockablePreferences[" + "areaId=" + areaId + ", position=" + position + "]";
     }
 
 }
