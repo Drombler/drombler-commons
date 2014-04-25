@@ -15,16 +15,33 @@
 package org.drombler.commons.fx.samples.docking;
 
 import java.io.IOException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-
 public class LeftTestPane extends DockablePane {
 
-    private int sampleCounter = 0;
-//
+    private final ObjectProperty<EventHandler<ActionEvent>> onNewSampleAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
+        @Override
+        protected void invalidated() {
+            setEventHandler(ActionEvent.ACTION, get());
+        }
+
+        @Override
+        public Object getBean() {
+            return LeftTestPane.this;
+        }
+
+        @Override
+        public String getName() {
+            return "onNewSampleAction";
+        }
+    };
+
     public LeftTestPane() throws IOException {
         load();
     }
@@ -34,10 +51,21 @@ public class LeftTestPane extends DockablePane {
     }
 
     @FXML
-    private void onNewSampleAction(ActionEvent event) throws IOException {
-        sampleCounter++;
-        Sample sample = new Sample("Sample " + sampleCounter);
-        SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-//        Dockables.open(sampleEditorPane);
+    private void onNewSampleAction(ActionEvent event) {
+        event.consume();
+        fireEvent(new ActionEvent());
     }
+
+    public final EventHandler<ActionEvent> getOnNewSampleAction() {
+        return onNewSampleActionProperty().get();
+    }
+
+    public final void setOnNewSampleAction(EventHandler<ActionEvent> contentChanged) {
+        onNewSampleActionProperty().set(contentChanged);
+    }
+
+    public ObjectProperty<EventHandler<ActionEvent>> onNewSampleActionProperty() {
+        return onNewSampleAction;
+    }
+
 }
