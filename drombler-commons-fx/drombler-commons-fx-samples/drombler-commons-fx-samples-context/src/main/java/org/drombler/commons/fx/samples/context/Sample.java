@@ -20,7 +20,7 @@ import javafx.beans.property.StringProperty;
 
 public class Sample {
 
-    private StringProperty name = new SimpleStringProperty(this, "name");
+    private final StringProperty name = new SimpleStringProperty(this, "name");
     
 
     public Sample(String name) {
@@ -38,4 +38,10 @@ public class Sample {
     public StringProperty nameProperty() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Sample[name=" + getName() + "]";
+    }
+    
 }

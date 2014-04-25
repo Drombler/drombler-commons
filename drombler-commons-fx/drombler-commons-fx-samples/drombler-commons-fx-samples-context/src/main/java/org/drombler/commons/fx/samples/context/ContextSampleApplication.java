@@ -108,7 +108,7 @@ public class ContextSampleApplication extends Application {
 
         Scene scene = new Scene(borderPane, 1500, 1000);
 
-        stage.setTitle("Docking Sample Application");
+        stage.setTitle("Context Sample Application");
         stage.setScene(scene);
         stage.show();
     }
