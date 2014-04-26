@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * Utility classes and extensions for the {@link javafx.scene.image} package.
+ */
 package org.drombler.commons.fx.scene.image;

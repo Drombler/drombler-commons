@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * This package contains GUI toolkit agnostic classes of a Docking Framework.
+ */
 package org.drombler.commons.client.docking;

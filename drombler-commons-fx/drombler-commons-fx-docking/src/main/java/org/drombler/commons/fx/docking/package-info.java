@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * A JavaFX based Docking Framework.
+ */
 package org.drombler.commons.fx.docking;

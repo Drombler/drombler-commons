@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * This package contains GUI toolkit agnostic classes for implementing a Docking Framework (SPI).
+ */
 package org.drombler.commons.client.docking.spi;

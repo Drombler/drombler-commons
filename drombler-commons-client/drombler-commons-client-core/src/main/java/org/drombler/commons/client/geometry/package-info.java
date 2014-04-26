@@ -14,6 +14,6 @@
  */
 
 /**
- * This package contains GUI toolkit agnostic geometry class.
+ * This package contains GUI toolkit agnostic geometry classes.
  */
 package org.drombler.commons.client.geometry;
