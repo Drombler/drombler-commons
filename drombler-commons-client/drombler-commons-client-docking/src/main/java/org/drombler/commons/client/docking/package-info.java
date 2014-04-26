@@ -14,5 +14,7 @@
  */
 /**
  * This package contains GUI toolkit agnostic classes of a Docking Framework.
+ *
+ * TODO: Change the package name to: org.drombler.commons.docking.client ?
  */
 package org.drombler.commons.client.docking;
