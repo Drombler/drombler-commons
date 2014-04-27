@@ -14,8 +14,8 @@
  */
 package org.drombler.commons.fx.scene.renderer;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.text.FormatException;
 import org.softsmithy.lib.text.Formatter;
 
@@ -28,6 +28,8 @@ import org.softsmithy.lib.text.Formatter;
  * @author puce
  */
 public class FormatterDataRenderer<T> extends AbstractDataRenderer<T> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FormatterDataRenderer.class);
 
     private final Formatter<? super T> formatter;
 
@@ -55,7 +57,7 @@ public class FormatterDataRenderer<T> extends AbstractDataRenderer<T> {
                 return formatter.format(item);
             } catch (FormatException ex) {
                 // TODO: good enough just to log?
-                Logger.getLogger(FormatterDataRenderer.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error(ex.getMessage(), ex);
                 return null;
             }
         } else {

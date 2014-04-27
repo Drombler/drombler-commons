@@ -15,8 +15,6 @@
 package org.drombler.commons.fx.scene.control;
 
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -25,17 +23,21 @@ import javafx.scene.control.TextField;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.FormatterDataRenderer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.text.Formatter;
 import org.softsmithy.lib.text.Parser;
 
 /**
- * A formatted {@link TextField}. A {@link Parser} specifies how to convert the
- * text to the {@link #value}. A {@link DataRenderer} specifies how to render
- * the {@link #value}.
+ * A formatted {@link TextField}. A {@link Parser} specifies how to convert the text to the {@link #value}. A
+ * {@link DataRenderer} specifies how to render the {@link #value}.
  *
+ * @param <T> the type to format/ parse
  * @author puce
  */
 public class FormattedTextField<T extends Comparable<? super T>> extends TextField {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FormattedTextField.class);
 
     /**
      * The value of this text field.
@@ -61,8 +63,7 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     /**
      * Creates a new instance of this class.
      *
-     * @param formatter a {@link Formatter} to configure the
-     * {@link #dataRenderer}
+     * @param formatter a {@link Formatter} to configure the {@link #dataRenderer}
      * @param parser a {@link Parser} to parse the {@link #value}
      */
     public FormattedTextField(Formatter<? super T> formatter, Parser<? extends T> parser) {
@@ -98,7 +99,7 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
                     try {
                         setValue(getParser().parse(newValue));
                     } catch (ParseException ex) {
-                        Logger.getLogger(FormattedTextField.class.getName()).log(Level.SEVERE, null, ex);
+                        LOG.error(ex.getMessage(), ex);
                     }
                 }
             }
