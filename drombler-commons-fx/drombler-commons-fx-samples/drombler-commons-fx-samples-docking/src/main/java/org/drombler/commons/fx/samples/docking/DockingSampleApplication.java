@@ -8,12 +8,13 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2014 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 package org.drombler.commons.fx.samples.docking;
 
+import java.io.IOException;
 import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -34,6 +35,8 @@ import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -41,11 +44,15 @@ import org.drombler.commons.fx.docking.DockingPane;
  */
 public class DockingSampleApplication extends Application {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DockingSampleApplication.class);
+
     public static final String RIGHT_AREA_ID = "right";
     public static final String LEFT_AREA_ID = "left";
     public static final String BOTTOM_AREA_ID = "bottom";
     public static final String TOP_AREA_ID = "top";
     public static final String CENTER_AREA_ID = "center";
+
+    private int sampleCounter = 0;
 
     public static void main(String... args) {
         launch(args);
@@ -54,7 +61,7 @@ public class DockingSampleApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();
-        DockingPane dockingPane = new DockingPane();
+        final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
         DockingManager dockingManager = new DockingManager(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
@@ -66,11 +73,26 @@ public class DockingSampleApplication extends Application {
 
         addDockingAreas(dockingPane);
 
-        DockablePreferencesManager<DockablePane> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
+        final DockablePreferencesManager<DockablePane> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
         registerDefaultDockablePreferences(dockablePreferencesManager);
 
         LeftTestPane leftTestPane = new LeftTestPane();
         leftTestPane.setTitle("Left");
+        leftTestPane.setOnNewSampleAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    sampleCounter++;
+                    Sample sample = new Sample("Sample " + sampleCounter);
+                    SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
+                    dockingPane.getDockables().add(new DockableEntry<>(sampleEditorPane, dockablePreferencesManager.
+                            getDockablePreferences(sampleEditorPane)));
+                } catch (IOException ex) {
+                    LOG.error(ex.getMessage(), ex);
+                }
+            }
+        });
         dockingPane.getDockables().add(new DockableEntry<>(leftTestPane, dockablePreferencesManager.
                 getDockablePreferences(
                         leftTestPane)));
@@ -104,9 +126,6 @@ public class DockingSampleApplication extends Application {
                 dockablePreferencesManager);
         windowMenu.getItems().add(bottomTestPanePaneMenuItem);
 
-        // Set active context
-        rightTestPane.setActiveContext(contextManager.getActiveContext());
-
         Scene scene = new Scene(borderPane, 1500, 1000);
 
         stage.setTitle("Docking Sample Application");
@@ -116,10 +135,10 @@ public class DockingSampleApplication extends Application {
 
     private MenuItem createDockablePaneMenuItem(DockablePane dockablePane, DockingPane dockingPane,
             DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        MenuItem leftTestPaneMenuItem = new MenuItem(dockablePane.getTitle());
-        leftTestPaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
+        MenuItem openDockablePaneMenuItem = new MenuItem(dockablePane.getTitle());
+        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
                 dockablePreferencesManager));
-        return leftTestPaneMenuItem;
+        return openDockablePaneMenuItem;
     }
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
@@ -127,6 +146,7 @@ public class DockingSampleApplication extends Application {
         registerDefaultDockablePreferences(dockablePreferencesManager, RightTestPane.class, RIGHT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, TopTestPane.class, TOP_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, BottomTestPane.class, BOTTOM_AREA_ID, 20);
+        registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, CENTER_AREA_ID, 20);
     }
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager,

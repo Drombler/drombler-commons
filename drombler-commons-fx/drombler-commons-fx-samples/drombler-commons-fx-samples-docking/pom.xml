@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.3-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-docking</artifactId>
@@ -63,7 +63,7 @@ Contributor(s): .
                             <outputDirectory>${project.build.directory}/jfx/app</outputDirectory>
                             <resources>          
                                 <resource>
-                                    <directory>src/main/config</directory>
+                                    <directory>src/main/logging</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>              
@@ -86,6 +86,13 @@ Contributor(s): .
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
             </plugin>
         </plugins>
     </build>

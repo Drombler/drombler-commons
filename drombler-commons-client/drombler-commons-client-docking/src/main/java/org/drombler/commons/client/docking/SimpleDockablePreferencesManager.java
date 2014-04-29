@@ -49,7 +49,8 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
     public DockablePreferences getDockablePreferences(D dockable) {
         // TODO: not thread-safe (map can change between calls)
         if (!dockablePreferencesMap.containsKey(dockable)) {
-            dockablePreferencesMap.put(dockable, defaultDockablePreferencesMap.get(dockable.getClass()));
+            dockablePreferencesMap.put(dockable, new DockablePreferences(defaultDockablePreferencesMap.get(dockable.
+                    getClass())));
         }
         return dockablePreferencesMap.get(dockable);
     }

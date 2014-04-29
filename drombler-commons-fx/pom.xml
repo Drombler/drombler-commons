@@ -19,14 +19,15 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-parent</artifactId>
-        <version>0.3-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>drombler-commons-fx-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx</artifactId>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - FX - All</name>
-    <description>Drombler Commons - FX is a collection of reusable libraries and frameworks for JavaFX.</description>
+    <description>Drombler Commons - FX is a collection of reusable libraries and frameworks for JavaFX. You can use this
+        POM file e.g. in your dependencyManagement section to manage your Drombler Commons FX dependencies.</description>
     <inceptionYear>2013</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>

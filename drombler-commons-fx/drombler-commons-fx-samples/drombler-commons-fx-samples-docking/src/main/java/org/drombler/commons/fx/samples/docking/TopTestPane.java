@@ -1,36 +1,31 @@
-
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (Sourceforge.net user: puce).
+ * Copyright 2014 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
  */
 package org.drombler.commons.fx.samples.docking;
 
 import java.io.IOException;
 import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-
-public class TopTestPane extends DockablePane{
-
-//    private static final String FXML_EXTENSION = ".fxml";
+public class TopTestPane extends DockablePane {
 
     public TopTestPane() throws IOException {
-//        loadFXML();
+        loadFXML();
     }
 
-//    private void loadFXML() throws IOException {
-//        Class<TopTestPane> type = TopTestPane.class;
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.setClassLoader(type.getClassLoader());
-//
-//        try (InputStream is = type.getResourceAsStream(type.getSimpleName() + FXML_EXTENSION)) {
-//            if (is == null) {
-//                // avoid NullPointerException
-//                throw new ResourceFileNotFoundException("/" + type.getName().replace(".", "/") + FXML_EXTENSION);
-//            }
-//            fxmlLoader.load(is);
-//        }
-//    }
-    
+    private void loadFXML() throws IOException {
+        FXMLLoaders.loadRoot(this);
+    }
+
 }

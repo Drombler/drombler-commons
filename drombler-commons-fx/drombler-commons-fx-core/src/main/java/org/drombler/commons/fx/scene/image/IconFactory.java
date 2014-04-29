@@ -17,11 +17,11 @@ package org.drombler.commons.fx.scene.image;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.drombler.commons.fx.scene.GraphicFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
 /**
@@ -29,6 +29,8 @@ import org.softsmithy.lib.util.ResourceLoader;
  * @author puce
  */
 public class IconFactory implements GraphicFactory {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IconFactory.class);
 
     private final Map<Integer, Image> images = new HashMap<>();
     private final String iconResourcePath;
@@ -63,7 +65,7 @@ public class IconFactory implements GraphicFactory {
             try (InputStream is = imageInputStream) {
                 return new Image(is, size, size, true, smoothIcon);
             } catch (Exception ex) {
-                Logger.getLogger(IconFactory.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error(ex.getMessage(), ex);
             }
         }
         return null;

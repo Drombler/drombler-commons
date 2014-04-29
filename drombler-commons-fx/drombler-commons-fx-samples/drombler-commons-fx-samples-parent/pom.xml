@@ -13,67 +13,73 @@ Copyright 2012 Drombler.org. All Rights Reserved.
 
 Contributor(s): .
 -->
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-      <groupId>org.drombler.commons</groupId>
-      <artifactId>drombler-commons-fx-parent</artifactId>
-      <version>0.3-SNAPSHOT</version>
-      <relativePath>../../drombler-commons-fx-parent/pom.xml</relativePath>
-  </parent>
-  <artifactId>drombler-commons-fx-samples-parent</artifactId>
-  <packaging>pom</packaging>
-  <name>Drombler Commons - FX - Samples - Parent</name>
-  <description>This Drombler Commons - FX - Samples Parent POM should be the parent (either directly or indirectly) of 
-      every Drombler Commons - FX -Samples project unless there is a good reason to do otherwise (in which case the 
-      reason should be documented).
-  </description>
-  <inceptionYear>2014</inceptionYear>
-  <!-- required for Javadoc (apidocs) linking -->
-  <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-fx-parent</artifactId>
+        <version>0.4-SNAPSHOT</version>
+        <relativePath>../../drombler-commons-fx-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>drombler-commons-fx-samples-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Drombler Commons - FX - Samples - Parent</name>
+    <description>This Drombler Commons - FX - Samples Parent POM should be the parent (either directly or indirectly) of 
+        every Drombler Commons - FX -Samples project unless there is a good reason to do otherwise (in which case the 
+        reason should be documented).
+    </description>
+    <inceptionYear>2014</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
-  <scm>
-      <connection>${scm.connection}</connection>
-      <developerConnection>${scm.developerConnection}</developerConnection>
-      <url>${scm.url}</url>
-      <tag>HEAD</tag>
-  </scm>
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
     
-  <distributionManagement>
-      <site>
-          <id>drombler.sourceforge.net</id>
-          <url>${distributionManagement.fx.samples.parent.url}/${project.artifactId}/</url>
-      </site>
-  </distributionManagement>
+    <distributionManagement>
+        <site>
+            <id>drombler.sourceforge.net</id>
+            <url>${distributionManagement.fx.samples.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
     
-  <licenses>
-      <license>
-          <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
-          <distribution>repo</distribution>
-          <!--<url>http://java.sun.com/spl.html</url>-->
-          <url>../../LICENSE.txt</url>
-      </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../../LICENSE.txt</url>
+        </license>
+    </licenses>
     
-  <properties>
-      <scm.connection>${scm.parent.connection}</scm.connection>
-      <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
-      <scm.url>${scm.parent.url}</scm.url>
-      <distributionManagement.fx.samples.parent.url>${distributionManagement.fx.parent.url}/drombler-commons-fx-samples</distributionManagement.fx.samples.parent.url>
-  </properties>
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+        <distributionManagement.fx.samples.parent.url>${distributionManagement.fx.parent.url}/drombler-commons-fx-samples</distributionManagement.fx.samples.parent.url>
+    </properties>
   
-  <build>
-      <pluginManagement>
-          <plugins>
-              <plugin>
-                  <artifactId>maven-deploy-plugin</artifactId>
-                  <configuration>
-                      <skip>true</skip>
-                  </configuration>
-              </plugin>
-          </plugins>
-      </pluginManagement>
-  </build>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                        <skipDeploy>true</skipDeploy>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
     
 </project>

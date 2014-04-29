@@ -81,5 +81,10 @@ public class DockableEntry<D> {
         return Objects.equals(this.dockable, other.dockable);
     }
 
+    @Override
+    public String toString() {
+        return "DockableEntry[dockable=" + dockable + ", dockablePreferences=" + dockablePreferences + "]";
+    }
+
 }
 

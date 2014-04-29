@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * This package contains GUI toolkit agnostic client utility classes.
+ */
 package org.drombler.commons.client.util;

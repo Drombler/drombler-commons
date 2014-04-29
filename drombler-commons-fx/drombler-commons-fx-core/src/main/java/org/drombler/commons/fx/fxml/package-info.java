@@ -12,5 +12,7 @@
  *
  * Contributor(s): .
  */
-
+/**
+ * Utility classes and extensions for the {@link javafx.fxml} package.
+ */
 package org.drombler.commons.fx.fxml;

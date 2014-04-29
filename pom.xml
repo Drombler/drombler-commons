@@ -19,14 +19,15 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.3-SNAPSHOT</version>
+        <version>0.4-SNAPSHOT</version>
         <relativePath>drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons</artifactId>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - All</name>
-    <description>Drombler Commons is a collection of reusable libraries and frameworks.</description>
+    <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
+        in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
