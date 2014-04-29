@@ -24,6 +24,6 @@ public class Stylesheets {
     }
     
     public static String getDefaultStylesheet(){
-        return Stylesheets.class.getResource("caspian/caspian.css").toExternalForm();
+        return Stylesheets.class.getResource("modena/modena.css").toExternalForm();
     }
 }
