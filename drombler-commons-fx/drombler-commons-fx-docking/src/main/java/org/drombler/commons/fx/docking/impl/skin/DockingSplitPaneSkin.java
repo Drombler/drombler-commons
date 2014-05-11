@@ -18,7 +18,6 @@ import java.util.Arrays;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
@@ -51,12 +50,7 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
         Bindings.bindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
         this.splitPane.getItems().addListener(splitPaneItemsListener);
 
-        this.control.getDockingSplitPaneChildren().addListener(new ListChangeListener<Node>() {
-            @Override
-            public void onChanged(Change<? extends Node> change) {
-                recalculateDividerPositions();
-            }
-        });
+        this.control.getDockingSplitPaneChildren().addListener(splitPaneItemsListener);
 //        control.getDockingSplitPaneChildren().addListener(new ListChangeListener<DockingSplitPaneChildBase>() {
 //
 //            @Override
@@ -201,6 +195,7 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     public void dispose() {
         Bindings.unbindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
         splitPane.getItems().removeListener(splitPaneItemsListener);
+        control.getDockingSplitPaneChildren().removeListener(splitPaneItemsListener);
         control.widthProperty().removeListener(sizeChangeListener);
         control.heightProperty().removeListener(sizeChangeListener);
 
