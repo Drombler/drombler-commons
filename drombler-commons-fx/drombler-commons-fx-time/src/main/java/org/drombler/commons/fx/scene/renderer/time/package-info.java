@@ -13,7 +13,7 @@
  * Contributor(s): .
  */
 /**
- * JavaFX {@link DataRenderer}s for classes in the {@link java.time} package.
+ * JavaFX {@link org.drombler.commons.fx.scene.renderer.DataRenderer}s for classes in the {@link java.time} package.
  *
  * TODO: Change the package name to: org.drombler.commons.time.fx.scene.renderer
  */

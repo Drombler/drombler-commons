@@ -38,7 +38,7 @@ import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
 public class LocalDateFixedYearMonthChooser extends Control {
 
     /**
-     * The currently selected {@link LocalDate}.<br/> <br/> Default:
+     * The currently selected {@link LocalDate}.<br> <br> Default:
      * {@link LocalDate#now()}
      *
      * TODO: support multi-selection?

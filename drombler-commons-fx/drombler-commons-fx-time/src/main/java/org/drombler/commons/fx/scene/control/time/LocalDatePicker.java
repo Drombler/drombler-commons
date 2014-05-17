@@ -45,10 +45,10 @@ public class LocalDatePicker extends Control {
      * The {@link DataRenderer} used to format the {@link LocalDate} in the text
      * field. The default DataRenderer uses
      * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
-     * and {@link FormatStyle#LONG}. <br/><br/> Here is a sample how you could
+     * and {@link FormatStyle#LONG}. <br><br> Here is a sample how you could
      * create a DataRenderer which uses
      * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
-     * and {@link FormatStyle#MEDIUM}:<br/><br/>
+     * and {@link FormatStyle#MEDIUM}:<br><br>
      * {@code new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))}
      */
     private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
@@ -60,7 +60,7 @@ public class LocalDatePicker extends Control {
      */
     private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
     /**
-     * The currently selected {@link LocalDate}.<br/> <br/> Default:
+     * The currently selected {@link LocalDate}.<br> <br> Default:
      * {@link LocalDate#now()}
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",

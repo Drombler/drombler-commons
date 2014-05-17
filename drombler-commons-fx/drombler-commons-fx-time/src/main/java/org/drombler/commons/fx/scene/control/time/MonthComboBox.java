@@ -22,7 +22,7 @@ import org.drombler.commons.fx.scene.control.RenderedListCellFactory;
 import org.drombler.commons.fx.scene.renderer.time.MonthRenderer;
 
 /**
- * A {@link ComboBox} for {@link MonthOfYear}.
+ * A {@link ComboBox} for {@link Month}.
  *
  * @author puce
  */
