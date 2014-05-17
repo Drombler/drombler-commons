@@ -22,6 +22,7 @@ import java.util.List;
 import javafx.geometry.Orientation;
 import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.GUITests;
 import org.drombler.commons.fx.docking.SimpleControlLauncher;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,12 +32,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
  *
  * @author puce
  */
+@Category(GUITests.class)
 public class DockingSplitPaneTest {
 
     private static final String TEST1 = "test1";
