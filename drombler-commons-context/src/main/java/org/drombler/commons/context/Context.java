@@ -42,8 +42,8 @@ public interface Context {
      * @return a collection with all instances found in this context with the specified type, or an empty collection if
      * no instance was found
      *
-     * TODO: return List instead of Collection? <br>
-     * TODO: return <T> instead of <? extends T>?
+     * TODO: return {@code List} instead of {@code Collection}? <br>
+     * TODO: return {@code <T>} instead of {@code <? extends T>}?
      */
     <T> Collection<? extends T> findAll(Class<T> type);
 
