@@ -101,10 +101,12 @@ Contributor(s): .
         </dependency>
     </dependencies>
     
-    <!--TODO: Move to Drombler OSS Parent-->
+    <!-- TODO: Move to Drombler OSS Parent-->
     <profiles>
         <profile>
-            <id>jenkins</id>
+            <!-- TODO: make ths profiles during releasing configurable-->
+            <!--<id>jenkins</id>-->
+            <id>sonatype-oss-release</id>
             <build>
                 <plugins>
                     <plugin>
