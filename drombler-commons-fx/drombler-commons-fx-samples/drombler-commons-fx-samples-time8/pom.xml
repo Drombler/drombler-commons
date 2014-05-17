@@ -137,7 +137,7 @@ Contributor(s): .
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <mainClass>org.drombler.commons.fx.sample8.DateTimeSampleApplication</mainClass>
+                            <mainClass>org.drombler.commons.fx.samples.time.DateTimeSampleApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>

@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.sample8;
+package org.drombler.commons.fx.samples.time;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
