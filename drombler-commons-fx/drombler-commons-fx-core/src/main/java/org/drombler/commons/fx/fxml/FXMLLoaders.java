@@ -34,7 +34,7 @@ public class FXMLLoaders {
     }
 
     /**
-     * Creates a new {@link FXMLLoader}. <br/> <br/>
+     * Creates a new {@link FXMLLoader}. <br> <br>
      *  Sets:
      * <ul>
      *   <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
@@ -52,7 +52,7 @@ public class FXMLLoaders {
     /**
      * Loads the &lt;class name&gt;.fxml file, where &lt;class name&gt; is the type of the specified rootController and
      * the FXML-file is expected to be in the same package.
-     *  <br/> <br/>
+     * <br> <br>
      *  Sets:
      * <ul>
      *   <li>the {@link ClassLoader} to the ClassLoader of the type of the rootController</li>
@@ -61,9 +61,8 @@ public class FXMLLoaders {
      * </ul>
      * 
      * The root element of the FXML document is expected to be:
-     * <br/> <br/>
-     * {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
-     * <br/> <br/>
+     * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
+     * <br> <br>
      * where "super-type" is the super type of the type of the specified rootController.
      * @param rootController the Object acting as the root and as the controller.
      * @throws IOException 
@@ -74,7 +73,7 @@ public class FXMLLoaders {
 
     /**
      * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
-     *  <br/> <br/>
+     * <br> <br>
      *  Sets:
      * <ul>
      *   <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
@@ -83,9 +82,8 @@ public class FXMLLoaders {
      * </ul>
      * 
      * The root element of the FXML document is expected to be:
-     *  <br/> <br/>
-     * {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
-     *  <br/> <br/>
+     * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
+     * <br> <br>
      * where "super-type" is the super type of the specified type.
      * @param type the type
      * @param rootController the Object acting as the root and as the controller.
