@@ -68,7 +68,7 @@ Contributor(s): .
         <module>drombler-commons-fx-samples-parent</module>
         <module>drombler-commons-fx-samples-docking</module>
       <!--<module>drombler-commons-fx-samples-ensemble</module>-->
-        <module>drombler-commons-fx-samples-time8</module>
+        <module>drombler-commons-fx-samples-time</module>
         <module>drombler-commons-fx-samples-context</module>
     </modules>
   
