@@ -28,7 +28,7 @@ Contributor(s): .
     <name>Drombler Commons - Action - FX</name>
     <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
         in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
-    <inceptionYear>2012</inceptionYear>
+    <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
@@ -66,4 +66,12 @@ Contributor(s): .
             </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
