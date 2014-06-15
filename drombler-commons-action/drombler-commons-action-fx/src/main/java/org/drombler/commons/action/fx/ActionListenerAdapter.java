@@ -14,8 +14,6 @@
  */
 package org.drombler.commons.action.fx;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javafx.event.ActionEvent;
 import org.drombler.commons.action.ActionListener;
 
@@ -28,12 +26,7 @@ public class ActionListenerAdapter extends AbstractFXActionAdapter<ActionListene
 
     public ActionListenerAdapter(ActionListener<? super ActionEvent> listener) {
         super(listener);
-        listener.addPropertyChangeListener("disabled", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                setDisabled((Boolean) evt.getNewValue());
-            }
-        });
+        listener.addPropertyChangeListener("disabled", evt -> setDisabled((Boolean) evt.getNewValue()));
         setDisabled(listener.isDisabled());
     }
 

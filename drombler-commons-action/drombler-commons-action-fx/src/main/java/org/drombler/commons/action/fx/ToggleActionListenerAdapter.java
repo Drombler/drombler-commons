@@ -14,15 +14,10 @@
  */
 package org.drombler.commons.action.fx;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import org.drombler.commons.action.ToggleActionListener;
-import org.drombler.commons.action.fx.FXToggleAction;
 
 /**
  *
@@ -35,20 +30,8 @@ public class ToggleActionListenerAdapter extends ActionListenerAdapter implement
     public ToggleActionListenerAdapter(final ToggleActionListener<? super ActionEvent> listener) {
         super(listener);
 
-        listener.addPropertyChangeListener("selected", new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                selected.set((Boolean) evt.getNewValue());
-            }
-        });
-        selected.addListener(new ChangeListener<Boolean>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
-                listener.setSelected(newValue);
-            }
-        });
+        listener.addPropertyChangeListener("selected", evt -> selected.set((Boolean) evt.getNewValue()));
+        selected.addListener((ov,  oldValue,  newValue) -> listener.setSelected(newValue));
         selected.set(listener.isSelected());
     }
 
