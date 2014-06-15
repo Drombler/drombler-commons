@@ -22,13 +22,13 @@ Contributor(s): .
         <version>0.5-SNAPSHOT</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons</artifactId>
+    <artifactId>drombler-commons-action</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - All</name>
-    <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
-        in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
-    <inceptionYear>2012</inceptionYear>
+    <name>Drombler Commons - Action - All</name>
+    <description>Drombler Commons - Action is an Action framework for clients and provides mechanisms to synchronize the
+        state of toolbarbuttons and menu items.</description>
+    <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
@@ -38,28 +38,28 @@ Contributor(s): .
         <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
-
+    
     <distributionManagement>
         <site>
             <id>drombler.sourceforge.net</id>
-            <url>${distributionManagement.parent.url}/</url>
+            <url>${distributionManagement.parent.url}/drombler-commons-action/</url>
         </site>
     </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <distribution>repo</distribution>
+            <!--<url>http://java.sun.com/spl.html</url>-->
+            <url>../LICENSE.txt</url>
+        </license>
+    </licenses>
     
     <properties>
         <scm.connection>${scm.parent.connection}</scm.connection>
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
-    
-    <licenses>
-        <license>
-            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
-            <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
-            <url>LICENSE.txt</url>
-        </license>
-    </licenses>
 
     <!-- Not inherited!?? -->
     <prerequisites>
@@ -67,51 +67,23 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
-        <module>drombler-commons-parent</module>
-        <module>drombler-commons-action</module>
-        <module>drombler-commons-context</module>
-        <module>drombler-commons-fx</module>
-        <module>drombler-commons-client</module>
+        <module>drombler-commons-action-core</module>
+        <module>drombler-commons-action-fx</module>
     </modules>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-context</artifactId>
+                <artifactId>drombler-commons-action-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-action</artifactId>
+                <artifactId>drombler-commons-action-fx</artifactId>
                 <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-client</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-fx</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
-    <profiles>
-        <profile>
-            <id>all</id>
-            <modules>
-                <module>drombler-commons-security-srp-server</module>
-                <module>drombler-commons-security-srp-client</module>
-            </modules>
-        </profile>
-    </profiles>
+  
 </project>
