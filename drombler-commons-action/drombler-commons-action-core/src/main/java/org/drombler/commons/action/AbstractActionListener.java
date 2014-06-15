@@ -40,18 +40,8 @@ public abstract class AbstractActionListener<E> implements ActionListener<E> {
     }
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        getPropertyChangeSupport().addPropertyChangeListener(listener);
-    }
-
-    @Override
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        getPropertyChangeSupport().removePropertyChangeListener(listener);
     }
 
     @Override

@@ -14,8 +14,6 @@
  */
 package org.drombler.commons.action;
 
-import org.drombler.commons.action.ActionListener;
-
 /**
  *
  * @author puce
