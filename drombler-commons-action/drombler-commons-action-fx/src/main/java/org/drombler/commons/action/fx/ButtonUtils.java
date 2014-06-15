@@ -16,6 +16,7 @@ package org.drombler.commons.action.fx;
 
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 
 /**
@@ -29,14 +30,12 @@ public class ButtonUtils {
 
     public static void configureButton(ButtonBase button, FXAction action, int iconSize) {
 
-
-
         //        button.getStyleClass().add("tool-bar-overflow-button");
 //        button.setStyle(
 //                "-fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; -fx-content-display: GRAPHIC_ONLY; -fx-background-color: transparent"); /*
 //         * 5 5 5 5
 //         */
-        button.setFocusTraversable(false);
+        button.setFocusTraversable(false); // TODO: good?
 
 //        button.setMnemonicParsing(true);
 //        button.acceleratorProperty().bind(action.acceleratorProperty());
@@ -51,5 +50,10 @@ public class ButtonUtils {
             button.textProperty().bind(action.displayNameProperty()); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
         }
         button.setTooltip(new Tooltip(action.getDisplayName().replaceAll("_", "")));// + " (" + action.getAccelerator() + ")"));
+    }
+
+    public static void configureToggleButton(ToggleButton toggleButton, FXToggleAction action, int iconSize) {
+        configureButton(toggleButton, action, iconSize);
+        toggleButton.selectedProperty().bindBidirectional(action.selectedProperty());
     }
 }
