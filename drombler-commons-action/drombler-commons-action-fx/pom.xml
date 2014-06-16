@@ -26,8 +26,7 @@ Contributor(s): .
     <packaging>bundle</packaging>
 
     <name>Drombler Commons - Action - FX</name>
-    <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
-        in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
+    <description>The JavaFX specific classes of the Action Framework.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>

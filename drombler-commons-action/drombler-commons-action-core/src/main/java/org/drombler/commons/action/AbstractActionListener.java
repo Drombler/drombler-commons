@@ -18,8 +18,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
+ * A base class for {@link ActionListener}s.
  *
  * @author puce
+ * @param <E> the type of the action event
  */
 public abstract class AbstractActionListener<E> implements ActionListener<E> {
 

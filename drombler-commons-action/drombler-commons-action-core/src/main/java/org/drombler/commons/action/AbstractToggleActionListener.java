@@ -17,6 +17,7 @@ package org.drombler.commons.action;
 /**
  *
  * @author puce
+ * @param <E> the type of the action event
  */
 public abstract class AbstractToggleActionListener<E> extends AbstractActionListener<E> implements ToggleActionListener<E> {
 
@@ -37,6 +38,11 @@ public abstract class AbstractToggleActionListener<E> extends AbstractActionList
         }
     }
 
+    /**
+     * Does nothing by default.
+     *
+     * @param event the action event
+     */
     @Override
     public void onAction(E event) {
         // do nothing

@@ -17,6 +17,7 @@ package org.drombler.commons.action.fx;
 /**
  *
  * @author puce
+ * @param <T>
  */
 public abstract class AbstractFXActionAdapter<T> extends AbstractFXAction {
 

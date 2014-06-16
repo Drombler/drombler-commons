@@ -15,14 +15,33 @@
 package org.drombler.commons.action;
 
 /**
+ * A GUI toolkit agnostic interface which keeps the state (enabled/ disabled, selected/ unselected etc.) and the logic
+ * between toggable menu items and toggable toolbar buttons in sync.
  *
  * @author puce
+ * @param <E> the type of the action event
  */
 public interface ToggleActionListener<E> extends ActionListener<E> {
 
+    /**
+     * Returns true, if this toggable action is selected, else false.
+     *
+     * @return true, if this toggable action is selected, else false
+     */
     boolean isSelected();
 
+    /**
+     * Sets the selection state of this toggable action.
+     *
+     * @param selected true, to select this toggable action, else false
+     */
     void setSelected(boolean selected);
 
+    /**
+     * This method gets called when the selection state of this toggable action changes.
+     *
+     * @param oldValue the old selection state
+     * @param newValue the new selection state
+     */
     void onSelectionChanged(boolean oldValue, boolean newValue);
 }
