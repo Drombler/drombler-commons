@@ -25,6 +25,21 @@ import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
 /**
+ * A Icon factory.
+ * 
+ * This factory works with a naming pattern.
+ *
+ * If the icon naming pattern is {@code <icon-location>/<icon-base-name>.<icon-extension>}, then this factory looks for
+ * {@code <icon-location>/<icon-base-name><size>.<icon-extension>} and scales it to the requested size.
+ *
+ * E.g.
+ *
+ * {@code
+ * GraphicFactory graphicFactory = new IconFactory("/somePath/save.png", new ResourceLoader(MyClass.class), false);
+ *
+ * Node menuItemGraphic = graphicFactory.createGraphic(16); // will look for "/somePath/save16.png"
+ * Node toolbarButtonGraphic = graphicFactory.createGraphic(24); // will look for "/somePath/save24.png"
+ * }
  *
  * @author puce
  */
@@ -37,12 +52,22 @@ public class IconFactory implements GraphicFactory {
     private final ResourceLoader resourceLoader;
     private final boolean smoothIcon;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param icon the icon name pattern.
+     * @param resourceLoader the ResourceLoader
+     * @param smoothIcon the scaling algorithm
+     */
     public IconFactory(String icon, ResourceLoader resourceLoader, boolean smoothIcon) {
         this.iconResourcePath = icon;
         this.resourceLoader = resourceLoader;
         this.smoothIcon = smoothIcon;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public ImageView createGraphic(int size) {
         return new ImageView(getIconImage(size));

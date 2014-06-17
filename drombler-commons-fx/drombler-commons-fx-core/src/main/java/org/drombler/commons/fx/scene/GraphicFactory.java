@@ -17,11 +17,17 @@ package org.drombler.commons.fx.scene;
 import javafx.scene.Node;
 
 /**
+ * A graphic factory can create graphics in different sizes.
  *
  * @author puce
  */
-
-
 public interface GraphicFactory {
+
+    /**
+     * Creates a graphic with the specifed size.
+     *
+     * @param size the graphic size
+     * @return the graphic
+     */
     Node createGraphic(int size);
 }
