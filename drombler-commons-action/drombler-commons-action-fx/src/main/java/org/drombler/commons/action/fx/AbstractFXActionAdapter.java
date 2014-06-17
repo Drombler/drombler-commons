@@ -15,18 +15,29 @@
 package org.drombler.commons.action.fx;
 
 /**
+ * A base class for {@link FXAction} adapters.
  *
  * @author puce
- * @param <T>
+ * @param <T> the type of the adapted object
  */
 public abstract class AbstractFXActionAdapter<T> extends AbstractFXAction {
 
     private final T adapted;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param adapted the adapted object
+     */
     public AbstractFXActionAdapter(T adapted) {
         this.adapted = adapted;
     }
 
+    /**
+     * Gets the adapted object.
+     *
+     * @return the adapted object
+     */
     public T getAdapted() {
         return adapted;
     }

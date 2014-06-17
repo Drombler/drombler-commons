@@ -17,11 +17,18 @@ package org.drombler.commons.action.fx;
 import javafx.beans.property.BooleanProperty;
 
 /**
+ * FXToggleAction keeps the state (enabled/ disabled, selected/ unselected etc.), the information (texts, image etc.)
+ * and the logic between menu items and toolbar buttons in sync.
  *
  * @author puce
  */
 public interface FXToggleAction extends FXAction {
 
+    /**
+     * The selected state.
+     *
+     * @return the selected state property
+     */
     BooleanProperty selectedProperty();
 
     boolean isSelected();

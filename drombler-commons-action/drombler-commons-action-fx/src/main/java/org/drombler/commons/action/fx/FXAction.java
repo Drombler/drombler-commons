@@ -23,6 +23,8 @@ import javafx.scene.input.KeyCombination;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
 /**
+ * FXAction keeps the state (enabled/ disabled etc.), the information (texts, image etc.) and the logic between menu
+ * items and toolbar buttons in sync.
  *
  * @author puce
  */
@@ -32,34 +34,42 @@ public interface FXAction extends EventHandler<ActionEvent> {
 
     void setDisplayName(String displayName);
 
+    /**
+     * The display name.
+     *
+     * @return the display name property
+     */
     StringProperty displayNameProperty();
 
     KeyCombination getAccelerator();
 
     void setAccelerator(KeyCombination keyCombination);
 
+    /**
+     * The accelerator.
+     *
+     * @return the accelerator property
+     */
     ObjectProperty<KeyCombination> acceleratorProperty();
 
     boolean isDisabled();
 
+    /**
+     * The disabled state of this Action.
+     *
+     * @return the disabled state property
+     */
     ReadOnlyBooleanProperty disabledProperty();
     
     GraphicFactory getGraphicFactory();
     
     void setGraphicFactory(GraphicFactory graphicFactory);
-    
+
+    /**
+     * The {@link GraphicFactory}.
+     *
+     * @return the GraphicFactory
+     */
     ObjectProperty<GraphicFactory> graphicFactoryProperty();
 
-    
-//    void setGraphic(Node graphic);
-//    
-//    ObjectProperty<Node> graphicProperty();
-//
-//    String getIcon();
-//
-//    void setIcon(String icon);
-//
-//    StringProperty iconProperty();
-//
-//    Image getIconImage(int size);
 }

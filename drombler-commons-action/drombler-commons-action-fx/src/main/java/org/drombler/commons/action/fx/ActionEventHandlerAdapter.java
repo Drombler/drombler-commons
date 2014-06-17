@@ -18,15 +18,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * A {@link FXAction} adapter for {@code EventHandler<ActionEvent>}.
+ *
+ * This class allows to use a {@code EventHandler<ActionEvent>} as a FXAction.
  *
  * @author puce
  */
 public class ActionEventHandlerAdapter extends AbstractFXActionAdapter<EventHandler<ActionEvent>> {
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param actionEventHandler the action event handler
+     */
     public ActionEventHandlerAdapter(EventHandler<ActionEvent> actionEventHandler) {
         super(actionEventHandler);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void handle(ActionEvent e) {
         getAdapted().handle(e);

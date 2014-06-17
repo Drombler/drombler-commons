@@ -24,16 +24,29 @@ import javafx.scene.input.KeyCombination;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
 /**
+ * A base class for {@link FXAction}s.
  *
  * @author puce
  */
 public abstract class AbstractFXAction implements FXAction {
 
-   
+    /**
+     * {@inheritDoc }
+     */
     private final StringProperty displayName = new SimpleStringProperty(this, "displayName", null);
+    /**
+     * {@inheritDoc }
+     */
     private final ObjectProperty<KeyCombination> accelerator = new SimpleObjectProperty<>(this, "accelerator", null);
+    /**
+     * {@inheritDoc }
+     */
     private final DisabledProperty disabled = new DisabledProperty();
-    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory", null);
+    /**
+     * {@inheritDoc }
+     */
+    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
+            null);
 
 
     @Override
@@ -81,17 +94,17 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     @Override
-    public final GraphicFactory getGraphicFactory(){
+    public final GraphicFactory getGraphicFactory() {
         return graphicFactoryProperty().get();
     }
-    
+
     @Override
-    public final void setGraphicFactory(GraphicFactory graphicFactory){
+    public final void setGraphicFactory(GraphicFactory graphicFactory) {
         graphicFactoryProperty().set(graphicFactory);
     }
-    
+
     @Override
-    public ObjectProperty<GraphicFactory> graphicFactoryProperty(){
+    public ObjectProperty<GraphicFactory> graphicFactoryProperty() {
         return graphicFactory;
     }
 

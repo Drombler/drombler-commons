@@ -17,19 +17,29 @@ package org.drombler.commons.action.fx;
 import javafx.event.ActionEvent;
 import org.drombler.commons.action.ActionListener;
 
-
 /**
+ * A {@link FXAction} adapter for {@code ActionListener<? super ActionEvent>}.
+ *
+ * This class allows to use an {@code ActionListener} as a FXAction.
  *
  * @author puce
  */
 public class ActionListenerAdapter extends AbstractFXActionAdapter<ActionListener<? super ActionEvent>> {
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param listener the action listener
+     */
     public ActionListenerAdapter(ActionListener<? super ActionEvent> listener) {
         super(listener);
         listener.addPropertyChangeListener("disabled", evt -> setDisabled((Boolean) evt.getNewValue()));
         setDisabled(listener.isDisabled());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         getAdapted().onAction(actionEvent);
@@ -39,5 +49,4 @@ public class ActionListenerAdapter extends AbstractFXActionAdapter<ActionListene
 //    protected InputStream getImageInputStream(String icon) {
 //        return getAdapted().getImageInputStream(icon);
 //    }
-    
 }
