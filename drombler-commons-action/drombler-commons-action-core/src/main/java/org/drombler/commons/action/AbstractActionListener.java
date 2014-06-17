@@ -28,11 +28,19 @@ public abstract class AbstractActionListener<E> implements ActionListener<E> {
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     private boolean disabled = false;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean isDisabled() {
         return disabled;
     }
 
+    /**
+     * Sets the disabled state of this Action.
+     *
+     * @param disabled the disabled state of this Action
+     */
     protected void setDisabled(boolean disabled) {
         if (this.disabled != disabled) {
             boolean oldValue = this.disabled;
@@ -41,16 +49,27 @@ public abstract class AbstractActionListener<E> implements ActionListener<E> {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         getPropertyChangeSupport().removePropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * Gets the {@link PropertyChangeSupport} of this bean.
+     *
+     * @return the PropertyChangeSupport
+     */
     protected PropertyChangeSupport getPropertyChangeSupport() {
         return propertyChangeSupport;
     }

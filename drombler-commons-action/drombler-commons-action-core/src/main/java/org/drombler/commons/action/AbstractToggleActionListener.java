@@ -15,6 +15,7 @@
 package org.drombler.commons.action;
 
 /**
+ * A base class for {@link ToggleActionListener}s.
  *
  * @author puce
  * @param <E> the type of the action event
@@ -23,11 +24,17 @@ public abstract class AbstractToggleActionListener<E> extends AbstractActionList
 
     private boolean selected = false;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean isSelected() {
         return selected;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void setSelected(boolean selected) {
         if (this.selected != selected) {
