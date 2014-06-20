@@ -28,7 +28,7 @@ public class ButtonUtils {
     private ButtonUtils() {
     }
 
-    public static void configureButton(ButtonBase button, FXAction action, int iconSize) {
+    public static void configureToolbarButton(ButtonBase button, FXAction action, int iconSize) {
 
         //        button.getStyleClass().add("tool-bar-overflow-button");
 //        button.setStyle(
@@ -52,8 +52,8 @@ public class ButtonUtils {
         button.setTooltip(new Tooltip(action.getDisplayName().replaceAll("_", "")));// + " (" + action.getAccelerator() + ")"));
     }
 
-    public static void configureToggleButton(ToggleButton toggleButton, FXToggleAction action, int iconSize) {
-        configureButton(toggleButton, action, iconSize);
+    public static void configureToolbarToggleButton(ToggleButton toggleButton, FXToggleAction action, int iconSize) {
+        configureToolbarButton(toggleButton, action, iconSize);
         toggleButton.selectedProperty().bindBidirectional(action.selectedProperty());
     }
 }
