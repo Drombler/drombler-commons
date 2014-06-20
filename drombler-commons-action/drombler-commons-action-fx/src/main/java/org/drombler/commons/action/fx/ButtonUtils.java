@@ -20,6 +20,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 
 /**
+ * Utility methods to configure buttons with actions.
  *
  * @author puce
  */
@@ -28,6 +29,13 @@ public class ButtonUtils {
     private ButtonUtils() {
     }
 
+    /**
+     * Configures a toolbar button with the specified action.
+     *
+     * @param button the toolbar button to configure
+     * @param action the action
+     * @param iconSize the icon size
+     */
     public static void configureToolbarButton(ButtonBase button, FXAction action, int iconSize) {
 
         //        button.getStyleClass().add("tool-bar-overflow-button");
@@ -52,6 +60,13 @@ public class ButtonUtils {
         button.setTooltip(new Tooltip(action.getDisplayName().replaceAll("_", "")));// + " (" + action.getAccelerator() + ")"));
     }
 
+    /**
+     * Configures a toolbar toggle button with the specified toggle action.
+     *
+     * @param toggleButton the toolbar toggle button to configure
+     * @param action the toggle action
+     * @param iconSize the icon size
+     */
     public static void configureToolbarToggleButton(ToggleButton toggleButton, FXToggleAction action, int iconSize) {
         configureToolbarButton(toggleButton, action, iconSize);
         toggleButton.selectedProperty().bindBidirectional(action.selectedProperty());

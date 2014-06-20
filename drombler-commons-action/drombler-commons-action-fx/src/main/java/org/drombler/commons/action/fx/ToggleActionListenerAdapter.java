@@ -20,6 +20,9 @@ import javafx.event.ActionEvent;
 import org.drombler.commons.action.ToggleActionListener;
 
 /**
+ * A {@link FXToggleAction} adapter for {@code ToggleActionListener<? super ActionEvent>}.
+ *
+ * This class allows to use a {@code ToggleActionListener} as a FXToggleAction.
  *
  * @author puce
  */
@@ -27,6 +30,11 @@ public class ToggleActionListenerAdapter extends ActionListenerAdapter implement
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param listener the action listener
+     */
     public ToggleActionListenerAdapter(final ToggleActionListener<? super ActionEvent> listener) {
         super(listener);
 
@@ -35,16 +43,25 @@ public class ToggleActionListenerAdapter extends ActionListenerAdapter implement
         selected.set(listener.isSelected());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public BooleanProperty selectedProperty() {
         return selected;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public final boolean isSelected() {
         return selectedProperty().get();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public final void setSelected(boolean selected) {
         selectedProperty().set(selected);

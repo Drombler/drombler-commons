@@ -20,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 
 /**
+ * Utility methods to configure menu items with actions.
  *
  * @author puce
  */
@@ -28,6 +29,13 @@ public class MenuItemUtils {
     private MenuItemUtils() {
     }
 
+    /**
+     * Configures a {@link MenuItem} with the specified action.
+     *
+     * @param menuItem the menu item to configre
+     * @param action the action
+     * @param iconSize the icon size
+     */
     public static void configureMenuItem(MenuItem menuItem, FXAction action, int iconSize) {
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
@@ -42,11 +50,25 @@ public class MenuItemUtils {
         }
     }
 
+    /**
+     * Configures a {@link RadioMenuItem} with the specified toggle action.
+     *
+     * @param menuItem the menu item to configre
+     * @param action the action
+     * @param iconSize the icon size
+     */
     public static void configureRadioMenuItem(RadioMenuItem menuItem, FXToggleAction action, int iconSize) {
         configureMenuItem(menuItem, action, iconSize);
         menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
     }
 
+    /**
+     * Configures a {@link CheckMenuItem} with the specified toggle action.
+     *
+     * @param menuItem the menu item to configre
+     * @param action the action
+     * @param iconSize the icon size
+     */
     public static void configureCheckMenuItem(CheckMenuItem menuItem, FXToggleAction action, int iconSize) {
         configureMenuItem(menuItem, action, iconSize);
         menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
