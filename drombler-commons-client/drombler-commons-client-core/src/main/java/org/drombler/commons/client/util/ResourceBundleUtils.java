@@ -15,6 +15,7 @@
 package org.drombler.commons.client.util;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,27 +25,51 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ResourceBundleUtils {
 
-    public static final String PROPERTIES_FILE_BASE_NAME = "Bundle";
+    public static final String PACKAGE_RESOURCE_BUNDLE_BASE_NAME = "Bundle";
     public static final String KEY_PREFIX = "%";
 
     private ResourceBundleUtils() {
     }
 
+    public static ResourceBundle getResourceBundle(Class<?> type, String resourceBundleBaseName, String resourceKey) {
+        ResourceBundle resourceBundle = null;
+        if (isPrefixedResourceString(resourceKey)) {
+            resourceBundleBaseName = StringUtils.stripToNull(resourceBundleBaseName);
+            if (resourceBundleBaseName == null) {
+                resourceBundle = getClassResourceBundle(type);
+            } else if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
+                resourceBundle = getPackageResourceBundle(type);
+            } else {
+                resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
+            }
+        }
+        return resourceBundle;
+    }
+
+    public static ResourceBundle getClassResourceBundle(Class<?> type) {
+        return getResourceBundle(type, type.getSimpleName());
+    }
+    // TODO: needed?
+
+    public static String getClassResourceStringPrefixed(Class<?> type, String resourceKey) {
+        return getResourceStringPrefixed(resourceKey, type.getPackage().getName(), type.getSimpleName(), type.
+                getClassLoader());
+    }
+
     public static ResourceBundle getPackageResourceBundle(Class<?> type) {
-        return getPackageResourceBundle(type, PROPERTIES_FILE_BASE_NAME);
+        return getResourceBundle(type, PACKAGE_RESOURCE_BUNDLE_BASE_NAME);
     }
 
-    private static ResourceBundle getPackageResourceBundle(Class<?> type, String baseName) {
-        return getPackageResourceBundle(type.getPackage().getName(), baseName, type.getClassLoader());
+    private static ResourceBundle getResourceBundle(Class<?> type, String baseName) {
+        return getResourceBundle(type.getPackage().getName(), baseName, type.getClassLoader());
     }
 
-    private static ResourceBundle getPackageResourceBundle(String aPackage, ClassLoader classLoader) {
-        return getPackageResourceBundle(aPackage, PROPERTIES_FILE_BASE_NAME, classLoader);
+    private static ResourceBundle getResourceBundle(String aPackage, String baseName, ClassLoader classLoader) {
+        return getResourceBundle(aPackage + "." + baseName, classLoader);
     }
 
-    private static ResourceBundle getPackageResourceBundle(String aPackage, String baseName, ClassLoader classLoader) {
-        return ResourceBundle.getBundle(aPackage + "." + baseName, Locale.getDefault(),
-                classLoader);
+    private static ResourceBundle getResourceBundle(String resourceBundleBaseName, ClassLoader classLoader) {
+        return ResourceBundle.getBundle(resourceBundleBaseName, Locale.getDefault(), classLoader);
     }
 
     public static String getPackageResourceStringPrefixed(Class<?> type, String resourceKey) {
@@ -61,12 +86,39 @@ public class ResourceBundleUtils {
      * @return
      */
     public static String getPackageResourceStringPrefixed(String aPackage, String resourceKey, ClassLoader classLoader) {
+        return getResourceStringPrefixed(resourceKey, aPackage, PACKAGE_RESOURCE_BUNDLE_BASE_NAME, classLoader);
+    }
+
+    private static String getResourceStringPrefixed(String resourceKey, String aPackage, String baseName,
+            ClassLoader classLoader) {
         String strippedResourceKey = StringUtils.stripToNull(resourceKey);
-        if (strippedResourceKey != null && strippedResourceKey.startsWith(KEY_PREFIX)) {
-            strippedResourceKey = strippedResourceKey.substring(1);
-            ResourceBundle rb = getPackageResourceBundle(aPackage, classLoader);
+        if (isPrefixedResourceString(strippedResourceKey)) {
+            ResourceBundle rb = getResourceBundle(aPackage, baseName, classLoader);
+            return getResourceStringPrefixed(resourceKey, rb);
+        }
+        return resourceKey;
+    }
+
+    private static boolean isPrefixedResourceString(String strippedResourceKey) {
+        return strippedResourceKey != null && strippedResourceKey.startsWith(KEY_PREFIX);
+    }
+
+   
+    /**
+     *
+     * @param resourceKey
+     * @param resourceBundle
+     * @exception NullPointerException if the key is null
+     * @exception MissingResourceException if no value for the specified key can be found
+     * @exception ClassCastException if the value is not a {@link String}
+     * @return
+     */
+    public static String getResourceStringPrefixed(String resourceKey, ResourceBundle resourceBundle) {
+        String strippedResourceKey = StringUtils.stripToNull(resourceKey);
+        if (isPrefixedResourceString(strippedResourceKey)) {
+            strippedResourceKey = strippedResourceKey.substring(KEY_PREFIX.length());
 //            if (rb.containsKey(resourceKey)) {
-            return rb.getString(strippedResourceKey);
+            return resourceBundle.getString(strippedResourceKey);
 //            }
         }
         return resourceKey;
