@@ -17,16 +17,14 @@ package org.drombler.commons.fx.samples.context;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.context.ContextListener;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class ContextConsumerPane extends DockablePane implements ActiveContextSensitive {
-
-    private static final String FXML_EXTENSION = ".fxml";
 
     private Context activeContext;
     @FXML
@@ -39,18 +37,13 @@ public class ContextConsumerPane extends DockablePane implements ActiveContextSe
     }
 
     private void loadFXML() throws IOException {
-        FXMLLoaders.loadRoot(this);
+        FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(ContextConsumerPane.class));
     }
 
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(Sample.class, new ContextListener() {
-            @Override
-            public void contextChanged(ContextEvent event) {
-                ContextConsumerPane.this.contextChanged();
-            }
-        });
+        this.activeContext.addContextListener(Sample.class, (ContextEvent event) -> contextChanged());
         contextChanged();
     }
 

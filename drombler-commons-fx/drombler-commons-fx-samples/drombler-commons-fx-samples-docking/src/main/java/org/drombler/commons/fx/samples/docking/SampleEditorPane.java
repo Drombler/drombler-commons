@@ -18,6 +18,7 @@ package org.drombler.commons.fx.samples.docking;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -40,7 +41,7 @@ public class SampleEditorPane extends DockablePane  {
     }
 
     private void loadFXML() throws IOException {
-        FXMLLoaders.loadRoot(this);
+        FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(SampleEditorPane.class));
     }
 
     public Sample getSample() {

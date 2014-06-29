@@ -16,10 +16,9 @@ package org.drombler.commons.fx.samples.context;
 
 import java.io.IOException;
 import java.util.Locale;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
@@ -48,18 +47,12 @@ public class ContextProviderPane extends DockablePane implements LocalContextPro
         titleProperty().bind(nameField.textProperty());
 
         // Mark this Editor as modified if any control has been modified
-        nameField.textProperty().addListener(new ChangeListener<String>() {
-
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                markModified();
-            }
-        });
+        nameField.textProperty().addListener((observable, oldValue, newValue) -> markModified());
 
     }
 
     private void loadFXML() throws IOException {
-        FXMLLoaders.loadRoot(this);
+        FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(ContextProviderPane.class));
     }
 
     @Override

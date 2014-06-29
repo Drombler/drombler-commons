@@ -114,9 +114,7 @@ public class FXMLLoaders {
      */
     public static void loadRoot(final Class<?> type, final Object rootController) throws IOException {
         FXMLLoader loader = createFXMLLoader(type);
-        loader.setRoot(rootController);
-        loader.setController(rootController);
-        load(loader, type);
+        loadRoot(loader, rootController, type);
     }
 
     /**
@@ -142,8 +140,13 @@ public class FXMLLoaders {
             throws IOException {
         final Class<? extends Object> type = rootController.getClass();
         FXMLLoader loader = createFXMLLoader(type, resourceBundle);
+        loadRoot(loader, rootController, type);
+    }
+
+    private static void loadRoot(FXMLLoader loader, final Object rootController, final Class<?> type) throws IOException {
         loader.setRoot(rootController);
         loader.setController(rootController);
+//        loader.setControllerFactory((Class<?> param) -> rootController);
         load(loader, type);
     }
 

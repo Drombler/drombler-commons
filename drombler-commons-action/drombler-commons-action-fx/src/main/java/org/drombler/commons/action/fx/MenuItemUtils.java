@@ -37,8 +37,8 @@ public class MenuItemUtils {
      * @param iconSize the icon size
      */
     public static void configureMenuItem(MenuItem menuItem, FXAction action, int iconSize) {
-        menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.setMnemonicParsing(true);
+        menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
         menuItem.setOnAction(action);
         menuItem.disableProperty().bind(action.disabledProperty());

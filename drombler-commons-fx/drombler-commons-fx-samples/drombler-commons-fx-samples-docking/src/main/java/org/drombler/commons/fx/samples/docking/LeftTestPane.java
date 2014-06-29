@@ -16,34 +16,22 @@ package org.drombler.commons.fx.samples.docking;
 
 import java.io.IOException;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import org.drombler.commons.fx.scene.SimpleEventHandlerProperty;
 import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class LeftTestPane extends DockablePane {
 
-    private final ObjectProperty<EventHandler<ActionEvent>> onNewSampleAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
-        @Override
-        protected void invalidated() {
-            setEventHandler(ActionEvent.ACTION, get());
-        }
-
-        @Override
-        public Object getBean() {
-            return LeftTestPane.this;
-        }
-
-        @Override
-        public String getName() {
-            return "onNewSampleAction";
-        }
-    };
+    private final SimpleEventHandlerProperty<ActionEvent> onNewSampleAction = new SimpleEventHandlerProperty<>(this,
+            "onNewSampleAction", ActionEvent.ACTION);
 
     public LeftTestPane() throws IOException {
         load();
+        onNewSampleAction.setEventHandlerRegistrar(() -> setEventHandler(onNewSampleAction.getEventType(),
+                onNewSampleAction.get()));
     }
 
     private void load() throws IOException {

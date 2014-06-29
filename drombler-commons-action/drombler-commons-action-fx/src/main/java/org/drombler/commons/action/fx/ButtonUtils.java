@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
+import org.drombler.commons.client.util.MnemonicUtils;
 
 /**
  * Utility methods to configure buttons with actions.
@@ -49,15 +50,16 @@ public class ButtonUtils {
 //        button.acceleratorProperty().bind(action.acceleratorProperty());
         button.setOnAction(action);
         button.disableProperty().bind(action.disabledProperty());
+        final String displayName = MnemonicUtils.removeMnemonicChar(action.getDisplayName());
         if (action.getGraphicFactory() != null) {
             Node graphic = action.getGraphicFactory().createGraphic(iconSize);
             if (graphic != null) {
                 button.setGraphic(graphic);
             }
         } else {
-            button.textProperty().bind(action.displayNameProperty()); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
+            button.setText(displayName); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
         }
-        button.setTooltip(new Tooltip(action.getDisplayName().replaceAll("_", "")));// + " (" + action.getAccelerator() + ")"));
+        button.setTooltip(new Tooltip(displayName));// + " (" + action.getAccelerator() + ")"));
     }
 
     /**
