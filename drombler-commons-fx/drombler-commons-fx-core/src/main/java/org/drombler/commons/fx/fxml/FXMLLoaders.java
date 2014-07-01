@@ -174,12 +174,13 @@ public class FXMLLoaders {
     /**
      * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
      *
+     * @param <T> the type of the root element
      * @param loader the {@link FXMLLoader}
      * @param type the type
      * @return the loaded object
      * @throws IOException
      */
-    public static Object load(FXMLLoader loader, Class<?> type) throws IOException {
+    public static <T> T load(FXMLLoader loader, Class<?> type) throws IOException {
         try (InputStream is = getFXMLInputStream(type)) {
             if (is == null) {
                 // avoid NullPointerException
