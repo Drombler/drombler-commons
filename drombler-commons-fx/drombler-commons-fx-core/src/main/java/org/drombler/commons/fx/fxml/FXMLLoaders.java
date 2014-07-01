@@ -16,6 +16,8 @@ package org.drombler.commons.fx.fxml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -32,8 +34,10 @@ import org.softsmithy.lib.util.ResourceFileNotFoundException;
  */
 public class FXMLLoaders {
 
-    private static final String FXML_EXTENSION = ".fxml";
     private static final Logger LOG = LoggerFactory.getLogger(FXMLLoaders.class);
+    private static final String FXML_EXTENSION = ".fxml";
+    private static final String CLASS_EXTENSION = ".class";
+    private static final String RESOURCE_PATH_DELIMITER = "/";
 
     private FXMLLoaders() {
     }
@@ -64,7 +68,24 @@ public class FXMLLoaders {
         FXMLLoader loader = new FXMLLoader();
         loader.setClassLoader(type.getClassLoader());
         loader.setResources(resourceBundle);
+        setLocation(loader, type);
         return loader;
+    }
+
+    private static void setLocation(FXMLLoader loader, Class<? extends Object> type) {
+        String locationURLString = getLocationURLString(type);
+        try {
+            loader.setLocation(new URL(locationURLString));
+        } catch (MalformedURLException ex) {
+            LOG.error(ex.getMessage() + ": Location: " + locationURLString, ex);
+        }
+    }
+
+    private static String getLocationURLString(Class<? extends Object> type) {
+        final String absoluteClassResourcePath = getAbsoluteClassResourcePath(type);
+        String locationURLString = type.getResource(absoluteClassResourcePath).toExternalForm();
+        locationURLString = locationURLString.substring(0, locationURLString.lastIndexOf(RESOURCE_PATH_DELIMITER) + 1);
+        return locationURLString;
     }
 
     /**
@@ -172,8 +193,16 @@ public class FXMLLoaders {
         return type.getResourceAsStream(getFxmlFileName(type));
     }
 
+    private static String getAbsoluteClassResourcePath(Class<?> type) {
+        return getAbsolutePackageResourcePath(type.getPackage()) + RESOURCE_PATH_DELIMITER + type.getSimpleName() + CLASS_EXTENSION;
+    }
+
     private static String getAbsoluteFxmlResourcePath(Class<?> type) {
-        return "/" + type.getName().replace(".", "/") + FXML_EXTENSION;
+        return getAbsolutePackageResourcePath(type.getPackage()) + RESOURCE_PATH_DELIMITER + getFxmlFileName(type);
+    }
+
+    private static String getAbsolutePackageResourcePath(Package typePackage) {
+        return RESOURCE_PATH_DELIMITER + typePackage.getName().replace(".", RESOURCE_PATH_DELIMITER);
     }
 
     private static String getFxmlFileName(Class<?> type) {
