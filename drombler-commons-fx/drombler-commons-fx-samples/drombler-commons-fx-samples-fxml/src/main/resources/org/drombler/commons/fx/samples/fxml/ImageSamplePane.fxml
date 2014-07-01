@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import org.drombler.commons.fx.samples.fxml.*?>
+
+<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml" vgap="5" >
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+    <Label text="%label.text" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    <TilePane hgap="4" vgap="4" GridPane.rowIndex="2" GridPane.columnIndex="1" >
+        <ImageView>
+            <image>
+                <Image url="@one24.png" /> 
+            </image>
+        </ImageView>
+        <ImageView>
+            <image>
+                <Image url="@image/two24.png" /> 
+            </image>
+        </ImageView>
+        <ImageView>
+            <image>
+                <Image url="@../three24.png" /> 
+            </image>
+        </ImageView>
+        <ImageView>
+            <image>
+                <Image url="@/four24.png" /> 
+            </image>
+        </ImageView>
+        <ImageView>
+            <image>
+                <Image url="@/image/five24.png" /> 
+            </image>
+        </ImageView>
+    </TilePane>
+</fx:root>
