@@ -8,36 +8,39 @@
 <?import javafx.scene.layout.*?>
 <?import org.drombler.commons.fx.samples.fxml.*?>
 
-<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml" vgap="5" >
+<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml" hgap="5" vgap="5" >
     <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>
     </padding>
-    <Label text="%label.text" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-    <TilePane hgap="4" vgap="4" GridPane.rowIndex="2" GridPane.columnIndex="1" >
-        <ImageView>
-            <image>
-                <Image url="@one24.png" /> 
-            </image>
-        </ImageView>
-        <ImageView>
-            <image>
-                <Image url="@image/two24.png" /> 
-            </image>
-        </ImageView>
-        <ImageView>
-            <image>
-                <Image url="@../three24.png" /> 
-            </image>
-        </ImageView>
-        <ImageView>
-            <image>
-                <Image url="@/four24.png" /> 
-            </image>
-        </ImageView>
-        <ImageView>
-            <image>
-                <Image url="@/image/five24.png" /> 
-            </image>
-        </ImageView>
-    </TilePane>
+    <Label text="%label.header.text" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+    <Label text="%label.1.text" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <ImageView GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <image>
+            <Image url="@one24.png" /> 
+        </image>
+    </ImageView>
+    <Label text="%label.2.text" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+    <ImageView GridPane.rowIndex="2" GridPane.columnIndex="1">
+        <image>
+            <Image url="@image/two24.png" /> 
+        </image>
+    </ImageView >
+    <Label text="%label.3.text" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <ImageView GridPane.rowIndex="3" GridPane.columnIndex="1">
+        <image>
+            <Image url="@../three24.png" /> 
+        </image>
+    </ImageView>
+    <Label text="%label.4.text" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+    <ImageView GridPane.rowIndex="4" GridPane.columnIndex="1">
+        <image>
+            <Image url="@/four24.png" /> 
+        </image>
+    </ImageView>
+    <Label text="%label.5.text" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+    <ImageView GridPane.rowIndex="5" GridPane.columnIndex="1">
+        <image>
+            <Image url="@/image/five24.png" /> 
+        </image>
+    </ImageView>
 </fx:root>
