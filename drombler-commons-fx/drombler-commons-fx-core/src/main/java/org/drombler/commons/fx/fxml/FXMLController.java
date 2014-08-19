@@ -32,7 +32,7 @@ import org.drombler.commons.client.util.ResourceBundleUtils;
 
     String fxml() default "";
 
-    String properties() default ResourceBundleUtils.PROPERTIES_FILE_BASE_NAME;
+    String properties() default ResourceBundleUtils.PACKAGE_RESOURCE_BUNDLE_BASE_NAME;
     
     // TODO: non-root controllers supported?
     boolean root() default true;
