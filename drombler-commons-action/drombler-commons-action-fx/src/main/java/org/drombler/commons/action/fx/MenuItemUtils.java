@@ -41,7 +41,7 @@ public class MenuItemUtils {
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
         menuItem.setOnAction(action);
-        menuItem.disableProperty().bind(action.disabledProperty());
+        menuItem.disableProperty().bind(action.enabledProperty().not());
         if (action.getGraphicFactory() != null) {
             Node graphic = action.getGraphicFactory().createGraphic(iconSize);
             if (graphic != null) {

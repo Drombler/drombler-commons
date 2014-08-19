@@ -41,7 +41,7 @@ public interface ActionListener<E> {
      *
      * @return true, if this action is disabled, else false
      */
-    boolean isDisabled();
+    boolean isEnabled();
 
     /**
      * Registers a {@link PropertyChangeListener} for the specified property.

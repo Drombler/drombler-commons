@@ -33,8 +33,8 @@ public class ActionListenerAdapter extends AbstractFXActionAdapter<ActionListene
      */
     public ActionListenerAdapter(ActionListener<? super ActionEvent> listener) {
         super(listener);
-        listener.addPropertyChangeListener("disabled", evt -> setDisabled((Boolean) evt.getNewValue()));
-        setDisabled(listener.isDisabled());
+        listener.addPropertyChangeListener("enabled", evt -> setEnabled((Boolean) evt.getNewValue()));
+        setEnabled(listener.isEnabled());
     }
 
     /**

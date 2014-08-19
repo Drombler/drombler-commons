@@ -26,26 +26,26 @@ import java.beans.PropertyChangeSupport;
 public abstract class AbstractActionListener<E> implements ActionListener<E> {
 
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-    private boolean disabled = false;
+    private boolean enabled = true;
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public boolean isDisabled() {
-        return disabled;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     /**
-     * Sets the disabled state of this Action.
+     * Sets the enabled state of this Action.
      *
-     * @param disabled the disabled state of this Action
+     * @param enabled the enabled state of this Action
      */
-    protected void setDisabled(boolean disabled) {
-        if (this.disabled != disabled) {
-            boolean oldValue = this.disabled;
-            this.disabled = disabled;
-            getPropertyChangeSupport().firePropertyChange("disabled", oldValue, disabled);
+    protected void setEnabled(boolean enabled) {
+        if (this.enabled != enabled) {
+            boolean oldValue = this.enabled;
+            this.enabled = enabled;
+            getPropertyChangeSupport().firePropertyChange("enabled", oldValue, enabled);
         }
     }
 

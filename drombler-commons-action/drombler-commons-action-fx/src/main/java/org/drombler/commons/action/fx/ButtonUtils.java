@@ -49,7 +49,7 @@ public class ButtonUtils {
 //        button.setMnemonicParsing(true);
 //        button.acceleratorProperty().bind(action.acceleratorProperty());
         button.setOnAction(action);
-        button.disableProperty().bind(action.disabledProperty());
+        button.disableProperty().bind(action.enabledProperty().not());
         final String displayName = MnemonicUtils.removeMnemonicChar(action.getDisplayName());
         if (action.getGraphicFactory() != null) {
             Node graphic = action.getGraphicFactory().createGraphic(iconSize);

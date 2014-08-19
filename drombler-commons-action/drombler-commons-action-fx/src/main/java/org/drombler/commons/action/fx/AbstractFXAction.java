@@ -41,7 +41,7 @@ public abstract class AbstractFXAction implements FXAction {
     /**
      * {@inheritDoc }
      */
-    private final DisabledProperty disabled = new DisabledProperty();
+    private final EnabledProperty enabled = new EnabledProperty();
     /**
      * {@inheritDoc }
      */
@@ -80,17 +80,17 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     @Override
-    public final boolean isDisabled() {
-        return disabledProperty().get();
+    public final boolean isEnabled() {
+        return enabledProperty().get();
     }
 
-    protected void setDisabled(boolean disabled) {
-        this.disabled.set(disabled);
+    protected void setEnabled(boolean enabled) {
+        this.enabled.set(enabled);
     }
 
     @Override
-    public ReadOnlyBooleanProperty disabledProperty() {
-        return disabled;
+    public ReadOnlyBooleanProperty enabledProperty() {
+        return enabled;
     }
 
     @Override
@@ -108,17 +108,17 @@ public abstract class AbstractFXAction implements FXAction {
         return graphicFactory;
     }
 
-    private class DisabledProperty extends ReadOnlyBooleanPropertyBase {
+    private class EnabledProperty extends ReadOnlyBooleanPropertyBase {
 
-        private boolean disabled = false;
+        private boolean enabled = false;
 
         @Override
         public final boolean get() {
-            return disabled;
+            return enabled;
         }
 
         private void set(boolean newValue) {
-            disabled = newValue;
+            enabled = newValue;
             fireValueChangedEvent();
         }
 
@@ -129,7 +129,7 @@ public abstract class AbstractFXAction implements FXAction {
 
         @Override
         public String getName() {
-            return "disabled";
+            return "enabled";
         }
     }
 }

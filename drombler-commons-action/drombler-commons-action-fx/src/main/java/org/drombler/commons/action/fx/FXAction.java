@@ -52,14 +52,14 @@ public interface FXAction extends EventHandler<ActionEvent> {
      */
     ObjectProperty<KeyCombination> acceleratorProperty();
 
-    boolean isDisabled();
+    boolean isEnabled();
 
     /**
-     * The disabled state of this Action.
+     * The enabled state of this Action.
      *
-     * @return the disabled state property
+     * @return the enabled state property
      */
-    ReadOnlyBooleanProperty disabledProperty();
+    ReadOnlyBooleanProperty enabledProperty();
     
     GraphicFactory getGraphicFactory();
     
