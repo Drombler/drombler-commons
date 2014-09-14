@@ -25,10 +25,10 @@ package org.drombler.commons.client.docking;
 public interface DockableDataManager<D, DATA extends DockableData> {
 
     /**
-     * Gets the {@link FXDockableData} of the specified Dockable.
+     * Gets the {@link DockableData} of the specified Dockable.
      *
      * @param dockable the Dockable
-     * @return the FXDockableData of the specified Dockable
+     * @return the DockableData of the specified Dockable
      */
     DATA getDockableData(D dockable);
 
