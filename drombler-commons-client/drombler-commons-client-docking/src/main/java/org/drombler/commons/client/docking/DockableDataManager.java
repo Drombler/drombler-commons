@@ -15,7 +15,7 @@
 package org.drombler.commons.client.docking;
 
 /**
- * A manager to manage the {@link FXDockableData}.
+ * A manager to manage the {@link DockableData}.
  *
  *
  * @author puce
