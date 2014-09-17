@@ -18,17 +18,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
-import org.drombler.commons.client.docking.DockableEntry;
-import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.spi.SplitLevel;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
@@ -49,7 +49,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
     private final DockingAreaManager rootDockingAreaManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
-
+    private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
     private final SetChangeListener<DockingAreaDescriptor> dockingAreaDescriptorSetChangeListener = change -> {
         if (change.wasAdded()) {
             addDockingArea(change.getElementAdded());
@@ -58,7 +58,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         }
     };
 
-    private final SetChangeListener<DockableEntry<? extends DockablePane>> dockableEntrySetChangeListener = change -> {
+    private final SetChangeListener<FXDockableEntry> dockableEntrySetChangeListener = change -> {
         if (change.wasAdded()) {
             addDockable(change.getElementAdded());
         } else if (change.wasRemoved()) {
@@ -74,6 +74,16 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
         this.control.getDockingAreaDescriptors().forEach(dockingAreaDescriptor -> addDockingArea(dockingAreaDescriptor));
         this.control.getDockables().forEach(dockableEntry -> addDockable(dockableEntry));
+
+        this.control.sceneProperty().addListener((ov, oldValue, newValue) -> {
+            if (oldValue != null) {
+                oldValue.focusOwnerProperty().removeListener(focusOwnerChangeListener);
+            }
+            if (newValue != null) {
+                newValue.focusOwnerProperty().addListener(focusOwnerChangeListener);
+            }
+        });
+        this.control.getScene().focusOwnerProperty().addListener(focusOwnerChangeListener);
     }
 
     @Override
@@ -90,6 +100,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     public void dispose() {
         control.getDockables().removeListener(dockableEntrySetChangeListener);
         control.getDockingAreaDescriptors().removeListener(dockingAreaDescriptorSetChangeListener);
+        control.getScene().focusOwnerProperty().removeListener(focusOwnerChangeListener);
         control = null;
         pane = null;
         rootSplitPane = null;
@@ -102,35 +113,35 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         dockingArea.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldValue, newValue) -> {
                     if (newValue != null) {
-                        control.setActiveDockable(newValue.getAdapted());
+                        control.setActiveDockable(newValue.getAdapted().getDockable());
                     }
                 });
 
         dockingArea.getDockables().addListener(
-                (ListChangeListener.Change<? extends PositionableAdapter<DockablePane>> change) -> {
+                (ListChangeListener.Change<? extends PositionableAdapter<FXDockableEntry>> change) -> {
                     while (change.next()) {
                         if (change.wasPermutated()) {
                             for (int i = change.getFrom(); i < change.getTo(); ++i) {
-                        // TODO: ???
+                                // TODO: ???
+                            }
+                        } else if (change.wasUpdated()) {
+                            // TODO: ???
+                        } else if (change.wasRemoved()) {
+                            removeDockables(change.getRemoved());
+                        } else if (change.wasAdded()) {
+                            // TODO: ???
+                        } else if (change.wasReplaced()) {
+                            // TODO: ???
+                        }
                     }
-                } else if (change.wasUpdated()) {
-                    // TODO: ???
-                } else if (change.wasRemoved()) {
-                    removeDockables(change.getRemoved());
-                } else if (change.wasAdded()) {
-                    // TODO: ???
-                } else if (change.wasReplaced()) {
-                    // TODO: ???
-                }
-            }
-        });
+                });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
         rootDockingAreaManager.addDockingArea(dockingAreaDescriptor.getParentPath(), dockingArea);
         handleDockingArea(dockingArea);
     }
 
-    private void removeDockables(List<? extends PositionableAdapter<DockablePane>> dockablePanes) {
-        dockablePanes.forEach(dockablePane -> control.removeDockable(dockablePane.getAdapted()));
+    private void removeDockables(List<? extends PositionableAdapter<FXDockableEntry>> dockableEntries) {
+        dockableEntries.forEach(dockablePane -> control.removeDockable(dockablePane.getAdapted().getDockable()));
     }
 
     private DockingAreaPane createDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
@@ -140,17 +151,14 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         return dockingAreaPane;
     }
 
-    private void addDockable(DockableEntry<? extends DockablePane> dockableEntry) {
-        addDockable(dockableEntry.getDockable(), dockableEntry.getDockablePreferences());
-    }
-
-    private void addDockable(DockablePane dockablePane, DockablePreferences dockablePreferences) {
-        DockingAreaPane dockingArea = getDockingArea(dockablePreferences.getAreaId());
+    private void addDockable(FXDockableEntry dockableEntry) {
+        DockingAreaPane dockingArea = getDockingArea(dockableEntry.getDockablePreferences().getAreaId());
         if (dockingArea != null) { // TODO: needed?
-            dockingArea.addDockable(new PositionableAdapter<>(dockablePane,
-                    dockablePreferences.getPosition()));
-            this.control.setActiveDockable(dockablePane);
-            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockablePane.getTitle(), dockablePreferences.
+            dockingArea.addDockable(new PositionableAdapter<>(dockableEntry,
+                    dockableEntry.getDockablePreferences().getPosition()));
+            this.control.setActiveDockable(dockableEntry.getDockable());
+            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
+                    dockableEntry.getDockablePreferences().
                     getAreaId());
         }
     }
@@ -169,7 +177,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         }
     }
 
-    private class DockingAreaChangeListener implements ListChangeListener<PositionableAdapter<DockablePane>> {
+    private class DockingAreaChangeListener implements ListChangeListener<PositionableAdapter<FXDockableEntry>> {
 
         private final DockingAreaPane dockingArea;
 
@@ -178,7 +186,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         }
 
         @Override
-        public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<DockablePane>> change) {
+        public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<FXDockableEntry>> change) {
             if (dockingArea.isVisualizable() && !dockingArea.isVisualized()) {
                 rootSplitPane.addDockingArea(dockingArea);
             } else if (!dockingArea.isVisualizable() && dockingArea.isVisualized()) {
@@ -203,4 +211,54 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             return Objects.hash(dockingArea);
         }
     }
+
+    private class FocusOwnerChangeListener implements ChangeListener<Node> {
+
+        @Override
+        public synchronized void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+            Node currentNode = newValue;
+            LOG.debug("New focusOwner: {}", currentNode);
+            while (currentNode != null && currentNode != control) {
+                if (currentNode instanceof DockingAreaPane) {
+                    LOG.debug("DockingAreaPane found!");
+                    PositionableAdapter<FXDockableEntry> selectedItem = ((DockingAreaPane) currentNode).
+                            getSelectionModel().getSelectedItem();
+                    if (selectedItem != null) {
+                        LOG.debug("Dockable found!");
+                        currentNode = selectedItem.getAdapted().getDockable();
+                        control.setActiveDockable(currentNode);
+                        LOG.debug("Changed active Dockable {}!", currentNode);
+                    }
+                    break;
+                } else {
+                    currentNode = currentNode.getParent();
+                }
+            }
+        }
+    }
+
+//    private class FocusOwnerChangeListener implements ChangeListener<Node> {
+//
+//        @Override
+//        public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
+//            Node currentNode = newValue;
+//            if (currentNode instanceof TabPane) {
+//                Tab selectedItem = ((TabPane) currentNode).getSelectionModel().getSelectedItem();
+//                if (selectedItem != null) {
+//                    currentNode = selectedItem.getContent();
+//
+//                }
+//            }
+//            while (currentNode != null) {
+//                if (currentNode instanceof DockablePane) {
+////                    System.out.println("Active Context Changed 2: " + ((DockablePane) currentNode).getTitle());
+////                    activeContext.setContexts(((DockablePane) currentNode).getContext());
+//                    setActiveDockable((DockablePane) currentNode);
+//                    break;
+//                } else {
+//                    currentNode = currentNode.getParent();
+//                }
+//            }
+//        }
+//    }
 }

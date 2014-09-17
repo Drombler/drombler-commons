@@ -19,13 +19,13 @@ import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockablePreferencesManager;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
@@ -34,9 +34,10 @@ import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,58 +77,56 @@ public class DockingSampleApplication extends Application {
 
         addDockingAreas(dockingPane);
 
-        final DockablePreferencesManager<DockablePane> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
+        final DockablePreferencesManager<Node> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
         registerDefaultDockablePreferences(dockablePreferencesManager);
 
+        FXDockableData leftDockableData = new FXDockableData();
+        leftDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(LeftTestPane.class)));
         LeftTestPane leftTestPane = new LeftTestPane();
-        final String leftDisplayName = getDisplayName(LeftTestPane.class);
-        leftTestPane.setTitle(MnemonicUtils.removeMnemonicChar(leftDisplayName));
         leftTestPane.setOnNewSampleAction((ActionEvent event) -> {
             try {
                 sampleCounter++;
                 Sample sample = new Sample("Sample " + sampleCounter);
+                FXDockableData sampleDockableData = new FXDockableData();
                 SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-                dockingPane.getDockables().add(new DockableEntry<>(sampleEditorPane, dockablePreferencesManager.
-                        getDockablePreferences(sampleEditorPane)));
+                sampleEditorPane.setDockableData(sampleDockableData);
+                dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
+                        dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
             } catch (IOException ex) {
                 LOG.error(ex.getMessage(), ex);
             }
         });
-        dockingPane.getDockables().add(new DockableEntry<>(leftTestPane, dockablePreferencesManager.
-                getDockablePreferences(
-                        leftTestPane)));
-        MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftTestPane, leftDisplayName, dockingPane,
-                dockablePreferencesManager);
+        final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, leftDockableData,
+                dockablePreferencesManager.getDockablePreferences(leftTestPane));
+        dockingPane.getDockables().add(leftDockableEntry);
+        MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftDockableEntry, dockingPane);
         windowMenu.getItems().add(leftTestPaneMenuItem);
 
+        FXDockableData rightDockableData = new FXDockableData();
+        rightDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(RightTestPane.class)));
         RightTestPane rightTestPane = new RightTestPane();
-        final String rightDisplayName = getDisplayName(RightTestPane.class);
-        rightTestPane.setTitle(MnemonicUtils.removeMnemonicChar(rightDisplayName));
-        dockingPane.getDockables().add(new DockableEntry<>(rightTestPane, dockablePreferencesManager.
-                getDockablePreferences(
-                        rightTestPane)));
-        MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightTestPane, rightDisplayName, dockingPane,
-                dockablePreferencesManager);
+        final FXDockableEntry rightDockableEntry = new FXDockableEntry(rightTestPane, rightDockableData,
+                dockablePreferencesManager.getDockablePreferences(rightTestPane));
+        dockingPane.getDockables().add(rightDockableEntry);
+        MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightDockableEntry, dockingPane);
         windowMenu.getItems().add(rightTestPaneMenuItem);
 
+        FXDockableData topDockableData = new FXDockableData();
+        topDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(TopTestPane.class)));
         TopTestPane topTestPane = new TopTestPane();
-        final String topDisplayName = getDisplayName(TopTestPane.class);
-        topTestPane.setTitle(MnemonicUtils.removeMnemonicChar(topDisplayName));
-        dockingPane.getDockables().add(new DockableEntry<>(topTestPane, dockablePreferencesManager.
-                getDockablePreferences(
-                        topTestPane)));
-        MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topTestPane, topDisplayName, dockingPane,
-                dockablePreferencesManager);
+        final FXDockableEntry topDockableEntry = new FXDockableEntry(topTestPane, topDockableData,
+                dockablePreferencesManager.getDockablePreferences(topTestPane));
+        dockingPane.getDockables().add(topDockableEntry);
+        MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topDockableEntry, dockingPane);
         windowMenu.getItems().add(topTestPanePaneMenuItem);
 
+        FXDockableData bottomDockableData = new FXDockableData();
+        bottomDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(BottomTestPane.class)));
         BottomTestPane bottomTestPane = new BottomTestPane();
-        final String bottomDisplayName = getDisplayName(BottomTestPane.class);
-        bottomTestPane.setTitle(MnemonicUtils.removeMnemonicChar(bottomDisplayName));
-        dockingPane.getDockables().add(new DockableEntry<>(bottomTestPane, dockablePreferencesManager.
-                getDockablePreferences(
-                        bottomTestPane)));
-        MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomTestPane, bottomDisplayName, dockingPane,
-                dockablePreferencesManager);
+        final FXDockableEntry bottomDockableEntry = new FXDockableEntry(bottomTestPane, bottomDockableData,
+                dockablePreferencesManager.getDockablePreferences(bottomTestPane));
+        dockingPane.getDockables().add(bottomDockableEntry);
+        MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomDockableEntry, dockingPane);
         windowMenu.getItems().add(bottomTestPanePaneMenuItem);
 
         Scene scene = new Scene(borderPane, 1500, 1000);
@@ -141,15 +140,13 @@ public class DockingSampleApplication extends Application {
         return ResourceBundleUtils.getClassResourceStringPrefixed(type, "%displayName");
     }
 
-    private MenuItem createDockablePaneMenuItem(DockablePane dockablePane, String displayName, DockingPane dockingPane,
-            DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        MenuItem openDockablePaneMenuItem = new MenuItem(displayName);
-        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
-                dockablePreferencesManager));
+    private MenuItem createDockablePaneMenuItem(FXDockableEntry dockableEntry, DockingPane dockingPane) {
+        MenuItem openDockablePaneMenuItem = new MenuItem(dockableEntry.getDockableData().getTitle());
+        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockableEntry));
         return openDockablePaneMenuItem;
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager) {
         registerDefaultDockablePreferences(dockablePreferencesManager, LeftTestPane.class, LEFT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, RightTestPane.class, RIGHT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, TopTestPane.class, TOP_AREA_ID, 20);
@@ -157,7 +154,7 @@ public class DockingSampleApplication extends Application {
         registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, CENTER_AREA_ID, 20);
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager,
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager,
             Class<?> type, String areaId, int position) {
         DockablePreferences leftDockablePreferences = new DockablePreferences();
         leftDockablePreferences.setAreaId(areaId);
@@ -221,20 +218,16 @@ public class DockingSampleApplication extends Application {
     private static class OpenDockablePaneActionHandler implements EventHandler<ActionEvent> {
 
         private final DockingPane dockingPane;
-        private final DockablePane dockablePane;
-        private final DockablePreferencesManager<DockablePane> dockablePreferencesManager;
+        private final FXDockableEntry dockableEntry;
 
-        public OpenDockablePaneActionHandler(DockingPane dockingPane, DockablePane dockablePane,
-                DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+        public OpenDockablePaneActionHandler(DockingPane dockingPane, FXDockableEntry dockableEntry) {
             this.dockingPane = dockingPane;
-            this.dockablePane = dockablePane;
-            this.dockablePreferencesManager = dockablePreferencesManager;
+            this.dockableEntry = dockableEntry;
         }
 
         @Override
         public void handle(ActionEvent t) {
-            dockingPane.getDockables().add(new DockableEntry<>(dockablePane, dockablePreferencesManager.
-                    getDockablePreferences(dockablePane)));
+            dockingPane.getDockables().add(dockableEntry);
         }
     }
 

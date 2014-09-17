@@ -21,20 +21,24 @@ import java.util.Objects;
  *
  * @author puce
  * @param <D> the Dockable type
+ * @param <DATA> the {@link DockableData} type
  */
-public class DockableEntry<D> {
+public class DockableEntry<D, DATA extends DockableData> {
 
     private final D dockable;
+    private final DATA dockableData;
     private final DockablePreferences dockablePreferences;
 
     /**
      * Creates a new instance of this class.
      *
      * @param dockable the Dockable
+     * @param dockableData the {@link DockableData}
      * @param dockablePreferences the {@link DockablePreferences} of the Dockable
      */
-    public DockableEntry(D dockable, DockablePreferences dockablePreferences) {
+    protected DockableEntry(D dockable, DATA dockableData, DockablePreferences dockablePreferences) {
         this.dockable = dockable;
+        this.dockableData = dockableData;
         this.dockablePreferences = dockablePreferences;
     }
 
@@ -45,6 +49,15 @@ public class DockableEntry<D> {
      */
     public D getDockable() {
         return dockable;
+    }
+
+    /**
+     * Gets the {@link DockableData}.
+     *
+     * @return the DockableData
+     */
+    public DATA getDockableData() {
+        return dockableData;
     }
 
     /**
@@ -77,14 +90,13 @@ public class DockableEntry<D> {
         if (!(obj instanceof DockableEntry)) {
             return false;
         }
-        final DockableEntry<D> other = (DockableEntry<D>) obj;
+        final DockableEntry<D, DATA> other = (DockableEntry<D, DATA>) obj;
         return Objects.equals(this.dockable, other.dockable);
     }
 
     @Override
     public String toString() {
-        return "DockableEntry[dockable=" + dockable + ", dockablePreferences=" + dockablePreferences + "]";
+        return "DockableEntry[dockableData=" + dockableData + ", dockablePreferences=" + dockablePreferences + "]";
     }
 
 }
-

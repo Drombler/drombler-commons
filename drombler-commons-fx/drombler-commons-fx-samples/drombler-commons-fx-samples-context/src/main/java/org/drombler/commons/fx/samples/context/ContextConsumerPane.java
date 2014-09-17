@@ -17,14 +17,14 @@ package org.drombler.commons.fx.samples.context;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-public class ContextConsumerPane extends DockablePane implements ActiveContextSensitive {
+public class ContextConsumerPane extends GridPane implements ActiveContextSensitive {
 
     private Context activeContext;
     @FXML

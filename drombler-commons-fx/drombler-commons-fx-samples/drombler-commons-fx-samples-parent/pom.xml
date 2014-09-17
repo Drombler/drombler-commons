@@ -78,6 +78,11 @@ Contributor(s): .
                         <skipDeploy>true</skipDeploy>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>com.zenjava</groupId>
+                    <artifactId>javafx-maven-plugin</artifactId>
+                    <version>8.1.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>

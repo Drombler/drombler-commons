@@ -30,5 +30,5 @@ public interface DockableDataSensitive<D extends DockableData> {
      *
      * @param dockableData the DockableData
      */
-    void setDockableData(DockableData dockableData);
+    void setDockableData(D dockableData);
 }

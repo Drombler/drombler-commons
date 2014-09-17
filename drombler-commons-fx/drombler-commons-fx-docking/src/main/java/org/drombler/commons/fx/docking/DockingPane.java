@@ -20,17 +20,11 @@ import java.util.Map;
 import java.util.Set;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Control;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 
@@ -46,61 +40,35 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-pane";
 
-    private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
-
-//    private final ChangeListener<DockablePane> dockableSelectionChangeListener = new DockableSelectionChangeListener();
-//    private final ProxyContext applicationContext = new ProxyContext();
-//    private final ProxyContext activeContext = new ProxyContext();
-//    private final Context applicationContextWrapper = new ContextWrapper(applicationContext);
-//    private final Context activeContextWrapper = new ContextWrapper(activeContext);
     private final ObservableSet<DockingAreaDescriptor> dockingAreaDescriptors = FXCollections.observableSet();
-    private final ObservableSet<DockableEntry<? extends DockablePane>> dockables = FXCollections.
-            <DockableEntry<? extends DockablePane>>observableSet();
+    private final ObservableSet<FXDockableEntry> dockables = FXCollections.observableSet();
     /**
      * The active Dockable.
      */
-    private final ObjectProperty<DockablePane> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
+    private final ObjectProperty<Node> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
+    // TODO: needed? useful?
     private final Set<String> dockingAreaIds = new HashSet<>();
-    private final Map<DockablePane, DockableEntry<? extends DockablePane>> dockableEntryMap = new HashMap<>();
+    // TODO: needed? useful?
+    private final Map<Node, FXDockableEntry> dockableEntryMap = new HashMap<>();
 
     /**
      * Creates a new instance of this class.
      */
     public DockingPane() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
-        sceneProperty().addListener(new ChangeListener<Scene>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Scene> ov, Scene oldValue, Scene newValue) {
-                if (oldValue != null) {
-                    oldValue.focusOwnerProperty().removeListener(focusOwnerChangeListener);
-                }
-                if (newValue != null) {
-                    newValue.focusOwnerProperty().addListener(focusOwnerChangeListener);
-                }
+        dockingAreaDescriptors.addListener((SetChangeListener.Change<? extends DockingAreaDescriptor> change) -> {
+            if (change.wasAdded()) {
+                dockingAreaIds.add(change.getElementAdded().getId());
+            } else if (change.wasRemoved()) {
+                dockingAreaIds.remove(change.getElementRemoved().getId());
             }
         });
-        dockingAreaDescriptors.addListener(new SetChangeListener<DockingAreaDescriptor>() {
-
-            @Override
-            public void onChanged(SetChangeListener.Change<? extends DockingAreaDescriptor> change) {
-                if (change.wasAdded()) {
-                    dockingAreaIds.add(change.getElementAdded().getId());
-                } else if (change.wasRemoved()) {
-                    dockingAreaIds.remove(change.getElementRemoved().getId());
-                }
-            }
-        });
-        dockables.addListener(new SetChangeListener<DockableEntry<? extends DockablePane>>() {
-
-            @Override
-            public void onChanged(SetChangeListener.Change<? extends DockableEntry<? extends DockablePane>> change) {
-                if (change.wasAdded()) {
+        dockables.addListener((SetChangeListener.Change<? extends FXDockableEntry> change) -> {
+            if (change.wasAdded()) {
 //                if (dockingAreaIds.contains(dockableEntry.getDockablePreferences().getAreaId())) { // TODO: needed?
-                    dockableEntryMap.put(change.getElementAdded().getDockable(), change.getElementAdded());
-                } else if (change.wasRemoved()) {
-                    dockableEntryMap.remove(change.getElementRemoved().getDockable());
-                }
+                dockableEntryMap.put(change.getElementAdded().getDockable(), change.getElementAdded());
+            } else if (change.wasRemoved()) {
+                dockableEntryMap.remove(change.getElementRemoved().getDockable());
             }
         });
     }
@@ -113,11 +81,16 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         return Stylesheets.getDefaultStylesheet();
     }
 
-    public void removeDockable(DockablePane dockable) {
-        DockableEntry<? extends DockablePane> dockableEntry = dockableEntryMap.get(dockable);
+    // TODO: needed? useful?
+    public void removeDockable(Node dockable) {
+        FXDockableEntry dockableEntry = dockableEntryMap.get(dockable);
         if (dockableEntry != null) {
-            dockables.remove(dockableEntry);
+            removeDockable(dockableEntry);
         }
+    }
+
+    private void removeDockable(FXDockableEntry dockableEntry) {
+        dockables.remove(dockableEntry);
     }
 
     /**
@@ -134,71 +107,19 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
      *
      * @return the Dockables.
      */
-    public ObservableSet<DockableEntry<? extends DockablePane>> getDockables() {
+    public ObservableSet<FXDockableEntry> getDockables() {
         return dockables;
     }
 
-    public final DockablePane getActiveDockable() {
+    public final Node getActiveDockable() {
         return activeDockableProperty().get();
     }
 
-    public final void setActiveDockable(DockablePane dockable) {
+    public final void setActiveDockable(Node dockable) {
         activeDockableProperty().set(dockable);
     }
 
-    public ObjectProperty<DockablePane> activeDockableProperty() {
+    public ObjectProperty<Node> activeDockableProperty() {
         return activeDockable;
-    }
-
-//
-//    private void removeContext(DockablePane dockable) {
-//        applicationContext.removeContext(dockable.getContext());
-//        activeContext.removeContext(dockable.getContext());
-//    }
-//
-//    public Context getApplicationContext() {
-//        return applicationContextWrapper;
-//    }
-//
-//    public Context getActiveContext() {
-//        return activeContextWrapper;
-//    }
-//    public ChangeListener<Node> getFocusOwnerChangeListener() {
-//        return focusOwnerChangeListener;
-//    }
-//    public ChangeListener<DockablePane> getDockableSelectionChangeListener() {
-//        return dockableSelectionChangeListener;
-//    }
-//    private class DockableSelectionChangeListener implements ChangeListener<DockablePane> {
-//                    @Override
-//        public void changed(ObservableValue<? extends DockablePane> ov, DockablePane oldValue, DockablePane newValue) {
-//            if (newValue != null) {
-////                    System.out.println("Active Context Changed 1: " + newValue.getAdapted().getTitle());
-//                activeContext.setContexts(newValue.getContext());
-//            }
-//        }
-//    }
-    private class FocusOwnerChangeListener implements ChangeListener<Node> {
-
-        @Override
-        public void changed(ObservableValue<? extends Node> ov, Node oldValue, Node newValue) {
-            Node currentNode = newValue;
-            if (currentNode instanceof TabPane) {
-                Tab selectedItem = ((TabPane) currentNode).getSelectionModel().getSelectedItem();
-                if (selectedItem != null) {
-                    currentNode = selectedItem.getContent();
-                }
-            }
-            while (currentNode != null) {
-                if (currentNode instanceof DockablePane) {
-//                    System.out.println("Active Context Changed 2: " + ((DockablePane) currentNode).getTitle());
-//                    activeContext.setContexts(((DockablePane) currentNode).getContext());
-                    setActiveDockable((DockablePane) currentNode);
-                    break;
-                } else {
-                    currentNode = currentNode.getParent();
-                }
-            }
-        }
     }
 }

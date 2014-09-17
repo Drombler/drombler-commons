@@ -18,22 +18,23 @@ import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.DockablePreferencesManager;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockablePane;
 import org.drombler.commons.fx.docking.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 
 /**
  *
@@ -75,32 +76,43 @@ public class ContextSampleApplication extends Application {
 
         addDockingAreas(dockingPane);
 
-        DockablePreferencesManager<DockablePane> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
+        DockablePreferencesManager<Node> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
         registerDefaultDockablePreferences(dockablePreferencesManager);
 
+        FXDockableData contextProviderPane1DockableData = new FXDockableData();
         ContextProviderPane contextProviderPane1 = new ContextProviderPane(new Sample("Sample 1"));
-        dockingPane.getDockables().add(new DockableEntry<>(contextProviderPane1, dockablePreferencesManager.
-                getDockablePreferences(contextProviderPane1)));
-        MenuItem contextProviderPane1MenuItem = createDockablePaneMenuItem(contextProviderPane1, dockingPane,
-                dockablePreferencesManager);
+        contextProviderPane1.setDockableData(contextProviderPane1DockableData);
+        final FXDockableEntry contextProviderPane1FXDockableEntry = new FXDockableEntry(contextProviderPane1,
+                contextProviderPane1DockableData,
+                dockablePreferencesManager.getDockablePreferences(contextProviderPane1));
+        dockingPane.getDockables().add(contextProviderPane1FXDockableEntry);
+        MenuItem contextProviderPane1MenuItem = createDockablePaneMenuItem(contextProviderPane1FXDockableEntry,
+                dockingPane);
         windowMenu.getItems().add(contextProviderPane1MenuItem);
 
+        FXDockableData contextProviderPane2DockableData = new FXDockableData();
         ContextProviderPane contextProviderPane2 = new ContextProviderPane(new Sample("Sample 2"));
+        contextProviderPane2.setDockableData(contextProviderPane2DockableData);
         final DockablePreferences dockablePreferences = dockablePreferencesManager.
                 getDockablePreferences(contextProviderPane2);
         dockablePreferences.setPosition(40);
-        dockingPane.getDockables().add(new DockableEntry<>(contextProviderPane2, dockablePreferences));
-        MenuItem contextProviderPane2MenuItem = createDockablePaneMenuItem(contextProviderPane2, dockingPane,
-                dockablePreferencesManager);
+        final FXDockableEntry contextProviderPane2FXDockableEntry = new FXDockableEntry(contextProviderPane2,
+                contextProviderPane2DockableData,
+                dockablePreferences);
+        dockingPane.getDockables().add(contextProviderPane2FXDockableEntry);
+        MenuItem contextProviderPane2MenuItem = createDockablePaneMenuItem(contextProviderPane2FXDockableEntry,
+                dockingPane);
         windowMenu.getItems().add(contextProviderPane2MenuItem);
 
         ContextConsumerPane contextConsumerPane = new ContextConsumerPane();
-        contextConsumerPane.setTitle("Right");
-        dockingPane.getDockables().add(new DockableEntry<>(contextConsumerPane, dockablePreferencesManager.
-                getDockablePreferences(
-                        contextConsumerPane)));
-        MenuItem contextConsumerPaneMenuItem = createDockablePaneMenuItem(contextConsumerPane, dockingPane,
-                dockablePreferencesManager);
+        FXDockableData contextConsumerPaneDockableData = new FXDockableData();
+        contextConsumerPaneDockableData.setTitle("Right");
+        final FXDockableEntry contextConsumerPaneDockableDataFXDockableEntry = new FXDockableEntry(contextConsumerPane,
+                contextConsumerPaneDockableData,
+                dockablePreferencesManager.getDockablePreferences(contextConsumerPane));
+        dockingPane.getDockables().add(contextConsumerPaneDockableDataFXDockableEntry);
+        MenuItem contextConsumerPaneMenuItem = createDockablePaneMenuItem(contextConsumerPaneDockableDataFXDockableEntry,
+                dockingPane);
         windowMenu.getItems().add(contextConsumerPaneMenuItem);
 
         // Set active context
@@ -113,20 +125,18 @@ public class ContextSampleApplication extends Application {
         stage.show();
     }
 
-    private MenuItem createDockablePaneMenuItem(DockablePane dockablePane, DockingPane dockingPane,
-            DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
-        MenuItem openDockablePaneMenuItem = new MenuItem(dockablePane.getTitle());
-        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockablePane,
-                dockablePreferencesManager));
+    private MenuItem createDockablePaneMenuItem(FXDockableEntry dockableEntry, DockingPane dockingPane) {
+        MenuItem openDockablePaneMenuItem = new MenuItem(dockableEntry.getDockableData().getTitle());
+        openDockablePaneMenuItem.setOnAction(new OpenDockablePaneActionHandler(dockingPane, dockableEntry));
         return openDockablePaneMenuItem;
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager) {
         registerDefaultDockablePreferences(dockablePreferencesManager, ContextProviderPane.class, CENTER_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, ContextConsumerPane.class, RIGHT_AREA_ID, 20);
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<DockablePane> dockablePreferencesManager,
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager,
             Class<?> type, String areaId, int position) {
         DockablePreferences dockablePreferences = new DockablePreferences();
         dockablePreferences.setAreaId(areaId);
@@ -159,20 +169,16 @@ public class ContextSampleApplication extends Application {
     private static class OpenDockablePaneActionHandler implements EventHandler<ActionEvent> {
 
         private final DockingPane dockingPane;
-        private final DockablePane dockablePane;
-        private final DockablePreferencesManager<DockablePane> dockablePreferencesManager;
+        private final FXDockableEntry dockableEntry;
 
-        public OpenDockablePaneActionHandler(DockingPane dockingPane, DockablePane dockablePane,
-                DockablePreferencesManager<DockablePane> dockablePreferencesManager) {
+        public OpenDockablePaneActionHandler(DockingPane dockingPane, FXDockableEntry dockableEntry) {
             this.dockingPane = dockingPane;
-            this.dockablePane = dockablePane;
-            this.dockablePreferencesManager = dockablePreferencesManager;
+            this.dockableEntry = dockableEntry;
         }
 
         @Override
         public void handle(ActionEvent t) {
-            dockingPane.getDockables().add(new DockableEntry<>(dockablePane, dockablePreferencesManager.
-                    getDockablePreferences(dockablePane)));
+            dockingPane.getDockables().add(dockableEntry);
         }
     }
 

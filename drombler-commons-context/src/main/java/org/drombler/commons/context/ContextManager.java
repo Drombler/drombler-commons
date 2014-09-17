@@ -16,6 +16,8 @@ package org.drombler.commons.context;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This {@link Context} manager allows to register local contexts for objects and manages the Application Context and
@@ -28,6 +30,8 @@ import java.util.Map;
  * @author puce
  */
 public class ContextManager implements ActiveContextProvider, ApplicationContextProvider {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ContextManager.class);
 
     private final ProxyContext applicationContext = new ProxyContext();
     private final ProxyContext activeContext = new ProxyContext();
@@ -67,10 +71,13 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      */
     // TODO clear active context
     public void setLocalContextActive(Object obj) {
+        LOG.debug("Start setLocalContextActive...");
         if (localContexts.containsKey(obj)) {
             activeObject = obj;
             activeContext.setContexts(localContexts.get(obj));
+            LOG.debug("Active context changed!");
         }
+        LOG.debug("End setLocalContextActive.");
     }
 
     /**

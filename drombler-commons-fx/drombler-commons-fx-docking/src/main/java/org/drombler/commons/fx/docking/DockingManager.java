@@ -14,14 +14,15 @@
  */
 package org.drombler.commons.fx.docking;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.SetChangeListener;
-import org.drombler.commons.client.docking.DockableEntry;
+import javafx.scene.Node;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.context.LocalContextProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TODO: API ?
@@ -30,9 +31,10 @@ import org.drombler.commons.context.LocalContextProvider;
  */
 public class DockingManager {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DockingManager.class);
+
     private final DockingPane dockingPane;
     private final ContextManager contextManager;
-
 
     /**
      * TODO: support multiple, floating stages
@@ -45,40 +47,36 @@ public class DockingManager {
         this.contextManager = contextManager;
 
         // TODO: remove listeners
-
-
-        this.dockingPane.activeDockableProperty().addListener(new ChangeListener<DockablePane>() {
-
-            @Override
-            public void changed(ObservableValue<? extends DockablePane> ov, DockablePane oldValue, DockablePane newValue) {
-                // TODO: newValue == null ?
-                contextManager.setLocalContextActive(newValue);
-            }
+        this.dockingPane.activeDockableProperty().addListener(
+                (ObservableValue<? extends Node> ov, Node oldValue, Node newValue) -> {
+            // TODO: newValue == null ?
+            LOG.debug("Active Dockable changed!");
+            contextManager.setLocalContextActive(newValue);
         });
 
         // TODO: handle vizualized/ unhandled Dockables
-        this.dockingPane.getDockables().addListener(new SetChangeListener<DockableEntry<? extends DockablePane>>() {
-
-            @Override
-            public void onChanged(SetChangeListener.Change<? extends DockableEntry<? extends DockablePane>> change) {
-                if (change.wasAdded()) {
-                    handleDockableAdded(change.getElementAdded().getDockable());
-                } else if (change.wasRemoved()) {
-                    handleDockableRemoved(change.getElementRemoved().getDockable());
-                }
-            }
-        });
+        this.dockingPane.getDockables().addListener(
+                (SetChangeListener.Change<? extends FXDockableEntry> change) -> {
+                    if (change.wasAdded()) {
+                        LOG.debug("Dockable added: {}", change.getElementAdded());
+                        handleDockableAdded(change.getElementAdded().getDockable());
+                    } else if (change.wasRemoved()) {
+                        LOG.debug("Dockable removed: {}", change.getElementAdded());
+                        handleDockableRemoved(change.getElementRemoved().getDockable());
+                    }
+                });
 
     }
-    private void handleDockableAdded(DockablePane dockable) {
+
+    private void handleDockableAdded(Node dockable) {
         contextManager.putLocalContext(dockable, getLocalContext(dockable));
     }
 
-    private void handleDockableRemoved(DockablePane dockable) {
+    private void handleDockableRemoved(Node dockable) {
         contextManager.removeLocalContext(dockable);
     }
 
-    private Context getLocalContext(DockablePane dockable) {
+    private Context getLocalContext(Node dockable) {
         if (dockable instanceof LocalContextProvider) {
             return ((LocalContextProvider) dockable).getLocalContext();
         } else {

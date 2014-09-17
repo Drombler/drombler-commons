@@ -45,7 +45,7 @@ public class SimpleDockableDataManager<D, DATA extends DockableData> implements 
 
     @Override
     public DATA getClassDockableData(D dockable) {
-        return classDockableDataMap.get(dockable);
+        return classDockableDataMap.get(dockable.getClass());
     }
 
     /**

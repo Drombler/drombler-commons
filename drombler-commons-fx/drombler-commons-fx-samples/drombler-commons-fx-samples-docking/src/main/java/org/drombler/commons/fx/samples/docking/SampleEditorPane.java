@@ -18,26 +18,26 @@ package org.drombler.commons.fx.samples.docking;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
 
-public class SampleEditorPane extends DockablePane  {
+public class SampleEditorPane extends GridPane implements DockableDataSensitive<FXDockableData> {
     private final Sample sample;
 
     @FXML
     private TextField nameField;
+    private FXDockableData dockableData;
 
     public SampleEditorPane(Sample sample) throws IOException {
         loadFXML();
         this.sample = sample;
 
         nameField.setText(sample.getName());
-
-        titleProperty().bind(nameField.textProperty());
-
     }
 
     private void loadFXML() throws IOException {
@@ -48,6 +48,11 @@ public class SampleEditorPane extends DockablePane  {
         return sample;
     }
 
+    @Override
+    public void setDockableData(FXDockableData dockableData) {
+        this.dockableData = dockableData;
+        dockableData.titleProperty().bind(nameField.textProperty());
+    }
 
 
     

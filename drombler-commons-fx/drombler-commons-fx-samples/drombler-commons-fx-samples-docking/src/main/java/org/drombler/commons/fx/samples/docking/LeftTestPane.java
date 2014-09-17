@@ -19,11 +19,11 @@ import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import org.drombler.commons.fx.scene.SimpleEventHandlerProperty;
-import org.drombler.commons.fx.docking.DockablePane;
+import javafx.scene.layout.BorderPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.scene.SimpleEventHandlerProperty;
 
-public class LeftTestPane extends DockablePane {
+public class LeftTestPane extends BorderPane {
 
     private final SimpleEventHandlerProperty<ActionEvent> onNewSampleAction = new SimpleEventHandlerProperty<>(this,
             "onNewSampleAction", ActionEvent.ACTION);

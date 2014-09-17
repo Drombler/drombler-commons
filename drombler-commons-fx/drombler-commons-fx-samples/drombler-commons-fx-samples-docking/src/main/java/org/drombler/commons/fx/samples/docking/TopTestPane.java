@@ -15,10 +15,10 @@
 package org.drombler.commons.fx.samples.docking;
 
 import java.io.IOException;
-import org.drombler.commons.fx.docking.DockablePane;
+import javafx.scene.layout.BorderPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-public class TopTestPane extends DockablePane {
+public class TopTestPane extends BorderPane {
 
     public TopTestPane() throws IOException {
         loadFXML();

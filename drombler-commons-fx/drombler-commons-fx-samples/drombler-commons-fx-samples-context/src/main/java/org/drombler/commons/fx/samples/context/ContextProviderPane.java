@@ -18,15 +18,18 @@ import java.io.IOException;
 import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import org.drombler.commons.client.docking.DockableData;
+import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-public class ContextProviderPane extends DockablePane implements LocalContextProvider {
+public class ContextProviderPane extends GridPane implements LocalContextProvider, DockableDataSensitive<FXDockableData> {
 
     private final SimpleContextContent contextContent = new SimpleContextContent();
     private final SimpleContext context = new SimpleContext(contextContent);
@@ -34,6 +37,7 @@ public class ContextProviderPane extends DockablePane implements LocalContextPro
 
     @FXML
     private TextField nameField;
+    private DockableData dockableData;
 
     public ContextProviderPane(Sample sample) throws IOException {
         loadFXML();
@@ -43,8 +47,6 @@ public class ContextProviderPane extends DockablePane implements LocalContextPro
         contextContent.add(sample);
 
         nameField.setText(sample.getName());
-
-        titleProperty().bind(nameField.textProperty());
 
         // Mark this Editor as modified if any control has been modified
         nameField.textProperty().addListener((observable, oldValue, newValue) -> markModified());
@@ -69,6 +71,13 @@ public class ContextProviderPane extends DockablePane implements LocalContextPro
             // Add a SampleSavable to the context to enable the Save and the "Save All" actions.
             contextContent.add(new SampleSavable());
         }
+    }
+
+    @Override
+    public void setDockableData(FXDockableData dockableData) {
+        this.dockableData = dockableData;
+        dockableData.titleProperty().bind(nameField.textProperty());
+
     }
 
     private class SampleSavable implements Savable {

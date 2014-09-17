@@ -26,7 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.spi.ShortPathPart;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
 import org.softsmithy.lib.util.PositionableAdapter;
@@ -43,10 +43,10 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      * The area ID.
      */
     private final String areaId;
-    private final ObservableList<PositionableAdapter<DockablePane>> dockables = FXCollections.observableArrayList();
-    private final ObservableList<PositionableAdapter<DockablePane>> unmodifiableDockables = FXCollections.
+    private final ObservableList<PositionableAdapter<FXDockableEntry>> dockables = FXCollections.observableArrayList();
+    private final ObservableList<PositionableAdapter<FXDockableEntry>> unmodifiableDockables = FXCollections.
             unmodifiableObservableList(dockables);
-    private final Set<DockablePane> dockableSet = new HashSet<>();
+    private final Set<FXDockableEntry> dockableSet = new HashSet<>();
     private final int position;
     /**
      * Flag if the space for this docking area should be preserved, if it's empty, or if it's space should be freed.
@@ -57,7 +57,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
      * Flag if this DockingArea has been added to a {@link DockingSplitPane} already.
      */
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
-    private final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> selectionModel
+    private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
     private LayoutConstraintsDescriptor layoutConstraints;
 
@@ -67,7 +67,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         this.position = position;
         this.permanent = permanent;
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
-    }
+                            }
 
     @Override
     protected String getUserAgentStylesheet() {
@@ -97,19 +97,19 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return visualized;
     }
 
-    public final SingleSelectionModel<PositionableAdapter<DockablePane>> getSelectionModel() {
+    public final SingleSelectionModel<PositionableAdapter<FXDockableEntry>> getSelectionModel() {
         return singleModelProperty().get();
     }
 
-    public final void setSelectionModel(SingleSelectionModel<PositionableAdapter<DockablePane>> selectionModel) {
+    public final void setSelectionModel(SingleSelectionModel<PositionableAdapter<FXDockableEntry>> selectionModel) {
         singleModelProperty().set(selectionModel);
     }
 
-    public final ObjectProperty<SingleSelectionModel<PositionableAdapter<DockablePane>>> singleModelProperty() {
+    public final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> singleModelProperty() {
         return selectionModel;
     }
 
-    public boolean addDockable(PositionableAdapter<DockablePane> dockable) {
+    public boolean addDockable(PositionableAdapter<FXDockableEntry> dockable) {
         if (!dockableSet.contains(dockable.getAdapted())) {
             dockableSet.add(dockable.getAdapted());
             int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
@@ -120,8 +120,8 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         }
     }
 
-    public PositionableAdapter<DockablePane> removeDockable(int index) {
-        PositionableAdapter<DockablePane> dockable = dockables.remove(index);
+    public PositionableAdapter<FXDockableEntry> removeDockable(int index) {
+        PositionableAdapter<FXDockableEntry> dockable = dockables.remove(index);
         dockableSet.remove(dockable.getAdapted());
         return dockable;
     }
@@ -129,7 +129,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     /**
      * @return the dockablePanes
      */
-    public ObservableList<PositionableAdapter<DockablePane>> getDockables() {
+    public ObservableList<PositionableAdapter<FXDockableEntry>> getDockables() {
         return unmodifiableDockables;
     }
 

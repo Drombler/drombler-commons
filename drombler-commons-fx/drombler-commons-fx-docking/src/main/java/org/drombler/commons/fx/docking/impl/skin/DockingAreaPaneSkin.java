@@ -20,7 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.softsmithy.lib.util.PositionableAdapter;
 
@@ -33,7 +33,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     private DockingAreaPane control;
     private TabPane tabPane = new TabPane();
 
-    private final ListChangeListener<PositionableAdapter<DockablePane>> dockablesChangeListener = change -> {
+    private final ListChangeListener<PositionableAdapter<FXDockableEntry>> dockablesChangeListener = change -> {
         while (change.next()) {
             if (change.wasPermutated()) {
                 for (int i = change.getFrom(); i < change.getTo(); ++i) {
@@ -42,7 +42,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             } else if (change.wasUpdated()) {
                 // TODO: ???
             } else if (change.wasRemoved()) {
-                for (PositionableAdapter<DockablePane> remitem : change.getRemoved()) {
+                for (PositionableAdapter<FXDockableEntry> remitem : change.getRemoved()) {
                     // TODO: ???
                 }
             } else if (change.wasAdded()) {
@@ -90,14 +90,19 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
         tabPane.getTabs().addListener(tabsChangeListener);
 
-        for (PositionableAdapter<DockablePane> dockable : control.getDockables()) {
-            addTab(dockable);
-        }
-
         control.getSelectionModel().selectedIndexProperty().addListener(dockableSelectedIndexChangeListener);
-
         tabPane.getSelectionModel().selectedIndexProperty().addListener(tabSelectedIndexChangeListener);
-        tabPane.getSelectionModel().select(control.getSelectionModel().getSelectedIndex());
+
+        int selectedIndex = control.getSelectionModel().getSelectedIndex();
+        if (selectedIndex < 0 && !control.getDockables().isEmpty()) {
+            selectedIndex = 0;
+        }
+        // might change selection
+        control.getDockables().forEach(dockable -> addTab(dockable));
+
+        if (selectedIndex >= 0 && selectedIndex != control.getSelectionModel().getSelectedIndex()) {
+            tabPane.getSelectionModel().select(selectedIndex);
+        }
 
 //        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
 //
@@ -136,12 +141,12 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         tabPane = null;
     }
 
-    private void addTab(PositionableAdapter<DockablePane> dockable) {
+    private void addTab(PositionableAdapter<FXDockableEntry> dockable) {
         Tab tab = new Tab();
-        tab.textProperty().bind(dockable.getAdapted().titleProperty());
-        tab.graphicProperty().bind(dockable.getAdapted().graphicProperty());
-        tab.contextMenuProperty().bind(dockable.getAdapted().contextMenuProperty());
-        tab.setContent(dockable.getAdapted());
+        tab.textProperty().bind(dockable.getAdapted().getDockableData().titleProperty());
+        tab.graphicProperty().bind(dockable.getAdapted().getDockableData().graphicProperty());
+        tab.contextMenuProperty().bind(dockable.getAdapted().getDockableData().contextMenuProperty());
+        tab.setContent(dockable.getAdapted().getDockable());
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);
     }
 }

@@ -20,8 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
+import org.drombler.commons.client.docking.DockablePreferences;
 import org.drombler.commons.client.docking.spi.SplitLevel;
-import org.drombler.commons.fx.docking.DockablePane;
+import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.GUITests;
 import org.drombler.commons.fx.docking.SimpleControlLauncher;
 import static org.junit.Assert.assertEquals;
@@ -888,8 +892,13 @@ public class DockingSplitPaneTest {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false);
         rootManager.addDockingArea(Arrays.asList(path), dockingAreaPane);
 
-        DockablePane dockablePane = new DockablePane();
-        dockingAreaPane.addDockable(new PositionableAdapter<>(dockablePane, 10));
+        Node dockablePane = new BorderPane();
+        FXDockableData dockableData = new FXDockableData();
+        DockablePreferences dockablePreferences = new DockablePreferences();
+        dockablePreferences.setAreaId(id);
+        dockablePreferences.setPosition(10);
+        dockingAreaPane.addDockable(new PositionableAdapter<>(new FXDockableEntry(dockablePane, dockableData,
+                dockablePreferences), 10));
 
         return dockingAreaPane;
     }

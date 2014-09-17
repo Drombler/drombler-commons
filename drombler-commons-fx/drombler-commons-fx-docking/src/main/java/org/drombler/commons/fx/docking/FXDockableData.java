@@ -19,6 +19,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import org.drombler.commons.client.docking.DockableData;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
@@ -50,6 +51,12 @@ public class FXDockableData implements DockableData {
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
     private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
+            null);
+
+    /**
+     * TODO: needed?
+     */
+    private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu",
             null);
 
 //    @Override
@@ -89,6 +96,23 @@ public class FXDockableData implements DockableData {
 
     public ObjectProperty<GraphicFactory> graphicFactoryProperty() {
         return graphicFactory;
+    }
+
+    public final ContextMenu getContextMenu() {
+        return contextMenuProperty().get();
+    }
+
+    public final void setContextMenu(ContextMenu contextMenu) {
+        contextMenuProperty().set(contextMenu);
+    }
+
+    public ObjectProperty<ContextMenu> contextMenuProperty() {
+        return contextMenu;
+    }
+
+    @Override
+    public String toString() {
+        return "FXDockableData[title=" + getTitle() + "]";
     }
 
 }
