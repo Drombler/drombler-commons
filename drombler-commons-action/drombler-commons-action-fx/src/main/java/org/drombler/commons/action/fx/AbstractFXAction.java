@@ -110,7 +110,7 @@ public abstract class AbstractFXAction implements FXAction {
 
     private class EnabledProperty extends ReadOnlyBooleanPropertyBase {
 
-        private boolean enabled = false;
+        private boolean enabled = true;
 
         @Override
         public final boolean get() {
