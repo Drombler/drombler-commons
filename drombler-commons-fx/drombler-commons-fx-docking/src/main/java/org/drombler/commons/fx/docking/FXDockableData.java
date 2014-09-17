@@ -42,11 +42,11 @@ public class FXDockableData implements DockableData {
 //        return resourceBundle;
 //    }
     /**
-     * The title of this {@link Dockable}. It is used to represent this dockable e.g. in menus or tabs.
+     * The title of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
      */
     private final StringProperty title = new SimpleStringProperty(this, "titleProperty", "");
     /**
-     * The graphic of this {@link Dockable}. It is used to represent this dockable e.g. in menus or tabs.
+     * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
      */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
