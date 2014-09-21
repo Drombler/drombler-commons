@@ -25,7 +25,7 @@ import org.drombler.commons.client.util.MnemonicUtils;
  *
  * @author puce
  */
-public class ButtonUtils {
+public final class ButtonUtils {
 
     private ButtonUtils() {
     }
@@ -55,6 +55,8 @@ public class ButtonUtils {
             Node graphic = action.getGraphicFactory().createGraphic(iconSize);
             if (graphic != null) {
                 button.setGraphic(graphic);
+            } else {
+                button.setText(displayName); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 
             }
         } else {
             button.setText(displayName); // TODO: ok? -fx-content-display: GRAPHIC_ONLY ? 

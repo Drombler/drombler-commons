@@ -24,7 +24,7 @@ import javafx.scene.control.RadioMenuItem;
  *
  * @author puce
  */
-public class MenuItemUtils {
+public final class MenuItemUtils {
 
     private MenuItemUtils() {
     }

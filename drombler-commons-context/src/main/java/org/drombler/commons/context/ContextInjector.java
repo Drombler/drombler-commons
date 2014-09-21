@@ -30,6 +30,10 @@ public class ContextInjector {
         this.applicationContextProvider = applicationContextProvider;
     }
 
+    public ContextInjector(ContextManager contextManager) {
+        this(contextManager, contextManager);
+    }
+
     public void inject(Object target) {
         if (target instanceof ActiveContextSensitive) {
             ((ActiveContextSensitive) target).setActiveContext(activeContextProvider.getActiveContext());

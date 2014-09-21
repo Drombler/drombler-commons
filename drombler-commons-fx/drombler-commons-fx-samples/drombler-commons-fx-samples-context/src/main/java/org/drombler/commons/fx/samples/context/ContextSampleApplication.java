@@ -45,10 +45,6 @@ public class ContextSampleApplication extends Application {
     public static final String RIGHT_AREA_ID = "right";
     public static final String CENTER_AREA_ID = "center";
 
-    public static void main(String... args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();

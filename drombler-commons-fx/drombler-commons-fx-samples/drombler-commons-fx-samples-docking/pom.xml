@@ -63,7 +63,7 @@ Contributor(s): .
                             <outputDirectory>${project.build.directory}/jfx/app</outputDirectory>
                             <resources>          
                                 <resource>
-                                    <directory>src/main/logging</directory>
+                                    <directory>src/main/config</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>              

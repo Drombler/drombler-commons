@@ -57,10 +57,6 @@ public class DockingSampleApplication extends Application {
 
     private int sampleCounter = 0;
 
-    public static void main(String... args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();

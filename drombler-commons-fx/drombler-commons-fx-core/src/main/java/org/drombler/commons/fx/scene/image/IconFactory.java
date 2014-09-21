@@ -26,7 +26,7 @@ import org.softsmithy.lib.util.ResourceLoader;
 
 /**
  * A Icon factory.
- * 
+ *
  * This factory works with a naming pattern.
  *
  * If the icon naming pattern is {@code <icon-location>/<icon-base-name>.<icon-extension>}, then this factory looks for
@@ -70,7 +70,12 @@ public class IconFactory implements GraphicFactory {
      */
     @Override
     public ImageView createGraphic(int size) {
-        return new ImageView(getIconImage(size));
+        final Image iconImage = getIconImage(size);
+        if (iconImage != null) {
+            return new ImageView(iconImage);
+        } else {
+            return null;
+        }
     }
 
     private Image getIconImage(int size) {
