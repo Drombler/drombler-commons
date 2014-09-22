@@ -22,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -46,6 +47,8 @@ import org.drombler.commons.action.fx.MenuItemUtils;
 import org.drombler.commons.action.fx.ToggleActionListenerAdapter;
 import org.drombler.commons.context.ContextInjector;
 import org.drombler.commons.context.ContextManager;
+import org.drombler.commons.context.SimpleContext;
+import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.scene.control.XToggleButton;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
@@ -85,20 +88,21 @@ public class ActionSampleApplication extends Application {
         addToolBarButtons(toolBar, fXActions);
         addSeparator(toolBar);
 
-        List<FXToggleAction> fxToggleActions1 = createFXToggleActions1(resourceLoader);
+        List<FXToggleAction> fxToggleActionsForGrouped = createFXToggleActionsForGrouped(resourceLoader);
         ToggleGroup menuToggleGroup = new ToggleGroup();
         Menu groupedMenu = new Menu("_Grouped");
         fileMenu.getItems().add(groupedMenu);
-        addRadioMenuItems(groupedMenu, fxToggleActions1, menuToggleGroup);
+        addRadioMenuItems(groupedMenu, fxToggleActionsForGrouped, menuToggleGroup);
         ToggleGroup toolBarToggleGroup = new ToggleGroup();
-        addGroupedToggleToolBarButtons(toolBar, fxToggleActions1, toolBarToggleGroup);
+        addGroupedToggleToolBarButtons(toolBar, fxToggleActionsForGrouped, toolBarToggleGroup);
+        fxToggleActionsForGrouped.get(0).setSelected(true);
         addSeparator(toolBar);
 
-        List<FXToggleAction> fxToggleActions2 = createFXToggleActions2(resourceLoader);
+        List<FXToggleAction> fxToggleActionsForUngrouped = createFXToggleActionsForUngrouped(resourceLoader);
         Menu ungroupedMenu = new Menu("_Ungrouped");
         fileMenu.getItems().add(ungroupedMenu);
-        addCheckMenuItems(ungroupedMenu, fxToggleActions2);
-        addUngroupedToggleToolBarButtons(toolBar, fxToggleActions2);
+        addCheckMenuItems(ungroupedMenu, fxToggleActionsForUngrouped);
+        addUngroupedToggleToolBarButtons(toolBar, fxToggleActionsForUngrouped);
         addSeparator(toolBar);
 
         ContextManager contextManager = new ContextManager();
@@ -108,6 +112,9 @@ public class ActionSampleApplication extends Application {
         fileMenu.getItems().add(contextSensitiveMenu);
         addMenuItems(contextSensitiveMenu, contextSensitiveFXActions);
         addToolBarButtons(toolBar, contextSensitiveFXActions);
+
+        addContent(contentPane, fXActions, fxToggleActionsForGrouped, fxToggleActionsForUngrouped,
+                contextSensitiveFXActions, contextManager);
 
         Scene scene = new Scene(root, 1500, 1000);
         stage.setTitle("Action Sample Application");
@@ -188,7 +195,7 @@ public class ActionSampleApplication extends Application {
         return Arrays.asList(test1Action, test2Action, test3Action);
     }
 
-    private List<FXToggleAction> createFXToggleActions1(ResourceLoader resourceLoader) {
+    private List<FXToggleAction> createFXToggleActionsForGrouped(ResourceLoader resourceLoader) {
         final ToggleActionListener<Object> test4ToggleActionListener = new ToggleActionListenerTestAction();
         final FXToggleAction test4ToggleAction = new ToggleActionListenerAdapter(test4ToggleActionListener);
         test4ToggleAction.setDisplayName("Test _4");
@@ -200,7 +207,7 @@ public class ActionSampleApplication extends Application {
         return Arrays.asList(test4ToggleAction, test5ToggleAction);
     }
 
-    private List<FXToggleAction> createFXToggleActions2(ResourceLoader resourceLoader) {
+    private List<FXToggleAction> createFXToggleActionsForUngrouped(ResourceLoader resourceLoader) {
         final ToggleActionListener<Object> test6ToggleActionListener = new ToggleActionListenerTestAction();
         final FXToggleAction test6ToggleAction = new ToggleActionListenerAdapter(test6ToggleActionListener);
         test6ToggleAction.setDisplayName("Test _6");
@@ -229,6 +236,45 @@ public class ActionSampleApplication extends Application {
         test9ActionListenerAdapter.setGraphicFactory(new IconFactory("nine.png", resourceLoader, false));
 
         return Arrays.asList(test8ActionListenerAdapter, test9ActionListenerAdapter);
+    }
+
+    private void addContent(BorderPane contentPane, List<FXAction> fXActions,
+            List<FXToggleAction> fxToggleActionsForGrouped, List<FXToggleAction> fxToggleActionsForUngrouped,
+            List<FXAction> contextSensitiveFXActions, ContextManager contextManager) {
+        GridPane checkBoxPane = new GridPane();
+        int row = 0;
+        int column = 0;
+//        for (FXAction fxAction : fXActions) {
+//            addEnabledCheckedBox(checkBoxPane, fxAction, row, column++);
+//        }
+        column++;
+        addMyCommandCheckBox(checkBoxPane, contextManager, row, column);
+        contentPane.setCenter(checkBoxPane);
+    }
+
+//    private void addEnabledCheckedBox(GridPane checkBoxPane, FXAction fxAction, int row, int column) {
+//        CheckBox enabledCheckBox = new CheckBox(fxAction.getDisplayName() + " enabled:");
+//        enabledCheckBox.selectedProperty().addListener(event -> fxAction.setEnabled());
+//    }
+    private void addMyCommandCheckBox(GridPane checkBoxPane, ContextManager contextManager, int row, int column) {
+        SimpleContextContent contextContent = new SimpleContextContent();
+        SimpleContext localContext = new SimpleContext(contextContent);
+        CheckBox myCommandCheckBox = new CheckBox("MyCommand in local context");
+        MyCommand myCommand = () -> {
+            System.out.println("MyCommand doSomething!");
+            myCommandCheckBox.setSelected(false);
+        };
+
+        myCommandCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                contextContent.add(myCommand);
+            } else {
+                contextContent.remove(myCommand);
+            }
+        });
+        contextManager.putLocalContext(this, localContext);
+        contextManager.setLocalContextActive(this);
+        checkBoxPane.add(myCommandCheckBox, column, row);
     }
 
 }
