@@ -14,12 +14,14 @@
  */
 package org.drombler.commons.fx.samples.action;
 
-import org.drombler.commons.action.AbstractToggleActionListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-public class Test6ToggleAction extends AbstractToggleActionListener<Object> {
+
+public class EventHandlerTestAction implements EventHandler<ActionEvent> {
 
     @Override
-    public void onSelectionChanged(boolean oldValue, boolean newValue) {
-        System.out.println("Test6ToggleAction selection changed: " + newValue);
+    public void handle(ActionEvent t) {
+        System.out.println("Test2Action implements EventHandler<ActionEvent>!");
     }
 }

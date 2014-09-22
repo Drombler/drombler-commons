@@ -171,57 +171,57 @@ public class ActionSampleApplication extends Application {
     }
 
     private List<FXAction> createFXActions(ResourceLoader resourceLoader) {
-        final ActionListener<Object> test1ActionListener = new Test1Action();
+        final ActionListener<Object> test1ActionListener = new ActionListenerTestAction();
         final FXAction test1Action = new ActionListenerAdapter(test1ActionListener);
         test1Action.setDisplayName("Test _1");
         test1Action.setAccelerator(KeyCombination.keyCombination("Shortcut+1"));
         test1Action.setGraphicFactory(new IconFactory("one.png", resourceLoader, false));
 
-        final EventHandler<ActionEvent> test2ActionEventHandler = new Test2Action();
+        final EventHandler<ActionEvent> test2ActionEventHandler = new EventHandlerTestAction();
         final FXAction test2Action = new ActionEventHandlerAdapter(test2ActionEventHandler);
         test2Action.setDisplayName("Test _2");
         test2Action.setAccelerator(KeyCombination.keyCombination("Shortcut+2"));
         test2Action.setGraphicFactory(new IconFactory("two.png", resourceLoader, false));
 
-        final FXAction test3Action = new Test3Action();
+        final FXAction test3Action = new FXActionTestAction("Test _3", "Shortcut+3", "three.png");
 
         return Arrays.asList(test1Action, test2Action, test3Action);
     }
 
     private List<FXToggleAction> createFXToggleActions1(ResourceLoader resourceLoader) {
-        final ToggleActionListener<Object> test4ToggleActionListener = new Test4ToggleAction();
+        final ToggleActionListener<Object> test4ToggleActionListener = new ToggleActionListenerTestAction();
         final FXToggleAction test4ToggleAction = new ToggleActionListenerAdapter(test4ToggleActionListener);
         test4ToggleAction.setDisplayName("Test _4");
         test4ToggleAction.setAccelerator(KeyCombination.keyCombination("Shortcut+4"));
         test4ToggleAction.setGraphicFactory(new IconFactory("four.png", resourceLoader, false));
 
-        final FXToggleAction test5ToggleAction = new Test5ToggleAction();
+        final FXToggleAction test5ToggleAction = new FXToggleActionTestAction("Test _5", "Shortcut+5", "five.png");
 
         return Arrays.asList(test4ToggleAction, test5ToggleAction);
     }
 
     private List<FXToggleAction> createFXToggleActions2(ResourceLoader resourceLoader) {
-        final ToggleActionListener<Object> test6ToggleActionListener = new Test6ToggleAction();
+        final ToggleActionListener<Object> test6ToggleActionListener = new ToggleActionListenerTestAction();
         final FXToggleAction test6ToggleAction = new ToggleActionListenerAdapter(test6ToggleActionListener);
         test6ToggleAction.setDisplayName("Test _6");
         test6ToggleAction.setAccelerator(KeyCombination.keyCombination("Shortcut+6"));
         test6ToggleAction.setGraphicFactory(new IconFactory("six.png", resourceLoader, false));
 
-        final FXToggleAction test7ToggleAction = new Test7ToggleAction();
+        final FXToggleAction test7ToggleAction = new FXToggleActionTestAction("Test _7", "Shortcut+7", "seven.png");
 
         return Arrays.asList(test6ToggleAction, test7ToggleAction);
     }
 
     private List<FXAction> createContextSensitiveFXActions(ResourceLoader resourceLoader,
             ContextInjector contextInjector) {
-        final Test8Action test8Action = new Test8Action();
+        final ActiveContextSensitiveAction test8Action = new ActiveContextSensitiveAction();
         contextInjector.inject(test8Action);
         final FXAction test8ActionListenerAdapter = new ActionListenerAdapter(test8Action);
         test8ActionListenerAdapter.setDisplayName("Test _8");
         test8ActionListenerAdapter.setAccelerator(KeyCombination.keyCombination("Shortcut+8"));
         test8ActionListenerAdapter.setGraphicFactory(new IconFactory("eight.png", resourceLoader, false));
 
-        final Test9Action test9Action = new Test9Action();
+        final ApplicationContextSensitiveAction test9Action = new ApplicationContextSensitiveAction();
         contextInjector.inject(test9Action);
         final FXAction test9ActionListenerAdapter = new ActionListenerAdapter(test9Action);
         test9ActionListenerAdapter.setDisplayName("Test _9");

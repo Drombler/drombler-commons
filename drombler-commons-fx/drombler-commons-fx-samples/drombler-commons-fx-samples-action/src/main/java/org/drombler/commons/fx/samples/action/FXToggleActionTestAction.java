@@ -24,16 +24,16 @@ import org.drombler.commons.action.fx.FXToggleAction;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
-public class Test5ToggleAction extends AbstractFXAction implements FXToggleAction {
+public class FXToggleActionTestAction extends AbstractFXAction implements FXToggleAction {
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
-    public Test5ToggleAction() {
-        setDisplayName("Test _5");
-        setAccelerator(KeyCombination.keyCombination("Shortcut+5"));
-        setGraphicFactory(new IconFactory("five.png", new ResourceLoader(Test5ToggleAction.class), false));
+    public FXToggleActionTestAction(String displayName, String accelerator, String icon) {
+        setDisplayName(displayName);
+        setAccelerator(KeyCombination.keyCombination(accelerator));
+        setGraphicFactory(new IconFactory(icon, new ResourceLoader(FXToggleActionTestAction.class), false));
         selected.addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue)
-                -> System.out.println("Test5ToggleAction selection changed: " + newValue));
+                -> System.out.println(getDisplayName() + " selection changed: " + newValue));
     }
 
     @Override

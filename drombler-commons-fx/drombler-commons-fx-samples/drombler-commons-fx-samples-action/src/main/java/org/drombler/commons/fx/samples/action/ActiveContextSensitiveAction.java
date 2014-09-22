@@ -22,12 +22,12 @@ import org.drombler.commons.context.Context;
  *
  * @author puce
  */
-public class Test8Action extends AbstractActionListener<Object> implements ActiveContextSensitive {
+public class ActiveContextSensitiveAction extends AbstractActionListener<Object> implements ActiveContextSensitive {
 
     private MyCommand myCommand;
     private Context activeContext;
 
-    public Test8Action() {
+    public ActiveContextSensitiveAction() {
         setEnabled(false);
     }
 

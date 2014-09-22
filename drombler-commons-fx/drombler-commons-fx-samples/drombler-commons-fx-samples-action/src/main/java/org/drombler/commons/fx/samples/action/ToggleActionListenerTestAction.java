@@ -14,13 +14,12 @@
  */
 package org.drombler.commons.fx.samples.action;
 
-import org.drombler.commons.action.AbstractActionListener;
+import org.drombler.commons.action.AbstractToggleActionListener;
 
-
-public class Test1Action extends AbstractActionListener<Object> {
+public class ToggleActionListenerTestAction extends AbstractToggleActionListener<Object> {
 
     @Override
-    public void onAction(Object event) {
-        System.out.println("Test1Action extends AbstractActionListener!");
+    public void onSelectionChanged(boolean oldValue, boolean newValue) {
+        System.out.println("Test4ToggleAction selection changed: " + newValue);
     }
 }

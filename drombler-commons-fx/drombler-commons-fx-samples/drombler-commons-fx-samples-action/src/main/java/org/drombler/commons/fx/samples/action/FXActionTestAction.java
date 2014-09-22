@@ -15,13 +15,21 @@
 package org.drombler.commons.fx.samples.action;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.input.KeyCombination;
+import org.drombler.commons.action.fx.AbstractFXAction;
+import org.drombler.commons.fx.scene.image.IconFactory;
+import org.softsmithy.lib.util.ResourceLoader;
 
+public class FXActionTestAction extends AbstractFXAction {
 
-public class Test2Action implements EventHandler<ActionEvent> {
+    public FXActionTestAction(String displayName, String accelerator, String icon) {
+        setDisplayName(displayName);
+        setAccelerator(KeyCombination.keyCombination(accelerator));
+        setGraphicFactory(new IconFactory(icon, new ResourceLoader(FXActionTestAction.class), false));
+    }
 
     @Override
     public void handle(ActionEvent t) {
-        System.out.println("Test2Action extends EventHandler!");
+        System.out.println(getDisplayName() + " implements FXAction!");
     }
 }

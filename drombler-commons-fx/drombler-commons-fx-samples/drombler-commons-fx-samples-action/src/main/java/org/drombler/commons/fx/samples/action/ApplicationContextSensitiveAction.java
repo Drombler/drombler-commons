@@ -26,12 +26,12 @@ import org.drombler.commons.context.Context;
  *
  * @author puce
  */
-public class Test9Action extends AbstractActionListener<Object> implements ApplicationContextSensitive {
+public class ApplicationContextSensitiveAction extends AbstractActionListener<Object> implements ApplicationContextSensitive {
 
     private Collection<? extends MyCommand> myCommands = Collections.emptyList();
     private Context applicationContext;
 
-    public Test9Action() {
+    public ApplicationContextSensitiveAction() {
         setEnabled(false);
     }
 
