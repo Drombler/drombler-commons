@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.KeyCombination;
 import org.drombler.commons.action.fx.AbstractFXAction;
 import org.drombler.commons.action.fx.FXToggleAction;
+import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
@@ -33,7 +34,8 @@ public class FXToggleActionTestAction extends AbstractFXAction implements FXTogg
         setAccelerator(KeyCombination.keyCombination(accelerator));
         setGraphicFactory(new IconFactory(icon, new ResourceLoader(FXToggleActionTestAction.class), false));
         selected.addListener((ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue)
-                -> System.out.println(getDisplayName() + " selection changed: " + newValue));
+                -> System.out.println(
+                        MnemonicUtils.removeMnemonicChar(getDisplayName()) + " selection changed: " + newValue));
     }
 
     @Override

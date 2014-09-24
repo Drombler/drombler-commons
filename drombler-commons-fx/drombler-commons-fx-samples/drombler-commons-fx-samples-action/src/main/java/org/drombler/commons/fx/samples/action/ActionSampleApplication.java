@@ -29,6 +29,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.Separator;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCombination;
@@ -112,26 +113,36 @@ public class ActionSampleApplication extends Application {
         fileMenu.getItems().add(contextSensitiveMenu);
         addMenuItems(contextSensitiveMenu, contextSensitiveFXActions);
         addToolBarButtons(toolBar, contextSensitiveFXActions);
-
+        
+        addSeparator(fileMenu);
+        
+        FXAction exitAction = createExitAction();
+        addMenuItem(fileMenu, exitAction);
         addContent(contentPane, fXActions, fxToggleActionsForGrouped, fxToggleActionsForUngrouped,
                 contextSensitiveFXActions, contextManager);
 
-        Scene scene = new Scene(root, 1500, 1000);
+        Scene scene = new Scene(root, 640, 240);
         stage.setTitle("Action Sample Application");
         stage.setScene(scene);
         stage.show();
     }
-
+    
+    private void addSeparator(Menu menu) {
+        menu.getItems().add(new SeparatorMenuItem());
+    }
+    
     private void addSeparator(ToolBar toolBar) {
         toolBar.getItems().add(new Separator(Orientation.VERTICAL));
     }
 
     private void addMenuItems(Menu menu, List<FXAction> fXActions) {
-        fXActions.forEach(fxAction -> {
-            MenuItem menuItem = new MenuItem();
-            MenuItemUtils.configureMenuItem(menuItem, fxAction, MENU_ICON_SIZE);
-            menu.getItems().add(menuItem);
-        });
+        fXActions.forEach(fxAction -> addMenuItem(menu, fxAction));
+    }
+    
+    private void addMenuItem(Menu menu, FXAction fxAction) {
+        MenuItem menuItem = new MenuItem();
+        MenuItemUtils.configureMenuItem(menuItem, fxAction, MENU_ICON_SIZE);
+        menu.getItems().add(menuItem);
     }
 
     private void addRadioMenuItems(Menu menu, List<FXToggleAction> fxToggleActions, ToggleGroup toggleGroup) {
@@ -237,7 +248,15 @@ public class ActionSampleApplication extends Application {
 
         return Arrays.asList(test8ActionListenerAdapter, test9ActionListenerAdapter);
     }
-
+    
+    private FXAction createExitAction() {
+        final ExitActionEventHandler exitActionEventHandler = new ExitActionEventHandler();
+        final FXAction exitAction = new ActionEventHandlerAdapter(exitActionEventHandler);
+        exitAction.setDisplayName("E_xit");
+        exitAction.setAccelerator(KeyCombination.keyCombination("Shortcut+Q"));
+        return exitAction;
+    }
+    
     private void addContent(BorderPane contentPane, List<FXAction> fXActions,
             List<FXToggleAction> fxToggleActionsForGrouped, List<FXToggleAction> fxToggleActionsForUngrouped,
             List<FXAction> contextSensitiveFXActions, ContextManager contextManager) {
@@ -276,5 +295,5 @@ public class ActionSampleApplication extends Application {
         contextManager.setLocalContextActive(this);
         checkBoxPane.add(myCommandCheckBox, column, row);
     }
-
+    
 }

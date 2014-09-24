@@ -17,6 +17,7 @@ package org.drombler.commons.fx.samples.action;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyCombination;
 import org.drombler.commons.action.fx.AbstractFXAction;
+import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
@@ -30,6 +31,6 @@ public class FXActionTestAction extends AbstractFXAction {
 
     @Override
     public void handle(ActionEvent t) {
-        System.out.println(getDisplayName() + " implements FXAction!");
+        System.out.println(MnemonicUtils.removeMnemonicChar(getDisplayName()) + " implements FXAction!");
     }
 }
