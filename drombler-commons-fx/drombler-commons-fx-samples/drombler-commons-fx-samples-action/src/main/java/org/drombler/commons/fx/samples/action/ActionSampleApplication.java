@@ -22,7 +22,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -33,7 +32,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
@@ -48,8 +46,6 @@ import org.drombler.commons.action.fx.MenuItemUtils;
 import org.drombler.commons.action.fx.ToggleActionListenerAdapter;
 import org.drombler.commons.context.ContextInjector;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.context.SimpleContext;
-import org.drombler.commons.context.SimpleContextContent;
 import org.drombler.commons.fx.scene.control.XToggleButton;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
@@ -74,11 +70,6 @@ public class ActionSampleApplication extends Application {
         ToolBar toolBar = new ToolBar();
         root.add(toolBar, 0, 1);
         GridPane.setHgrow(toolBar, Priority.ALWAYS);
-
-        BorderPane contentPane = new BorderPane();
-        root.add(contentPane, 0, 2);
-        GridPane.setHgrow(contentPane, Priority.ALWAYS);
-        GridPane.setVgrow(contentPane, Priority.ALWAYS);
 
         ResourceLoader resourceLoader = new ResourceLoader(ActionSampleApplication.class);
 
@@ -108,29 +99,36 @@ public class ActionSampleApplication extends Application {
 
         ContextManager contextManager = new ContextManager();
         ContextInjector contextInjector = new ContextInjector(contextManager);
+
         List<FXAction> contextSensitiveFXActions = createContextSensitiveFXActions(resourceLoader, contextInjector);
         Menu contextSensitiveMenu = new Menu("_Context Sensitive");
         fileMenu.getItems().add(contextSensitiveMenu);
         addMenuItems(contextSensitiveMenu, contextSensitiveFXActions);
         addToolBarButtons(toolBar, contextSensitiveFXActions);
-        
+
         addSeparator(fileMenu);
-        
+
         FXAction exitAction = createExitAction();
         addMenuItem(fileMenu, exitAction);
-        addContent(contentPane, fXActions, fxToggleActionsForGrouped, fxToggleActionsForUngrouped,
-                contextSensitiveFXActions, contextManager);
+
+        ContentPane contentPane = new ContentPane();
+        contextManager.putLocalContext(contentPane, contentPane.getLocalContext());
+        contextManager.setLocalContextActive(contentPane);
+        root.add(contentPane, 0, 2);
+        GridPane.setHgrow(contentPane, Priority.ALWAYS);
+        GridPane.setVgrow(contentPane, Priority.ALWAYS);
+
 
         Scene scene = new Scene(root, 640, 240);
         stage.setTitle("Action Sample Application");
         stage.setScene(scene);
         stage.show();
     }
-    
+
     private void addSeparator(Menu menu) {
         menu.getItems().add(new SeparatorMenuItem());
     }
-    
+
     private void addSeparator(ToolBar toolBar) {
         toolBar.getItems().add(new Separator(Orientation.VERTICAL));
     }
@@ -138,7 +136,7 @@ public class ActionSampleApplication extends Application {
     private void addMenuItems(Menu menu, List<FXAction> fXActions) {
         fXActions.forEach(fxAction -> addMenuItem(menu, fxAction));
     }
-    
+
     private void addMenuItem(Menu menu, FXAction fxAction) {
         MenuItem menuItem = new MenuItem();
         MenuItemUtils.configureMenuItem(menuItem, fxAction, MENU_ICON_SIZE);
@@ -248,7 +246,7 @@ public class ActionSampleApplication extends Application {
 
         return Arrays.asList(test8ActionListenerAdapter, test9ActionListenerAdapter);
     }
-    
+
     private FXAction createExitAction() {
         final ExitActionEventHandler exitActionEventHandler = new ExitActionEventHandler();
         final FXAction exitAction = new ActionEventHandlerAdapter(exitActionEventHandler);
@@ -256,44 +254,4 @@ public class ActionSampleApplication extends Application {
         exitAction.setAccelerator(KeyCombination.keyCombination("Shortcut+Q"));
         return exitAction;
     }
-    
-    private void addContent(BorderPane contentPane, List<FXAction> fXActions,
-            List<FXToggleAction> fxToggleActionsForGrouped, List<FXToggleAction> fxToggleActionsForUngrouped,
-            List<FXAction> contextSensitiveFXActions, ContextManager contextManager) {
-        GridPane checkBoxPane = new GridPane();
-        int row = 0;
-        int column = 0;
-//        for (FXAction fxAction : fXActions) {
-//            addEnabledCheckedBox(checkBoxPane, fxAction, row, column++);
-//        }
-        column++;
-        addMyCommandCheckBox(checkBoxPane, contextManager, row, column);
-        contentPane.setCenter(checkBoxPane);
-    }
-
-//    private void addEnabledCheckedBox(GridPane checkBoxPane, FXAction fxAction, int row, int column) {
-//        CheckBox enabledCheckBox = new CheckBox(fxAction.getDisplayName() + " enabled:");
-//        enabledCheckBox.selectedProperty().addListener(event -> fxAction.setEnabled());
-//    }
-    private void addMyCommandCheckBox(GridPane checkBoxPane, ContextManager contextManager, int row, int column) {
-        SimpleContextContent contextContent = new SimpleContextContent();
-        SimpleContext localContext = new SimpleContext(contextContent);
-        CheckBox myCommandCheckBox = new CheckBox("MyCommand in local context");
-        MyCommand myCommand = () -> {
-            System.out.println("MyCommand doSomething!");
-            myCommandCheckBox.setSelected(false);
-        };
-
-        myCommandCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                contextContent.add(myCommand);
-            } else {
-                contextContent.remove(myCommand);
-            }
-        });
-        contextManager.putLocalContext(this, localContext);
-        contextManager.setLocalContextActive(this);
-        checkBoxPane.add(myCommandCheckBox, column, row);
-    }
-    
 }
