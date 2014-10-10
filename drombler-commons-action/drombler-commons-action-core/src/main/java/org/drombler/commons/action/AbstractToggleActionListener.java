@@ -25,6 +25,12 @@ public abstract class AbstractToggleActionListener<E> extends AbstractActionList
     private boolean selected = false;
 
     /**
+     * Creates a new instance of this class.
+     */
+    public AbstractToggleActionListener() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override

@@ -29,6 +29,12 @@ public abstract class AbstractActionListener<E> implements ActionListener<E> {
     private boolean enabled = true;
 
     /**
+     * Creates a new instance of this class.
+     */
+    public AbstractActionListener() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override
