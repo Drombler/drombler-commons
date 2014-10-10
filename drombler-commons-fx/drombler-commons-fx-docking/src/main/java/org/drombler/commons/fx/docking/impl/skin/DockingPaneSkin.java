@@ -113,7 +113,10 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         dockingArea.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldValue, newValue) -> {
                     if (newValue != null) {
-                        control.setActiveDockable(newValue.getAdapted().getDockable());
+//                        control.setActiveDockable(newValue.getAdapted().getDockable());
+                        LOG.debug("Request focus for Dockable: '{}'!",
+                                newValue.getAdapted().getDockableData().getTitle());
+                        newValue.getAdapted().getDockable().requestFocus();
                     }
                 });
 
@@ -156,10 +159,9 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         if (dockingArea != null) { // TODO: needed?
             dockingArea.addDockable(new PositionableAdapter<>(dockableEntry,
                     dockableEntry.getDockablePreferences().getPosition()));
-            this.control.setActiveDockable(dockableEntry.getDockable());
+//            this.control.setActiveDockable(dockableEntry.getDockable());
             LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
-                    dockableEntry.getDockablePreferences().
-                    getAreaId());
+                    dockableEntry.getDockablePreferences().getAreaId());
         }
     }
 
@@ -220,14 +222,15 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             LOG.debug("New focusOwner: {}", currentNode);
             while (currentNode != null && currentNode != control) {
                 if (currentNode instanceof DockingAreaPane) {
-                    LOG.debug("DockingAreaPane found!");
+                    LOG.debug("DockingAreaPane found: {}!", currentNode);
                     PositionableAdapter<FXDockableEntry> selectedItem = ((DockingAreaPane) currentNode).
                             getSelectionModel().getSelectedItem();
                     if (selectedItem != null) {
                         LOG.debug("Dockable found!");
                         currentNode = selectedItem.getAdapted().getDockable();
                         control.setActiveDockable(currentNode);
-                        LOG.debug("Changed active Dockable {}!", currentNode);
+                        LOG.debug("Changed active Dockable: '{}'!", selectedItem.getAdapted().getDockableData().
+                                getTitle());
                     }
                     break;
                 } else {
