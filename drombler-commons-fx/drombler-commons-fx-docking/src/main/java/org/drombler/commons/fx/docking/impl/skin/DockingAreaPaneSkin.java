@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.softsmithy.lib.util.PositionableAdapter;
@@ -64,7 +65,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             } else if (change.wasUpdated()) {
                 // TODO: ???
             } else if (change.wasRemoved()) {
-                DockingAreaPaneSkin.this.control.removeDockable(change.getFrom());
+                control.removeDockable(change.getFrom());
             } else if (change.wasAdded()) {
                 // TODO: ???
             } else if (change.wasReplaced()) {
@@ -81,10 +82,6 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
     public DockingAreaPaneSkin(DockingAreaPane control) {
         this.control = control;
-//        Tab tab = new Tab();
-//        tab.setText("Test");
-//        tab.setContent(new Label("Hello world!"));
-//        tabPane.getTabs().add(tab);
 
         control.getDockables().addListener(dockablesChangeListener);
 
@@ -142,10 +139,11 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     }
 
     private void addTab(PositionableAdapter<FXDockableEntry> dockable) {
-        Tab tab = new Tab();
-        tab.textProperty().bind(dockable.getAdapted().getDockableData().titleProperty());
-        tab.graphicProperty().bind(dockable.getAdapted().getDockableData().graphicProperty());
-        tab.contextMenuProperty().bind(dockable.getAdapted().getDockableData().contextMenuProperty());
+        final Tab tab = new Tab();
+        final FXDockableData dockableData = dockable.getAdapted().getDockableData();
+        tab.textProperty().bind(dockableData.titleProperty());
+        tab.graphicProperty().bind(dockableData.graphicProperty());
+        tab.contextMenuProperty().bind(dockableData.contextMenuProperty());
         tab.setContent(dockable.getAdapted().getDockable());
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);
     }
