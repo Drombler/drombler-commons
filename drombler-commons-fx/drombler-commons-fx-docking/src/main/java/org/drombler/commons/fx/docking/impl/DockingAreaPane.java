@@ -67,7 +67,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         this.position = position;
         this.permanent = permanent;
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
-                            }
+    }
 
     @Override
     protected String getUserAgentStylesheet() {
