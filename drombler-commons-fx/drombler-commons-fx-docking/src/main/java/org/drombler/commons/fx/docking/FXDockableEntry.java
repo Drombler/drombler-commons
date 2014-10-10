@@ -24,10 +24,21 @@ import org.drombler.commons.client.docking.DockablePreferences;
  */
 
 
-public class FXDockableEntry extends DockableEntry<Node, FXDockableData> {
+public class FXDockableEntry extends DockableEntry<Node> {
+    private final FXDockableData dockableData;
 
     public FXDockableEntry(Node dockable, FXDockableData dockableData, DockablePreferences dockablePreferences) {
-        super(dockable, dockableData, dockablePreferences);
+        super(dockable, dockablePreferences);
+        this.dockableData = dockableData;
+    }
+
+    /**
+     * Gets the {@link FXDockableData}.
+     *
+     * @return the DockableData
+     */
+    public FXDockableData getDockableData() {
+        return dockableData;
     }
 
 }
