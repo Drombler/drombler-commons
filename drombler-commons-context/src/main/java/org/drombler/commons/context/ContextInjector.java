@@ -15,6 +15,10 @@
 package org.drombler.commons.context;
 
 /**
+ * The ContextInjector injects the active {@link Context} to Objects, which implement the {@link ActiveContextSensitive}
+ * interface and the application {@link Context} to Objects, which implement the {@link ApplicationContextSensitive}
+ * interface.
+ *
  * TODO: Replace with CDI?
  *
  * @author puce
@@ -24,16 +28,33 @@ public class ContextInjector {
     private final ActiveContextProvider activeContextProvider;
     private final ApplicationContextProvider applicationContextProvider;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param activeContextProvider a provider, which provides the active context
+     * @param applicationContextProvider a provider, which provides the application context
+     */
     public ContextInjector(ActiveContextProvider activeContextProvider,
             ApplicationContextProvider applicationContextProvider) {
         this.activeContextProvider = activeContextProvider;
         this.applicationContextProvider = applicationContextProvider;
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param contextManager a {@link ContextManager}
+     */
     public ContextInjector(ContextManager contextManager) {
         this(contextManager, contextManager);
     }
 
+    /**
+     * Injects the active {@link Context} to Objects, which implement the     * {@link ActiveContextSensitive} interface and the application {@link Context} to Objects, which implement the
+     * {@link ApplicationContextSensitive} interface.
+     *
+     * @param target the target Object
+     */
     public void inject(Object target) {
         if (target instanceof ActiveContextSensitive) {
             ((ActiveContextSensitive) target).setActiveContext(activeContextProvider.getActiveContext());
