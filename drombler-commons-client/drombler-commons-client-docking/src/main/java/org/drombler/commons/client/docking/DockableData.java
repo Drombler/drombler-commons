@@ -15,12 +15,25 @@
 package org.drombler.commons.client.docking;
 
 
-
-
+/**
+ * Data about a Dockable.
+ *
+ * @author puce
+ */
 public interface DockableData {
 
+    /**
+     * Gets the title of a Dockable.
+     *
+     * @return the title of a Dockable
+     */
     String getTitle();
 
+    /**
+     * Sets the title of a Dockable.
+     *
+     * @param title the title of a Dockable
+     */
     void setTitle(String title);
 
 }

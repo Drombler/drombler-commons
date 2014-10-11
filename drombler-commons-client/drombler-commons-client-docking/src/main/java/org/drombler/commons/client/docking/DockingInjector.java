@@ -15,20 +15,35 @@
 package org.drombler.commons.client.docking;
 
 /**
+ * The DockingInjector injects the registered {@link DockableData} to Dockables, which implement the
+ * {@link DockableDataSensitive} interface.
+ *
  * TODO: Replace with CDI?
  *
+ * @param <D> the Dockable type
+ * @param <DATA> the DockableData type
+ *
  * @author puce
- * @param <D>
- * @param <DATA>
  */
 public class DockingInjector<D, DATA extends DockableData> {
 
     private final DockableDataManager<D, DATA> dockableDataManager;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dockableDataManager the {@link DockableDataManager}
+     */
     public DockingInjector(DockableDataManager<D, DATA> dockableDataManager) {
         this.dockableDataManager = dockableDataManager;
     }
 
+    /**
+     * Injects the registered {@link DockableData} to Dockables, which implement the {@link DockableDataSensitive}
+     * interface.
+     *
+     * @param target
+     */
     public void inject(D target) {
         if (target instanceof DockableDataSensitive) {
             ((DockableDataSensitive<DATA>) target).setDockableData(dockableDataManager.getDockableData(target));

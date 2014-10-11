@@ -19,21 +19,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A simple in-memory {@link DockablePreferencesManager}.
+ * A simple in-memory {@link DockableDataManager}.
  *
- * Note: This class is some pre-work changing (once drag'n'drop * is supported) DockablePreferences.
  *
  * TODO: Thread-safe?
  *
  * @author puce
  * @param <D> the Dockable type
- * @param <DATA>
+ * @param <DATA> the DockableData type
  */
 public class SimpleDockableDataManager<D, DATA extends DockableData> implements DockableDataManager<D, DATA> {
 
     // TODO: Consider to use weak references
     private final Map<D, DATA> dockableDataMap = Collections.synchronizedMap(new HashMap<>());
     private final Map<Class<?>, DATA> classDockableDataMap = Collections.synchronizedMap(new HashMap<>());
+
+    /**
+     * Creates a new instance of this class.
+     */
+    public SimpleDockableDataManager() {
+    }
 
     /**
      * {@inheritDoc }
@@ -43,6 +48,9 @@ public class SimpleDockableDataManager<D, DATA extends DockableData> implements 
         return dockableDataMap.get(dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public DATA getClassDockableData(D dockable) {
         return classDockableDataMap.get(dockable.getClass());
@@ -64,11 +72,17 @@ public class SimpleDockableDataManager<D, DATA extends DockableData> implements 
         return dockableDataMap.remove(dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void registerClassDockableData(Class<?> type, DATA dockableData) {
         classDockableDataMap.put(type, dockableData);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public DATA unregisterClassDockableData(Class<?> type) {
         return classDockableDataMap.remove(type);

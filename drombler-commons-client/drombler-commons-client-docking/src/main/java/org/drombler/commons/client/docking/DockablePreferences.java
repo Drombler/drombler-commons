@@ -24,9 +24,17 @@ public class DockablePreferences {
     private String areaId;
     private int position;
 
+    /**
+     * Creates a new instance of this class.
+     */
     public DockablePreferences() {
     }
 
+    /**
+     * Copy constructor. Creates a new instance of this class.
+     *
+     * @param dockablePreferences the DockablePreferences to copy
+     */
     public DockablePreferences(DockablePreferences dockablePreferences) {
         this.areaId = dockablePreferences.areaId;
         this.position = dockablePreferences.position;
