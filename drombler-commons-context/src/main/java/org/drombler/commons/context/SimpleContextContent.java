@@ -43,18 +43,14 @@ public class SimpleContextContent {
      */
     public void add(Object obj) {
         Set<Class<?>> types = getTypes(obj);
-        for (Class<?> type : types) {
-            add(type, obj);
-        }
+        types.forEach(type -> add(type, obj));
 
         fireContextEvents(types);
     }
 
     private void fireContextEvents(Set<Class<?>> types) {
         if (context != null) {
-            for (Class<?> type : types) {
-                context.fireContextEvent(type);
-            }
+            types.forEach(type -> context.fireContextEvent(type));
         }
     }
 
@@ -73,9 +69,7 @@ public class SimpleContextContent {
     public void remove(Object obj) {
         if (obj != null) {
             Set<Class<?>> types = getTypes(obj);
-            for (Class<?> type : types) {
-                remove(type, obj);
-            }
+            types.forEach(type -> remove(type, obj));
 
             fireContextEvents(types);
         }

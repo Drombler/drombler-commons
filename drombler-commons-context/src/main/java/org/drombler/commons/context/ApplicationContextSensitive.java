@@ -19,6 +19,8 @@ package org.drombler.commons.context;
  *
  * TODO: Replace with CDI?
  *
+ * TODO: Needed?
+ *
  * @author puce
  */
 public interface ApplicationContextSensitive {

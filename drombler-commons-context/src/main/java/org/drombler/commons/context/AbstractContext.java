@@ -36,7 +36,7 @@ public abstract class AbstractContext implements Context {
     @Override
     public void addContextListener(Class<?> type, ContextListener listener) {
         if (!listeners.containsKey(type)) {
-            listeners.put(type, new ArrayList<ContextListener>());
+            listeners.put(type, new ArrayList<>());
         }
         listeners.get(type).add(listener);
 
@@ -60,9 +60,7 @@ public abstract class AbstractContext implements Context {
     protected void fireContextEvent(Class<?> type) {
         if (listeners.containsKey(type)) {
             ContextEvent event = new ContextEvent(this);
-            for (ContextListener listener : listeners.get(type)) {
-                listener.contextChanged(event);
-            }
+            listeners.get(type).forEach(listener -> listener.contextChanged(event));
         }
     }
 

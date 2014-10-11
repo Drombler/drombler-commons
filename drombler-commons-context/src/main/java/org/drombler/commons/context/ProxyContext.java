@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A {@link Context} which proxies other contexts.
@@ -50,9 +49,7 @@ public class ProxyContext extends AbstractContext {
     public <T> Collection<? extends T> findAll(Class<T> type) {
         List<T> result = new ArrayList<>();
 
-        for (Context context : contexts) {
-            result.addAll(context.findAll(type));
-        }
+        contexts.forEach(context -> result.addAll(context.findAll(type)));
 
         return result;
     }
@@ -64,9 +61,7 @@ public class ProxyContext extends AbstractContext {
     public void addContextListener(Class<?> type, ContextListener listener) {
         super.addContextListener(type, listener);
 
-        for (Context context : contexts) {
-            context.addContextListener(type, listener);
-        }
+        contexts.forEach(context -> context.addContextListener(type, listener));
     }
 
     /**
@@ -75,9 +70,7 @@ public class ProxyContext extends AbstractContext {
     @Override
     public void removeContextListener(Class<?> type, ContextListener listener) {
         super.removeContextListener(type, listener);
-        for (Context context : contexts) {
-            context.removeContextListener(type, listener);
-        }
+        contexts.forEach(context -> context.removeContextListener(type, listener));
     }
 
 //    @Override
@@ -100,11 +93,9 @@ public class ProxyContext extends AbstractContext {
 
     private void addContextOnly(Context context) {
         contexts.add(context);
-        for (Map.Entry<Class<?>, List<ContextListener>> entry : getListeners().entrySet()) {
-            for (ContextListener contextListener : entry.getValue()) {
-                context.addContextListener(entry.getKey(), contextListener);
-            }
-        }
+        getListeners().entrySet().forEach(entry
+                -> entry.getValue().forEach(contextListener
+                        -> context.addContextListener(entry.getKey(), contextListener)));
     }
 
     /**
@@ -119,11 +110,9 @@ public class ProxyContext extends AbstractContext {
 
     private void removeContextOnly(Context context) {
         contexts.remove(context);
-        for (Map.Entry<Class<?>, List<ContextListener>> entry : getListeners().entrySet()) {
-            for (ContextListener contextListener : entry.getValue()) {
-                context.removeContextListener(entry.getKey(), contextListener);
-            }
-        }
+        getListeners().entrySet().forEach(entry
+                -> entry.getValue().forEach(contextListener
+                        -> context.removeContextListener(entry.getKey(), contextListener)));
     }
 
     /**
@@ -144,16 +133,12 @@ public class ProxyContext extends AbstractContext {
         List<Context> contextsToRemove = new ArrayList<>(this.contexts);
         contextsToRemove.removeAll(contexts);
 
-        for (Context context : contextsToRemove) {
-            removeContextOnly(context);
-        }
+        contextsToRemove.forEach(context -> removeContextOnly(context));
 
         List<Context> contextsToAdd = new ArrayList<>(contexts);
         contextsToAdd.removeAll(this.contexts);
 
-        for (Context context : contexts) {
-            addContextOnly(context);
-        }
+        contexts.forEach(context -> addContextOnly(context));
 
         List<Context> changedContexts = new ArrayList<>(contextsToRemove);
         changedContexts.addAll(contextsToAdd);
