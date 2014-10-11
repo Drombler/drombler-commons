@@ -21,6 +21,19 @@ import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
+/**
+ * Implements {@code  org.drombler.commons.action.fx.FXAction}.
+ *
+ * <pre>
+ * Pros:
+ * + maximal control
+ * Cons:
+ * - dependencies on JavaFX
+ * - dependencies on Drombler Commons
+ * </pre>
+ *
+ * @author puce
+ */
 public class FXActionTestAction extends AbstractFXAction {
 
     public FXActionTestAction(String displayName, String accelerator, String icon) {

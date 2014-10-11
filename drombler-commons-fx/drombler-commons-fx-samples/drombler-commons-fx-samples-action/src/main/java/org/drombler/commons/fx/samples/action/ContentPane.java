@@ -22,6 +22,9 @@ import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
 
 /**
+ * A pane with a local {@link Context}.
+ * Depending on the state of the selected property of a {@link CheckBox} an
+ * instance of {@link MyCommand} gets added to/ removed from the local context.
  *
  * @author puce
  */

@@ -23,6 +23,10 @@ import org.drombler.commons.context.ApplicationContextSensitive;
 import org.drombler.commons.context.Context;
 
 /**
+ * The following sample shows a application context sensitive action implementation. It looks for all MyCommand
+ * instances in the application-wide context and listens for changes of this context. If it finds any MyCommand
+ * instance, the Action gets enabled, else it gets disabled. If the Action gets triggered (onAction-method), then a
+ * method of MyCommand gets called on all found instances.
  *
  * @author puce
  */

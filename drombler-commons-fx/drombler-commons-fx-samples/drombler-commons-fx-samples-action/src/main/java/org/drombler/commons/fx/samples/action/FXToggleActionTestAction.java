@@ -25,6 +25,20 @@ import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
+/**
+ * Implementa {@code org.drombler.commons.action.fx.FXToggleAction}.
+ *
+ * <pre>
+ * Pros:
+ * + maximal control
+ * Cons:
+ * - dependencies on JavaFX
+ * - dependencies on Drombler Commons
+ * - currently: more code is required
+ * </pre>
+ *
+ * @author puce
+ */
 public class FXToggleActionTestAction extends AbstractFXAction implements FXToggleAction {
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");

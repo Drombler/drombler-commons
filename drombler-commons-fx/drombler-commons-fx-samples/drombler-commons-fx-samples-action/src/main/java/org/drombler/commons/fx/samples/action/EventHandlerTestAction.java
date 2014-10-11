@@ -17,7 +17,20 @@ package org.drombler.commons.fx.samples.action;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-
+/**
+ * Implements {@code javafx.event.EventHandler<javafx.event.ActionEvent>}.
+ *
+ * <pre>
+ * Pros:
+ * + very close to standard JavaFX code
+ * + no dependencies on Drombler Commons
+ *
+ * Cons:
+ * - dependencies on JavaFX
+ * </pre>
+ *
+ * @author puce
+ */
 public class EventHandlerTestAction implements EventHandler<ActionEvent> {
 
     @Override

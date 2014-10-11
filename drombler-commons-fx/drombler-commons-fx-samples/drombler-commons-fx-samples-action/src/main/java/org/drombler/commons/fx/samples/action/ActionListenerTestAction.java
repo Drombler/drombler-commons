@@ -16,7 +16,22 @@ package org.drombler.commons.fx.samples.action;
 
 import org.drombler.commons.action.AbstractActionListener;
 
-
+/**
+ * Implements {@code ActionListener<Object>}.
+ *
+ * <pre>
+ * Pros:
+ * + maximally reusable; GUI toolkit agnostic (no dependencies on JavaFX)
+ *
+ * Cons:
+ * - dependencies on Drombler Commons
+ * </pre>
+ *
+ * Note: For JavaFX applications, the generic type parameter passed to ActionListener/ AbstractActionListener must be
+ * javafx.event.ActionEvent or one of its super-classes (here: Object).
+ *
+ * @author puce
+ */
 public class ActionListenerTestAction extends AbstractActionListener<Object> {
 
     @Override
