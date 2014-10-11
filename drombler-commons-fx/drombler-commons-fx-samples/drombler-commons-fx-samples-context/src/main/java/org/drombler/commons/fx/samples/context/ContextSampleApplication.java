@@ -45,12 +45,13 @@ public class ContextSampleApplication extends Application {
     public static final String RIGHT_AREA_ID = "right";
     public static final String CENTER_AREA_ID = "center";
 
+    private DockingManager dockingManager;
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
-        DockingManager dockingManager = new DockingManager(dockingPane, contextManager);
+        dockingManager = new DockingManager(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -119,6 +120,12 @@ public class ContextSampleApplication extends Application {
         stage.setTitle("Context Sample Application");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        dockingManager.close();
+        super.stop();
     }
 
     private MenuItem createDockablePaneMenuItem(FXDockableEntry dockableEntry, DockingPane dockingPane) {

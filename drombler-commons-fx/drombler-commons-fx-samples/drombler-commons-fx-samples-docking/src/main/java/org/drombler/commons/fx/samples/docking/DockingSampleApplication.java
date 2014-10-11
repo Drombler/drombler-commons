@@ -56,13 +56,14 @@ public class DockingSampleApplication extends Application {
     public static final String CENTER_AREA_ID = "center";
 
     private int sampleCounter = 0;
+    private DockingManager dockingManager;
 
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
-        DockingManager dockingManager = new DockingManager(dockingPane, contextManager);
+        dockingManager = new DockingManager(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -130,6 +131,12 @@ public class DockingSampleApplication extends Application {
         stage.setTitle("Docking Sample Application");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        dockingManager.close();
+        super.stop();
     }
 
     private String getDisplayName(Class<?> type) {
