@@ -19,14 +19,22 @@ import org.drombler.commons.client.docking.DockableEntry;
 import org.drombler.commons.client.docking.DockablePreferences;
 
 /**
+ * An entry in the Docking System, which groups a Dockable with its {@link DockablePreferences} and
+ * {@link FXDockableData}.
  *
  * @author puce
  */
-
-
 public class FXDockableEntry extends DockableEntry<Node> {
+
     private final FXDockableData dockableData;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dockable the Dockable
+     * @param dockableData the {@link FXDockableData}
+     * @param dockablePreferences the {@link DockablePreferences}
+     */
     public FXDockableEntry(Node dockable, FXDockableData dockableData, DockablePreferences dockablePreferences) {
         super(dockable, dockablePreferences);
         this.dockableData = dockableData;

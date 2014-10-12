@@ -24,6 +24,7 @@ import org.drombler.commons.client.docking.DockableData;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
 /**
+ * Data about a Dockable.
  *
  * @author puce
  */
@@ -44,22 +45,24 @@ public class FXDockableData implements DockableData {
     /**
      * The title of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
      */
-    private final StringProperty title = new SimpleStringProperty(this, "titleProperty", "");
+    private final StringProperty title = new SimpleStringProperty(this, "title", "");
     /**
      * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
      */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
+    /**
+     * The {@link GraphicFactory}.
+     */
     private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
             null);
 
     /**
-     * TODO: needed?
+     * The {@link ContextMenu}. TODO: needed?
      */
     private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu",
             null);
 
-//    @Override
     @Override
     public final String getTitle() {
         return titleProperty().get();
@@ -110,6 +113,9 @@ public class FXDockableData implements DockableData {
         return contextMenu;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "FXDockableData[title=" + getTitle() + "]";
