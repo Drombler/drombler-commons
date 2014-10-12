@@ -47,7 +47,7 @@ public class FXDockableData implements DockableData {
      */
     private final StringProperty title = new SimpleStringProperty(this, "title", "");
     /**
-     * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
+     * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs. TODO: needed?
      */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
