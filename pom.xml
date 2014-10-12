@@ -20,7 +20,7 @@ Contributor(s): .
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
         <version>0.5-SNAPSHOT</version>
-        <relativePath>../drombler-commons-parent/pom.xml</relativePath>
+        <relativePath>drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons</artifactId>
     <packaging>pom</packaging>
