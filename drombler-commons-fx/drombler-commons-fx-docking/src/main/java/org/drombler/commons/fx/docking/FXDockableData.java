@@ -63,6 +63,12 @@ public class FXDockableData implements DockableData {
     private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu",
             null);
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public FXDockableData() {
+    }
+
     @Override
     public final String getTitle() {
         return titleProperty().get();
