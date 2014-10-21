@@ -16,7 +16,6 @@ package org.drombler.commons.fx.fxml;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -36,7 +35,6 @@ public class FXMLLoaders {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXMLLoaders.class);
     private static final String FXML_EXTENSION = ".fxml";
-    private static final String CLASS_EXTENSION = ".class";
     private static final String RESOURCE_PATH_DELIMITER = "/";
 
     private FXMLLoaders() {
@@ -46,46 +44,55 @@ public class FXMLLoaders {
      * Creates a new {@link FXMLLoader}. <br> <br>
      * Sets:
      * <ul>
-     * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
-     * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
-     * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
+     * <li>the {@link ClassLoader}</li>
      * </ul>
      *
-     * @param type the type specifing the {@link ClassLoader} and the name of the properties file
+     * @param classLoader the {@link ClassLoader}
      * @return a {@link FXMLLoader}
      */
-    public static FXMLLoader createFXMLLoader(Class<?> type) {
+    public static FXMLLoader createFXMLLoader(ClassLoader classLoader) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setClassLoader(classLoader);
+        return loader;
+    }
+
+    private static ResourceBundle getClassResourceBundle(Class<?> type) {
         ResourceBundle resourceBundle = null;
         try {
             resourceBundle = ResourceBundleUtils.getClassResourceBundle(type);
         } catch (MissingResourceException e) {
             LOG.debug(e.getMessage());
         }
-        return createFXMLLoader(type, resourceBundle);
+        return resourceBundle;
     }
 
-    private static FXMLLoader createFXMLLoader(Class<? extends Object> type, ResourceBundle resourceBundle) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setClassLoader(type.getClassLoader());
+    private static void configureFXMLLoader(FXMLLoader loader, URL location, ResourceBundle resourceBundle) {
         loader.setResources(resourceBundle);
-        setLocation(loader, type);
-        return loader;
+        loader.setLocation(location);
     }
 
-    private static void setLocation(FXMLLoader loader, Class<? extends Object> type) {
-        String locationURLString = getLocationURLString(type);
-        try {
-            loader.setLocation(new URL(locationURLString));
-        } catch (MalformedURLException ex) {
-            LOG.error(ex.getMessage() + ": Location: " + locationURLString, ex);
-        }
-    }
-
-    private static String getLocationURLString(Class<? extends Object> type) {
-        final String absoluteClassResourcePath = getAbsoluteClassResourcePath(type);
-        String locationURLString = type.getResource(absoluteClassResourcePath).toExternalForm();
-        locationURLString = locationURLString.substring(0, locationURLString.lastIndexOf(RESOURCE_PATH_DELIMITER) + 1);
-        return locationURLString;
+    /**
+     * Resets the following properties of the specified {@link FXMLLoader} to null:
+     * <ul>
+     * <li>root</li>
+     * <li>controller</li>
+     * <li>controllerFactory</li>
+     * <li>resources</li>
+     * <li>location</li>
+     * </ul>
+     * TODO: needed?
+     *
+     * @param loader
+     * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object)
+     * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object, java.util.ResourceBundle)
+     * @see #load(javafx.fxml.FXMLLoader, java.lang.Class, java.util.ResourceBundle)
+     */
+    public static void resetFXMLLoader(FXMLLoader loader) {
+        loader.setRoot(null);
+        loader.setController(null);
+        loader.setControllerFactory(null);
+        loader.setResources(null);
+        loader.setLocation(null);
     }
 
     /**
@@ -95,9 +102,12 @@ public class FXMLLoaders {
      * Sets:
      * <ul>
      * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
+     * <li>the root</li>
+     * <li>the controller</li>
      * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
      * the name of the type of the rootController (or a locale specific derivation using the default
      * {@link Locale})</li>
+     * <li>the location to the FXML file</li>
      * </ul>
      *
      * The root element of the FXML document is expected to be:
@@ -109,17 +119,21 @@ public class FXMLLoaders {
      * @throws IOException
      */
     public static void loadRoot(final Object rootController) throws IOException {
-        loadRoot(rootController.getClass(), rootController);
+        FXMLLoader loader = createFXMLLoader(rootController.getClass().getClassLoader());
+        loadRoot(loader, rootController);
     }
 
     /**
-     * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
+     * Loads the &lt;class name&gt;.fxml file, where &lt;class name&gt; is the type of the specified rootController and
+     * the FXML-file is expected to be in the same package.
      * <br> <br>
      * Sets:
      * <ul>
-     * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
+     * <li>the root</li>
+     * <li>the controller</li>
      * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
      * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
+     * <li>the location to the FXML file</li>
      * </ul>
      *
      * The root element of the FXML document is expected to be:
@@ -129,13 +143,14 @@ public class FXMLLoaders {
      * <br> <br>
      * TODO: needed?
      *
-     * @param type the type
+     * @param loader the {@link FXMLLoader}
      * @param rootController the Object acting as the root and as the controller.
      * @throws IOException
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
-    public static void loadRoot(final Class<?> type, final Object rootController) throws IOException {
-        FXMLLoader loader = createFXMLLoader(type);
-        loadRoot(loader, rootController, type);
+    public static void loadRoot(final FXMLLoader loader, final Object rootController) throws IOException {
+        configureRootController(loader, rootController);
+        load(loader, rootController.getClass());
     }
 
     /**
@@ -145,7 +160,10 @@ public class FXMLLoaders {
      * Sets:
      * <ul>
      * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
+     * <li>the root</li>
+     * <li>the controller</li>
      * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
+     * <li>the location to the FXML file</li>
      * </ul>
      *
      * The root element of the FXML document is expected to be:
@@ -157,30 +175,92 @@ public class FXMLLoaders {
      * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
      * @throws IOException
      */
-    public static void loadRoot(final Object rootController, final ResourceBundle resourceBundle)
-            throws IOException {
-        final Class<? extends Object> type = rootController.getClass();
-        FXMLLoader loader = createFXMLLoader(type, resourceBundle);
-        loadRoot(loader, rootController, type);
+    public static void loadRoot(final Object rootController, final ResourceBundle resourceBundle) throws IOException {
+        final FXMLLoader loader = createFXMLLoader(rootController.getClass().getClassLoader());
+        loadRoot(loader, rootController, resourceBundle);
     }
 
-    private static void loadRoot(FXMLLoader loader, final Object rootController, final Class<?> type) throws IOException {
+    /**
+     * Loads the &lt;class name&gt;.fxml file, where &lt;class name&gt; is the type of the specified rootController and
+     * the FXML-file is expected to be in the same package.
+     * <br> <br>
+     * Sets:
+     * <ul>
+     * <li>the root</li>
+     * <li>the controller</li>
+     * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
+     * <li>the location to the FXML file</li>
+     * </ul>
+     *
+     * The root element of the FXML document is expected to be:
+     * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
+     * <br> <br>
+     * where "super-type" is the super type of the type of the specified rootController.
+     *
+     * @param loader the {@link FXMLLoader}
+     * @param rootController the Object acting as the root and as the controller.
+     * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
+     * @throws IOException
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
+     */
+    public static void loadRoot(final FXMLLoader loader, final Object rootController,
+            final ResourceBundle resourceBundle) throws IOException {
+        configureRootController(loader, rootController);
+        load(loader, rootController.getClass(), resourceBundle);
+    }
+
+    private static void configureRootController(FXMLLoader loader, final Object rootController) {
         loader.setRoot(rootController);
         loader.setController(rootController);
 //        loader.setControllerFactory((Class<?> param) -> rootController);
-        load(loader, type);
     }
 
     /**
      * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
+     * <br> <br>
+     * Sets:
+     * <ul>
+     * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
+     * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
+     * <li>the location to the FXML file</li>
+     * </ul>
      *
      * @param <T> the type of the root element
      * @param loader the {@link FXMLLoader}
      * @param type the type
      * @return the loaded object
      * @throws IOException
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
     public static <T> T load(FXMLLoader loader, Class<?> type) throws IOException {
+        ResourceBundle resourceBundle = loader.getResources() == null ? getClassResourceBundle(type) : null;
+        return load(loader, type, resourceBundle);
+    }
+
+    /**
+     * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
+     * <br> <br>
+     * Sets:
+     * <ul>
+     * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
+     * <li>the location to the FXML file</li>
+     * </ul>
+     *
+     * @param <T> the type of the root element
+     * @param loader the {@link FXMLLoader}
+     * @param type the type
+     * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
+     * @return the loaded object
+     * @throws IOException
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
+     */
+    public static <T> T load(final FXMLLoader loader, final Class<?> type, final ResourceBundle resourceBundle) throws
+            IOException {
+        configureFXMLLoader(loader, getFXMLLocation(type), resourceBundle);
+        return loadFXML(loader, type);
+    }
+
+    private static <T> T loadFXML(FXMLLoader loader, Class<?> type) throws IOException {
         try (InputStream is = getFXMLInputStream(type)) {
             if (is == null) {
                 // avoid NullPointerException
@@ -194,8 +274,8 @@ public class FXMLLoaders {
         return type.getResourceAsStream(getFxmlFileName(type));
     }
 
-    private static String getAbsoluteClassResourcePath(Class<?> type) {
-        return getAbsolutePackageResourcePath(type.getPackage()) + RESOURCE_PATH_DELIMITER + type.getSimpleName() + CLASS_EXTENSION;
+    private static URL getFXMLLocation(Class<?> type) {
+        return type.getResource(getFxmlFileName(type));
     }
 
     private static String getAbsoluteFxmlResourcePath(Class<?> type) {
