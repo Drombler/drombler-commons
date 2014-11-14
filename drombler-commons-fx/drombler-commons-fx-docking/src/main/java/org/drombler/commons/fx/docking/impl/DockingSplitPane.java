@@ -20,8 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
@@ -29,6 +32,8 @@ import org.drombler.commons.client.docking.spi.ShortPathPart;
 import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
 import org.drombler.commons.fx.geometry.OrientationUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.Positionable;
 import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.PositionableComparator;
@@ -39,6 +44,8 @@ import org.softsmithy.lib.util.Positionables;
  * @author puce
  */
 public class DockingSplitPane extends DockingSplitPaneChildBase {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DockingSplitPane.class);
 
     private static final String DEFAULT_STYLE_CLASS = "docking-split-pane";
     private final int position;
@@ -55,6 +62,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private final ObservableList<DockingSplitPaneChildBase> unmodifiableDockingSplitPaneChildren = FXCollections.
             unmodifiableObservableList(dockingSplitPaneChildren);
     private final List<Positionable> positionableChildren = new ArrayList<>();
+    private final LayoutConstraintsProperty layoutConstraints = new LayoutConstraintsProperty();
 
     public DockingSplitPane(int position, int level, SplitLevel actualLevel) {
         super(true);
@@ -62,6 +70,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         this.level = level;
         adjust(actualLevel);
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
+
+        // TODO: correct?
+        dockingSplitPaneChildren.addListener((ListChangeListener.Change<? extends DockingSplitPaneChildBase> c) -> {
+            recalculateLayoutConstraints();
+        });
+        recalculateLayoutConstraints();
 
     }
 
@@ -338,7 +352,19 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     @Override
-    public LayoutConstraintsDescriptor getLayoutConstraints() {
+    public final LayoutConstraintsDescriptor getLayoutConstraints() {
+        return layoutConstraintsProperty().get();
+    }
+
+    private void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
+        this.layoutConstraints.set(layoutConstraints);
+    }
+
+    public ReadOnlyObjectProperty<LayoutConstraintsDescriptor> layoutConstraintsProperty() {
+        return layoutConstraints;
+    }
+
+    private void recalculateLayoutConstraints() {
         double prefWidth = 0;
         double prefHeight = 0;
         for (DockingSplitPaneChildBase child : dockingSplitPaneChildren) {
@@ -357,9 +383,42 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
                 break;
             }
         }
-        LayoutConstraintsDescriptor layoutConstraints = new LayoutConstraintsDescriptor();
-        layoutConstraints.setPrefWidth(prefWidth);
-        layoutConstraints.setPrefHeight(prefHeight);
-        return layoutConstraints;
+        final LayoutConstraintsDescriptor layoutConstraintsDescriptor = createLayoutConstraints(prefWidth, prefHeight);
+        LOG.debug("{}: recalculateLayoutConstraints: {} ", this, layoutConstraintsDescriptor);
+        setLayoutConstraints(layoutConstraintsDescriptor);
+    }
+
+    private LayoutConstraintsDescriptor createLayoutConstraints(double prefWidth, double prefHeight) {
+        LayoutConstraintsDescriptor layoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
+        layoutConstraintsDescriptor.setPrefWidth(prefWidth);
+        layoutConstraintsDescriptor.setPrefHeight(prefHeight);
+        return layoutConstraintsDescriptor;
+    }
+
+
+
+    private class LayoutConstraintsProperty extends ReadOnlyObjectPropertyBase<LayoutConstraintsDescriptor> {
+
+        private LayoutConstraintsDescriptor layoutConstraints = null;
+
+        @Override
+        public final LayoutConstraintsDescriptor get() {
+            return layoutConstraints;
+        }
+
+        private void set(LayoutConstraintsDescriptor newValue) {
+            layoutConstraints = newValue;
+            fireValueChangedEvent();
+        }
+
+        @Override
+        public Object getBean() {
+            return DockingSplitPane.this;
+        }
+
+        @Override
+        public String getName() {
+            return "layoutConstraints";
+        }
     }
 }
