@@ -59,13 +59,14 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
-    private LayoutConstraintsDescriptor layoutConstraints;
+    private final LayoutConstraintsDescriptor layoutConstraints;
 
-    public DockingAreaPane(String areaId, int position, boolean permanent) {
+    public DockingAreaPane(String areaId, int position, boolean permanent, LayoutConstraintsDescriptor layoutConstraints) {
         super(false);
         this.areaId = areaId;
         this.position = position;
         this.permanent = permanent;
+        this.layoutConstraints = layoutConstraints;
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
@@ -176,10 +177,6 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     @Override
     public LayoutConstraintsDescriptor getLayoutConstraints() {
         return layoutConstraints;
-    }
-
-    public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
-        this.layoutConstraints = layoutConstraints;
     }
 
     @Override

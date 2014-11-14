@@ -149,8 +149,8 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     private DockingAreaPane createDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(dockingAreaDescriptor.getId(),
-                dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent());
-        dockingAreaPane.setLayoutConstraints(dockingAreaDescriptor.getLayoutConstraints());
+                dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent(),
+                dockingAreaDescriptor.getLayoutConstraints());
         return dockingAreaPane;
     }
 

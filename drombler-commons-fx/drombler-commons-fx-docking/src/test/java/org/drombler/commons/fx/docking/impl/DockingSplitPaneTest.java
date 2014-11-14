@@ -23,6 +23,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.client.docking.DockablePreferences;
+import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.docking.FXDockableEntry;
@@ -889,7 +890,7 @@ public class DockingSplitPaneTest {
     }
 
     private DockingAreaPane createDockingArea(int position, String id, Integer... path) {
-        DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false);
+        DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false, new LayoutConstraintsDescriptor());
         rootManager.addDockingArea(Arrays.asList(path), dockingAreaPane);
 
         Node dockablePane = new BorderPane();
