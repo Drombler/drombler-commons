@@ -395,7 +395,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         return layoutConstraintsDescriptor;
     }
 
-
+    @Override
+    public String toString() {
+        return "DockingSplitPane[position=" + position + ", level=" + level + ", actualLevel=" + actualLevel + ", orientation=" + getOrientation() + "]";
+    }
 
     private class LayoutConstraintsProperty extends ReadOnlyObjectPropertyBase<LayoutConstraintsDescriptor> {
 
