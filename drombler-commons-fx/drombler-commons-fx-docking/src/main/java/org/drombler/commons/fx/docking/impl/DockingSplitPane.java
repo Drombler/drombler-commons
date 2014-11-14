@@ -277,9 +277,9 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
             // recursion
             splitPane.removeDockingArea(dockingArea, removedAreaPanes);
             allRemovedAreaPanes.addAll(removedAreaPanes);
-            for (DockingAreaPane removedAreaPane : removedAreaPanes) {
-                areaIdsInSplitPane.remove(removedAreaPane.getAreaId());
-            }
+
+            removedAreaPanes.forEach((removedAreaPane) -> areaIdsInSplitPane.remove(removedAreaPane.getAreaId()));
+
             if (!splitPane.containsAnyDockingAreas()) {
                 removeSplitPane(splitPane);
             }
@@ -308,13 +308,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     private void removeAllDockingAreas(List<DockingAreaPane> removedDockingAreas) {
-        for (PositionableAdapter<DockingAreaPane> dockingArea : new ArrayList<>(areaPanes.values())) {
-            removeDockingArea(dockingArea, removedDockingAreas);
-        }
-        for (DockingSplitPane splitPane : new ArrayList<>(splitPanes.values())) {
+        new ArrayList<>(areaPanes.values()).
+                forEach((dockingArea) -> removeDockingArea(dockingArea, removedDockingAreas));
+        new ArrayList<>(splitPanes.values()).forEach((splitPane) -> {
             // recursion
             splitPane.removeAllDockingAreas(removedDockingAreas);
-        }
+        });
         areaIdsInSplitPane.clear();
     }
 
@@ -332,13 +331,14 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     private void removeEmptySplitPanes() {
         List<DockingSplitPane> dockingSplitPanes = new ArrayList<>(splitPanes.values()); // avoid ConcurrentModificationException
-        for (DockingSplitPane splitPane : dockingSplitPanes) {
-            // recursion
-            splitPane.removeEmptySplitPanes();
-            if (!splitPane.containsAnyDockingAreas()) {
-                removeSplitPane(splitPane);
-            }
-        }
+        dockingSplitPanes.stream().
+                map((splitPane) -> {
+                    // recursion
+                    splitPane.removeEmptySplitPanes();
+                    return splitPane;
+                }).
+                filter((splitPane) -> (!splitPane.containsAnyDockingAreas())).
+                forEach((splitPane) -> removeSplitPane(splitPane));
     }
 
     private void removeDockingArea(PositionableAdapter<DockingAreaPane> dockingArea,
