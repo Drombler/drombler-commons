@@ -82,6 +82,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
     public DockingAreaPaneSkin(DockingAreaPane control) {
         this.control = control;
+        tabPane.setFocusTraversable(false);
 
         control.getDockables().addListener(dockablesChangeListener);
 

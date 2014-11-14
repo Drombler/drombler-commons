@@ -35,6 +35,7 @@ public abstract class DockingSplitPaneChildBase extends Control {
 
     public DockingSplitPaneChildBase(boolean splitPane) {
         this.splitPane = splitPane;
+        setFocusTraversable(false);
     }
 
     public DockingSplitPane getParentSplitPane() {

@@ -71,6 +71,7 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
                 dockableEntryMap.remove(change.getElementRemoved().getDockable());
             }
         });
+        setFocusTraversable(false);
     }
 
     /**
