@@ -183,16 +183,15 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private void addDockingArea(List<ShortPathPart> path, DockingAreaPane dockingAreaPane,
             List<DockingAreaPane> removedDockingAreas) {
         if (level >= path.size()) {
-            throw new IllegalStateException("Level is too high! Level=" + level + ", areaId=" + dockingAreaPane.
-                    getAreaId() + ", path=" + path);
+            throw new IllegalStateException("Level is too high! Level=" + level + ", areaId="
+                    + dockingAreaPane.getAreaId() + ", path=" + path);
         }
         ShortPathPart pathPart = path.get(level);
         adjust(pathPart.getInActualLevel(), removedDockingAreas);
         if (!isLastPathPart(path)) {
             int childLevel = level + 1;
-            DockingSplitPane splitPane = getSplitPane(pathPart.getPosition(), childLevel, path.get(childLevel).
-                    getInActualLevel(),
-                    removedDockingAreas);
+            DockingSplitPane splitPane = getSplitPane(pathPart.getPosition(), childLevel,
+                    path.get(childLevel).getInActualLevel(), removedDockingAreas);
             // recursion
             splitPane.addDockingArea(path, dockingAreaPane, removedDockingAreas);
             areaIdsInSplitPane.put(dockingAreaPane.getAreaId(), splitPane);
