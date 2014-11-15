@@ -173,15 +173,14 @@ public class DockingSampleApplication extends Application {
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
         // TODO: set default
-        centerAreaDescriptor.setLayoutConstraints(new LayoutConstraintsDescriptor());
+        centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
 
         DockingAreaDescriptor topAreaDescriptor = new DockingAreaDescriptor();
         topAreaDescriptor.setId(TOP_AREA_ID);
         topAreaDescriptor.setParentPath(Arrays.asList(20, 40, 20));
         topAreaDescriptor.setPosition(20);
         topAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        topLayoutConstraintsDescriptor.setPrefHeight(100.0);
+        LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         topAreaDescriptor.setLayoutConstraints(topLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor bottomAreaDescriptor = new DockingAreaDescriptor();
@@ -189,8 +188,7 @@ public class DockingSampleApplication extends Application {
         bottomAreaDescriptor.setParentPath(Arrays.asList(20, 40, 80));
         bottomAreaDescriptor.setPosition(20);
         bottomAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        bottomLayoutConstraintsDescriptor.setPrefHeight(100.0);
+        LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         bottomAreaDescriptor.setLayoutConstraints(bottomLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor leftAreaDescriptor = new DockingAreaDescriptor();
@@ -198,8 +196,7 @@ public class DockingSampleApplication extends Application {
         leftAreaDescriptor.setParentPath(Arrays.asList(20, 20));
         leftAreaDescriptor.setPosition(20);
         leftAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        leftLayoutConstraintsDescriptor.setPrefWidth(200.0);
+        LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         leftAreaDescriptor.setLayoutConstraints(leftLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
@@ -207,8 +204,7 @@ public class DockingSampleApplication extends Application {
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        rightLayoutConstraintsDescriptor.setPrefWidth(200.0);
+        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 
         dockingPane.getDockingAreaDescriptors().add(centerAreaDescriptor);

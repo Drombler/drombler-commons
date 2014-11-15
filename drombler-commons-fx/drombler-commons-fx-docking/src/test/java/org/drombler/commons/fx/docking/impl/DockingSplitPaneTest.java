@@ -890,7 +890,8 @@ public class DockingSplitPaneTest {
     }
 
     private DockingAreaPane createDockingArea(int position, String id, Integer... path) {
-        DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false, new LayoutConstraintsDescriptor());
+        DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false,
+                LayoutConstraintsDescriptor.flexible());
         rootManager.addDockingArea(Arrays.asList(path), dockingAreaPane);
 
         Node dockablePane = new BorderPane();

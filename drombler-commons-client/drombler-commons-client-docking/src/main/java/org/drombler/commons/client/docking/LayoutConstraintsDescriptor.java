@@ -19,19 +19,72 @@ package org.drombler.commons.client.docking;
  *
  * @author puce
  */
-public class LayoutConstraintsDescriptor {
+public final class LayoutConstraintsDescriptor {
 
-    private double prefWidth = -1.0;
-    private double prefHeight = -1.0;
+    public static final double FLEXIBLE_PREF = -1.0;
+    private static final LayoutConstraintsDescriptor FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR
+            = new LayoutConstraintsDescriptor(FLEXIBLE_PREF, FLEXIBLE_PREF);
+
+    private final double prefWidth;
+    private final double prefHeight;
 
     /**
      * Creates a new instance of this class.
+     *
+     * @param prefWidth the preferred width of the Docking Area. Can be negative to indicate a flexible width.
+     * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
      */
-    public LayoutConstraintsDescriptor() {
+    private LayoutConstraintsDescriptor(double prefWidth, double prefHeight) {
+        if (prefWidth >= 0) {
+            this.prefWidth = prefWidth;
+        } else {
+            this.prefWidth = FLEXIBLE_PREF;
+        }
+
+        if (prefHeight >= 0) {
+            this.prefHeight = prefHeight;
+        } else {
+            this.prefHeight = FLEXIBLE_PREF;
+        }
     }
 
     /**
-     * Gets the preferred width of the Docking Area. Can be negative to indicate a flexible width (default).
+     * Gets a LayoutConstraintsDescriptor with the specified preferred width and preferred height
+     *
+     * @param prefWidth the preferred width of the Docking Area. Can be negative to indicate a flexible width.
+     * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
+     * @return a LayoutConstraintsDescriptor
+     */
+    public static LayoutConstraintsDescriptor getLayoutConstraints(double prefWidth, double prefHeight) {
+        if (prefWidth < 0 && prefHeight < 0) {
+            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
+        } else {
+            return new LayoutConstraintsDescriptor(prefWidth, prefHeight);
+        }
+    }
+
+    public static LayoutConstraintsDescriptor prefWidth(double prefWidth) {
+        if (prefWidth < 0) {
+            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
+        } else {
+            return new LayoutConstraintsDescriptor(prefWidth, FLEXIBLE_PREF);
+        }
+    }
+
+    public static LayoutConstraintsDescriptor prefHeight(double prefHeight) {
+        if (prefHeight < 0) {
+            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
+        } else {
+            return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
+        }
+    }
+
+    public static LayoutConstraintsDescriptor flexible() {
+        return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
+    }
+
+    /**
+     * Gets the preferred width of the Docking Area. Can be negative to indicate a flexible width.
      *
      * @return the preferred width of the Docking Area
      */
@@ -40,16 +93,7 @@ public class LayoutConstraintsDescriptor {
     }
 
     /**
-     * Sets the preferred width of the Docking Area. Can be negative to indicate a flexible width (default).
-     *
-     * @param prefWidth the preferred width of the Docking Area
-     */
-    public void setPrefWidth(double prefWidth) {
-        this.prefWidth = prefWidth;
-    }
-
-    /**
-     * Gets the preferred height of the Docking Area. Can be negative to indicate a flexible height (default).
+     * Gets the preferred height of the Docking Area. Can be negative to indicate a flexible height.
      *
      * @return the preferred height of the Docking Area
      */
@@ -57,12 +101,30 @@ public class LayoutConstraintsDescriptor {
         return prefHeight;
     }
 
-    /**
-     * Sets the preferred height of the Docking Area. Can be negative to indicate a flexible height (default).
-     *
-     * @param prefHeight the preferred height of the Docking Area
-     */
-    public void setPrefHeight(double prefHeight) {
-        this.prefHeight = prefHeight;
+    @Override
+    public String toString() {
+        return "LayoutConstraintsDescriptor[prefWidth=" + prefWidth + ", prefHeight=" + prefHeight + "]";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.prefWidth) ^ (Double.doubleToLongBits(this.prefWidth) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.prefHeight) ^ (Double.doubleToLongBits(this.prefHeight) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof LayoutConstraintsDescriptor)) {
+            return false;
+        }
+        LayoutConstraintsDescriptor descriptor = (LayoutConstraintsDescriptor) obj;
+        return prefWidth == descriptor.prefWidth
+                && prefHeight == descriptor.prefHeight;
+    }
+
 }

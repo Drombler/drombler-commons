@@ -19,10 +19,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -63,6 +65,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
             unmodifiableObservableList(dockingSplitPaneChildren);
     private final List<Positionable> positionableChildren = new ArrayList<>();
     private final LayoutConstraintsProperty layoutConstraints = new LayoutConstraintsProperty();
+    private final ChangeListener<LayoutConstraintsDescriptor> layoutConstraintsListener
+            = (observable, oldValue, newValue) -> recalculateLayoutConstraints();
 
     public DockingSplitPane(int position, int level, SplitLevel actualLevel) {
         super(true);
@@ -72,9 +76,18 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
 
         // TODO: correct?
-        dockingSplitPaneChildren.addListener((ListChangeListener.Change<? extends DockingSplitPaneChildBase> c) -> {
-            recalculateLayoutConstraints();
-        });
+        dockingSplitPaneChildren.addListener(
+                (ListChangeListener.Change<? extends DockingSplitPaneChildBase> change) -> {
+                    while (change.next()) {
+                        if (change.wasAdded()) {
+                            change.getAddedSubList().forEach(child -> addChildListeners(child));
+                        }
+                        if (change.wasRemoved()) {
+                            change.getRemoved().forEach(child -> removeChildListeners(child));
+                        }
+                    }
+                    recalculateLayoutConstraints();
+                });
         recalculateLayoutConstraints();
 
     }
@@ -135,6 +148,18 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private void adjust(SplitLevel splitLevel) {
         actualLevel = splitLevel.getLevel();
         setOrientation(OrientationUtils.getOrientation(splitLevel.getOrientation()));
+    }
+
+    private void addChildListeners(DockingSplitPaneChildBase child) {
+        if (child instanceof DockingSplitPane) {
+            ((DockingSplitPane) child).layoutConstraintsProperty().addListener(layoutConstraintsListener);
+        }
+    }
+
+    private void removeChildListeners(DockingSplitPaneChildBase child) {
+        if (child instanceof DockingSplitPane) {
+            ((DockingSplitPane) child).layoutConstraintsProperty().removeListener(layoutConstraintsListener);
+        }
     }
 
     /**
@@ -382,16 +407,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
                 break;
             }
         }
-        final LayoutConstraintsDescriptor layoutConstraintsDescriptor = createLayoutConstraints(prefWidth, prefHeight);
+        final LayoutConstraintsDescriptor layoutConstraintsDescriptor
+                = LayoutConstraintsDescriptor.getLayoutConstraints(prefWidth, prefHeight);
         LOG.debug("{}: recalculateLayoutConstraints: {} ", this, layoutConstraintsDescriptor);
         setLayoutConstraints(layoutConstraintsDescriptor);
-    }
-
-    private LayoutConstraintsDescriptor createLayoutConstraints(double prefWidth, double prefHeight) {
-        LayoutConstraintsDescriptor layoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        layoutConstraintsDescriptor.setPrefWidth(prefWidth);
-        layoutConstraintsDescriptor.setPrefHeight(prefHeight);
-        return layoutConstraintsDescriptor;
     }
 
     @Override
@@ -409,8 +428,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
 
         private void set(LayoutConstraintsDescriptor newValue) {
-            layoutConstraints = newValue;
-            fireValueChangedEvent();
+            if (!Objects.equals(layoutConstraints, newValue)) {
+                layoutConstraints = newValue;
+                fireValueChangedEvent();
+            }
         }
 
         @Override
