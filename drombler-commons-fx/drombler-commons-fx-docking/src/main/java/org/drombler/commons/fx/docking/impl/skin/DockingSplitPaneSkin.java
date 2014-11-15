@@ -28,12 +28,12 @@ import org.drombler.commons.fx.docking.impl.DockingSplitPaneChildBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  *
  * @author puce
  */
 public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
+
     private static final Logger LOG = LoggerFactory.getLogger(DockingSplitPaneSkin.class);
 
     private DockingSplitPane control;
@@ -95,7 +95,6 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
     }
 
     private void recalculateDividerPositions() {
-        LOG.debug("Split Pane: " + control + ": Orientation: " + control.getOrientation());
         if (control.getOrientation().equals(Orientation.HORIZONTAL)) {
             recalculateDividerPositionsHorizontal();
         } else {
@@ -134,8 +133,9 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
 
     private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
         LOG.debug("######################");
-        LOG.debug("Level: " + control.getLevel() + "; orientation: " + control.getOrientation());
-        LOG.debug("Parent size: " + parentSize);
+        LOG.debug(control.toString());
+        LOG.debug("Parent size: {}", parentSize);
+        LOG.debug("Num children: {}", control.getDockingSplitPaneChildren().size());
         double[] relativeSizes = new double[prefs.length];
         double requiredRelativeSize = 0;
         int flexiblePositions = 0;
@@ -148,8 +148,7 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
                     relativeSizes[i] = prefs[i];
                     flexiblePositions++;
                 }
-                LOG.debug(
-                        i + ": pref: " + prefs[i] + " -> current: " + current[i] + " -> relative pref: " + relativeSizes[i]);
+                LOG.debug("{}: pref: {} -> current: {} -> relative pref: {}", i, prefs[i], current[i], relativeSizes[i]);
             }
 
             if (requiredRelativeSize > 1) {
@@ -170,13 +169,12 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
                 if (relativeSizes[i] > 0) {
                     currentPosition += relativeSizes[i];
                     splitPane.setDividerPosition(i, currentPosition);
-                    LOG.debug(
-                            "Set divider position: " + i + " to " + currentPosition + ". Actual position: " + splitPane.
-                            getDividerPositions()[i]);
+                    LOG.debug("Set divider position: {} to {}. Actual position: {}", i, currentPosition,
+                            splitPane.getDividerPositions()[i]);
                 }
             }
         }
-        LOG.debug("Actual divider positions: " + Arrays.toString(splitPane.getDividerPositions()));
+        LOG.debug("Actual divider positions: {}", Arrays.toString(splitPane.getDividerPositions()));
         LOG.debug("######################");
         LOG.debug("                      ");
     }
