@@ -409,7 +409,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
         final LayoutConstraintsDescriptor layoutConstraintsDescriptor
                 = LayoutConstraintsDescriptor.getLayoutConstraints(prefWidth, prefHeight);
-        LOG.debug("{}: recalculateLayoutConstraints: {} ", this, layoutConstraintsDescriptor);
         setLayoutConstraints(layoutConstraintsDescriptor);
     }
 
@@ -429,6 +428,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
         private void set(LayoutConstraintsDescriptor newValue) {
             if (!Objects.equals(layoutConstraints, newValue)) {
+                LOG.debug("{}: layoutConstraints changed! old: {} -> new: {}", getBean(), layoutConstraints, newValue);
                 layoutConstraints = newValue;
                 fireValueChangedEvent();
             }
