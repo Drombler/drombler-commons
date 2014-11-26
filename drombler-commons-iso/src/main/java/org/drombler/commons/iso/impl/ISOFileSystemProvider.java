@@ -23,6 +23,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystemAlreadyExistsException;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.OpenOption;
@@ -37,6 +38,8 @@ import java.util.Map;
 import java.util.Set;
 import org.softsmithy.lib.util.ServiceProvider;
 
+//http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/9dc67d03e6e5/src/share/demo/nio/zipfs/src/com/sun/nio/zipfs
+//http://wiki.osdev.org/ISO_9660
 /**
  *
  * @author puce
@@ -85,23 +88,20 @@ public class ISOFileSystemProvider extends FileSystemProvider {
 
     }
 
-    private boolean isSupportedFileSystemPath(Path fileSystemPath) {
-        try {
-            BasicFileAttributes attributes = Files.readAttributes(fileSystemPath, BasicFileAttributes.class
-            );
-            if (attributes.isRegularFile()) {
-                Files.isRegularFile(fileSystemPath);
-            }
-
-            return true;
-        } catch (IOException ex) {
-            return false;
-        }
-    }
-
     @Override
     public FileSystem getFileSystem(URI uri) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Path fileSystemPath = getFileSystemPath(uri);
+            synchronized (this) {
+                if (fileSystems.containsKey(fileSystemPath)) {
+                    return fileSystems.get(fileSystemPath);
+                } else {
+                    throw new FileSystemNotFoundException("No existing FileSystem found for path: " + fileSystemPath);
+                }
+            }
+        } catch (IOException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 
     @Override
