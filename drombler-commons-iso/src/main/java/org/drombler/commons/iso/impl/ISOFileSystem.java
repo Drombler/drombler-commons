@@ -22,9 +22,10 @@ import java.nio.file.PathMatcher;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 
 /**
  *
@@ -32,9 +33,17 @@ import java.util.Set;
  */
 public class ISOFileSystem extends FileSystem {
 
+    public static final String SEPARATOR = "/";
+
     private final ISOFileSystemProvider fileSystemProvider;
     private final Path fileSystemPath;
     private final Map<String, ?> env;
+    private final FileStore fileStore = new ISOFileStore();
+    private final List<FileStore> fileStores = Collections.singletonList(fileStore);
+    private final ISOPath rootDirectory = new ISOPath(this, SEPARATOR, true);
+    private final List<Path> rootDirectories = Collections.singletonList(rootDirectory);
+    private final Path emptyPath = new ISOPath(this, "", false);
+    private boolean open = true;
 
     ISOFileSystem(ISOFileSystemProvider fileSystemProvider, Path fileSystemPath, Map<String, ?> env) {
         this.fileSystemProvider = fileSystemProvider;
@@ -49,32 +58,32 @@ public class ISOFileSystem extends FileSystem {
 
     @Override
     public void close() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        open = false;
     }
 
     @Override
     public boolean isOpen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return open;
     }
 
     @Override
     public boolean isReadOnly() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return fileStore.isReadOnly();
     }
 
     @Override
     public String getSeparator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SEPARATOR;
     }
 
     @Override
     public Iterable<Path> getRootDirectories() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return rootDirectories;
     }
 
     @Override
     public Iterable<FileStore> getFileStores() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return fileStores;
     }
 
     @Override
@@ -100,6 +109,14 @@ public class ISOFileSystem extends FileSystem {
     @Override
     public WatchService newWatchService() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ISOPath getRootDirectory() {
+        return rootDirectory;
+    }
+
+    public Path getEmptyPath() {
+        return emptyPath;
     }
 
 }

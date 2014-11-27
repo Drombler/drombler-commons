@@ -56,8 +56,7 @@ public class ISOFileStore extends FileStore {
     }
 
     @Override
-    public boolean supportsFileAttributeView(
-            Class<? extends FileAttributeView> type) {
+    public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

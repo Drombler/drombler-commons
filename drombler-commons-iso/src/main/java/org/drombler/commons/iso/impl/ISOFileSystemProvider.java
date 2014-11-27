@@ -49,7 +49,7 @@ public class ISOFileSystemProvider extends FileSystemProvider {
 
     private static final String SCHEME = "iso";
     // TODO: good?
-    private static final String RESOURCE_SEPARATOR = "!/";
+//    private static final String RESOURCE_SEPARATOR = "!/";
 
     private final Map<Path, ISOFileSystem> fileSystems = new HashMap<>();
 
@@ -80,10 +80,10 @@ public class ISOFileSystemProvider extends FileSystemProvider {
             throw new IllegalArgumentException("Unsupported scheme: " + scheme);
         }
         String rawSchemeSpecificPart = uri.getRawSchemeSpecificPart();
-        int resourceSeparatorIndex = rawSchemeSpecificPart.indexOf(RESOURCE_SEPARATOR);
-        if (resourceSeparatorIndex != -1) {
-            rawSchemeSpecificPart = rawSchemeSpecificPart.substring(0, resourceSeparatorIndex);
-        }
+//        int resourceSeparatorIndex = rawSchemeSpecificPart.indexOf(RESOURCE_SEPARATOR);
+//        if (resourceSeparatorIndex != -1) {
+//            rawSchemeSpecificPart = rawSchemeSpecificPart.substring(0, resourceSeparatorIndex);
+//        }
         return Paths.get(URI.create(rawSchemeSpecificPart)).toAbsolutePath().toRealPath();
 
     }
@@ -106,7 +106,12 @@ public class ISOFileSystemProvider extends FileSystemProvider {
 
     @Override
     public Path getPath(URI uri) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String fragment = uri.getFragment();
+        if (fragment != null) {
+            return getFileSystem(uri).getPath(fragment);
+        } else {
+            throw new IllegalArgumentException("No fragment specified!");
+        }
     }
 
     @Override
