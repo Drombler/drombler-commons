@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public class ISOFileSystem extends FileSystem {
 
-    public static final String SEPARATOR = "/";
+    private static final String SEPARATOR = "/";
 
     private final ISOFileSystemProvider fileSystemProvider;
     private final Path fileSystemPath;
@@ -43,6 +43,8 @@ public class ISOFileSystem extends FileSystem {
     private final ISOPath rootDirectory = new ISOPath(this, SEPARATOR, true);
     private final List<Path> rootDirectories = Collections.singletonList(rootDirectory);
     private final Path emptyPath = new ISOPath(this, "", false);
+    private final ISOPath currentDirectory = new ISOPath(this, ".", false);
+    private final ISOPath parentDirectory = new ISOPath(this, "..", false);
     private boolean open = true;
 
     ISOFileSystem(ISOFileSystemProvider fileSystemProvider, Path fileSystemPath, Map<String, ?> env) {
@@ -117,6 +119,22 @@ public class ISOFileSystem extends FileSystem {
 
     public Path getEmptyPath() {
         return emptyPath;
+    }
+
+    public ISOPath getDefaultDirectory() {
+        return rootDirectory;
+    }
+
+    public Path getFileSystemPath() {
+        return fileSystemPath;
+    }
+
+    public ISOPath getCurrentDirectory() {
+        return currentDirectory;
+    }
+
+    public ISOPath getParentDirectory() {
+        return parentDirectory;
     }
 
 }
