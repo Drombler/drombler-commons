@@ -75,7 +75,7 @@ public class ISOPath implements Path {
     }
 
     @Override
-    public Path getFileName() {
+    public ISOPath getFileName() {
         return fileNamePath;
     }
 
@@ -98,7 +98,7 @@ public class ISOPath implements Path {
     }
 
     @Override
-    public Path getName(int index) {
+    public ISOPath getName(int index) {
         if (index < 0) {
             throw new IllegalArgumentException("index must not be negative!");
         }
@@ -119,32 +119,156 @@ public class ISOPath implements Path {
 
     @Override
     public Path subpath(int beginIndex, int endIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (beginIndex < 0) {
+            throw new IllegalArgumentException("beginIndex must not be negative!");
+        }
+        if (beginIndex >= getNameCount()) {
+            throw new IllegalArgumentException("beginIndex must not be greater than or equal to the number of elements!");
+        }
+        if (endIndex <= beginIndex) {
+            throw new IllegalArgumentException("endIndex must not be less than or equal to beginIndex!");
+        }
+        if (endIndex > getNameCount()) {
+            throw new IllegalArgumentException("endIndex must not be greater than the number of elements!");
+        }
+        Path subpath = getName(beginIndex);
+        for (int index = beginIndex + 1; index < endIndex; index++) {
+            subpath.resolve(getName(index));
+        }
+        return subpath;
     }
 
     @Override
     public boolean startsWith(Path other) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!fileSystem.equals(other.getFileSystem())) {
+            return false;
+        }
+
+        if (getNameCount() < other.getNameCount()) {
+            return false;
+        }
+
+        if (!isAbsolute() && other.isAbsolute()) {
+            return false;
+        }
+
+        if (isAbsolute() && !other.isAbsolute()) {
+            // TODO: correct?
+            return false;
+        }
+
+        for (int index = 0; index < other.getNameCount(); index++) {
+            if (!equalsFileName(getName(index).toString(), other.getName(index).toString())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public boolean startsWith(String other) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return startsWith(toPath(other));
     }
 
     @Override
     public boolean endsWith(Path other) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!fileSystem.equals(other.getFileSystem())) {
+            return false;
+        }
+
+        if (getNameCount() < other.getNameCount()) {
+            return false;
+        }
+
+        if (!isAbsolute() && other.isAbsolute()) {
+            return false;
+        }
+
+        if (isAbsolute() && other.isAbsolute()) {
+            return equals(other);
+        }
+
+        for (int index = other.getNameCount() - 1; index >= 0; index--) {
+            if (!equalsFileName(getName(index).toString(), other.getName(index).toString())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public boolean endsWith(String other) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (other.endsWith(fileSystem.getSeparator())) {
+            return endsWith(toPath(other.substring(0, other.length() - fileSystem.getSeparator().length())));
+        } else {
+            return endsWith(toPath(other));
+        }
     }
 
     @Override
     public Path normalize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!containsReduntantElementNames()) {
+            return this;
+        }
+        ISOPath normalizedPath = isAbsolute() ? fileSystem.getRootDirectory() : null;
+        for (int index = 0; index < getNameCount(); index++) {
+            final ISOPath pathName = getName(index);
+            if (normalizedPath == null) {
+                // pathName could ne "." or ".."
+                normalizedPath = pathName;
+            } else if (!pathName.equals(fileSystem.getCurrentDirectory())) {
+                if (pathName.equals(fileSystem.getParentDirectory())) {
+                    if (!normalizedPath.equals(fileSystem.getRootDirectory())
+                            && !normalizedPath.getFileName().equals(fileSystem.getParentDirectory())) {
+                        // normalizedPath.getParent() could be null
+                        normalizedPath = normalizedPath.getParent();
+                    } else {
+                        normalizedPath = normalize(normalizedPath, pathName);
+                    }
+                } else {
+                    normalizedPath = normalize(normalizedPath, pathName);
+                }
+            }
+        }
+        if (normalizedPath != null) {
+            if (normalizedPath.isAbsolute() && containsOnlyReduntantElementNames(normalizedPath)) {
+                return fileSystem.getEmptyPath();
+            } else {
+                return normalizedPath;
+            }
+        } else {
+            return fileSystem.getEmptyPath();
+        }
+    }
+
+    private ISOPath normalize(ISOPath normalizedPath, final ISOPath pathName) {
+        if (normalizedPath.equals(fileSystem.getCurrentDirectory())) {
+            return pathName;
+        } else {
+            return createResolvedPath(normalizedPath, pathName);
+        }
+    }
+
+    private boolean containsOnlyReduntantElementNames(ISOPath path) {
+        for (int index = 0; index < path.getNameCount(); index++) {
+            final Path pathName = path.getName(index);
+            if (!pathName.equals(fileSystem.getCurrentDirectory()) && !pathName.equals(fileSystem.getParentDirectory())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean containsReduntantElementNames() {
+        for (int index = 0; index < getNameCount(); index++) {
+            final ISOPath pathName = getName(index);
+            if (pathName.equals(fileSystem.getCurrentDirectory()) || pathName.equals(fileSystem.getParentDirectory())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -156,18 +280,18 @@ public class ISOPath implements Path {
         if (path2.isAbsolute()) {
             return path2;
         }
-        if (isEmpty(path2)) {
+        if (path2.equals(fileSystem.getEmptyPath())) {
             return path1;
         }
+        return createResolvedPath(path1, path2);
+    }
+
+    private ISOPath createResolvedPath(ISOPath path1, Path path2) {
         ISOPath path = path1;
         for (int i = 0; i < path2.getNameCount(); i++) {
             path = new ISOPath(path1.fileSystem, path2.getName(i).toString(), false, createParentPaths(path));
         }
         return path;
-    }
-
-    private boolean isEmpty(Path path) {
-        return path.getNameCount() == 1 && path.getFileName().toString().equals("");
     }
 
     private ISOPath[] createParentPaths(ISOPath path) {
@@ -227,7 +351,35 @@ public class ISOPath implements Path {
 
     @Override
     public Path relativize(Path other) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isAbsolute() && !other.isAbsolute()) {
+            throw new IllegalArgumentException("other must be absolute as well!");
+        }
+        if (!isAbsolute() && other.isAbsolute()) {
+            throw new IllegalArgumentException("other must be relative as well!");
+        }
+
+        if (equals(other)) {
+            return fileSystem.getEmptyPath();
+        }
+
+        return relativize(this, other, null);
+    }
+
+    private Path relativize(ISOPath path1, Path path2, Path relativePath) throws IllegalArgumentException {
+        if (path2.startsWith(path1)) {
+            Path subpath = path2.subpath(path1.getNameCount(), path2.getNameCount());
+            if (relativePath == null) {
+                return subpath;
+            } else {
+                return relativePath.resolve(subpath);
+            }
+        } else if (path1.getParent() == null) {
+            throw new IllegalArgumentException("A relative path cannot be constructed for path: " + path2);
+        } else {
+            return relativize(path1.getParent(), path2,
+                    relativePath == null ? path1.fileSystem.getParentDirectory()
+                            : relativePath.resolve(path1.fileSystem.getParentDirectory()));
+        }
     }
 
     @Override
@@ -254,16 +406,16 @@ public class ISOPath implements Path {
         Path absolutePath = toAbsolutePath();
         Path realPath = fileSystem.getRootDirectory();
         for (Path pathName : absolutePath) {
-            if (pathName.equals(fileSystem.getCurrentDirectory())) {
-                continue;
-            } else if (pathName.equals(fileSystem.getParentDirectory())) {
-                if (realPath.getNameCount() > 0) {
-                    realPath = realPath.getParent();
+            if (!pathName.equals(fileSystem.getCurrentDirectory())) {
+                if (pathName.equals(fileSystem.getParentDirectory())) {
+                    if (realPath.getNameCount() > 0) {
+                        realPath = realPath.getParent();
+                    } else {
+                        throw new IOException("Path does not exist! Invalid path: " + toString());
+                    }
                 } else {
-                    throw new IOException("Path does not exist! Invalid path: " + toString());
+                    realPath = realPath.resolve(pathName.toString().toUpperCase());
                 }
-            } else {
-                realPath = realPath.resolve(pathName.toString().toUpperCase());
             }
         }
         // spec requires to return the real path of an existing file or throw a IOException, if the file does not exist.
@@ -299,6 +451,7 @@ public class ISOPath implements Path {
 
     @Override
     public int hashCode() {
+        // TODO
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -313,19 +466,23 @@ public class ISOPath implements Path {
 
         ISOPath other = (ISOPath) obj;
 
-        boolean equals = Objects.equals(fileSystem, other.fileSystem)
-                && root == other.root
-                && equalsFileName(fileName, other.fileName)
-                && Objects.equals(parentPaths.length, other.parentPaths.length);
-        if (equals) {
-            for (int i = 0; i < parentPaths.length; i++) {
-                if (!equalsFileName(parentPaths[i].fileName, other.parentPaths[i].fileName)) {
-                    equals = false;
-                    break;
-                }
+        if (Objects.equals(fileSystem, other.fileSystem) && root == other.root) {
+            return equalsNames(other);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean equalsNames(ISOPath other) {
+        if (getNameCount() != other.getNameCount()) {
+            return false;
+        }
+        for (int i = 0; i < getNameCount(); i++) {
+            if (!equalsFileName(getName(i).fileName, other.getName(i).fileName)) {
+                return false;
             }
         }
-        return equals;
+        return true;
     }
 
     private boolean equalsFileName(String fileName, String otherFileName) {

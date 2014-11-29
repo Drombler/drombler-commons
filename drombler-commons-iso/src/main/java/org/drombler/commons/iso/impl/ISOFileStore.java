@@ -16,6 +16,8 @@ package org.drombler.commons.iso.impl;
 
 import java.io.IOException;
 import java.nio.file.FileStore;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.attribute.FileStoreAttributeView;
 
@@ -25,6 +27,13 @@ import java.nio.file.attribute.FileStoreAttributeView;
  */
 public class ISOFileStore extends FileStore {
 
+    private static final String TYPE = "ISO 9660 Image File";
+    private final Path fileSystemPath;
+
+    public ISOFileStore(Path fileSystemPath) {
+        this.fileSystemPath = fileSystemPath;
+    }
+
     @Override
     public String name() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -32,7 +41,7 @@ public class ISOFileStore extends FileStore {
 
     @Override
     public String type() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return TYPE;
     }
 
     @Override
@@ -42,17 +51,17 @@ public class ISOFileStore extends FileStore {
 
     @Override
     public long getTotalSpace() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Files.size(fileSystemPath);
     }
 
     @Override
-    public long getUsableSpace() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public long getUsableSpace() {
+        return 0;
     }
 
     @Override
-    public long getUnallocatedSpace() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public long getUnallocatedSpace() {
+        return 0;
     }
 
     @Override

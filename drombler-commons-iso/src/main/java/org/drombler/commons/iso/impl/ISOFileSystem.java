@@ -38,8 +38,8 @@ public class ISOFileSystem extends FileSystem {
     private final ISOFileSystemProvider fileSystemProvider;
     private final Path fileSystemPath;
     private final Map<String, ?> env;
-    private final FileStore fileStore = new ISOFileStore();
-    private final List<FileStore> fileStores = Collections.singletonList(fileStore);
+    private final FileStore fileStore;
+    private final List<FileStore> fileStores;
     private final ISOPath rootDirectory = new ISOPath(this, SEPARATOR, true);
     private final List<Path> rootDirectories = Collections.singletonList(rootDirectory);
     private final Path emptyPath = new ISOPath(this, "", false);
@@ -51,6 +51,8 @@ public class ISOFileSystem extends FileSystem {
         this.fileSystemProvider = fileSystemProvider;
         this.fileSystemPath = fileSystemPath;
         this.env = env;
+        this.fileStore = new ISOFileStore(fileSystemPath);
+        this.fileStores = Collections.singletonList(fileStore);
     }
 
     @Override
