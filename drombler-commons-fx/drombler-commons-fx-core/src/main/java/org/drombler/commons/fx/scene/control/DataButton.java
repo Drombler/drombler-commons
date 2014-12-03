@@ -16,8 +16,6 @@ package org.drombler.commons.fx.scene.control;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
@@ -26,6 +24,7 @@ import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
  * A {@link Button} which can hold some data and knows how to render it.
  *
  * @author puce
+ * @param <T>
  */
 public class DataButton<T> extends Button {
 
@@ -41,8 +40,7 @@ public class DataButton<T> extends Button {
     /**
      * Creates a new instance of this class.
      *
-     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to
-     * render the data.
+     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to render the data.
      */
     public DataButton() {
         this(new ObjectRenderer());
@@ -51,8 +49,7 @@ public class DataButton<T> extends Button {
     /**
      * Creates a new instance of this class.
      *
-     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
-     * of this button.
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data} of this button.
      */
     public DataButton(DataRenderer<? super T> dataRenderer) {
         this(dataRenderer, null);
@@ -70,24 +67,15 @@ public class DataButton<T> extends Button {
     /**
      * Creates a new instance of this class.
      *
-     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
-     * of this button.
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data} of this button.
      * @param data the data of this button.
      */
     public DataButton(DataRenderer<? super T> dataRenderer, T data) {
-        this.data.addListener(new ChangeListener<T>() {
-            @Override
-            public void changed(ObservableValue<? extends T> ov, T oldData, T newData) {
-                LabeledUtils.configure(DataButton.this, getDataRenderer(), newData);
-            }
-        });
+        this.data.addListener((ov, oldData, newData)
+                -> LabeledUtils.configure(DataButton.this, getDataRenderer(), newData));
 
-        this.dataRenderer.addListener(new ChangeListener<DataRenderer<? super T>>() {
-            @Override
-            public void changed(ObservableValue<? extends DataRenderer<? super T>> ov, DataRenderer<? super T> oldData, DataRenderer<? super T> newData) {
-                LabeledUtils.configure(DataButton.this, newData, getData());
-            }
-        });
+        this.dataRenderer.addListener((ov, oldDataRenderer, newDataRenderer)
+                -> LabeledUtils.configure(DataButton.this, newDataRenderer, getData()));
 
         setData(data);
         setDataRenderer(dataRenderer);
