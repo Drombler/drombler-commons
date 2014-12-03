@@ -72,7 +72,8 @@ Contributor(s): .
         <module>drombler-commons-context</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-client</module>
-    </modules>
+        <module>drombler-commons-iso</module>
+  </modules>
     
     <dependencyManagement>
         <dependencies>
