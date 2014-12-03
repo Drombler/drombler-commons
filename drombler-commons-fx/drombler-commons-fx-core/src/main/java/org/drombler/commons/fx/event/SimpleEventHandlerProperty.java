@@ -12,15 +12,13 @@
  *
  * Contributor(s): .
  */
-
-// in the scene package as it has a dependency to javafx.scene
-package org.drombler.commons.fx.scene;
+// in the event package as it has a dependency to javafx.event
+package org.drombler.commons.fx.event;
 
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.scene.Node;
 
 /**
  * Usage:
@@ -28,15 +26,8 @@ import javafx.scene.Node;
  * {@code
  * public class SomePane extends SomeNode {
  *
- *    private final SimpleEventHandlerProperty<SomeEvent> onMyCustomEvent = new SimpleEventHandlerProperty<>(this,
- *            "onMyCustomEvent", SomeEvent.SOME_EVENT_TYPE);
- *
- *    public SomePane() throws IOException {
- *        ...
- *        onMyCustomEvent.setEventHandlerRegistrar(() -> setEventHandler(onMyCustomEvent.getEventType(),
- *                onMyCustomEvent.get()));
- *        ...
- *    }
+ *    private final ObjectProperty<EventHandler<SomeEvent>> onMyCustomEvent = new SimpleEventHandlerProperty<>(this,
+ *            "onMyCustomEvent", SomeEvent.SOME_EVENT_TYPE, this::setEventHandler);
  *    ...
  * }
  * }
@@ -47,24 +38,26 @@ import javafx.scene.Node;
  */
 public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyBase<EventHandler<E>> {
 
-    private final Node bean;
+    private final Object bean;
     private final String name;
     private final EventType<E> eventType;
-    private EventHandlerRegistrar eventHandlerRegistrar;
+    private final EventHandlerRegistrar eventHandlerRegistrar;
 
-    public SimpleEventHandlerProperty(Node bean, String name, EventType<E> eventType) {
+    public SimpleEventHandlerProperty(Object bean, String name, EventType<E> eventType,
+            EventHandlerRegistrar eventHandlerRegistrar) {
         this.bean = bean;
         this.name = name;
         this.eventType = eventType;
+        this.eventHandlerRegistrar = eventHandlerRegistrar;
     }
 
     @Override
     protected void invalidated() {
-        getEventHandlerRegistrar().registerEventHandler();
+        getEventHandlerRegistrar().registerEventHandler(getEventType(), get());
     }
 
     @Override
-    public Node getBean() {
+    public Object getBean() {
         return bean;
     }
 
@@ -87,16 +80,6 @@ public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyB
      */
     public EventHandlerRegistrar getEventHandlerRegistrar() {
         return eventHandlerRegistrar;
-    }
-
-    /**
-     * Note: might be removed in a future version!
-     *
-     * @param eventHandlerRegistrar the eventHandlerRegistrar to set
-     */
-    public void setEventHandlerRegistrar(
-            EventHandlerRegistrar eventHandlerRegistrar) {
-        this.eventHandlerRegistrar = eventHandlerRegistrar;
     }
 
 }

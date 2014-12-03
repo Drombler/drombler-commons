@@ -20,18 +20,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
+import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
-import org.drombler.commons.fx.scene.SimpleEventHandlerProperty;
 
 public class LeftTestPane extends BorderPane {
 
-    private final SimpleEventHandlerProperty<ActionEvent> onNewSampleAction = new SimpleEventHandlerProperty<>(this,
-            "onNewSampleAction", ActionEvent.ACTION);
+    private final ObjectProperty<EventHandler<ActionEvent>> onNewSampleAction = new SimpleEventHandlerProperty<>(this,
+            "onNewSampleAction", ActionEvent.ACTION, this::setEventHandler);
 
     public LeftTestPane() throws IOException {
         load();
-        onNewSampleAction.setEventHandlerRegistrar(() -> setEventHandler(onNewSampleAction.getEventType(),
-                onNewSampleAction.get()));
     }
 
     private void load() throws IOException {

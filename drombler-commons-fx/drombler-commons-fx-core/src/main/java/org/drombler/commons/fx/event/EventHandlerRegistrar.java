@@ -12,7 +12,11 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene;
+package org.drombler.commons.fx.event;
+
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 
 /**
  * Note: might be removed in a future version!
@@ -21,5 +25,5 @@ package org.drombler.commons.fx.scene;
  */
 @FunctionalInterface
 public interface EventHandlerRegistrar {
-    void registerEventHandler();
+    <T extends Event> void registerEventHandler(EventType<T> eventType, EventHandler<? super T> eventHandler);
 }
