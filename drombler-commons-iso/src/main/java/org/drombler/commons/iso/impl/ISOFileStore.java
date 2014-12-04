@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.attribute.FileStoreAttributeView;
 
@@ -28,6 +29,8 @@ import java.nio.file.attribute.FileStoreAttributeView;
 public class ISOFileStore extends FileStore {
 
     private static final String TYPE = "ISO 9660 Image File";
+    private static final String BASIC_FILE_ATTRIBUTE_VIEW_NAME = "basic";
+
     private final Path fileSystemPath;
 
     public ISOFileStore(Path fileSystemPath) {
@@ -36,7 +39,7 @@ public class ISOFileStore extends FileStore {
 
     @Override
     public String name() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return fileSystemPath.getFileName().toString();
     }
 
     @Override
@@ -66,12 +69,12 @@ public class ISOFileStore extends FileStore {
 
     @Override
     public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return type.equals(BasicFileAttributeView.class);
     }
 
     @Override
     public boolean supportsFileAttributeView(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name.equals(BASIC_FILE_ATTRIBUTE_VIEW_NAME);
     }
 
     @Override
