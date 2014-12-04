@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public enum ISOVolumeDescriptorType {
 
-    BOOT_RECORD((byte) 0) {
+    BOOT_RECORD((short) 0) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -32,7 +32,7 @@ public enum ISOVolumeDescriptorType {
                 }
 
             },
-    PRIMARY_VOLUME_DESCRIPTOR((byte) 1) {
+    PRIMARY_VOLUME_DESCRIPTOR((short) 1) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -40,7 +40,7 @@ public enum ISOVolumeDescriptorType {
                 }
 
             },
-    SUPPLEMENTARY_VOLUME_DESCRIPTOR((byte) 2) {
+    SUPPLEMENTARY_VOLUME_DESCRIPTOR((short) 2) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -48,7 +48,7 @@ public enum ISOVolumeDescriptorType {
                 }
 
             },
-    VOLUME_PARTITION_DESCRIPTOR((byte) 3) {
+    VOLUME_PARTITION_DESCRIPTOR((short) 3) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -56,7 +56,7 @@ public enum ISOVolumeDescriptorType {
                 }
 
             },
-    RESERVED((byte) 4) {
+    RESERVED((short) 4) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -64,7 +64,7 @@ public enum ISOVolumeDescriptorType {
                 }
 
             },
-    VOLUME_DESCRIPTOR_SET_TERMINATOR((byte) 255) {
+    VOLUME_DESCRIPTOR_SET_TERMINATOR((short) 255) {
 
                 @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
@@ -73,20 +73,21 @@ public enum ISOVolumeDescriptorType {
 
             };
 
-    private static final Map<Byte, ISOVolumeDescriptorType> TYPES = new HashMap<>();
+    private static final Map<Short, ISOVolumeDescriptorType> TYPES = new HashMap<>();
 
     static {
         for (ISOVolumeDescriptorType type : values()) {
             TYPES.put(type.value, type);
         }
     }
-    private final byte value;
 
-    private ISOVolumeDescriptorType(byte value) {
+    private final short value;
+
+    private ISOVolumeDescriptorType(short value) {
         this.value = value;
     }
 
-    public static ISOVolumeDescriptorType getType(byte value) {
+    public static ISOVolumeDescriptorType getType(short value) {
         if (TYPES.containsKey(value)) {
             return TYPES.get(value);
         } else {

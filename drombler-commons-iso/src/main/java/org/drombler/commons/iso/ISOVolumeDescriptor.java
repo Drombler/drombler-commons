@@ -54,7 +54,7 @@ public abstract class ISOVolumeDescriptor {
         System.out.println(byteBuffer.toString());
         System.out.println(Arrays.toString(byteBuffer.array()));
         System.out.println("Position: " + byteBuffer.position());
-        ISOVolumeDescriptorType type = ISOVolumeDescriptorType.getType(byteBuffer.get());
+        ISOVolumeDescriptorType type = ISOVolumeDescriptorType.getType(ISOUtils.getUnsignedByte(byteBuffer.get()));
         System.out.println(type);
         return type.createISOVolumeDescriptor(byteBuffer);
     }
