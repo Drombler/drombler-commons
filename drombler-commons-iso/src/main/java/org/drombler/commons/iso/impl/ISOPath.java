@@ -168,7 +168,7 @@ public class ISOPath implements Path {
 
     @Override
     public boolean startsWith(String other) {
-        return startsWith(toPath(other));
+        return startsWith(valueOf(other));
     }
 
     @Override
@@ -201,9 +201,9 @@ public class ISOPath implements Path {
     @Override
     public boolean endsWith(String other) {
         if (other.endsWith(fileSystem.getSeparator())) {
-            return endsWith(toPath(other.substring(0, other.length() - fileSystem.getSeparator().length())));
+            return endsWith(valueOf(other.substring(0, other.length() - fileSystem.getSeparator().length())));
         } else {
-            return endsWith(toPath(other));
+            return endsWith(valueOf(other));
         }
     }
 
@@ -294,7 +294,7 @@ public class ISOPath implements Path {
         return path;
     }
 
-    private ISOPath[] createParentPaths(ISOPath path) {
+    public static ISOPath[] createParentPaths(ISOPath path) {
         if (path == null) {
             return new ISOPath[0];
         } else {
@@ -306,33 +306,43 @@ public class ISOPath implements Path {
 
     @Override
     public Path resolve(String other) {
-        return resolve(toPath(other));
+        return resolve(valueOf(other));
     }
 
-    private Path toPath(String other) {
-        if (other == null) {
-            throw new InvalidPathException(String.valueOf(other), "other must not be null!");
+    private Path valueOf(String pathString) {
+        return valueOf(pathString, fileSystem);
+    }
+
+    public static Path valueOf(String pathString, ISOFileSystem fileSystem) {
+        if (pathString == null) {
+            throw new InvalidPathException(String.valueOf(pathString), "other must not be null!");
         }
-        if (other.equals("")) {
+        if (pathString.equals(ISOFileSystem.EMPTY_PATH_STRING)) {
             return fileSystem.getEmptyPath();
         }
+        if (pathString.equals(ISOFileSystem.CURRENT_PATH_STRING)) {
+            return fileSystem.getCurrentDirectory();
+        }
+        if (pathString.equals(ISOFileSystem.PARENT_PATH_STRING)) {
+            return fileSystem.getParentDirectory();
+        }
         ISOPath path = null;
-        final boolean absolute = isAbsolute(other);
+        final boolean absolute = isAbsolute(pathString, fileSystem);
         if (absolute) {
             path = fileSystem.getRootDirectory();
         }
-        String[] pathNames = other.split(fileSystem.getSeparator(), -1);
+        String[] pathNames = pathString.split(fileSystem.getSeparator(), -1);
         for (int i = absolute ? 1 : 0; i < pathNames.length; i++) {
-            if (pathNames[i].equals("")) {
-                throw new InvalidPathException(other, "other must not contain empty path names!", i);
+            if (pathNames[i].equals(ISOFileSystem.EMPTY_PATH_STRING)) {
+                throw new InvalidPathException(pathString, "other must not contain empty path names!", i);
             }
             path = new ISOPath(fileSystem, pathNames[i], false, createParentPaths(path));
         }
         return path;
     }
 
-    private boolean isAbsolute(String other) {
-        return other.startsWith(fileSystem.getRootDirectory().toString());
+    private static boolean isAbsolute(String pathString, ISOFileSystem fileSystem) {
+        return pathString.startsWith(fileSystem.getRootDirectory().toString());
     }
 
     @Override
@@ -346,7 +356,7 @@ public class ISOPath implements Path {
 
     @Override
     public Path resolveSibling(String other) {
-        return resolveSibling(toPath(other));
+        return resolveSibling(valueOf(other));
     }
 
     @Override

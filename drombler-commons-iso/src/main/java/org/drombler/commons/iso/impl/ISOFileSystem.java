@@ -15,8 +15,11 @@
 package org.drombler.commons.iso.impl;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystem;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.WatchService;
@@ -26,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.drombler.commons.iso.ISOVolumeDescriptor;
 
 /**
  *
@@ -34,6 +38,9 @@ import java.util.Set;
 public class ISOFileSystem extends FileSystem {
 
     private static final String SEPARATOR = "/";
+    public static final String EMPTY_PATH_STRING = "";
+    public static final String CURRENT_PATH_STRING = ".";
+    public static final String PARENT_PATH_STRING = "..";
 
     private final ISOFileSystemProvider fileSystemProvider;
     private final Path fileSystemPath;
@@ -42,17 +49,39 @@ public class ISOFileSystem extends FileSystem {
     private final List<FileStore> fileStores;
     private final ISOPath rootDirectory = new ISOPath(this, SEPARATOR, true);
     private final List<Path> rootDirectories = Collections.singletonList(rootDirectory);
-    private final Path emptyPath = new ISOPath(this, "", false);
-    private final ISOPath currentDirectory = new ISOPath(this, ".", false);
-    private final ISOPath parentDirectory = new ISOPath(this, "..", false);
+    private final Path emptyPath = new ISOPath(this, EMPTY_PATH_STRING, false);
+    private final ISOPath currentDirectory = new ISOPath(this, CURRENT_PATH_STRING, false);
+    private final ISOPath parentDirectory = new ISOPath(this, PARENT_PATH_STRING, false);
+    private final SeekableByteChannel byteChannel;
     private boolean open = true;
 
-    ISOFileSystem(ISOFileSystemProvider fileSystemProvider, Path fileSystemPath, Map<String, ?> env) {
+    ISOFileSystem(ISOFileSystemProvider fileSystemProvider, Path fileSystemPath, Map<String, ?> env) throws IOException {
         this.fileSystemProvider = fileSystemProvider;
         this.fileSystemPath = fileSystemPath;
         this.env = env;
         this.fileStore = new ISOFileStore(fileSystemPath);
         this.fileStores = Collections.singletonList(fileStore);
+        System.out.println("FileSystemPath: " + fileSystemPath);
+        this.byteChannel = Files.newByteChannel(fileSystemPath);
+        init();
+    }
+
+    private void init() throws IOException {
+        readVolumeDescriptors();
+    }
+
+    private void readVolumeDescriptors() throws IOException {
+        final int KiB_32 = 32768;
+        byteChannel.position(KiB_32);
+     
+        ByteBuffer byteBuffer = ByteBuffer.allocate(ISOVolumeDescriptor.SECTION_LENGTH);
+        final int numBytes = byteChannel.read(byteBuffer);
+        if (numBytes != ISOVolumeDescriptor.SECTION_LENGTH) {
+            throw new IOException("Too few data to read: " + numBytes);
+        }
+        byteBuffer.position(0);
+        ISOVolumeDescriptor volumeDescriptor = ISOVolumeDescriptor.createISOVolumeDescriptor(byteBuffer);
+
     }
 
     @Override
@@ -97,7 +126,16 @@ public class ISOFileSystem extends FileSystem {
 
     @Override
     public Path getPath(String first, String... more) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder(first);
+        for (String nameElement : more) {
+            if (!nameElement.equals(EMPTY_PATH_STRING)) {
+                if (sb.length() > 0) {
+                    sb.append(getSeparator());
+                }
+                sb.append(nameElement);
+            }
+        }
+        return ISOPath.valueOf(sb.toString(), this);
     }
 
     @Override
@@ -112,7 +150,7 @@ public class ISOFileSystem extends FileSystem {
 
     @Override
     public WatchService newWatchService() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("This is a read-only file system! There's nothing to watch!");
     }
 
     public ISOPath getRootDirectory() {
@@ -137,6 +175,13 @@ public class ISOFileSystem extends FileSystem {
 
     public ISOPath getParentDirectory() {
         return parentDirectory;
+    }
+
+    public SeekableByteChannel newByteChannel(Path path) {
+        if (!path.getFileSystem().equals(this)) {
+            throw new IllegalArgumentException("The specified path belongs to a different FileSystem! Path: " + path);
+        }
+        return null;
     }
 
 }
