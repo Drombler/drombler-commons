@@ -233,8 +233,7 @@ public class FXMLLoaders {
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
     public static <T> T load(FXMLLoader loader, Class<?> type) throws IOException {
-        ResourceBundle resourceBundle = loader.getResources() == null ? getClassResourceBundle(type) : null;
-        return load(loader, type, resourceBundle);
+        return load(loader, type, getClassResourceBundle(type));
     }
 
     /**
