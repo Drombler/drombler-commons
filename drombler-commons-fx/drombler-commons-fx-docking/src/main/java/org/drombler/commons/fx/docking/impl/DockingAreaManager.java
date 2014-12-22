@@ -94,21 +94,17 @@ public class DockingAreaManager {
 
     private Map<Integer, DockingAreaManager> getNonEmptyAreaManagers() {
         Map<Integer, DockingAreaManager> nonEmptyAreaManagers = new HashMap<>();
-        for (Map.Entry<Integer, DockingAreaManager> entry : dockingAreaManagers.entrySet()) {
-            if (entry.getValue().getActualContentSize() > 0) {
-                nonEmptyAreaManagers.put(entry.getKey(), entry.getValue());
-            }
-        }
+        dockingAreaManagers.entrySet().stream().
+                filter(entry -> entry.getValue().getActualContentSize() > 0).
+                forEach(entry -> nonEmptyAreaManagers.put(entry.getKey(), entry.getValue()));
         return nonEmptyAreaManagers;
     }
 
     private Map<Integer, DockingAreaPane> getVisualizableDockingAreas() {
         Map<Integer, DockingAreaPane> visualizableDockingAreas = new HashMap<>();
-        for (Map.Entry<Integer, DockingAreaPane> entry : dockingAreas.entrySet()) {
-            if (entry.getValue().isVisual()) {
-                visualizableDockingAreas.put(entry.getKey(), entry.getValue());
-            }
-        }
+        dockingAreas.entrySet().stream().
+                filter(entry -> entry.getValue().isVisual()).
+                forEach(entry -> visualizableDockingAreas.put(entry.getKey(), entry.getValue()));
         return visualizableDockingAreas;
     }
 
