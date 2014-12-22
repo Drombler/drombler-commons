@@ -56,7 +56,7 @@ public class DockingManager implements AutoCloseable {
             LOG.debug("Dockable added: {}", change.getElementAdded());
             handleDockableAdded(change.getElementAdded().getDockable());
         } else if (change.wasRemoved()) {
-            LOG.debug("Dockable removed: {}", change.getElementAdded());
+            LOG.debug("Dockable removed: {}", change.getElementRemoved());
             handleDockableRemoved(change.getElementRemoved().getDockable());
         }
     };
