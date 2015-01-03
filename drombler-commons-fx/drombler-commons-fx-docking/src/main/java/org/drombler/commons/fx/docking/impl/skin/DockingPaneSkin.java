@@ -190,8 +190,10 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         @Override
         public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<FXDockableEntry>> change) {
             if (dockingArea.isVisualizable() && !dockingArea.isVisualized()) {
+                LOG.debug("Add visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.addDockingArea(dockingArea);
             } else if (!dockingArea.isVisualizable() && dockingArea.isVisualized()) {
+                LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.removeDockingArea(dockingArea);
             }
         }
