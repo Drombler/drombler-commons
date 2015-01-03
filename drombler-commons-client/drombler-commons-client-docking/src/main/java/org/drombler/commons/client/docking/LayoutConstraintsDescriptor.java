@@ -35,13 +35,13 @@ public final class LayoutConstraintsDescriptor {
      * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
      */
     private LayoutConstraintsDescriptor(double prefWidth, double prefHeight) {
-        if (prefWidth >= 0) {
+        if (isPreferred(prefWidth)) {
             this.prefWidth = prefWidth;
         } else {
             this.prefWidth = FLEXIBLE_PREF;
         }
 
-        if (prefHeight >= 0) {
+        if (isPreferred(prefHeight)) {
             this.prefHeight = prefHeight;
         } else {
             this.prefHeight = FLEXIBLE_PREF;
@@ -56,7 +56,7 @@ public final class LayoutConstraintsDescriptor {
      * @return a LayoutConstraintsDescriptor
      */
     public static LayoutConstraintsDescriptor getLayoutConstraints(double prefWidth, double prefHeight) {
-        if (prefWidth < 0 && prefHeight < 0) {
+        if (isFlexible(prefWidth) && isFlexible(prefHeight)) {
             return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
         } else {
             return new LayoutConstraintsDescriptor(prefWidth, prefHeight);
@@ -64,7 +64,7 @@ public final class LayoutConstraintsDescriptor {
     }
 
     public static LayoutConstraintsDescriptor prefWidth(double prefWidth) {
-        if (prefWidth < 0) {
+        if (isFlexible(prefWidth)) {
             return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
         } else {
             return new LayoutConstraintsDescriptor(prefWidth, FLEXIBLE_PREF);
@@ -72,7 +72,7 @@ public final class LayoutConstraintsDescriptor {
     }
 
     public static LayoutConstraintsDescriptor prefHeight(double prefHeight) {
-        if (prefHeight < 0) {
+        if (isPreferred(prefHeight)) {
             return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
         } else {
             return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
@@ -99,6 +99,14 @@ public final class LayoutConstraintsDescriptor {
      */
     public double getPrefHeight() {
         return prefHeight;
+    }
+
+    public static boolean isFlexible(double size) {
+        return !isPreferred(size);
+    }
+
+    public static boolean isPreferred(double size) {
+        return size >= 0;
     }
 
     @Override
