@@ -20,7 +20,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Control;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Region;
@@ -80,51 +79,7 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
         recalculateDividerPositions();
     };
 
-    private final ChangeListener<Number> dividerPositionChangeListener = (ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
-        LOG.debug("{}: divider position changed: old value: {}, new value: {}", getSkinnable(), oldValue, newValue);
-        splitPane.getItems().forEach(node -> LOG.debug("{}: property: {} min: {} ; max: {}", node,
-                getProperty(splitPane.getOrientation()),
-                getMin(splitPane.getOrientation(), (Control) node),
-                getMax(splitPane.getOrientation(), (Control) node)));
-//        throw new RuntimeException();
-    };
-
-    private String getProperty(Orientation orientation) {
-        if (orientation == Orientation.HORIZONTAL) {
-            return "width";
-        } else {
-            return "height";
-        }
-    }
-
-    private double getMin(Orientation orientation, Control control) {
-        if (orientation == Orientation.HORIZONTAL) {
-            return control.getMinWidth();
-        } else {
-            return control.getMinHeight();
-        }
-    }
-
-    private double getMax(Orientation orientation, Control control) {
-        if (orientation == Orientation.HORIZONTAL) {
-            return control.getMaxWidth();
-        } else {
-            return control.getMaxHeight();
-        }
-    }
-
-    private final ListChangeListener<SplitPane.Divider> dividerListener = change -> {
-        while (change.next()) {
-            if (change.wasAdded()) {
-                change.getAddedSubList().forEach(divider
-                        -> divider.positionProperty().addListener(dividerPositionChangeListener));
-            }
-            if (change.wasRemoved()) {
-                change.getRemoved().forEach(divider
-                        -> divider.positionProperty().removeListener(dividerPositionChangeListener));
-            }
-        }
-    };
+    private LayoutConstraintsDescriptorManager layoutConstraintsDescriptorManager;
 
     public DockingSplitPaneSkin(DockingSplitPane control) {
         super(control);
@@ -132,8 +87,6 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
         splitPane.orientationProperty().bind(getSkinnable().orientationProperty());
 //        splitPane.getItems().addAll(control.getDockingSplitPaneChildren());
         Bindings.bindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
-        this.splitPane.getDividers().addListener(dividerListener);
-        addDividerPositionChangeListeners();
 
 //        this.splitPane.getItems().addListener(splitPaneItemsListener);
         getSkinnable().getDockingSplitPaneChildren().addListener(dockingSplitPaneChildrenListener);
@@ -179,6 +132,7 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
         control.widthProperty().addListener(sizeChangeListener);
         control.heightProperty().addListener(sizeChangeListener);
         control.layoutConstraintsProperty().addListener(sizeChangeListener);
+        layoutConstraintsDescriptorManager = new LayoutConstraintsDescriptorManager();
         recalculateDividerPositions();
     }
 
@@ -270,7 +224,7 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
     }
 
     private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
-        removeDividerPositionChangeListeners();
+        layoutConstraintsDescriptorManager.removeDividerPositionChangeListeners();
 
         LOG.debug("######################");
         LOG.debug(getSkinnable().toString());
@@ -321,31 +275,23 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
         LOG.debug("######################");
         LOG.debug("                      ");
 
-        addDividerPositionChangeListeners();
-    }
-
-    private void removeDividerPositionChangeListeners() {
-        splitPane.getDividers().
-                forEach(divider -> divider.positionProperty().removeListener(dividerPositionChangeListener));
-    }
-
-    private void addDividerPositionChangeListeners() {
-        splitPane.getDividers().
-                forEach(divider -> divider.positionProperty().addListener(dividerPositionChangeListener));
+        layoutConstraintsDescriptorManager.addDividerPositionChangeListeners();
     }
 
     @Override
     public void dispose() {
         Bindings.unbindContent(splitPane.getItems(), getSkinnable().getDockingSplitPaneChildren());
 //        splitPane.getItems().removeListener(splitPaneItemsListener);
-        splitPane.getDividers().removeListener(dividerListener);
-        removeDividerPositionChangeListeners();
+
         getSkinnable().getDockingSplitPaneChildren().removeListener(dockingSplitPaneChildrenListener);
 //        control.getDockingSplitPaneChildren().forEach(child -> removeChildListeners(child));
 
         getSkinnable().widthProperty().removeListener(sizeChangeListener);
         getSkinnable().heightProperty().removeListener(sizeChangeListener);
         getSkinnable().layoutConstraintsProperty().removeListener(sizeChangeListener);
+
+        layoutConstraintsDescriptorManager.close();
+        layoutConstraintsDescriptorManager = null;
 
         splitPane = null;
 
@@ -357,5 +303,76 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
 //        super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
 //        recalculateDividerPositions2();
 //    }
+
+    public class LayoutConstraintsDescriptorManager {
+
+        private final ChangeListener<Number> dividerPositionChangeListener = (ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
+            LOG.debug("{}: divider position changed: old value: {}, new value: {}", getSkinnable(), oldValue, newValue);
+//        if (LOG.isDebugEnabled()) {
+//            splitPane.getItems().forEach(node -> LOG.debug("{}: property: {} min: {} ; max: {}", node,
+//                    getProperty(splitPane.getOrientation()),
+//                    getMin(splitPane.getOrientation(), (Control) node),
+//                    getMax(splitPane.getOrientation(), (Control) node)));
+//        }
+//        throw new RuntimeException();
+        };
+
+//    private String getProperty(Orientation orientation) {
+//        if (orientation == Orientation.HORIZONTAL) {
+//            return "width";
+//        } else {
+//            return "height";
+//        }
+//    }
+//
+//    private double getMin(Orientation orientation, Control control) {
+//        if (orientation == Orientation.HORIZONTAL) {
+//            return control.getMinWidth();
+//        } else {
+//            return control.getMinHeight();
+//        }
+//    }
+//
+//    private double getMax(Orientation orientation, Control control) {
+//        if (orientation == Orientation.HORIZONTAL) {
+//            return control.getMaxWidth();
+//        } else {
+//            return control.getMaxHeight();
+//        }
+//    }
+        private final ListChangeListener<SplitPane.Divider> dividerListener = change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    change.getAddedSubList().forEach(divider
+                            -> divider.positionProperty().addListener(dividerPositionChangeListener));
+                }
+                if (change.wasRemoved()) {
+                    change.getRemoved().forEach(divider
+                            -> divider.positionProperty().removeListener(dividerPositionChangeListener));
+                }
+            }
+        };
+
+        public LayoutConstraintsDescriptorManager() {
+            splitPane.getDividers().addListener(dividerListener);
+            addDividerPositionChangeListeners();
+        }
+
+        public final void addDividerPositionChangeListeners() {
+            splitPane.getDividers().
+                    forEach(divider -> divider.positionProperty().addListener(dividerPositionChangeListener));
+        }
+
+        public void removeDividerPositionChangeListeners() {
+            splitPane.getDividers().
+                    forEach(divider -> divider.positionProperty().removeListener(dividerPositionChangeListener));
+        }
+
+        public void close() {
+            splitPane.getDividers().removeListener(dividerListener);
+            removeDividerPositionChangeListeners();
+        }
+
+    }
 
 }
