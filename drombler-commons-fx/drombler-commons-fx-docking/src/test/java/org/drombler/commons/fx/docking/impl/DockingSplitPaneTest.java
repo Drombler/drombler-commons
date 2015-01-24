@@ -30,10 +30,8 @@ import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.GUITests;
 import org.drombler.commons.fx.docking.SimpleControlLauncher;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -787,18 +785,17 @@ public class DockingSplitPaneTest {
     /**
      * Test of isEmpty method, of class DockingSplitPane.
      */
-    @Test
-    @Ignore
-    public void testIsEmpty() {
-        System.out.println("isEmpty");
-        DockingSplitPane instance = null;
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+//    @Test
+//    @Ignore
+//    public void testIsEmpty() {
+//        System.out.println("isEmpty");
+//        DockingSplitPane instance = null;
+//        boolean expResult = false;
+//        boolean result = instance.isEmpty();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     /**
      * Test of removeDockingArea method, of class DockingSplitPane.
      */
@@ -812,83 +809,82 @@ public class DockingSplitPaneTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+//
+//    @Test
+//    public void testContainsAnyDockingAreas1() throws NoSuchMethodException, IllegalAccessException,
+//            InvocationTargetException {
+//        System.out.println("containsAnyDockingAreas1");
+//
+//        assertFalse(rootSplitPane.containsAnyDockingAreas());
+//        assertTrue(rootSplitPane.isEmpty());
+//
+//        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
+//        rootSplitPane.addDockingArea(test1);
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        DockingAreaPane test2 = createDockingArea(30, TEST1, 20, 50);
+//        rootSplitPane.addDockingArea(test2);
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        DockingAreaPane test3 = createDockingArea(60, TEST1, 20, 50);
+//        rootSplitPane.addDockingArea(test3);
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//    }
+//
+//    @Test
+//    public void testContainsAnyDockingAreas2() throws NoSuchMethodException, IllegalAccessException,
+//            InvocationTargetException {
+//        System.out.println("containsAnyDockingAreas2");
+//
+//        assertFalse(rootSplitPane.containsAnyDockingAreas());
+//        assertTrue(rootSplitPane.isEmpty());
+//
+//        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
+//        rootSplitPane.addDockingArea(test1);
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        assertFalse(splitPane.containsAnyDockingAreas());
+//        assertTrue(splitPane.isEmpty());
+//    }
 
-    @Test
-    public void testContainsAnyDockingAreas1() throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        System.out.println("containsAnyDockingAreas1");
-
-        assertFalse(rootSplitPane.containsAnyDockingAreas());
-        assertTrue(rootSplitPane.isEmpty());
-
-        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
-        rootSplitPane.addDockingArea(test1);
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        DockingAreaPane test2 = createDockingArea(30, TEST1, 20, 50);
-        rootSplitPane.addDockingArea(test2);
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        DockingAreaPane test3 = createDockingArea(60, TEST1, 20, 50);
-        rootSplitPane.addDockingArea(test3);
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-    }
-
-    @Test
-    public void testContainsAnyDockingAreas2() throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        System.out.println("containsAnyDockingAreas2");
-
-        assertFalse(rootSplitPane.containsAnyDockingAreas());
-        assertTrue(rootSplitPane.isEmpty());
-
-        DockingAreaPane test1 = createDockingArea(90, TEST1, 20);
-        rootSplitPane.addDockingArea(test1);
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        assertFalse(splitPane.containsAnyDockingAreas());
-        assertTrue(splitPane.isEmpty());
-    }
-
-    @Test
-    public void testContainsAnyDockingAreas3() throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        System.out.println("containsAnyDockingAreas3");
-
-        assertFalse(rootSplitPane.containsAnyDockingAreas());
-        assertTrue(rootSplitPane.isEmpty());
-
-        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
-
-        assertFalse(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        assertFalse(splitPane.containsAnyDockingAreas());
-        assertTrue(splitPane.isEmpty());
-
-        DockingAreaPane test1 = createDockingArea(90, TEST1);
-        addDockingArea(splitPane, test1.getPosition(), test1);
-
-        assertTrue(rootSplitPane.containsAnyDockingAreas());
-        assertFalse(rootSplitPane.isEmpty());
-
-        assertTrue(splitPane.containsAnyDockingAreas());
-        assertFalse(splitPane.isEmpty());
-    }
-
+//    @Test
+//    public void testContainsAnyDockingAreas3() throws NoSuchMethodException, IllegalAccessException,
+//            InvocationTargetException {
+//        System.out.println("containsAnyDockingAreas3");
+//
+//        assertFalse(rootSplitPane.containsAnyDockingAreas());
+//        assertTrue(rootSplitPane.isEmpty());
+//
+//        DockingSplitPane splitPane = addEmptySplitPane(rootSplitPane, 50, 1, SplitLevel.valueOf(2));
+//
+//        assertFalse(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        assertFalse(splitPane.containsAnyDockingAreas());
+//        assertTrue(splitPane.isEmpty());
+//
+//        DockingAreaPane test1 = createDockingArea(90, TEST1);
+//        addDockingArea(splitPane, test1.getPosition(), test1);
+//
+//        assertTrue(rootSplitPane.containsAnyDockingAreas());
+//        assertFalse(rootSplitPane.isEmpty());
+//
+//        assertTrue(splitPane.containsAnyDockingAreas());
+//        assertFalse(splitPane.isEmpty());
+//    }
     private DockingAreaPane createDockingArea(int position, String id, Integer... path) {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(id, position, false,
                 LayoutConstraintsDescriptor.flexible());
