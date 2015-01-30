@@ -72,7 +72,7 @@ public final class LayoutConstraintsDescriptor {
     }
 
     public static LayoutConstraintsDescriptor prefHeight(double prefHeight) {
-        if (isPreferred(prefHeight)) {
+        if (isFlexible(prefHeight)) {
             return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
         } else {
             return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
