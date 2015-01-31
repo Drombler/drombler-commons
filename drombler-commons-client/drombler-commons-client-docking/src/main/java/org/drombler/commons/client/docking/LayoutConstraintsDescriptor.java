@@ -14,6 +14,9 @@
  */
 package org.drombler.commons.client.docking;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * The layout constraints of a Docking Area.
  *
@@ -22,11 +25,11 @@ package org.drombler.commons.client.docking;
 public final class LayoutConstraintsDescriptor {
 
     public static final double FLEXIBLE_PREF = -1.0;
-    private static final LayoutConstraintsDescriptor FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR
-            = new LayoutConstraintsDescriptor(FLEXIBLE_PREF, FLEXIBLE_PREF);
 
-    private final double prefWidth;
-    private final double prefHeight;
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    private double prefWidth;
+    private double prefHeight;
 
     /**
      * Creates a new instance of this class.
@@ -35,16 +38,15 @@ public final class LayoutConstraintsDescriptor {
      * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
      */
     private LayoutConstraintsDescriptor(double prefWidth, double prefHeight) {
-        if (isPreferred(prefWidth)) {
-            this.prefWidth = prefWidth;
-        } else {
-            this.prefWidth = FLEXIBLE_PREF;
-        }
+        this.prefWidth = getPrefSize(prefWidth);
+        this.prefHeight = getPrefSize(prefHeight);
+    }
 
-        if (isPreferred(prefHeight)) {
-            this.prefHeight = prefHeight;
+    private double getPrefSize(double prefSize) {
+        if (isPreferred(prefSize)) {
+            return prefSize;
         } else {
-            this.prefHeight = FLEXIBLE_PREF;
+            return FLEXIBLE_PREF;
         }
     }
 
@@ -56,31 +58,19 @@ public final class LayoutConstraintsDescriptor {
      * @return a LayoutConstraintsDescriptor
      */
     public static LayoutConstraintsDescriptor getLayoutConstraints(double prefWidth, double prefHeight) {
-        if (isFlexible(prefWidth) && isFlexible(prefHeight)) {
-            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
-        } else {
-            return new LayoutConstraintsDescriptor(prefWidth, prefHeight);
-        }
+        return new LayoutConstraintsDescriptor(prefWidth, prefHeight);
     }
 
     public static LayoutConstraintsDescriptor prefWidth(double prefWidth) {
-        if (isFlexible(prefWidth)) {
-            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
-        } else {
-            return new LayoutConstraintsDescriptor(prefWidth, FLEXIBLE_PREF);
-        }
+        return new LayoutConstraintsDescriptor(prefWidth, FLEXIBLE_PREF);
     }
 
     public static LayoutConstraintsDescriptor prefHeight(double prefHeight) {
-        if (isFlexible(prefHeight)) {
-            return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
-        } else {
-            return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
-        }
+        return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
     }
 
     public static LayoutConstraintsDescriptor flexible() {
-        return FLEXIBLE_LAYOUT_CONSTRAINTS_DESCRIPTOR;
+        return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, FLEXIBLE_PREF);
     }
 
     /**
@@ -92,6 +82,12 @@ public final class LayoutConstraintsDescriptor {
         return prefWidth;
     }
 
+    public void setPrefWidth(double prefWidth) {
+        double oldValue = this.prefWidth;
+        this.prefWidth = getPrefSize(prefWidth);
+        firePropertyChange(propertyChangeSupport, "prefWidth", oldValue, this.prefWidth);
+    }
+
     /**
      * Gets the preferred height of the Docking Area. Can be negative to indicate a flexible height.
      *
@@ -101,12 +97,34 @@ public final class LayoutConstraintsDescriptor {
         return prefHeight;
     }
 
+    public void setPrefHeight(double prefHeight) {
+        double oldValue = this.prefHeight;
+        this.prefHeight = getPrefSize(prefHeight);
+        firePropertyChange(propertyChangeSupport, "prefHeight", oldValue, this.prefHeight);
+    }
+
+    // TODO: use from SoftSmithy: PropertyChangeUtils#firePropertyChange
+    public void firePropertyChange(PropertyChangeSupport propertyChangeSupport, String propertyName, double oldValue,
+            double newValue) {
+        if (oldValue != newValue) {
+            propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+        }
+    }
+
     public static boolean isFlexible(double size) {
         return !isPreferred(size);
     }
 
     public static boolean isPreferred(double size) {
         return size >= 0;
+    }
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
     @Override
