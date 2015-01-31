@@ -59,14 +59,13 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
-    private final LayoutConstraintsDescriptor layoutConstraints;
 
     public DockingAreaPane(String areaId, int position, boolean permanent, LayoutConstraintsDescriptor layoutConstraints) {
         super(false);
         this.areaId = areaId;
         this.position = position;
         this.permanent = permanent;
-        this.layoutConstraints = layoutConstraints;
+        setLayoutConstraints(layoutConstraints);
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
@@ -175,8 +174,13 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     }
 
     @Override
-    public LayoutConstraintsDescriptor getLayoutConstraints() {
-        return layoutConstraints;
+    public void updateLayoutConstraints() {
+        if (LayoutConstraintsDescriptor.isPreferred(getLayoutConstraints().getPrefWidth())) {
+            getLayoutConstraints().setPrefWidth(getWidth());
+        }
+        if (LayoutConstraintsDescriptor.isPreferred(getLayoutConstraints().getPrefHeight())) {
+            getLayoutConstraints().setPrefHeight(getHeight());
+        }
     }
 
     @Override
@@ -187,13 +191,4 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
                 + ", visualized=" + isVisualized() + "]";
     }
 
-    @Override
-    public void updateLayoutConstraints() {
-        if (LayoutConstraintsDescriptor.isPreferred(layoutConstraints.getPrefWidth())) {
-            layoutConstraints.setPrefWidth(getWidth());
-        }
-        if (LayoutConstraintsDescriptor.isPreferred(layoutConstraints.getPrefHeight())) {
-            layoutConstraints.setPrefHeight(getHeight());
-        }
-    }
 }

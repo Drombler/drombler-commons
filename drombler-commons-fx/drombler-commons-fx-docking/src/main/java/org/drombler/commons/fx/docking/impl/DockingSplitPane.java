@@ -54,7 +54,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     private final ObservableList<DockingSplitPaneChildBase> unmodifiableDockingSplitPaneChildren = FXCollections.
             unmodifiableObservableList(dockingSplitPaneChildren);
 
-    private final LayoutConstraintsProperty layoutConstraints = new LayoutConstraintsProperty();
 //    private final ChangeListener<LayoutConstraintsDescriptor> layoutConstraintsListener
 //            = (observable, oldValue, newValue) -> recalculateLayoutConstraints();
 
@@ -153,20 +152,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
     }
 
-    @Override
-    public final LayoutConstraintsDescriptor getLayoutConstraints() {
-        return layoutConstraintsProperty().get();
-    }
 
-    private void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
-        this.layoutConstraints.set(layoutConstraints);
-        // TODO: good?
-        requestParentLayout();
-    }
-
-    public ReadOnlyObjectProperty<LayoutConstraintsDescriptor> layoutConstraintsProperty() {
-        return layoutConstraints;
-    }
 
     private void recalculateLayoutConstraints() {
         double prefWidth = 0;
@@ -204,33 +190,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         recalculateLayoutConstraints();
     }
 
-    private class LayoutConstraintsProperty extends ReadOnlyObjectPropertyBase<LayoutConstraintsDescriptor> {
 
-        private LayoutConstraintsDescriptor layoutConstraints = null;
-
-        @Override
-        public final LayoutConstraintsDescriptor get() {
-            return layoutConstraints;
-        }
-
-        private void set(LayoutConstraintsDescriptor newValue) {
-            if (!Objects.equals(layoutConstraints, newValue)) {
-                LOG.debug("{}: layoutConstraints changed! old: {} -> new: {}", getBean(), layoutConstraints, newValue);
-                layoutConstraints = newValue;
-                fireValueChangedEvent();
-            }
-        }
-
-        @Override
-        public Object getBean() {
-            return DockingSplitPane.this;
-        }
-
-        @Override
-        public String getName() {
-            return "layoutConstraints";
-        }
-    }
 
     public class DockingSplitPaneManager {
 
@@ -285,8 +245,8 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
                 if (isEmpty()) {
                     adjust(splitLevel);
                 } else {
-                    adjust(splitLevel);
                     removeAllDockingAreas(removedDockingAreas);
+                    adjust(splitLevel);
                 }
             }
         }
