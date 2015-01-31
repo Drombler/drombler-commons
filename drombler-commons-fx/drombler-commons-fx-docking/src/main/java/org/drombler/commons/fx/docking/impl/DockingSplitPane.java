@@ -173,15 +173,16 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         double prefHeight = 0;
         for (DockingSplitPaneChildBase child : dockingSplitPaneChildren) {
             LayoutConstraintsDescriptor childLayoutConstraints = child.getLayoutConstraints();
-            if (LayoutConstraintsDescriptor.isPreferred(prefWidth)) {
-                if (childLayoutConstraints.getPrefWidth() < 0 || childLayoutConstraints.getPrefWidth() > prefWidth) {
-                    prefWidth = childLayoutConstraints.getPrefWidth();
-                }
+            if (LayoutConstraintsDescriptor.isPreferred(prefWidth)
+                    && (LayoutConstraintsDescriptor.isFlexible(childLayoutConstraints.getPrefWidth())
+                    || childLayoutConstraints.getPrefWidth() > prefWidth)) {
+                prefWidth = childLayoutConstraints.getPrefWidth();
             }
-            if (LayoutConstraintsDescriptor.isPreferred(prefHeight)) {
-                if (childLayoutConstraints.getPrefHeight() < 0 || childLayoutConstraints.getPrefHeight() > prefHeight) {
-                    prefHeight = childLayoutConstraints.getPrefHeight();
-                }
+            if (LayoutConstraintsDescriptor.isPreferred(prefHeight)
+                    && (LayoutConstraintsDescriptor.isFlexible(childLayoutConstraints.getPrefHeight())
+                    || childLayoutConstraints.getPrefHeight() > prefHeight)) {
+                prefHeight = childLayoutConstraints.getPrefHeight();
+
             }
             if (LayoutConstraintsDescriptor.isFlexible(prefWidth) && LayoutConstraintsDescriptor.isFlexible(prefHeight)) {
                 break;
@@ -195,6 +196,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     @Override
     public String toString() {
         return "DockingSplitPane[position=" + position + ", level=" + getLevel() + ", actualLevel=" + getActualLevel() + ", orientation=" + getOrientation() + "]";
+    }
+
+    @Override
+    public void updateLayoutConstraints() {
+        dockingSplitPaneChildren.forEach(dockingSplitPaneChild -> dockingSplitPaneChild.updateLayoutConstraints());
+        recalculateLayoutConstraints();
     }
 
     private class LayoutConstraintsProperty extends ReadOnlyObjectPropertyBase<LayoutConstraintsDescriptor> {

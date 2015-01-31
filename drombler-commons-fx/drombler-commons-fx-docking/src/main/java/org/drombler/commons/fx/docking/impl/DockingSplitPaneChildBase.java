@@ -55,4 +55,6 @@ public abstract class DockingSplitPaneChildBase extends Control {
     }
 
     public abstract LayoutConstraintsDescriptor getLayoutConstraints();
+
+    public abstract void updateLayoutConstraints();
 }

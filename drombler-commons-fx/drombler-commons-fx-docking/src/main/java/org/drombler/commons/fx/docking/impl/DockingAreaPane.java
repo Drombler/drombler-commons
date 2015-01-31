@@ -186,4 +186,14 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
                 + ", visuablizable=" + isVisualizable()
                 + ", visualized=" + isVisualized() + "]";
     }
+
+    @Override
+    public void updateLayoutConstraints() {
+        if (LayoutConstraintsDescriptor.isPreferred(layoutConstraints.getPrefWidth())) {
+            layoutConstraints.setPrefWidth(getWidth());
+        }
+        if (LayoutConstraintsDescriptor.isPreferred(layoutConstraints.getPrefHeight())) {
+            layoutConstraints.setPrefHeight(getHeight());
+        }
+    }
 }
