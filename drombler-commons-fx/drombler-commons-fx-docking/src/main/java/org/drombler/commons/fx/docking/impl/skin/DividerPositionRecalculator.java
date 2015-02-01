@@ -61,8 +61,6 @@ public class DividerPositionRecalculator implements AutoCloseable {
         this.dockingSplitPane.getDockingSplitPaneChildren().addListener(dockingSplitPaneChildrenListener);
         this.dockingSplitPane.widthProperty().addListener(sizeChangeListener);
         this.dockingSplitPane.heightProperty().addListener(sizeChangeListener);
-
-        this.dockingSplitPane.layoutConstraintsProperty().addListener(sizeChangeListener);
     }
 
 
