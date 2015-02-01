@@ -56,7 +56,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
 //    private final ChangeListener<LayoutConstraintsDescriptor> layoutConstraintsListener
 //            = (observable, oldValue, newValue) -> recalculateLayoutConstraints();
-
     private final DockingSplitPaneManager manager;
 
     public DockingSplitPane(int position, int level, SplitLevel actualLevel) {
@@ -101,6 +100,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
 
     public ReadOnlyObjectProperty<Orientation> orientationProperty() {
         return manager.orientationProperty();
+    }
+
+    public boolean isHorizontal() {
+        return getOrientation().equals(Orientation.HORIZONTAL);
     }
 
     /**
@@ -152,8 +155,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
     }
 
-
-
     private void recalculateLayoutConstraints() {
         double prefWidth = 0;
         double prefHeight = 0;
@@ -189,8 +190,6 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         dockingSplitPaneChildren.forEach(dockingSplitPaneChild -> dockingSplitPaneChild.updateLayoutConstraints());
         recalculateLayoutConstraints();
     }
-
-
 
     public class DockingSplitPaneManager {
 

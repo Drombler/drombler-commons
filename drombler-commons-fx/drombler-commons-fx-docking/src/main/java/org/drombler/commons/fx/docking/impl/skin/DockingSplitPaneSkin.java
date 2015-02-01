@@ -30,6 +30,7 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
     private static final Logger LOG = LoggerFactory.getLogger(DockingSplitPaneSkin.class);
     private DividerPositionRecalculator dividerPositionRecalculator;
     private LayoutConstraintsDescriptorManager layoutConstraintsDescriptorManager;
+    private DockingSplitPaneChildPreferencesManager dockingSplitPaneChildPreferencesManager;
 
     private SplitPane splitPane = new SplitPane() {
 
@@ -100,6 +101,7 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
 //            }
 //        });
         layoutConstraintsDescriptorManager = new LayoutConstraintsDescriptorManager(control, splitPane);
+        dockingSplitPaneChildPreferencesManager = new DockingSplitPaneChildPreferencesManager(control);
 
         dividerPositionRecalculator = new DividerPositionRecalculator(control, splitPane);
         dividerPositionRecalculator.adjustingProperty().bindBidirectional(
@@ -132,6 +134,9 @@ public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
         dividerPositionRecalculator.adjustingProperty().unbindBidirectional(layoutConstraintsDescriptorManager.
                 adjustingProperty());
         dividerPositionRecalculator = null;
+
+        dockingSplitPaneChildPreferencesManager.close();
+        dockingSplitPaneChildPreferencesManager = null;
 
         layoutConstraintsDescriptorManager.close();
         layoutConstraintsDescriptorManager = null;

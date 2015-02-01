@@ -14,16 +14,12 @@
  */
 package org.drombler.commons.fx.docking.impl.skin;
 
-import java.beans.PropertyChangeListener;
 import java.util.Arrays;
-import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.Region;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
 import org.drombler.commons.fx.docking.impl.DockingSplitPaneChildBase;
@@ -39,9 +35,6 @@ public class DividerPositionRecalculator implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DividerPositionRecalculator.class);
 
-    private static final String PREF_WIDTH = "prefWidth";
-    private static final String PREF_HEIGHT = "prefHeight";
-
     private final DockingSplitPane dockingSplitPane;
     private final SplitPane splitPane;
     private final BooleanProperty adjusting = new SimpleBooleanProperty(this, "adjusting", false);
@@ -56,20 +49,9 @@ public class DividerPositionRecalculator implements AutoCloseable {
 //        recalculateDividerPositions();
 //    };
     private final ListChangeListener<DockingSplitPaneChildBase> dockingSplitPaneChildrenListener = change -> {
-        while (change.next()) {
-            if (change.wasAdded()) {
-                configureChildren(change.getAddedSubList(), true);
-            }
-            if (change.wasRemoved()) {
-                change.getRemoved().forEach(child -> removeChildListeners(child));
-            }
-        }
         LOG.debug("DockingSplitPane children change: {}", change);
         recalculateDividerPositions();
     };
-
-    private final ChangeListener<LayoutConstraintsDescriptor> layoutConstraintsChangeListener;
-    private final PropertyChangeListener layoutConstraintsDimensionChangeListener;
 
     public DividerPositionRecalculator(DockingSplitPane dockingSplitPane, SplitPane splitPane) {
         this.dockingSplitPane = dockingSplitPane;
@@ -80,54 +62,10 @@ public class DividerPositionRecalculator implements AutoCloseable {
         this.dockingSplitPane.widthProperty().addListener(sizeChangeListener);
         this.dockingSplitPane.heightProperty().addListener(sizeChangeListener);
 
-        layoutConstraintsChangeListener = (observable, oldValue, newValue)
-                -> configureChildren(this.dockingSplitPane.getDockingSplitPaneChildren(), false);
-        layoutConstraintsDimensionChangeListener = evt
-                -> configureChildren(this.dockingSplitPane.getDockingSplitPaneChildren(), false);
-        configureChildren(this.dockingSplitPane.getDockingSplitPaneChildren(), true);
         this.dockingSplitPane.layoutConstraintsProperty().addListener(sizeChangeListener);
     }
 
-    private void configureChildren(List<? extends DockingSplitPaneChildBase> children, boolean addListeners) {
-        children.forEach(child -> configureChild(child, addListeners));
-    }
 
-    private void configureChild(DockingSplitPaneChildBase child, boolean addListeners) {
-        LayoutConstraintsDescriptor layoutConstraints = child.getLayoutConstraints();
-        if (isHorizontal()) {
-            configureChild(child, RegionDimension.WIDTH, layoutConstraints.getPrefWidth(), addListeners);
-        } else {
-            configureChild(child, RegionDimension.HEIGHT, layoutConstraints.getPrefHeight(), addListeners);
-        }
-    }
-
-    private void configureChild(DockingSplitPaneChildBase child, RegionDimension dimension, double prefSize,
-            boolean addListeners) {
-        if (LayoutConstraintsDescriptor.isPreferred(prefSize)) {
-            dimension.setPrefSize(child, prefSize);
-//            dimension.setMinSize(child, prefSize);
-            SplitPane.setResizableWithParent(child, Boolean.FALSE);
-        } else {
-            dimension.setPrefSize(child, Region.USE_COMPUTED_SIZE);
-            SplitPane.setResizableWithParent(child, Boolean.TRUE);
-        }
-        dimension.setMaxSize(child, Double.MAX_VALUE);
-        if (addListeners) {
-            addChildListeners(child);
-        }
-    }
-
-    private void addChildListeners(DockingSplitPaneChildBase child) {
-        child.layoutConstraintsProperty().addListener(layoutConstraintsChangeListener);
-        child.getLayoutConstraints().addPropertyChangeListener(PREF_WIDTH, layoutConstraintsDimensionChangeListener);
-        child.getLayoutConstraints().addPropertyChangeListener(PREF_HEIGHT, layoutConstraintsDimensionChangeListener);
-    }
-
-    private void removeChildListeners(DockingSplitPaneChildBase child) {
-        child.layoutConstraintsProperty().removeListener(layoutConstraintsChangeListener);
-        child.getLayoutConstraints().removePropertyChangeListener(PREF_WIDTH, layoutConstraintsDimensionChangeListener);
-        child.getLayoutConstraints().removePropertyChangeListener(PREF_HEIGHT, layoutConstraintsDimensionChangeListener);
-    }
 
     public final boolean isAdjusting() {
         return adjustingProperty().get();
@@ -160,53 +98,43 @@ public class DividerPositionRecalculator implements AutoCloseable {
         LOG.debug("{}: inSync: {}, adjusting: {}", dockingSplitPane, isInSync(), isAdjusting());
         if (isInSync() && !isAdjusting()) {
             setAdjusting(true);
-            if (isHorizontal()) {
-                recalculateDividerPositionsHorizontal();
+            if (dockingSplitPane.isHorizontal()) {
+                recalculateDividerPositions(RegionDimension.WIDTH);
             } else {
-                recalculateDividerPositionsVertical();
+                recalculateDividerPositions(RegionDimension.HEIGHT);
             }
             setAdjusting(false);
             LOG.debug("{}: adjusting finished!", dockingSplitPane);
         }
     }
 
-    private boolean isHorizontal() {
-        return dockingSplitPane.getOrientation().equals(Orientation.HORIZONTAL);
-    }
+
 
     private boolean isInSync() {
         return dockingSplitPane.getDockingSplitPaneChildren().size() == splitPane.getItems().size();
     }
 
-    private void recalculateDividerPositionsHorizontal() {
-        double[] prefWidths = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
-        double[] currentWidths = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
+    private void recalculateDividerPositions(RegionDimension dimension) {
+        double[] prefSizes = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
+        double[] currentSizes = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
 
         int i = 0;
         for (DockingSplitPaneChildBase child : dockingSplitPane.getDockingSplitPaneChildren()) {
-            LayoutConstraintsDescriptor layoutConstraints = child.getLayoutConstraints();
-            prefWidths[i] = layoutConstraints.getPrefWidth();
+            prefSizes[i] = getPrefSize(dimension, child.getLayoutConstraints());
 
-            currentWidths[i] = child.getWidth();
+            currentSizes[i] = dimension.getSize(child);
             i++;
         }
 
-        recalculateDividerPositions(prefWidths, currentWidths, dockingSplitPane.getWidth());
+        recalculateDividerPositions(prefSizes, currentSizes, dimension.getSize(dockingSplitPane));
     }
 
-    private void recalculateDividerPositionsVertical() {
-        double[] prefHeights = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
-        double[] currentHeights = new double[dockingSplitPane.getDockingSplitPaneChildren().size()];
-
-        int i = 0;
-        for (DockingSplitPaneChildBase child : dockingSplitPane.getDockingSplitPaneChildren()) {
-            LayoutConstraintsDescriptor layoutConstraints = child.getLayoutConstraints();
-            prefHeights[i] = layoutConstraints.getPrefHeight();
-
-            currentHeights[i] = child.getHeight();
-            i++;
+    private double getPrefSize(RegionDimension dimension, LayoutConstraintsDescriptor layoutConstraints) {
+        if (dimension.equals(RegionDimension.WIDTH)) {
+            return layoutConstraints.getPrefWidth();
+        } else {
+            return layoutConstraints.getPrefHeight();
         }
-        recalculateDividerPositions(prefHeights, currentHeights, dockingSplitPane.getHeight());
     }
 
     private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
