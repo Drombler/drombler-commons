@@ -18,7 +18,7 @@ package org.drombler.commons.fx.docking.impl.skin;
  *
  * @author puce
  */
-public class Stylesheets {
+public final class Stylesheets {
 
     private Stylesheets() {
     }
