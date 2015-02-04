@@ -26,10 +26,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
+import org.drombler.commons.client.docking.spi.DockingAreaManager;
 import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableEntry;
-import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
 import org.slf4j.Logger;
@@ -47,7 +47,8 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     private DockingPane control;
     private BorderPane pane = new BorderPane();
     private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
-    private final DockingAreaManager rootDockingAreaManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
+    private final DockingAreaManager<DockingAreaPane> rootDockingAreaManager = new DockingAreaManager<>(null, 0,
+            SplitLevel.ROOT);
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
     private final SetChangeListener<DockingAreaDescriptor> dockingAreaDescriptorSetChangeListener = change -> {

@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking.impl;
+package org.drombler.commons.client.docking.spi;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,18 +20,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.drombler.commons.client.docking.spi.ShortPathPart;
-import org.drombler.commons.client.docking.spi.SplitLevel;
 
 /**
  *
+ * @param <A>
  * @author puce
  */
 // TODO: check thread safty
 // TODO: move this class to Client - Docking - SPI
-public class DockingAreaManager {
+public class DockingAreaManager<A extends DockingArea> {
 
-    private final Map<Integer, DockingAreaPane> dockingAreas = new HashMap<>();
+    private final Map<Integer, A> dockingAreas = new HashMap<>();
     private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();
     private final DockingAreaManager parent;
     private final int position;
@@ -47,16 +46,16 @@ public class DockingAreaManager {
         this.level = level;
     }
 
-    public void addDockingArea(List<Integer> path, DockingAreaPane dockingArea) {
+    public void addDockingArea(List<Integer> path, A dockingArea) {
         addDockingArea(path.iterator(), dockingArea);
     }
 
-    private void addDockingArea(Iterator<Integer> path, DockingAreaPane dockingArea) {
+    private void addDockingArea(Iterator<Integer> path, A dockingArea) {
         if (path.hasNext()) {
             Integer childPosition = path.next();
             if (!dockingAreaManagers.containsKey(childPosition)) {
-                dockingAreaManagers.put(childPosition, new DockingAreaManager(this, childPosition, SplitLevel.
-                        valueOf(level.getLevel() + 1)));
+                dockingAreaManagers.put(childPosition, new DockingAreaManager(this, childPosition,
+                        SplitLevel.valueOf(level.getLevel() + 1)));
             }
             dockingAreaManagers.get(childPosition).addDockingArea(path, dockingArea);
         } else {
@@ -100,8 +99,8 @@ public class DockingAreaManager {
         return nonEmptyAreaManagers;
     }
 
-    private Map<Integer, DockingAreaPane> getVisualizableDockingAreas() {
-        Map<Integer, DockingAreaPane> visualizableDockingAreas = new HashMap<>();
+    private Map<Integer, A> getVisualizableDockingAreas() {
+        Map<Integer, A> visualizableDockingAreas = new HashMap<>();
         dockingAreas.entrySet().stream().
                 filter(entry -> entry.getValue().isVisual()).
                 forEach(entry -> visualizableDockingAreas.put(entry.getKey(), entry.getValue()));
@@ -115,7 +114,7 @@ public class DockingAreaManager {
                 && dockingAreas.get(position).isVisual());
     }
 
-    List<ShortPathPart> getShortPath(DockingAreaPane dockingArea) {
+    public List<ShortPathPart> getShortPath(A dockingArea) {
         if (!(dockingAreas.containsKey(dockingArea.getPosition())
                 && dockingAreas.get(dockingArea.getPosition()).equals(dockingArea))) {
             throw new IllegalStateException(
@@ -129,14 +128,14 @@ public class DockingAreaManager {
         }
     }
 
-    private List<ShortPathPart> calculateShortPath(DockingAreaPane dockingArea) {
-        List<ShortPathPart> shortPath = new ArrayList<>();
-        calculateReversedShortPath(dockingArea, shortPath);
+    private List<ShortPathPart> calculateShortPath(A dockingArea) {
+        List<ShortPathPart> shortPath = calculateReversedShortPath(dockingArea);
         Collections.reverse(shortPath);
         return shortPath;
     }
 
-    private void calculateReversedShortPath(DockingAreaPane dockingArea, List<ShortPathPart> shortPath) {
+    private List<ShortPathPart> calculateReversedShortPath(A dockingArea) {
+        List<ShortPathPart> shortPath = new ArrayList<>();
         int currentChildPosition = dockingArea.getPosition();
         for (DockingAreaManager currentParent = this; currentParent != null; currentParent = currentParent.parent) {
             if (currentParent.isShortPathRelevant(currentChildPosition, shortPath.isEmpty())) {
@@ -144,5 +143,12 @@ public class DockingAreaManager {
             }
             currentChildPosition = currentParent.position;
         }
+        return shortPath;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s[position=%d, level=%s]", DockingAreaManager.class.getSimpleName(), position, level);
+    }
+
 }
