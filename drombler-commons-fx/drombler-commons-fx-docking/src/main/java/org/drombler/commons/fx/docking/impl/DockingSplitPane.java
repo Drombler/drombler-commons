@@ -469,6 +469,12 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
             DockingSplitPane.this.dockingSplitPaneChildren.setAll(dockingSplitPaneChildren);
         }
 
+        @Override
+        public String toString() {
+            return String.format("%s[dockingSplitPane=%s]", DockingSplitPaneManager.class.getSimpleName(),
+                    DockingSplitPane.this);
+        }
+
         private class OrientationProperty extends ReadOnlyObjectPropertyBase<Orientation> {
 
             private Orientation orientation = null;
