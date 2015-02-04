@@ -54,7 +54,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
      * Flag if the space for this docking area should be preserved, if it's empty, or if it's space should be freed.
      */
     private final boolean permanent;
-    private DockingAreaManager parentManager;
+    private DockingAreaManager<DockingAreaPane> parentManager;
     /**
      * Flag if this DockingArea has been added to a {@link DockingSplitPane} already.
      */
