@@ -81,6 +81,7 @@ public class SimpleContextContent {
         }
     }
 
+    // TODO: Consider to use org.softsmithy.lib.lang.reflect.Classes#getTypes
     private Set<Class<?>> getTypes(Object obj) {
         Set<Class<?>> types = new HashSet<>();
         Class<?> type = obj.getClass();
