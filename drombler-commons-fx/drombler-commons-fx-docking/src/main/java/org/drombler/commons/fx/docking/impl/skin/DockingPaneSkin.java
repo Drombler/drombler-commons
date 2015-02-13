@@ -46,7 +46,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     private DockingPane control;
     private BorderPane pane = new BorderPane();
-    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
+    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, SplitLevel.ROOT);
     private final DockingAreaManager<DockingAreaPane> rootDockingAreaManager = new DockingAreaManager<>(null, 0,
             SplitLevel.ROOT);
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
