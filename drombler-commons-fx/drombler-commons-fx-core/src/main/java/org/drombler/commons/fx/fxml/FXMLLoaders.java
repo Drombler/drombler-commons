@@ -31,7 +31,7 @@ import org.softsmithy.lib.util.ResourceFileNotFoundException;
  *
  * @author puce
  */
-public class FXMLLoaders {
+public final class FXMLLoaders {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXMLLoaders.class);
     private static final String FXML_EXTENSION = ".fxml";
@@ -216,6 +216,26 @@ public class FXMLLoaders {
      * <br> <br>
      * Sets:
      * <ul>
+     * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
+     * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
+     * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
+     * <li>the location to the FXML file</li>
+     * </ul>
+     *
+     * @param <T> the type of the root element
+     * @param type the type
+     * @return the loaded object
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
+     */
+    public static <T> T load(Class<?> type) {
+        return load(createFXMLLoader(type.getClassLoader()), type);
+    }
+
+    /**
+     * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
+     * <br> <br>
+     * Sets:
+     * <ul>
      * <li>the {@link ResourceBundle} by looking for a {@code  <name>.properties} file, where {@code <name>} is equal to
      * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
      * <li>the location to the FXML file</li>
@@ -229,6 +249,26 @@ public class FXMLLoaders {
      */
     public static <T> T load(FXMLLoader loader, Class<?> type) {
         return load(loader, type, getClassResourceBundle(type));
+    }
+
+    /**
+     * Loads the &lt;class name&gt;.fxml file, which is expected to be in the same package as the specified type.
+     * <br> <br>
+     * Sets:
+     * <ul>
+     * <li>the {@link ClassLoader} to the ClassLoader of the specified type</li>
+     * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
+     * <li>the location to the FXML file</li>
+     * </ul>
+     *
+     * @param <T> the type of the root element
+     * @param type the type
+     * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
+     * @return the loaded object
+     * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
+     */
+    public static <T> T load(final Class<?> type, final ResourceBundle resourceBundle) {
+        return load(createFXMLLoader(type.getClassLoader()), type, resourceBundle);
     }
 
     /**
