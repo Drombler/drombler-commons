@@ -21,7 +21,7 @@ package org.drombler.commons.client.docking.spi;
  */
 
 
-public interface DockingArea<A extends DockingArea> {
+public interface DockingArea<A extends DockingArea<A>> {
 
     void setParentManager(DockingAreaManager<A> parentDockingAreaManager);
 

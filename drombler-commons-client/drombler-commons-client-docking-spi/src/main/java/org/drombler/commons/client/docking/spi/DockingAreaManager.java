@@ -28,7 +28,7 @@ import java.util.Map;
  */
 // TODO: check thread safty
 // TODO: move this class to Client - Docking - SPI
-public class DockingAreaManager<A extends DockingArea> {
+public class DockingAreaManager<A extends DockingArea<A>> {
 
     private final Map<Integer, A> dockingAreas = new HashMap<>();
     private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();
