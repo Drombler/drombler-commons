@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.docking;
 
-import java.io.IOException;
 import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -59,7 +58,7 @@ public class DockingSampleApplication extends Application {
     private DockingManager dockingManager;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage)  {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
@@ -81,17 +80,13 @@ public class DockingSampleApplication extends Application {
         leftDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(LeftTestPane.class)));
         LeftTestPane leftTestPane = new LeftTestPane();
         leftTestPane.setOnNewSampleAction((ActionEvent event) -> {
-            try {
-                sampleCounter++;
-                Sample sample = new Sample("Sample " + sampleCounter);
-                FXDockableData sampleDockableData = new FXDockableData();
-                SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-                sampleEditorPane.setDockableData(sampleDockableData);
-                dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
-                        dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
-            } catch (IOException ex) {
-                LOG.error(ex.getMessage(), ex);
-            }
+            sampleCounter++;
+            Sample sample = new Sample("Sample " + sampleCounter);
+            FXDockableData sampleDockableData = new FXDockableData();
+            SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
+            sampleEditorPane.setDockableData(sampleDockableData);
+            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
+                    dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
         });
         final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, leftDockableData,
                 dockablePreferencesManager.getDockablePreferences(leftTestPane));

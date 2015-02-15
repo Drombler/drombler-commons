@@ -14,17 +14,16 @@
  */
 package org.drombler.commons.fx.samples.docking;
 
-import java.io.IOException;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class RightTestPane extends BorderPane {
 
-    public RightTestPane() throws IOException {
+    public RightTestPane()  {
         loadFXML();
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML()  {
         FXMLLoaders.loadRoot(this);
     }
 

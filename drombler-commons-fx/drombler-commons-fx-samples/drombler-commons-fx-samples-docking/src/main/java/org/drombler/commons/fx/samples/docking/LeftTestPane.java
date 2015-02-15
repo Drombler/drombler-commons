@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.docking;
 
-import java.io.IOException;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,11 +27,11 @@ public class LeftTestPane extends BorderPane {
     private final ObjectProperty<EventHandler<ActionEvent>> onNewSampleAction = new SimpleEventHandlerProperty<>(this,
             "onNewSampleAction", ActionEvent.ACTION, this::setEventHandler);
 
-    public LeftTestPane() throws IOException {
+    public LeftTestPane()  {
         load();
     }
 
-    private void load() throws IOException {
+    private void load()  {
         FXMLLoaders.loadRoot(this);
     }
 

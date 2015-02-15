@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.context;
 
-import java.io.IOException;
 import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -39,7 +38,7 @@ public class ContextProviderPane extends GridPane implements LocalContextProvide
     private TextField nameField;
     private DockableData dockableData;
 
-    public ContextProviderPane(Sample sample) throws IOException {
+    public ContextProviderPane(Sample sample) {
         loadFXML();
         this.sample = sample;
 
@@ -53,7 +52,7 @@ public class ContextProviderPane extends GridPane implements LocalContextProvide
 
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(ContextProviderPane.class));
     }
 

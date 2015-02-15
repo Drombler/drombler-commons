@@ -60,7 +60,7 @@ public class ActionSampleApplication extends Application {
     private static final int TOOL_BAR_BUTTON_SIZE = 24;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         GridPane root = new GridPane();
 
         MenuBar menuBar = new MenuBar();

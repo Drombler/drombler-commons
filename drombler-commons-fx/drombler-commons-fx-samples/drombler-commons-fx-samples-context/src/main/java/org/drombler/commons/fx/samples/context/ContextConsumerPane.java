@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.context;
 
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -32,11 +31,11 @@ public class ContextConsumerPane extends GridPane implements ActiveContextSensit
 
     private Sample sample;
 
-    public ContextConsumerPane() throws IOException {
+    public ContextConsumerPane() {
         loadFXML();
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(ContextConsumerPane.class));
     }
 

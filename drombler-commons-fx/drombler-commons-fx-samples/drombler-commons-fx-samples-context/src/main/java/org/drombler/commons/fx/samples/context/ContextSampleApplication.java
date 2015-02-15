@@ -48,7 +48,7 @@ public class ContextSampleApplication extends Application {
     private DockingManager dockingManager;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();

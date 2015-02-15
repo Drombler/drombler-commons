@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.fxml;
 
-import java.io.IOException;
 import javafx.scene.layout.GridPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -26,11 +25,11 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class ImageSamplePane extends GridPane {
 
-    public ImageSamplePane() throws IOException {
+    public ImageSamplePane() {
         loadFXML();
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML() {
         FXMLLoaders.loadRoot(this);
     }
 
