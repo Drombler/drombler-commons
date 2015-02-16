@@ -24,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.softsmithy.lib.io.IORuntimeException;
 import org.softsmithy.lib.util.ResourceFileNotFoundException;
 
 /**
@@ -302,8 +303,7 @@ public final class FXMLLoaders {
         } catch (IOException ex) {
             // The FXML gets loaded from the classpath here. 
             // The IOException cannot reasonably be handled -> RuntimeException
-            // TODO: consider org.softsmithy.lib.io.IORuntimeException
-            throw new RuntimeException(ex);
+            throw new IORuntimeException(ex);
         }
     }
 
