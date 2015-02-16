@@ -15,14 +15,13 @@
 package org.drombler.commons.context;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.softsmithy.lib.lang.reflect.Classes;
 
 /**
  * A simple writable in-memory context content.
@@ -42,7 +41,7 @@ public class SimpleContextContent {
      * @param obj the object to be added
      */
     public void add(Object obj) {
-        Set<Class<?>> types = getTypes(obj);
+        Set<Class<?>> types = Classes.getTypes(obj);
         types.forEach(type -> add(type, obj));
 
         fireContextEvents(types);
@@ -68,7 +67,7 @@ public class SimpleContextContent {
      */
     public void remove(Object obj) {
         if (obj != null) {
-            Set<Class<?>> types = getTypes(obj);
+            Set<Class<?>> types = Classes.getTypes(obj);
             types.forEach(type -> remove(type, obj));
 
             fireContextEvents(types);
@@ -79,18 +78,6 @@ public class SimpleContextContent {
         if (objects.containsKey(type)) {
             objects.get(type).remove(obj);
         }
-    }
-
-    // TODO: Consider to use org.softsmithy.lib.lang.reflect.Classes#getTypes
-    private Set<Class<?>> getTypes(Object obj) {
-        Set<Class<?>> types = new HashSet<>();
-        Class<?> type = obj.getClass();
-        while (type != null) {
-            types.add(type);
-            types.addAll(Arrays.asList(type.getInterfaces()));
-            type = type.getSuperclass();
-        }
-        return types;
     }
 
     /*package-private*/ void setContext(AbstractContext context) {
