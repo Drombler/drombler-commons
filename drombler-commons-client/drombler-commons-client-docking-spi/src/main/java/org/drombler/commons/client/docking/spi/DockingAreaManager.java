@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  *
- * @param <A>
+ * @param <A> the type of the Docking Area
  * @author puce
  */
 // TODO: check thread safty

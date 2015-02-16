@@ -15,12 +15,13 @@
 package org.drombler.commons.client.docking.spi;
 
 /**
+ * An abstract Docking Area.
  *
- * @param <A>
+ * Note: The interface might change in future versions.
+ *
+ * @param <A> the type of the Docking Area
  * @author puce
  */
-
-
 public interface DockingArea<A extends DockingArea<A>> {
 
     void setParentManager(DockingAreaManager<A> parentDockingAreaManager);
