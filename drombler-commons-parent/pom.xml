@@ -62,6 +62,7 @@ Contributor(s): .
         <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
         <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
         <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/${project.version}/docs/site</distributionManagement.parent.url>
+        <excludePackageNamesAggregate>${excludePackageNames}:*.maven.plugin.*:*.samples.*:org.drombler.commons.iso.*</excludePackageNamesAggregate>
         <!--<url.parent>http://www.drombler.org/DromblerCommons/${project.version}/docs/site/</url.parent>-->
         
         <!-- Dependency Versions -->
