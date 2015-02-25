@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-client-parent</artifactId>
-        <version>0.6-SNAPSHOT</version>
+        <version>0.6</version>
         <relativePath>../drombler-commons-client-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-client-docking-spi</artifactId>
@@ -35,7 +35,7 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>drombler-commons-0.6</tag>
     </scm>
     
     <distributionManagement>
