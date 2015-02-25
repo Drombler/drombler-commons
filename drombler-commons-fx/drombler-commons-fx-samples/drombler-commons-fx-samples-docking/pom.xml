@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.6</version>
+        <version>0.7-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-docking</artifactId>
@@ -32,7 +32,7 @@ Contributor(s): .
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
         <url>${scm.url}</url>
-        <tag>drombler-commons-0.6</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
