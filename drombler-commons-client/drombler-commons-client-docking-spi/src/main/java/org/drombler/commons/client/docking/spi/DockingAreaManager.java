@@ -31,16 +31,16 @@ import java.util.Map;
 public class DockingAreaManager<A extends DockingArea<A>> {
 
     private final Map<Integer, A> dockingAreas = new HashMap<>();
-    private final Map<Integer, DockingAreaManager> dockingAreaManagers = new HashMap<>();
-    private final DockingAreaManager parent;
+    private final Map<Integer, DockingAreaManager<A>> dockingAreaManagers = new HashMap<>();
+    private final DockingAreaManager<A> parent;
     private final int position;
     private final SplitLevel level;
 
-    public DockingAreaManager(DockingAreaManager parent, int position, int level) {
+    public DockingAreaManager(DockingAreaManager<A> parent, int position, int level) {
         this(parent, position, SplitLevel.valueOf(level));
     }
 
-    public DockingAreaManager(DockingAreaManager parent, int position, SplitLevel level) {
+    public DockingAreaManager(DockingAreaManager<A> parent, int position, SplitLevel level) {
         this.parent = parent;
         this.position = position;
         this.level = level;
@@ -54,7 +54,7 @@ public class DockingAreaManager<A extends DockingArea<A>> {
         if (path.hasNext()) {
             Integer childPosition = path.next();
             if (!dockingAreaManagers.containsKey(childPosition)) {
-                dockingAreaManagers.put(childPosition, new DockingAreaManager(this, childPosition,
+                dockingAreaManagers.put(childPosition, new DockingAreaManager<>(this, childPosition,
                         SplitLevel.valueOf(level.getLevel() + 1)));
             }
             dockingAreaManagers.get(childPosition).addDockingArea(path, dockingArea);
@@ -91,8 +91,8 @@ public class DockingAreaManager<A extends DockingArea<A>> {
         return getNonEmptyAreaManagers().size() + getVisualizableDockingAreas().size();
     }
 
-    private Map<Integer, DockingAreaManager> getNonEmptyAreaManagers() {
-        Map<Integer, DockingAreaManager> nonEmptyAreaManagers = new HashMap<>();
+    private Map<Integer, DockingAreaManager<A>> getNonEmptyAreaManagers() {
+        Map<Integer, DockingAreaManager<A>> nonEmptyAreaManagers = new HashMap<>();
         dockingAreaManagers.entrySet().stream().
                 filter(entry -> entry.getValue().getActualContentSize() > 0).
                 forEach(entry -> nonEmptyAreaManagers.put(entry.getKey(), entry.getValue()));
@@ -137,7 +137,7 @@ public class DockingAreaManager<A extends DockingArea<A>> {
     private List<ShortPathPart> calculateReversedShortPath(A dockingArea) {
         List<ShortPathPart> shortPath = new ArrayList<>();
         int currentChildPosition = dockingArea.getPosition();
-        for (DockingAreaManager currentParent = this; currentParent != null; currentParent = currentParent.parent) {
+        for (DockingAreaManager<A> currentParent = this; currentParent != null; currentParent = currentParent.parent) {
             if (currentParent.isShortPathRelevant(currentChildPosition, shortPath.isEmpty())) {
                 shortPath.add(currentParent.createShortPathPart(currentChildPosition));
             }
