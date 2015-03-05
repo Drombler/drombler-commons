@@ -78,7 +78,7 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
      * {@inheritDoc}
      */
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 

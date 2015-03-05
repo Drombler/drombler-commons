@@ -72,7 +72,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     }
 
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 

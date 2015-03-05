@@ -51,8 +51,8 @@ public class LocalDatePicker extends Control {
      * and {@link FormatStyle#MEDIUM}:<br><br>
      * {@code new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))}
      */
-    private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<DataRenderer<? super LocalDate>>(
-            this, "dataRenderer",
+    private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<>(this,
+            "dataRenderer",
             new FormatterDataRenderer<>(new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))));
     /**
      * The {@link Parser} used to parse the text of text field to a
@@ -117,7 +117,7 @@ public class LocalDatePicker extends Control {
      * {@inheritDoc}
      */
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 

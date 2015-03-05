@@ -85,7 +85,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     }
 
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 
