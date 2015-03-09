@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.fx.samples.docking;
 
-import java.io.IOException;
 import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -59,7 +58,7 @@ public class DockingSampleApplication extends Application {
     private DockingManager dockingManager;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage)  {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
@@ -81,17 +80,13 @@ public class DockingSampleApplication extends Application {
         leftDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(LeftTestPane.class)));
         LeftTestPane leftTestPane = new LeftTestPane();
         leftTestPane.setOnNewSampleAction((ActionEvent event) -> {
-            try {
-                sampleCounter++;
-                Sample sample = new Sample("Sample " + sampleCounter);
-                FXDockableData sampleDockableData = new FXDockableData();
-                SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
-                sampleEditorPane.setDockableData(sampleDockableData);
-                dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
-                        dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
-            } catch (IOException ex) {
-                LOG.error(ex.getMessage(), ex);
-            }
+            sampleCounter++;
+            Sample sample = new Sample("Sample " + sampleCounter);
+            FXDockableData sampleDockableData = new FXDockableData();
+            SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
+            sampleEditorPane.setDockableData(sampleDockableData);
+            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
+                    dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
         });
         final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, leftDockableData,
                 dockablePreferencesManager.getDockablePreferences(leftTestPane));
@@ -173,15 +168,14 @@ public class DockingSampleApplication extends Application {
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
         // TODO: set default
-        centerAreaDescriptor.setLayoutConstraints(new LayoutConstraintsDescriptor());
+        centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
 
         DockingAreaDescriptor topAreaDescriptor = new DockingAreaDescriptor();
         topAreaDescriptor.setId(TOP_AREA_ID);
         topAreaDescriptor.setParentPath(Arrays.asList(20, 40, 20));
         topAreaDescriptor.setPosition(20);
         topAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        topLayoutConstraintsDescriptor.setPrefHeight(100.0);
+        LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         topAreaDescriptor.setLayoutConstraints(topLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor bottomAreaDescriptor = new DockingAreaDescriptor();
@@ -189,8 +183,7 @@ public class DockingSampleApplication extends Application {
         bottomAreaDescriptor.setParentPath(Arrays.asList(20, 40, 80));
         bottomAreaDescriptor.setPosition(20);
         bottomAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        bottomLayoutConstraintsDescriptor.setPrefHeight(100.0);
+        LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         bottomAreaDescriptor.setLayoutConstraints(bottomLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor leftAreaDescriptor = new DockingAreaDescriptor();
@@ -198,8 +191,7 @@ public class DockingSampleApplication extends Application {
         leftAreaDescriptor.setParentPath(Arrays.asList(20, 20));
         leftAreaDescriptor.setPosition(20);
         leftAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        leftLayoutConstraintsDescriptor.setPrefWidth(200.0);
+        LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         leftAreaDescriptor.setLayoutConstraints(leftLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
@@ -207,8 +199,7 @@ public class DockingSampleApplication extends Application {
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        rightLayoutConstraintsDescriptor.setPrefWidth(200.0);
+        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 
         dockingPane.getDockingAreaDescriptors().add(centerAreaDescriptor);

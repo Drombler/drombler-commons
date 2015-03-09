@@ -20,6 +20,8 @@ import java.util.Objects;
 /**
  * The Docking Area descriptor describes a Docking Area.
  *
+ * TODO: Immutable?
+ *
  * @author puce
  */
 public final class DockingAreaDescriptor {
@@ -35,7 +37,6 @@ public final class DockingAreaDescriptor {
      */
     public DockingAreaDescriptor() {
     }
-
 
     /**
      * Gets the Docking Area ID.
@@ -103,7 +104,7 @@ public final class DockingAreaDescriptor {
 
     /**
      * Specifies if the Docking Area should be permanently visible. If true, the Docking Area is visible also when it's
-     * empty (permanently visible), else the Docking Area is only     * visible when it's not empty.
+     * empty (permanently visible), else the Docking Area is only visible when it's not empty.
      *
      * @param permanent If true, the Docking Area is visible also when it's empty (permanently visible), else the
      * Docking Area is only visible when it's not empty
@@ -162,6 +163,5 @@ public final class DockingAreaDescriptor {
     public String toString() {
         return "DockingAreaDescriptor{" + "id=" + id + ", position=" + position + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
     }
-
 
 }

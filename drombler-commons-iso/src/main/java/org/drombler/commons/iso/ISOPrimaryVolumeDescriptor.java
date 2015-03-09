@@ -12,14 +12,18 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene;
+package org.drombler.commons.iso;
+
+import java.nio.ByteBuffer;
 
 /**
- * Note: might be removed in a future version!
  *
  * @author puce
  */
-@FunctionalInterface
-public interface EventHandlerRegistrar {
-    void registerEventHandler();
+public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
+
+    public ISOPrimaryVolumeDescriptor(ByteBuffer byteBuffer) {
+        super(ISOVolumeDescriptorType.PRIMARY_VOLUME_DESCRIPTOR, byteBuffer);
+    }
+
 }

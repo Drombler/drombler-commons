@@ -15,33 +15,16 @@
 package org.drombler.commons.fx.samples.time;
 
 import java.io.IOException;
-import java.io.InputStream;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import org.softsmithy.lib.util.ResourceFileNotFoundException;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class DateTimeEditorPane2 extends BorderPane {
 
-    private static final String FXML_EXTENSION = ".fxml";
-
     public DateTimeEditorPane2() throws IOException {
         loadFXML();
-
     }
 
     private void loadFXML() throws IOException {
-        Class<DateTimeEditorPane2> type = DateTimeEditorPane2.class;
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.setClassLoader(type.getClassLoader());
-
-        try (InputStream is = type.getResourceAsStream(type.getSimpleName() + FXML_EXTENSION)) {
-            if (is == null) {
-                // avoid NullPointerException
-                throw new ResourceFileNotFoundException("/" + type.getName().replace(".", "/") + FXML_EXTENSION);
-            }
-            fxmlLoader.load(is);
-        }
+        FXMLLoaders.loadRoot(this);
     }
 }

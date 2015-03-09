@@ -95,7 +95,7 @@ public class LocalDateChooser extends Control {
      * {@inheritDoc}
      */
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 

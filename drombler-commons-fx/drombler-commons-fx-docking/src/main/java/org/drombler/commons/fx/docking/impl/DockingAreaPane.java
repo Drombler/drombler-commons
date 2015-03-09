@@ -25,6 +25,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
+import org.drombler.commons.client.docking.spi.DockingArea;
+import org.drombler.commons.client.docking.spi.DockingAreaManager;
 import org.drombler.commons.client.docking.spi.ShortPathPart;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
@@ -36,7 +38,7 @@ import org.softsmithy.lib.util.Positionables;
  *
  * @author puce
  */
-public class DockingAreaPane extends DockingSplitPaneChildBase {
+public class DockingAreaPane extends DockingSplitPaneChildBase implements DockingArea<DockingAreaPane> {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-area-pane";
     /**
@@ -59,18 +61,18 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
-    private LayoutConstraintsDescriptor layoutConstraints;
 
-    public DockingAreaPane(String areaId, int position, boolean permanent) {
+    public DockingAreaPane(String areaId, int position, boolean permanent, LayoutConstraintsDescriptor layoutConstraints) {
         super(false);
         this.areaId = areaId;
         this.position = position;
         this.permanent = permanent;
+        setLayoutConstraints(layoutConstraints);
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 
@@ -81,6 +83,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return areaId;
     }
 
+    @Override
     public int getPosition() {
         return position;
     }
@@ -140,7 +143,8 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
         return permanent;
     }
 
-    void setParentManager(DockingAreaManager parentManager) {
+    @Override
+    public void setParentManager(DockingAreaManager<DockingAreaPane> parentManager) {
         this.parentManager = parentManager;
     }
 
@@ -169,17 +173,19 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
     // the docking area is not visualizable (empty) but still visualized 
     // (child of a DockingSplitPane; and thus has to be removed from it)
     //TODO: good name?
+    @Override
     public boolean isVisual() {
         return isVisualizable() || isVisualized();
     }
 
     @Override
-    public LayoutConstraintsDescriptor getLayoutConstraints() {
-        return layoutConstraints;
-    }
-
-    public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
-        this.layoutConstraints = layoutConstraints;
+    public void updateLayoutConstraints() {
+        if (LayoutConstraintsDescriptor.isPreferred(getLayoutConstraints().getPrefWidth())) {
+            getLayoutConstraints().setPrefWidth(getWidth());
+        }
+        if (LayoutConstraintsDescriptor.isPreferred(getLayoutConstraints().getPrefHeight())) {
+            getLayoutConstraints().setPrefHeight(getHeight());
+        }
     }
 
     @Override
@@ -189,4 +195,5 @@ public class DockingAreaPane extends DockingSplitPaneChildBase {
                 + ", visuablizable=" + isVisualizable()
                 + ", visualized=" + isVisualized() + "]";
     }
+
 }

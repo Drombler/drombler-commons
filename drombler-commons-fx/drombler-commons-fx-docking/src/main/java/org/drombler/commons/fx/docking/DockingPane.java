@@ -71,13 +71,14 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
                 dockableEntryMap.remove(change.getElementRemoved().getDockable());
             }
         });
+        setFocusTraversable(false);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String getUserAgentStylesheet() {
+    public String getUserAgentStylesheet() {
         return Stylesheets.getDefaultStylesheet();
     }
 

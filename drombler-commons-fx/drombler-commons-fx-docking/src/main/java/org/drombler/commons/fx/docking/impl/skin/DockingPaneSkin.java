@@ -26,10 +26,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.client.docking.DockingAreaDescriptor;
+import org.drombler.commons.client.docking.spi.DockingAreaManager;
 import org.drombler.commons.client.docking.spi.SplitLevel;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableEntry;
-import org.drombler.commons.fx.docking.impl.DockingAreaManager;
 import org.drombler.commons.fx.docking.impl.DockingAreaPane;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
 import org.slf4j.Logger;
@@ -46,8 +46,9 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     private DockingPane control;
     private BorderPane pane = new BorderPane();
-    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, 0, SplitLevel.ROOT);
-    private final DockingAreaManager rootDockingAreaManager = new DockingAreaManager(null, 0, SplitLevel.ROOT);
+    private DockingSplitPane rootSplitPane = new DockingSplitPane(0, SplitLevel.ROOT);
+    private final DockingAreaManager<DockingAreaPane> rootDockingAreaManager = new DockingAreaManager<>(null, 0,
+            SplitLevel.ROOT);
     private final Map<String, DockingAreaPane> dockingAreaPanes = new HashMap<>();
     private final ChangeListener<Node> focusOwnerChangeListener = new FocusOwnerChangeListener();
     private final SetChangeListener<DockingAreaDescriptor> dockingAreaDescriptorSetChangeListener = change -> {
@@ -149,8 +150,8 @@ public class DockingPaneSkin implements Skin<DockingPane> {
 
     private DockingAreaPane createDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
         DockingAreaPane dockingAreaPane = new DockingAreaPane(dockingAreaDescriptor.getId(),
-                dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent());
-        dockingAreaPane.setLayoutConstraints(dockingAreaDescriptor.getLayoutConstraints());
+                dockingAreaDescriptor.getPosition(), dockingAreaDescriptor.isPermanent(),
+                dockingAreaDescriptor.getLayoutConstraints());
         return dockingAreaPane;
     }
 
@@ -190,8 +191,10 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         @Override
         public void onChanged(ListChangeListener.Change<? extends PositionableAdapter<FXDockableEntry>> change) {
             if (dockingArea.isVisualizable() && !dockingArea.isVisualized()) {
+                LOG.debug("Add visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.addDockingArea(dockingArea);
             } else if (!dockingArea.isVisualizable() && dockingArea.isVisualized()) {
+                LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.removeDockingArea(dockingArea);
             }
         }

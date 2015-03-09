@@ -14,43 +14,55 @@
  */
 package org.drombler.commons.fx.docking.impl.skin;
 
-import java.util.Arrays;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
-import javafx.scene.control.Skin;
+import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitPane;
-import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.fx.docking.impl.DockingSplitPane;
-import org.drombler.commons.fx.docking.impl.DockingSplitPaneChildBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  *
  * @author puce
  */
-public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
+public class DockingSplitPaneSkin extends SkinBase<DockingSplitPane> {
+
     private static final Logger LOG = LoggerFactory.getLogger(DockingSplitPaneSkin.class);
+    private DividerPositionRecalculator dividerPositionRecalculator;
+    private LayoutConstraintsDescriptorManager layoutConstraintsDescriptorManager;
+    private DockingSplitPaneChildPreferencesManager dockingSplitPaneChildPreferencesManager;
 
-    private DockingSplitPane control;
-    private SplitPane splitPane = new SplitPane();
+    private SplitPane splitPane = new SplitPane() {
 
-    private final ListChangeListener<Node> splitPaneItemsListener = change -> recalculateDividerPositions();
+        @Override
+        protected void layoutChildren() {
+//            try {
+//                throw new IllegalArgumentException();
+//            } catch (IllegalArgumentException e) {
+//                e.printStackTrace();
+//            }
+            LOG.debug("{}: layoutChildren...", getSkinnable());
+            layoutConstraintsDescriptorManager.setAdjusting(true);
+            super.layoutChildren();
+            layoutConstraintsDescriptorManager.setAdjusting(false);
+            LOG.debug("{}: layoutChildren finished!", getSkinnable());
+        }
 
-    private final ChangeListener<Number> sizeChangeListener = (ov, oldValue, newValue) -> recalculateDividerPositions();
+//        @Override
+//        public void requestLayout() {
+//            LOG.debug("{}: requestLayout...", getSkinnable());
+//            super.requestLayout(); //To change body of generated methods, choose Tools | Templates.
+//        }
+    };
 
     public DockingSplitPaneSkin(DockingSplitPane control) {
-        this.control = control;
-        splitPane.orientationProperty().bind(this.control.orientationProperty());
+        super(control);
+        getChildren().add(splitPane);
+        splitPane.orientationProperty().bind(getSkinnable().orientationProperty());
 //        splitPane.getItems().addAll(control.getDockingSplitPaneChildren());
         Bindings.bindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
-        this.splitPane.getItems().addListener(splitPaneItemsListener);
 
-        this.control.getDockingSplitPaneChildren().addListener(splitPaneItemsListener);
+//        this.control.getDockingSplitPaneChildren().forEach(child -> addChildListeners(child));
 //        control.getDockingSplitPaneChildren().addListener(new ListChangeListener<DockingSplitPaneChildBase>() {
 //
 //            @Override
@@ -88,118 +100,56 @@ public class DockingSplitPaneSkin implements Skin<DockingSplitPane> {
 ////                }
 //            }
 //        });
+        layoutConstraintsDescriptorManager = new LayoutConstraintsDescriptorManager(control, splitPane);
+        dockingSplitPaneChildPreferencesManager = new DockingSplitPaneChildPreferencesManager(control);
 
-        control.widthProperty().addListener(sizeChangeListener);
-        control.heightProperty().addListener(sizeChangeListener);
-        recalculateDividerPositions();
+        dividerPositionRecalculator = new DividerPositionRecalculator(control, splitPane);
+        dividerPositionRecalculator.adjustingProperty().bindBidirectional(
+                layoutConstraintsDescriptorManager.adjustingProperty());
+        dividerPositionRecalculator.recalculateDividerPositions();
     }
 
-    private void recalculateDividerPositions() {
-        LOG.debug("Split Pane: " + control + ": Orientation: " + control.getOrientation());
-        if (control.getOrientation().equals(Orientation.HORIZONTAL)) {
-            recalculateDividerPositionsHorizontal();
-        } else {
-            recalculateDividerPositionsVertical();
-        }
-    }
-
-    private void recalculateDividerPositionsHorizontal() {
-        double[] prefWidths = new double[control.getDockingSplitPaneChildren().size()];
-        double[] currentWidths = new double[control.getDockingSplitPaneChildren().size()];
-
-        int i = 0;
-        for (DockingSplitPaneChildBase child : control.getDockingSplitPaneChildren()) {
-            LayoutConstraintsDescriptor layoutConstraints = child.getLayoutConstraints();
-            prefWidths[i] = layoutConstraints.getPrefWidth();
-            currentWidths[i] = child.getWidth();
-            i++;
-        }
-
-        recalculateDividerPositions(prefWidths, currentWidths, control.getWidth());
-    }
-
-    private void recalculateDividerPositionsVertical() {
-        double[] prefHeights = new double[control.getDockingSplitPaneChildren().size()];
-        double[] currentHeights = new double[control.getDockingSplitPaneChildren().size()];
-
-        int i = 0;
-        for (DockingSplitPaneChildBase child : control.getDockingSplitPaneChildren()) {
-            LayoutConstraintsDescriptor layoutConstraints = child.getLayoutConstraints();
-            prefHeights[i] = layoutConstraints.getPrefHeight();
-            currentHeights[i] = child.getHeight();
-            i++;
-        }
-        recalculateDividerPositions(prefHeights, currentHeights, control.getHeight());
-    }
-
-    private void recalculateDividerPositions(double[] prefs, double[] current, double parentSize) {
-        LOG.debug("######################");
-        LOG.debug("Level: " + control.getLevel() + "; orientation: " + control.getOrientation());
-        LOG.debug("Parent size: " + parentSize);
-        double[] relativeSizes = new double[prefs.length];
-        double requiredRelativeSize = 0;
-        int flexiblePositions = 0;
-        if (parentSize > 0) {
-            for (int i = 0; i < prefs.length; i++) {
-                if (prefs[i] > 0) {
-                    relativeSizes[i] = prefs[i] / parentSize;
-                    requiredRelativeSize += relativeSizes[i];
-                } else {
-                    relativeSizes[i] = prefs[i];
-                    flexiblePositions++;
-                }
-                LOG.debug(
-                        i + ": pref: " + prefs[i] + " -> current: " + current[i] + " -> relative pref: " + relativeSizes[i]);
-            }
-
-            if (requiredRelativeSize > 1) {
-                // TODO: shrink sizes
-            }
-
-            if (flexiblePositions > 0) {
-                double flexibleRelativeSize = (1 - requiredRelativeSize) / flexiblePositions;
-                for (int i = 0; i < prefs.length; i++) {
-                    if (prefs[i] < 0) {
-                        relativeSizes[i] = flexibleRelativeSize;
-                    }
-                }
-            }
-
-            double currentPosition = 0;
-            for (int i = 0; i < relativeSizes.length - 1; i++) {
-                if (relativeSizes[i] > 0) {
-                    currentPosition += relativeSizes[i];
-                    splitPane.setDividerPosition(i, currentPosition);
-                    LOG.debug(
-                            "Set divider position: " + i + " to " + currentPosition + ". Actual position: " + splitPane.
-                            getDividerPositions()[i]);
-                }
-            }
-        }
-        LOG.debug("Actual divider positions: " + Arrays.toString(splitPane.getDividerPositions()));
-        LOG.debug("######################");
-        LOG.debug("                      ");
-    }
-
-    @Override
-    public DockingSplitPane getSkinnable() {
-        return control;
-    }
-
-    @Override
-    public Node getNode() {
-        return splitPane;
-    }
-
+//    private void addChildListeners(DockingSplitPaneChildBase child) {
+//        if (child instanceof DockingSplitPane) {
+//            ((DockingSplitPane) child).layoutConstraintsProperty().addListener(sizeChangeListener);
+//        }
+//        child.widthProperty().addListener(sizeChangeListener);
+//        child.heightProperty().addListener(sizeChangeListener);
+//    }
+//
+//    private void removeChildListeners(DockingSplitPaneChildBase child) {
+//        if (child instanceof DockingSplitPane) {
+//            ((DockingSplitPane) child).layoutConstraintsProperty().removeListener(sizeChangeListener);
+//        }
+//        child.widthProperty().removeListener(sizeChangeListener);
+//        child.heightProperty().removeListener(sizeChangeListener);
+//    }
     @Override
     public void dispose() {
-        Bindings.unbindContent(splitPane.getItems(), control.getDockingSplitPaneChildren());
-        splitPane.getItems().removeListener(splitPaneItemsListener);
-        control.getDockingSplitPaneChildren().removeListener(splitPaneItemsListener);
-        control.widthProperty().removeListener(sizeChangeListener);
-        control.heightProperty().removeListener(sizeChangeListener);
+        Bindings.unbindContent(splitPane.getItems(), getSkinnable().getDockingSplitPaneChildren());
+//        splitPane.getItems().removeListener(splitPaneItemsListener);
 
-        control = null;
+//        control.getDockingSplitPaneChildren().forEach(child -> removeChildListeners(child));
+        dividerPositionRecalculator.close();
+        dividerPositionRecalculator.adjustingProperty().unbindBidirectional(layoutConstraintsDescriptorManager.
+                adjustingProperty());
+        dividerPositionRecalculator = null;
+
+        dockingSplitPaneChildPreferencesManager.close();
+        dockingSplitPaneChildPreferencesManager = null;
+
+        layoutConstraintsDescriptorManager.close();
+        layoutConstraintsDescriptorManager = null;
+
         splitPane = null;
+
+        super.dispose();
     }
+//
+//    @Override
+//    protected void layoutChildren(double contentX, double contentY, double contentWidth, double contentHeight) {
+//        super.layoutChildren(contentX, contentY, contentWidth, contentHeight);
+//        recalculateDividerPositions2();
+//    }
+
 }

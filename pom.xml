@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.6-SNAPSHOT</version>
+        <version>0.7-SNAPSHOT</version>
         <relativePath>drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons</artifactId>
@@ -72,13 +72,20 @@ Contributor(s): .
         <module>drombler-commons-context</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-client</module>
-    </modules>
+        <module>drombler-commons-logging-slf4j-cdi</module>
+        <module>drombler-commons-iso</module>
+  </modules>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-logging-slf4j-cdi</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

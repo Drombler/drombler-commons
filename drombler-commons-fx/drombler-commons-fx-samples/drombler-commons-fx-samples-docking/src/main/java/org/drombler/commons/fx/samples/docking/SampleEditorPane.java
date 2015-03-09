@@ -15,7 +15,6 @@
 package org.drombler.commons.fx.samples.docking;
 
 
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -33,14 +32,14 @@ public class SampleEditorPane extends GridPane implements DockableDataSensitive<
     private TextField nameField;
     private FXDockableData dockableData;
 
-    public SampleEditorPane(Sample sample) throws IOException {
+    public SampleEditorPane(Sample sample)  {
         loadFXML();
         this.sample = sample;
 
         nameField.setText(sample.getName());
     }
 
-    private void loadFXML() throws IOException {
+    private void loadFXML()  {
         FXMLLoaders.loadRoot(this, ResourceBundleUtils.getPackageResourceBundle(SampleEditorPane.class));
     }
 
@@ -51,7 +50,7 @@ public class SampleEditorPane extends GridPane implements DockableDataSensitive<
     @Override
     public void setDockableData(FXDockableData dockableData) {
         this.dockableData = dockableData;
-        dockableData.titleProperty().bind(nameField.textProperty());
+        this.dockableData.titleProperty().bind(nameField.textProperty());
     }
 
 

@@ -23,22 +23,22 @@ import java.util.Objects;
 public class ShortPathPart {
 
     private final int position;
-    private final SplitLevel inActualLevel;
+    private final SplitLevel inLogicalLevel;
 
     /**
-     * {@code inActualLevel} refers to the parent, so read it as: The {@code position} in the split pane at the actual
-     * (not shortened) level {@code inActualLevel}.
+     * {@code inLogicalLevel} refers to the parent, so read it as: The {@code position} in the split pane at the logical
+     * (not shortened) level {@code inLogicalLevel}.
      *
      * @param position
-     * @param inActualLevel
+     * @param inLogicalLevel
      */
-    public ShortPathPart(int position, int inActualLevel) {
-        this(position, SplitLevel.valueOf(inActualLevel));
+    public ShortPathPart(int position, int inLogicalLevel) {
+        this(position, SplitLevel.valueOf(inLogicalLevel));
     }
 
-    public ShortPathPart(int position, SplitLevel inActualLevel) {
+    public ShortPathPart(int position, SplitLevel inLogicalLevel) {
         this.position = position;
-        this.inActualLevel = inActualLevel;
+        this.inLogicalLevel = inLogicalLevel;
     }
 
     /**
@@ -51,8 +51,8 @@ public class ShortPathPart {
     /**
      * @return the level
      */
-    public SplitLevel getInActualLevel() {
-        return inActualLevel;
+    public SplitLevel getInLogicalLevel() {
+        return inLogicalLevel;
     }
 
     /**
@@ -60,7 +60,7 @@ public class ShortPathPart {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(position, inActualLevel);
+        return Objects.hash(position, inLogicalLevel);
     }
 
     /**
@@ -78,7 +78,7 @@ public class ShortPathPart {
         ShortPathPart other = (ShortPathPart) obj;
 
         return position == other.position
-                && Objects.equals(inActualLevel, other.inActualLevel);
+                && Objects.equals(inLogicalLevel, other.inLogicalLevel);
     }
 
     /**
@@ -86,6 +86,6 @@ public class ShortPathPart {
      */
     @Override
     public String toString() {
-        return "ShortPathPart[" + "position=" + position + ", inActualLevel=" + inActualLevel + ']';
+        return "ShortPathPart[position=" + position + ", inLogicalLevel=" + inLogicalLevel + ']';
     }
 }

@@ -46,8 +46,9 @@ public class ContextSampleApplication extends Application {
     public static final String CENTER_AREA_ID = "center";
 
     private DockingManager dockingManager;
+
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
@@ -155,14 +156,13 @@ public class ContextSampleApplication extends Application {
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
         // TODO: set default
-        centerAreaDescriptor.setLayoutConstraints(new LayoutConstraintsDescriptor());
+        centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
         rightAreaDescriptor.setId(RIGHT_AREA_ID);
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
-        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = new LayoutConstraintsDescriptor();
-        rightLayoutConstraintsDescriptor.setPrefWidth(200.0);
+        LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 
         dockingPane.getDockingAreaDescriptors().add(centerAreaDescriptor);

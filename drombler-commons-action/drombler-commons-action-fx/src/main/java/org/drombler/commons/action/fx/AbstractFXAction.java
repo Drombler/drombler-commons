@@ -48,7 +48,6 @@ public abstract class AbstractFXAction implements FXAction {
     private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
             null);
 
-
     @Override
     public final String getDisplayName() {
         return displayNameProperty().get();
@@ -118,8 +117,10 @@ public abstract class AbstractFXAction implements FXAction {
         }
 
         private void set(boolean newValue) {
-            enabled = newValue;
-            fireValueChangedEvent();
+            if (enabled != newValue) {
+                enabled = newValue;
+                fireValueChangedEvent();
+            }
         }
 
         @Override

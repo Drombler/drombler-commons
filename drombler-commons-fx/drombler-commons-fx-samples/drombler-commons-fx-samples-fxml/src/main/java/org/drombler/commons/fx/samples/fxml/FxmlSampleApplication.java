@@ -36,7 +36,7 @@ public class FxmlSampleApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         FXMLLoader loader = FXMLLoaders.createFXMLLoader(FxmlSampleApplication.class.getClassLoader());
         Parent root = FXMLLoaders.load(loader, FxmlSampleApplication.class);
         FXMLLoaders.resetFXMLLoader(loader);

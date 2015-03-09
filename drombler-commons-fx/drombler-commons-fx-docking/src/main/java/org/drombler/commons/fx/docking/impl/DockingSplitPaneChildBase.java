@@ -14,10 +14,15 @@
  */
 package org.drombler.commons.fx.docking.impl;
 
+import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Control;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,8 +31,11 @@ import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 // TODO: consider to implement Positionable
 public abstract class DockingSplitPaneChildBase extends Control {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DockingSplitPaneChildBase.class);
+
     private final ObjectProperty<DockingSplitPane> parentSplitPane = new SimpleObjectProperty<>(this,
             "parentSplitPane", null);
+    private final LayoutConstraintsProperty layoutConstraints = new LayoutConstraintsProperty();
     /**
      * Flag that indicates if this child is a {@link DockingSplitPane}.
      */
@@ -35,6 +43,7 @@ public abstract class DockingSplitPaneChildBase extends Control {
 
     public DockingSplitPaneChildBase(boolean splitPane) {
         this.splitPane = splitPane;
+        setFocusTraversable(false);
     }
 
     public DockingSplitPane getParentSplitPane() {
@@ -53,5 +62,47 @@ public abstract class DockingSplitPaneChildBase extends Control {
         return splitPane;
     }
 
-    public abstract LayoutConstraintsDescriptor getLayoutConstraints();
+    public final LayoutConstraintsDescriptor getLayoutConstraints() {
+        return layoutConstraintsProperty().get();
+    }
+
+    protected void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
+        this.layoutConstraints.set(layoutConstraints);
+        // TODO: good?
+        requestParentLayout();
+    }
+
+    public ReadOnlyObjectProperty<LayoutConstraintsDescriptor> layoutConstraintsProperty() {
+        return layoutConstraints;
+    }
+
+    public abstract void updateLayoutConstraints();
+
+    private class LayoutConstraintsProperty extends ReadOnlyObjectPropertyBase<LayoutConstraintsDescriptor> {
+
+        private LayoutConstraintsDescriptor layoutConstraints = null;
+
+        @Override
+        public final LayoutConstraintsDescriptor get() {
+            return layoutConstraints;
+        }
+
+        private void set(LayoutConstraintsDescriptor newValue) {
+            if (!Objects.equals(layoutConstraints, newValue)) {
+                LOG.debug("{}: layoutConstraints changed! old: {} -> new: {}", getBean(), layoutConstraints, newValue);
+                layoutConstraints = newValue;
+                fireValueChangedEvent();
+            }
+        }
+
+        @Override
+        public Object getBean() {
+            return DockingSplitPaneChildBase.this;
+        }
+
+        @Override
+        public String getName() {
+            return "layoutConstraints";
+        }
+    }
 }

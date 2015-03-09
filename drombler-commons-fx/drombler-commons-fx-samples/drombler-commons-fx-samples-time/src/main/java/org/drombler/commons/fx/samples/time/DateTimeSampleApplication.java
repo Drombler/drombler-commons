@@ -15,10 +15,10 @@
 package org.drombler.commons.fx.samples.time;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 /**
  *
@@ -29,9 +29,8 @@ import javafx.stage.Stage;
 public class DateTimeSampleApplication extends Application{
      
     @Override
-    public void start(Stage stage) throws Exception {
-        Class<DateTimeSampleApplication> type = DateTimeSampleApplication.class;
-        Parent root = FXMLLoader.load(type.getResource(type.getSimpleName()+".fxml"));
+    public void start(Stage stage) {
+        Parent root = FXMLLoaders.load(getClass());
     
         Scene scene = new Scene(root, 1500, 1000);
     
