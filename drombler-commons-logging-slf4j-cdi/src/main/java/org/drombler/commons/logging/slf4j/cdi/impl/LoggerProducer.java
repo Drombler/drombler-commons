@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.logging.slf4j.cdi.impl;
 
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 import org.slf4j.Logger;
@@ -24,9 +23,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author puce
  */
-@OsgiServiceProvider
 public class LoggerProducer {
-    @Produces
+
+//    @Produces
+    @OsgiServiceProvider
     public Logger getLogger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
