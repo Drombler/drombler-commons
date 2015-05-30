@@ -23,13 +23,53 @@ import java.nio.ByteBuffer;
 public final class ISOUtils {
 
     private static final short MAX_UNSIGNED_BYTE = 0xFF;
+//    private static final long MAX_UNSIGNED_INT32 = 0xFFFFFFFF;
+    private static final int NUM_LONG_BITS = 8;
+    private static final int NUM_INTEGER_BITS = 4;
+    private static final int NUM_SHORT_BITS = 2;
+
     private ISOUtils() {
     }
 
-    public static String getStringA(ByteBuffer byteBuffer, int length) {
+    private static String getStringA(ByteBuffer byteBuffer, int length) {
+        byte[] dst = getBytes(byteBuffer, length);
+        return new String(dst);
+    }
+
+    private static byte[] getBytes(ByteBuffer byteBuffer, int length) {
         byte[] dst = new byte[length];
         byteBuffer.get(dst);
-        return new String(dst);
+        return dst;
+    }
+
+    public static String getStringATrimmed(ByteBuffer byteBuffer, int length) {
+        return getStringA(byteBuffer, length).trim();
+    }
+
+    private static String getStringD(ByteBuffer byteBuffer, int length) {
+        return getStringA(byteBuffer, length);
+    }
+
+    public static String getStringDTrimmed(ByteBuffer byteBuffer, int length) {
+        return getStringD(byteBuffer, length).trim();
+    }
+
+    public static long getUnsignedInt32LSBMSB(ByteBuffer byteBuffer) {
+        byte[] bytes = getBytes(byteBuffer, 2 * NUM_INTEGER_BITS);
+        long value = 0;
+        for (int i = 0; i < NUM_INTEGER_BITS; i++) {
+            value += getUnsignedByte(bytes[i]) << (NUM_LONG_BITS * i);
+        }
+        return value;
+    }
+
+    public static int getUnsignedInt16LSBMSB(ByteBuffer byteBuffer) {
+        byte[] bytes = getBytes(byteBuffer, 2 * NUM_SHORT_BITS);
+        int value = 0;
+        for (int i = 0; i < NUM_SHORT_BITS; i++) {
+            value += getUnsignedByte(bytes[i]) << (NUM_INTEGER_BITS * i);
+        }
+        return value;
     }
 
     public static short getUnsignedByte(byte value) {

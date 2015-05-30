@@ -8,22 +8,28 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (Sourceforge.net user: puce).
- * Copyright 2012 Drombler.org. All Rights Reserved.
+ * Copyright 2015 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
+ */package org.drombler.commons.logging.slf4j.cdi.impl;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.slf4j.Logger;
+
+/**
+ *
+ * @author puce
  */
-package org.drombler.commons.fx.samples.time;
+@ApplicationScoped
+@OsgiServiceProvider
+public class TestBean {
 
-import javafx.scene.layout.BorderPane;
-import org.drombler.commons.fx.fxml.FXMLLoaders;
+    @Inject
+    private Logger logger;
 
-public class DateTimeEditorPane2 extends BorderPane {
-
-    public DateTimeEditorPane2() {
-        loadFXML();
-    }
-
-    private void loadFXML() {
-        FXMLLoaders.loadRoot(this);
+    public void test() {
+        logger.info("test");
     }
 }

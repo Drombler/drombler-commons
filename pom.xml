@@ -74,7 +74,7 @@ Contributor(s): .
         <module>drombler-commons-client</module>
         <module>drombler-commons-logging-slf4j-cdi</module>
         <module>drombler-commons-iso</module>
-  </modules>
+    </modules>
     
     <dependencyManagement>
         <dependencies>
@@ -118,6 +118,7 @@ Contributor(s): .
             <modules>
                 <module>drombler-commons-security-srp-server</module>
                 <module>drombler-commons-security-srp-client</module>
+                <module>drombler-commons-iso</module>
             </modules>
         </profile>
     </profiles>

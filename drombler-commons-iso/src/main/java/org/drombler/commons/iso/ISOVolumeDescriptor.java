@@ -33,7 +33,7 @@ public abstract class ISOVolumeDescriptor {
 
     protected ISOVolumeDescriptor(ISOVolumeDescriptorType type, ByteBuffer byteBuffer) {
         this.type = type;
-        identifier = ISOUtils.getStringA(byteBuffer, 5);
+        identifier = ISOUtils.getStringATrimmed(byteBuffer, 5);
         if (!identifier.equals(IDENTIFIER)) {
             throw new IllegalArgumentException(
                     "The identifier must be " + IDENTIFIER + " but was: " + identifier);

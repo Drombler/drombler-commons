@@ -15,8 +15,8 @@
 package org.drombler.commons.fx.samples.time;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -30,7 +30,7 @@ public class DateTimeSampleApplication extends Application{
      
     @Override
     public void start(Stage stage) {
-        Parent root = FXMLLoaders.load(getClass());
+        BorderPane root = FXMLLoaders.load(getClass());
     
         Scene scene = new Scene(root, 1500, 1000);
     
