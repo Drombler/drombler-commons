@@ -25,7 +25,7 @@ Contributor(s): .
     <artifactId>drombler-commons-action</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - Action - All</name>
+    <name>Drombler Commons - Action</name>
     <description>An Action Framework, which keeps the state (enabled/ disabled, selected/ unselected etc.), 
         the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync.</description>
     <inceptionYear>2014</inceptionYear>
