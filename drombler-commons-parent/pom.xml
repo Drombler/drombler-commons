@@ -50,10 +50,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <!-- id to use with the standard site plugin with the git wagon -->
-            <id>ssh</id>
-            <!-- id to use with the GitHub site plugin -->
-            <!--<id>github</id>-->
+            <id>github</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
