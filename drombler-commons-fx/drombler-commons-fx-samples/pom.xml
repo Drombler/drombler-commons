@@ -23,7 +23,7 @@ Contributor(s): .
     </parent>
     <artifactId>drombler-commons-fx-samples</artifactId>
     <packaging>pom</packaging>
-    <name>Drombler Commons - FX - Samples - All</name>
+    <name>Drombler Commons - FX - Samples</name>
     <description>Drombler Commons - FX - Samples is a collection of samples showing features of Drombler Commons - FX.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->

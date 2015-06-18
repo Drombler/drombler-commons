@@ -50,7 +50,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
@@ -58,10 +58,13 @@ Contributor(s): .
 
     <properties>
         <!-- Dev Environment Defaults -->
-        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
-        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
-        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/${project.version}/docs/site</distributionManagement.parent.url>
+        <scm.parent.connection>scm:git:https://github.com/Drombler/drombler-commons.git</scm.parent.connection>
+        <scm.parent.developerConnection>scm:git:git@github.com:Drombler/drombler-commons.git</scm.parent.developerConnection>
+        <scm.parent.url>https://github.com/Drombler/drombler-commons</scm.parent.url>
+        <!-- URL to use with the standard site plugin with the git wagon -->
+        <distributionManagement.parent.url>github:https://drombler.github.io/drombler-commons/${project.version}/docs/site</distributionManagement.parent.url>
+        <!-- URL to use with the GitHub site plugin -->
+        <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <excludePackageNamesAggregate>${excludePackageNames}:*.maven.plugin.*:*.samples.*:org.drombler.commons.iso</excludePackageNamesAggregate>
         <!--<url.parent>http://www.drombler.org/DromblerCommons/${project.version}/docs/site/</url.parent>-->
         
