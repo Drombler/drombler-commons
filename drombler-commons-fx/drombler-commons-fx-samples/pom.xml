@@ -38,7 +38,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.fx.samples.parent.url}/</url>
         </site>
     </distributionManagement>

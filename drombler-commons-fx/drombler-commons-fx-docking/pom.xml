@@ -39,7 +39,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.fx.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>
@@ -106,7 +106,7 @@ Contributor(s): .
         <profile>
             <!-- TODO: make ths profiles during releasing configurable-->
             <!--<id>jenkins</id>-->
-            <id>sonatype-oss-release</id>
+            <id>release-profile</id>
             <build>
                 <plugins>
                     <plugin>
