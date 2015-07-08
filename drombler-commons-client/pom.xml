@@ -24,7 +24,7 @@ Contributor(s): .
     <artifactId>drombler-commons-client</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - Client - All</name>
+    <name>Drombler Commons - Client</name>
     <description>Drombler Commons - Client is a collection of reusable libraries and frameworks for client side development</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
@@ -39,7 +39,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.client.parent.url}/</url>
         </site>
     </distributionManagement>

@@ -14,11 +14,11 @@
  */
 package org.drombler.commons.context;
 
-import org.drombler.commons.context.Context;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  *

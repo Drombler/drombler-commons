@@ -25,7 +25,7 @@ Contributor(s): .
     <artifactId>drombler-commons</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - All</name>
+    <name>Drombler Commons</name>
     <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
         in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
     <inceptionYear>2012</inceptionYear>
@@ -41,7 +41,7 @@ Contributor(s): .
 
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.parent.url}/</url>
         </site>
     </distributionManagement>
@@ -74,6 +74,7 @@ Contributor(s): .
         <module>drombler-commons-client</module>
         <module>drombler-commons-logging-slf4j-cdi</module>
         <module>drombler-commons-iso</module>
+        <module>drombler-commons-docs</module>
     </modules>
     
     <dependencyManagement>
