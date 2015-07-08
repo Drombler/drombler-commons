@@ -51,7 +51,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
