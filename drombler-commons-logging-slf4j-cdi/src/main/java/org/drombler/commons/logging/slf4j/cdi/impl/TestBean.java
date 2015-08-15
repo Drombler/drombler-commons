@@ -13,23 +13,30 @@
  * Contributor(s): .
  */package org.drombler.commons.logging.slf4j.cdi.impl;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
+import org.drombler.commons.logging.slf4j.cdi.ITestBean;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
-import org.slf4j.Logger;
 
 /**
  *
  * @author puce
  */
-@ApplicationScoped
+//@ApplicationScoped
 @OsgiServiceProvider
-public class TestBean {
+//@Dependent
+public class TestBean implements ITestBean {
 
-    @Inject
-    private Logger logger;
+//    @Inject
+//    @OsgiService
+//    private Logger logger;
 
+    @PostConstruct
     public void test() {
-        logger.info("test");
+//        logger.error("test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
+    @Override
+    public void someTest() {
+//        logger.error("sometest!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 }
