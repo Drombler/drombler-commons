@@ -66,6 +66,10 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                 // TODO: ???
             } else if (change.wasRemoved()) {
                 control.removeDockable(change.getFrom());
+                if (change.getFrom() == tabPane.getSelectionModel().getSelectedIndex()) {
+                    // selectedIndex did not change, but selectedItem changed -> trigger selectedItem change
+                    control.getSelectionModel().select(tabPane.getSelectionModel().getSelectedIndex());
+                }
             } else if (change.wasAdded()) {
                 // TODO: ???
             } else if (change.wasReplaced()) {
