@@ -27,6 +27,7 @@ import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.spi.DockingArea;
 import org.drombler.commons.client.docking.spi.DockingAreaManager;
+import org.drombler.commons.client.docking.spi.DockingAreaUtils;
 import org.drombler.commons.client.docking.spi.ShortPathPart;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
@@ -68,6 +69,8 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
         this.position = position;
         this.permanent = permanent;
         setLayoutConstraints(layoutConstraints);
+        getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> DockingAreaUtils.onSelectionChanged(oldValue, newValue));
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
