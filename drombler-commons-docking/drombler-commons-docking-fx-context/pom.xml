@@ -40,7 +40,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>github</id>
-            <url>${distributionManagement.fx.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.parent.url}/drombler-commons-docking/${project.artifactId}/</url>
         </site>
     </distributionManagement>
 

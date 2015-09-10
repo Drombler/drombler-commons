@@ -23,3 +23,6 @@
 /drombler-commons-client/target/
 /drombler-commons-iso/target/
 /drombler-commons-docs/target/
+/drombler-commons-action/drombler-commons-action-command/target/
+/drombler-commons-docking/target/
+/drombler-commons-docking/drombler-commons-docking-fx-context/target/
