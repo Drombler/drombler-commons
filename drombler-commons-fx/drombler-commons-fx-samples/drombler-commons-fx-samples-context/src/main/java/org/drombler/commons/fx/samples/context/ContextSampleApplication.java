@@ -31,7 +31,7 @@ import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockingManager;
+import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.docking.FXDockableEntry;

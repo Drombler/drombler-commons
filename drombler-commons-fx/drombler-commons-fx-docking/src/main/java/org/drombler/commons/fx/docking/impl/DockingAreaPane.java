@@ -24,9 +24,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
+import org.drombler.commons.client.docking.DockingAreaKind;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.spi.DockingArea;
 import org.drombler.commons.client.docking.spi.DockingAreaManager;
+import org.drombler.commons.client.docking.spi.DockingAreaUtils;
 import org.drombler.commons.client.docking.spi.ShortPathPart;
 import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.drombler.commons.fx.docking.impl.skin.Stylesheets;
@@ -49,6 +51,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     private final ObservableList<PositionableAdapter<FXDockableEntry>> unmodifiableDockables = FXCollections.
             unmodifiableObservableList(dockables);
     private final Set<FXDockableEntry> dockableSet = new HashSet<>();
+    private final DockingAreaKind kind;
     private final int position;
     /**
      * Flag if the space for this docking area should be preserved, if it's empty, or if it's space should be freed.
@@ -62,12 +65,16 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
 
-    public DockingAreaPane(String areaId, int position, boolean permanent, LayoutConstraintsDescriptor layoutConstraints) {
+    public DockingAreaPane(String areaId, DockingAreaKind kind, int position, boolean permanent,
+            LayoutConstraintsDescriptor layoutConstraints) {
         super(false);
         this.areaId = areaId;
+        this.kind = kind;
         this.position = position;
         this.permanent = permanent;
         setLayoutConstraints(layoutConstraints);
+        getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> DockingAreaUtils.onSelectionChanged(oldValue, newValue));
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
     }
 
@@ -81,6 +88,10 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
      */
     public String getAreaId() {
         return areaId;
+    }
+
+    public DockingAreaKind getKind() {
+        return kind;
     }
 
     @Override
@@ -191,7 +202,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     @Override
     public String toString() {
         return DockingAreaPane.class.getSimpleName() + "[areaId=" + areaId
-                + ", position=" + position + ", permanent=" + permanent
+                + ", kind=" + kind + ", position=" + position + ", permanent=" + permanent
                 + ", visuablizable=" + isVisualizable()
                 + ", visualized=" + isVisualized() + "]";
     }

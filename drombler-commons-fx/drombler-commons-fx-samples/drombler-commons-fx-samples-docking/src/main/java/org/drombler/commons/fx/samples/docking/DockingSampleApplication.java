@@ -33,7 +33,7 @@ import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.fx.docking.DockingManager;
+import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableData;
 import org.drombler.commons.fx.docking.FXDockableEntry;

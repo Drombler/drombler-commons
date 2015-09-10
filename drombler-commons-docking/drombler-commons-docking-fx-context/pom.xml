@@ -17,19 +17,18 @@ Contributor(s): .
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-client-parent</artifactId>
+        <artifactId>drombler-commons-fx-parent</artifactId>
         <version>0.7-SNAPSHOT</version>
-        <relativePath>../drombler-commons-client-parent/pom.xml</relativePath>
+        <relativePath>../../drombler-commons-fx-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-client-docking-spi</artifactId>
+    <artifactId>drombler-commons-docking-fx-context</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler Commons - Client - Docking - SPI</name>
-    <description>Drombler Commons - Client - Docking - SPI provides some utility classes and frameworks to help building a 
-        client side docking framework.</description>
-        <inceptionYear>2014</inceptionYear>
-        <!-- required for Javadoc (apidocs) linking -->
-        <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <name>Drombler Commons - Docking - FX - Context</name>
+    <description>Drombler Commons - Docking - FX - Context provides Context support for the Docking Framework.</description>
+    <inceptionYear>2015</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -41,7 +40,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>github</id>
-            <url>${distributionManagement.client.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.fx.parent.url}/drombler-commons-docking/${project.artifactId}/</url>
         </site>
     </distributionManagement>
 
@@ -67,38 +66,49 @@ Contributor(s): .
     </build>
 
     <dependencies>
-        <!--        <dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-context</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-docking</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!--        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-action-command</artifactId>
+            <version>${project.version}</version>
         </dependency>-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-client-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-client-docking</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.softsmithy.lib</groupId>
-            <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.softsmithy.devlib</groupId>
-            <artifactId>softsmithy-devlib-core</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+    
+    <!-- TODO: Move to Drombler OSS Parent-->
+    <profiles>
+        <profile>
+            <!-- TODO: make ths profiles during releasing configurable-->
+            <!--<id>jenkins</id>-->
+            <id>release-profile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludedGroups>org.drombler.commons.fx.docking.GUITests</excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

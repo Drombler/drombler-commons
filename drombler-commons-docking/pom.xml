@@ -22,13 +22,12 @@ Contributor(s): .
         <version>0.7-SNAPSHOT</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-action</artifactId>
+    <artifactId>drombler-commons-docking</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - Action</name>
-    <description>An Action Framework, which keeps the state (enabled/ disabled, selected/ unselected etc.), 
-        the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync.</description>
-    <inceptionYear>2014</inceptionYear>
+    <name>Drombler Commons - Docking</name>
+    <description>A Docking Framework, which allows a GUI application to dock Dockables to Docking Areas.</description>
+    <inceptionYear>2015</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
     
@@ -42,7 +41,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>github</id>
-            <url>${distributionManagement.parent.url}/drombler-commons-action/</url>
+            <url>${distributionManagement.parent.url}/drombler-commons-docking/</url>
         </site>
     </distributionManagement>
 
@@ -67,18 +66,17 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
-        <module>drombler-commons-action-core</module>
-        <module>drombler-commons-action-command</module>
-        <module>drombler-commons-action-fx</module>
+        <module>drombler-commons-docking-fx-context</module>
     </modules>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-action-core</artifactId>
+                <artifactId>drombler-commons-docking-fx-context</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!--
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-command</artifactId>
@@ -88,7 +86,7 @@ Contributor(s): .
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-fx</artifactId>
                 <version>${project.version}</version>
-            </dependency>
+            </dependency>-->
         </dependencies>
     </dependencyManagement>
   

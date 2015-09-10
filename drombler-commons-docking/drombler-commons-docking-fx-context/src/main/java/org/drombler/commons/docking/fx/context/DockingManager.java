@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.docking;
+package org.drombler.commons.docking.fx.context;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,6 +22,8 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.context.LocalContextProvider;
+import org.drombler.commons.fx.docking.DockingPane;
+import org.drombler.commons.fx.docking.FXDockableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

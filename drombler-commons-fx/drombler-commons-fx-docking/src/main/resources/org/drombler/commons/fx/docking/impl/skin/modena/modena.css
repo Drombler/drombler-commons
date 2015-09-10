@@ -61,6 +61,11 @@
 .docking-area-pane { 
     -fx-skin: "org.drombler.commons.fx.docking.impl.skin.DockingAreaPaneSkin";
 }
+
+.dockable-modified {
+    -fx-font-weight: bold;
+}
+
 /*.docking-area-pane .tab-content-area {
     -fx-background-color: blue;
 }*/

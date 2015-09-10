@@ -9,28 +9,28 @@ http://www.opensource.org/licenses/cddl1.txt
 
 The Original Code is Drombler.org. The Initial Developer of the
 Original Code is Florian Brunner (Sourceforge.net user: puce).
-Copyright 2014 Drombler.org. All Rights Reserved.
+Copyright 2012 Drombler.org. All Rights Reserved.
 
 Contributor(s): .
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.drombler.commons</groupId>
-        <artifactId>drombler-commons-client-parent</artifactId>
+        <artifactId>drombler-commons-parent</artifactId>
         <version>0.7-SNAPSHOT</version>
-        <relativePath>../drombler-commons-client-parent/pom.xml</relativePath>
+        <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-client-docking</artifactId>
+    <artifactId>drombler-commons-action-command</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler Commons - Client - Docking</name>
-    <description>Drombler Commons - Client - Docking provides some utility classes and frameworks to help building a 
-        client side docking framework.</description>
-        <inceptionYear>2014</inceptionYear>
-        <!-- required for Javadoc (apidocs) linking -->
-        <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
-
+    <name>Drombler Commons - Action - Command</name>
+    <description>Common command classes for the Action Framework.</description>
+    <inceptionYear>2015</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    
     <scm>
         <connection>${scm.connection}</connection>
         <developerConnection>${scm.developerConnection}</developerConnection>
@@ -41,7 +41,7 @@ Contributor(s): .
     <distributionManagement>
         <site>
             <id>github</id>
-            <url>${distributionManagement.client.parent.url}/${project.artifactId}/</url>
+            <url>${distributionManagement.parent.url}/drombler-commons-action/${project.artifactId}/</url>
         </site>
     </distributionManagement>
 
@@ -50,7 +50,7 @@ Contributor(s): .
         <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
         <scm.url>${scm.parent.url}</scm.url>
     </properties>
-    
+
     <!-- Not inherited!?? -->
     <prerequisites>
         <maven>${maven.version}</maven>
@@ -62,15 +62,8 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-            </plugin>         
+            </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+   
 </project>

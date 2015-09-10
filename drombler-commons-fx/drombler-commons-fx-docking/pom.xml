@@ -68,11 +68,6 @@ Contributor(s): .
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-context</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-client-docking</artifactId>
             <version>${project.version}</version>
         </dependency>
