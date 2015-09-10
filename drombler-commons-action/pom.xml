@@ -68,6 +68,7 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-action-core</module>
+        <module>drombler-commons-action-command</module>
         <module>drombler-commons-action-fx</module>
     </modules>
     
@@ -76,6 +77,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-action-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
