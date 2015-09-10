@@ -31,6 +31,7 @@ public final class DockingAreaDescriptor {
     private List<Integer> parentPath;
     private boolean permanent = false;
     private LayoutConstraintsDescriptor layoutConstraints;
+    private DockingAreaKind kind;
 
     /**
      * Creates a new instance of this class.
@@ -54,6 +55,24 @@ public final class DockingAreaDescriptor {
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Gets the Docking Area kind.
+     *
+     * @return the Docking Area kind
+     */
+    public DockingAreaKind getKind() {
+        return kind;
+    }
+
+    /**
+     * Sets the Docking Area kind.
+     *
+     * @param kind the Docking Area kind
+     */
+    public void setKind(DockingAreaKind kind) {
+        this.kind = kind;
     }
 
     /**
@@ -161,7 +180,8 @@ public final class DockingAreaDescriptor {
      */
     @Override
     public String toString() {
-        return "DockingAreaDescriptor{" + "id=" + id + ", position=" + position + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
+        return "DockingAreaDescriptor{" + "id=" + id + ", kind=" + kind + ", position=" + position
+                + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
     }
 
 }
