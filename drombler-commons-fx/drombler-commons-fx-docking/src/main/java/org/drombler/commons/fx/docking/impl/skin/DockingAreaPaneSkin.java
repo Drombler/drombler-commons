@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.fx.docking.impl.skin;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -31,6 +33,9 @@ import org.softsmithy.lib.util.PositionableAdapter;
  */
 public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
 
+    private static final String DOCKABLE_MODIFIED_STYLE_CLASS = "dockable-modified";
+
+    private final Map<FXDockableData, ChangeListener<? super Boolean>> dockableDataModifiedListeners = new HashMap<>();
     private DockingAreaPane control;
     private TabPane tabPane = new TabPane();
 
@@ -43,9 +48,13 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             } else if (change.wasUpdated()) {
                 // TODO: ???
             } else if (change.wasRemoved()) {
-                for (PositionableAdapter<FXDockableEntry> remitem : change.getRemoved()) {
-                    // TODO: ???
-                }
+                change.getRemoved().stream().
+                        map(dockableEntry -> dockableEntry.getAdapted().getDockableData()).
+                        forEach(dockableData -> {
+                            ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
+                            remove(dockableData);
+                            dockableData.modifiedProperty().removeListener(listener);
+                        });
             } else if (change.wasAdded()) {
                 for (int index = change.getFrom(); index < change.getTo(); index++) {
                     addTab(change.getList().get(index));
@@ -150,6 +159,27 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         tab.graphicProperty().bind(dockableData.graphicProperty());
         tab.contextMenuProperty().bind(dockableData.contextMenuProperty());
         tab.setContent(dockable.getAdapted().getDockable());
+        observeDockableData(dockableData, tab);
+
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);
+    }
+
+    private void observeDockableData(FXDockableData dockableData, Tab tab) {
+        ChangeListener<? super Boolean> dockableDataModifiedListener = (observable, oldValue, newValue)
+                -> updateStyleClass(tab, newValue);
+        dockableData.modifiedProperty().addListener(dockableDataModifiedListener);
+        dockableDataModifiedListeners.put(dockableData, dockableDataModifiedListener);
+    }
+
+    private void updateStyleClass(Tab tab, boolean modified) {
+        if (modified) {
+            if (!tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
+                tab.getStyleClass().add(DOCKABLE_MODIFIED_STYLE_CLASS);
+            }
+        } else {
+            if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
+                tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
+            }
+        }
     }
 }

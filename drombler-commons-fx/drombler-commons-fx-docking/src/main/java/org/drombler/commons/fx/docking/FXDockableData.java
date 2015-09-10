@@ -14,7 +14,9 @@
  */
 package org.drombler.commons.fx.docking;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -62,6 +64,11 @@ public class FXDockableData implements DockableData {
      */
     private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu",
             null);
+
+    /**
+     * The modified flag indicates if the data represented by the Dockable has been modified.
+     */
+    private final BooleanProperty modified = new SimpleBooleanProperty(this, "modified", false);
 
     /**
      * Creates a new instance of this class.
@@ -117,6 +124,18 @@ public class FXDockableData implements DockableData {
 
     public ObjectProperty<ContextMenu> contextMenuProperty() {
         return contextMenu;
+    }
+
+    public final boolean isModified() {
+        return modifiedProperty().get();
+    }
+
+    public final void setModified(boolean modified) {
+        modifiedProperty().set(modified);
+    }
+
+    public BooleanProperty modifiedProperty() {
+        return modified;
     }
 
     /**
