@@ -68,23 +68,8 @@ Contributor(s): .
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-context</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-client-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.softsmithy.devlib</groupId>
-            <artifactId>softsmithy-devlib-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
