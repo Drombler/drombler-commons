@@ -76,11 +76,11 @@ Contributor(s): .
             <artifactId>drombler-commons-fx-docking</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--        <dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-action-command</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

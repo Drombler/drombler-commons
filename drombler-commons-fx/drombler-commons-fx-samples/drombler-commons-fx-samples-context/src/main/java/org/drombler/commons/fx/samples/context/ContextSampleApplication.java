@@ -31,6 +31,7 @@ import org.drombler.commons.client.docking.DockingAreaDescriptor;
 import org.drombler.commons.client.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.client.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.context.ContextManager;
+import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
 import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.fx.docking.DockingPane;
 import org.drombler.commons.fx.docking.FXDockableData;
@@ -46,6 +47,7 @@ public class ContextSampleApplication extends Application {
     public static final String CENTER_AREA_ID = "center";
 
     private DockingManager dockingManager;
+    private DockableDataModifiedManager dockableDataModifiedManager;
 
     @Override
     public void start(Stage stage) {
@@ -53,6 +55,7 @@ public class ContextSampleApplication extends Application {
         DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
         dockingManager = new DockingManager(dockingPane, contextManager);
+        dockableDataModifiedManager = new DockableDataModifiedManager(dockingPane);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -126,6 +129,7 @@ public class ContextSampleApplication extends Application {
     @Override
     public void stop() throws Exception {
         dockingManager.close();
+        dockableDataModifiedManager.close();
         super.stop();
     }
 
