@@ -18,6 +18,7 @@ import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.client.docking.DockableData;
 import org.drombler.commons.client.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
