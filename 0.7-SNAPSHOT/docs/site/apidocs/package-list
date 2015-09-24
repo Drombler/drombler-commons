@@ -1,10 +1,12 @@
 org.drombler.commons.action
+org.drombler.commons.action.command
 org.drombler.commons.action.fx
 org.drombler.commons.client.docking
 org.drombler.commons.client.docking.spi
 org.drombler.commons.client.geometry
 org.drombler.commons.client.util
 org.drombler.commons.context
+org.drombler.commons.docking.fx.context
 org.drombler.commons.fx.application
 org.drombler.commons.fx.beans.property
 org.drombler.commons.fx.docking
