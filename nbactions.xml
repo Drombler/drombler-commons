@@ -6,10 +6,8 @@
             <goals>
                 <goal>site:site</goal>
                 <goal>site:stage</goal>
+                <goal>-DperformRelease=true</goal>
             </goals>
-            <activatedProfiles>
-                <activatedProfile>sonatype-oss-release</activatedProfile>
-            </activatedProfiles>
         </action>
         <action>
             <actionName>CUSTOM-javadoc</actionName>
@@ -34,10 +32,8 @@
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
+                <goal>-DperformRelease=true</goal>
             </goals>
-            <activatedProfiles>
-                <activatedProfile>sonatype-oss-release</activatedProfile>
-            </activatedProfiles>
         </action>
         <action>
             <actionName>CUSTOM-site-deploy</actionName>

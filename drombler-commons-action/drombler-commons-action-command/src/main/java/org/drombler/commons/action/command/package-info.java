@@ -13,6 +13,6 @@
  * Contributor(s): .
  */
 /**
- * The core classes of the Action Framework.
+ * Common command classes for the Action Framework.
  */
 package org.drombler.commons.action.command;
