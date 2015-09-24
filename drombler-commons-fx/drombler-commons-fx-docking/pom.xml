@@ -102,6 +102,12 @@ Contributor(s): .
             <!-- TODO: make ths profiles during releasing configurable-->
             <!--<id>jenkins</id>-->
             <id>release-profile</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
