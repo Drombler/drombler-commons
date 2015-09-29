@@ -29,7 +29,7 @@ Contributor(s): .
     <description>Drombler Commons - ISO 9660 is a framework to work with objects available in a given context.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

@@ -30,7 +30,7 @@ Contributor(s): .
         in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
