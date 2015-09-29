@@ -30,7 +30,7 @@ Contributor(s): .
         the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>

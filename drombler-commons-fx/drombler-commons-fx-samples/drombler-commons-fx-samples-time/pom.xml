@@ -27,7 +27,7 @@ Contributor(s): .
     <name>Drombler Commons - FX - Samples - Date &amp; Time</name>
     
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

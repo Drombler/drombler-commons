@@ -7,7 +7,7 @@
  * http://www.opensource.org/licenses/cddl1.txt
  *
  * The Original Code is Drombler.org. The Initial Developer of the
- * Original Code is Florian Brunner (Sourceforge.net user: puce).
+ * Original Code is Florian Brunner (GitHub user: puce77).
  * Copyright 2015 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
@@ -24,9 +24,9 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
 import org.drombler.commons.context.ContextListener;
 import org.drombler.commons.context.LocalContextProvider;
-import org.drombler.commons.fx.docking.DockingPane;
-import org.drombler.commons.fx.docking.FXDockableData;
-import org.drombler.commons.fx.docking.FXDockableEntry;
+import org.drombler.commons.docking.fx.DockingPane;
+import org.drombler.commons.docking.fx.FXDockableData;
+import org.drombler.commons.docking.fx.FXDockableEntry;
 
 /**
  * This manager listens for {@link Savable} in the local contexts of the Dockables and synchronizes the

@@ -30,7 +30,7 @@ Contributor(s): .
         POM file e.g. in your dependencyManagement section to manage your Drombler Commons FX dependencies.</description>
     <inceptionYear>2013</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -70,10 +70,9 @@ Contributor(s): .
     <modules>
         <module>drombler-commons-fx-parent</module>
         <module>drombler-commons-fx-core</module>
-        <module>drombler-commons-fx-docking</module>
         <module>drombler-commons-fx-time</module>
         <module>drombler-commons-fx-samples</module>
-  </modules>
+    </modules>
     
     <dependencyManagement>
         <dependencies>
@@ -84,14 +83,9 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-fx-docking</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!--            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-fx-time</artifactId>
                 <version>${project.version}</version>
-            </dependency>-->
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

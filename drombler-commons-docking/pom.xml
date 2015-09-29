@@ -29,7 +29,7 @@ Contributor(s): .
     <description>A Docking Framework, which allows a GUI application to dock Dockables to Docking Areas.</description>
     <inceptionYear>2015</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -66,11 +66,29 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
+        <module>drombler-commons-docking-core</module>
+        <module>drombler-commons-docking-spi</module>
+        <module>drombler-commons-docking-fx</module>
         <module>drombler-commons-docking-fx-context</module>
     </modules>
     
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-docking-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-docking-spi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-docking-fx</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-docking-fx-context</artifactId>

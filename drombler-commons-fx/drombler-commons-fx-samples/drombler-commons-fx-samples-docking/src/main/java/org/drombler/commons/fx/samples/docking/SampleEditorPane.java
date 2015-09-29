@@ -18,9 +18,9 @@ package org.drombler.commons.fx.samples.docking;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import org.drombler.commons.client.docking.DockableDataSensitive;
+import org.drombler.commons.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
-import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 
