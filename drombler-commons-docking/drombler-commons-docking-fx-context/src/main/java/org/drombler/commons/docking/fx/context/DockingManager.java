@@ -22,8 +22,8 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.context.LocalContextProvider;
-import org.drombler.commons.fx.docking.DockingPane;
-import org.drombler.commons.fx.docking.FXDockableEntry;
+import org.drombler.commons.docking.fx.DockingPane;
+import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
