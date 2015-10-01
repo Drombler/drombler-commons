@@ -31,6 +31,8 @@ public interface Context {
      * @param type the specified type
      * @return the first instance found in this context with the specified type, or {@code null} if no instance was
      * found.
+     *
+     * TODO: return Optional?
      */
     <T> T find(Class<T> type);
 
