@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-client-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8-SNAPSHOT</version>
         <relativePath>../drombler-commons-client-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-client-core</artifactId>
