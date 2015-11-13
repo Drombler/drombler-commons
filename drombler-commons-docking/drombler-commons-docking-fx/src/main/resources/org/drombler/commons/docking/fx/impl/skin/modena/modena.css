@@ -6,14 +6,14 @@
  * http://www.opensource.org/licenses/cddl1.txt
  *
  * The Original Code is Drombler.org. The Initial Developer of the
- * Original Code is Florian Brunner (Sourceforge.net user: puce).
+ * Original Code is Florian Brunner (GitHub user: puce77).
  * Copyright 2012 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 /* 
-    Document   : caspian
-    Author     : puce
+    Document   : modena
+    Author     : puce77
     Description:
         Purpose of the stylesheet follows.
 */
@@ -25,7 +25,7 @@
  **************************************************************************************************/
 
 .dockable-pane { 
-    -fx-skin: "org.drombler.commons.fx.docking.impl.skin.DockablePaneSkin";
+    -fx-skin: "org.drombler.commons.docking.fx.impl.skin.DockablePaneSkin";
 }
 
 /**************************************************************************************************
@@ -35,7 +35,7 @@
  **************************************************************************************************/
 
 .docking-pane { 
-    -fx-skin: "org.drombler.commons.fx.docking.impl.skin.DockingPaneSkin";
+    -fx-skin: "org.drombler.commons.docking.fx.impl.skin.DockingPaneSkin";
 }
 
 /**************************************************************************************************
@@ -45,7 +45,7 @@
  **************************************************************************************************/
 
 .docking-split-pane { 
-    -fx-skin: "org.drombler.commons.fx.docking.impl.skin.DockingSplitPaneSkin";
+    -fx-skin: "org.drombler.commons.docking.fx.impl.skin.DockingSplitPaneSkin";
 }
 
 /*.docking-split-pane .split-pane {
@@ -59,7 +59,7 @@
  **************************************************************************************************/
 
 .docking-area-pane { 
-    -fx-skin: "org.drombler.commons.fx.docking.impl.skin.DockingAreaPaneSkin";
+    -fx-skin: "org.drombler.commons.docking.fx.impl.skin.DockingAreaPaneSkin";
 }
 
 .dockable-modified {
