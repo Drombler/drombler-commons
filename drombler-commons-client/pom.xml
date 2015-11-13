@@ -17,18 +17,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-client-parent</artifactId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.7</version>
         <relativePath>drombler-commons-client-parent/pom.xml</relativePath>
     </parent>
     
     <artifactId>drombler-commons-client</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - Client - All</name>
+    <name>Drombler Commons - Client</name>
     <description>Drombler Commons - Client is a collection of reusable libraries and frameworks for client side development</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -39,7 +39,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.client.parent.url}/</url>
         </site>
     </distributionManagement>
@@ -68,8 +68,6 @@ Contributor(s): .
     <modules>
         <module>drombler-commons-client-parent</module>
         <module>drombler-commons-client-core</module>
-        <module>drombler-commons-client-docking</module>
-        <module>drombler-commons-client-docking-spi</module>
     </modules>
     
     <dependencyManagement>
@@ -77,16 +75,6 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-client-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-client-docking</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-client-docking-spi</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

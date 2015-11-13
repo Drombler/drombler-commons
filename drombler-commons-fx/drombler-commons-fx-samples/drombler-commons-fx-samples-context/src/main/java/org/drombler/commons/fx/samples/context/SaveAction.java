@@ -17,10 +17,9 @@ package org.drombler.commons.fx.samples.context;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
+import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
-import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.context.ContextListener;
 
 /**
  *
@@ -45,13 +44,7 @@ public class SaveAction implements EventHandler<ActionEvent>, ActiveContextSensi
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(Savable.class, new ContextListener() {
-
-            @Override
-            public void contextChanged(ContextEvent event) {
-                SaveAction.this.contextChanged();
-            }
-        });
+        this.activeContext.addContextListener(Savable.class, event -> contextChanged());
         contextChanged();
     }
 

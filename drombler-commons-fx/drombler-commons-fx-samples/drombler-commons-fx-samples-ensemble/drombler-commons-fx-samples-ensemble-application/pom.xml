@@ -26,7 +26,7 @@ Contributor(s): .
 
     <name>Drombler Commons - FX - Samples - Ensemble - Application</name>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -37,7 +37,7 @@ Contributor(s): .
 
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>
     </distributionManagement>

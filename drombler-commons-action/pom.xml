@@ -19,18 +19,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.7</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-action</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - Action - All</name>
+    <name>Drombler Commons - Action</name>
     <description>An Action Framework, which keeps the state (enabled/ disabled, selected/ unselected etc.), 
         the information (texts, image etc.) and the logic between menu items and toolbar buttons in sync.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -41,7 +41,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.parent.url}/drombler-commons-action/</url>
         </site>
     </distributionManagement>
@@ -68,6 +68,7 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-action-core</module>
+        <module>drombler-commons-action-command</module>
         <module>drombler-commons-action-fx</module>
     </modules>
     
@@ -76,6 +77,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-action-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -30,7 +30,7 @@ Contributor(s): .
 
     <description>The parent POM of my drombler-commons-fx-samples-ensemble project. This drombler-commons-fx-samples-ensemble Parent POM should be the parent (either directly or indirectly) of every drombler-commons-fx-samples-ensemble project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     <inceptionYear>2012</inceptionYear>
     
     <scm>
@@ -51,7 +51,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.fx.samples.ensemble.parent.url}/${project.artifactId}/</url>
         </site>

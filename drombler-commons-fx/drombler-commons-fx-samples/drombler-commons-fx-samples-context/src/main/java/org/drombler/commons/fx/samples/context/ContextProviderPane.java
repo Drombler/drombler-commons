@@ -18,14 +18,15 @@ import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import org.drombler.commons.client.docking.DockableData;
-import org.drombler.commons.client.docking.DockableDataSensitive;
+import org.drombler.commons.action.command.Savable;
+import org.drombler.commons.docking.DockableData;
+import org.drombler.commons.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.fx.docking.FXDockableData;
+import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class ContextProviderPane extends GridPane implements LocalContextProvider, DockableDataSensitive<FXDockableData> {

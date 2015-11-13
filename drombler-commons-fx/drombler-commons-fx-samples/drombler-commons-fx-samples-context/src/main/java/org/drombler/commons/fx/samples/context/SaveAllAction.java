@@ -21,10 +21,9 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
+import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.context.ApplicationContextSensitive;
 import org.drombler.commons.context.Context;
-import org.drombler.commons.context.ContextEvent;
-import org.drombler.commons.context.ContextListener;
 
 /*
  * To change this template, choose Tools | Templates and open the template in the editor.
@@ -55,13 +54,7 @@ public class SaveAllAction implements EventHandler<ActionEvent>, ApplicationCont
     @Override
     public void setApplicationContext(Context applicationContext) {
         this.applicationContext = applicationContext;
-        this.applicationContext.addContextListener(Savable.class, new ContextListener() {
-
-            @Override
-            public void contextChanged(ContextEvent event) {
-                SaveAllAction.this.contextChanged();
-            }
-        });
+        this.applicationContext.addContextListener(Savable.class, event -> contextChanged());
         contextChanged();
     }
 

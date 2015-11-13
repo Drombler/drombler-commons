@@ -19,16 +19,16 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-parent</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.7</version>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler Commons project. This Drombler Commons Parent POM should be the parent (either directly or indirectly) of every Drombler Commons project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -50,7 +50,7 @@ Contributor(s): .
     
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <name>Drombler Commons</name>
             <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
         </site>
@@ -58,12 +58,16 @@ Contributor(s): .
 
     <properties>
         <!-- Dev Environment Defaults -->
-        <scm.parent.connection>scm:hg:http://hg.code.sf.net/p/drombler/drombler-commons</scm.parent.connection>
-        <scm.parent.developerConnection>scm:hg:ssh://${username}@hg.code.sf.net/p/drombler/drombler-commons</scm.parent.developerConnection>
-        <scm.parent.url>http://sourceforge.net/p/drombler/drombler-commons</scm.parent.url>
-        <distributionManagement.parent.url>scp://${username}@shell.sourceforge.net/home/project-web/drombler/htdocs/DromblerCommons/${project.version}/docs/site</distributionManagement.parent.url>
+        <scm.parent.connection>scm:git:https://github.com/Drombler/drombler-commons.git</scm.parent.connection>
+        <scm.parent.developerConnection>scm:git:git@github.com:Drombler/drombler-commons.git</scm.parent.developerConnection>
+        <scm.parent.url>https://github.com/Drombler/drombler-commons</scm.parent.url>
+        <!-- URL to use with the standard site plugin with the git wagon -->
+        <distributionManagement.base.url>github:http://drombler.github.io/drombler-commons/${project.version}</distributionManagement.base.url>
+        <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
+        <!-- URL to use with the GitHub site plugin -->
+        <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
         <excludePackageNamesAggregate>${excludePackageNames}:*.maven.plugin.*:*.samples.*:org.drombler.commons.iso</excludePackageNamesAggregate>
-        <!--<url.parent>http://www.drombler.org/DromblerCommons/${project.version}/docs/site/</url.parent>-->
+        <!--<url.parent>http://www.drombler.org/drombler-commons/${project.version}/docs/site/</url.parent>-->
         
         <!-- Dependency Versions -->
         

@@ -19,18 +19,18 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.7</version>
         <relativePath>drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons</artifactId>
     <packaging>pom</packaging>
 
-    <name>Drombler Commons - All</name>
+    <name>Drombler Commons</name>
     <description>Drombler Commons is a collection of reusable libraries and frameworks. You can use this POM file e.g. 
         in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/DromblerCommons/${project.version}/docs/site</url>
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -41,7 +41,7 @@ Contributor(s): .
 
     <distributionManagement>
         <site>
-            <id>drombler.sourceforge.net</id>
+            <id>github</id>
             <url>${distributionManagement.parent.url}/</url>
         </site>
     </distributionManagement>
@@ -70,10 +70,12 @@ Contributor(s): .
         <module>drombler-commons-parent</module>
         <module>drombler-commons-action</module>
         <module>drombler-commons-context</module>
+        <module>drombler-commons-docking</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-client</module>
         <module>drombler-commons-iso</module>
-  </modules>
+        <module>drombler-commons-docs</module>
+    </modules>
     
     <dependencyManagement>
         <dependencies>
@@ -92,6 +94,13 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-client</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-docking</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
