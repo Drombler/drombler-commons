@@ -1,0 +1,35 @@
+-classpath
+'/home/puce/.m2/repository/org/drombler/commons/drombler-commons-fx-core/0.7/drombler-commons-fx-core-0.7.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-client-core/0.7/drombler-commons-client-core-0.7.jar:/home/puce/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.5/softsmithy-lib-core-0.5.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-action-core/0.7/drombler-commons-action-core-0.7.jar:/home/puce/.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/fastdata/Programming/Java/drombler/drombler-commons/drombler-commons.git/drombler-commons-action/drombler-commons-action-fx/src/main/java'
+-javafx
+-Xdoclint:accessibility
+-Xdoclint:html
+-Xdoclint:missing
+-Xdoclint:reference
+-author
+-bottom
+'Copyright &#169; 2014&#x2013;2015 <a href="http://www.drombler.com">Drombler</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/fastdata/Programming/Java/drombler/drombler-commons/drombler-commons.git/drombler-commons-action/drombler-commons-action-fx/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Drombler Commons - Action - FX 0.7 API'
+-link
+'http://docs.oracle.com/javaee/7/api'
+-link
+'http://www.softsmithy.org/lib/0.5/docs/site/softsmithy-lib-all/softsmithy-lib-all/apidocs'
+-link
+'http://docs.oracle.com/javase/8/javafx/api'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' '/fastdata/Programming/Java/drombler/drombler-commons/drombler-commons.git/drombler-commons-action/drombler-commons-action-fx/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Drombler Commons - Action - FX 0.7 API'
