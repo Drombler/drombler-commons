@@ -15,7 +15,7 @@
 package org.drombler.commons.docking;
 
 /**
- * Not supported yet! Needed?
+ * The Docking Area kind.
  *
  * @author puce
  */

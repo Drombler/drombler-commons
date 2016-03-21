@@ -32,6 +32,7 @@ public final class DockingAreaDescriptor {
     private boolean permanent = false;
     private LayoutConstraintsDescriptor layoutConstraints;
     private DockingAreaKind kind;
+    private boolean adHoc;
 
     /**
      * Creates a new instance of this class.
@@ -112,8 +113,7 @@ public final class DockingAreaDescriptor {
     }
 
     /**
-     * Returns true, if the Docking Area is visible also when it's empty (permanently visible), and returns false, if
-     * the Docking Area is only visible when it's not empty
+     * Returns true, if the Docking Area is visible also when it's empty (permanently visible), and returns false, if the Docking Area is only visible when it's not empty
      *
      * @return true if permanently visible, else false
      */
@@ -122,11 +122,10 @@ public final class DockingAreaDescriptor {
     }
 
     /**
-     * Specifies if the Docking Area should be permanently visible. If true, the Docking Area is visible also when it's
-     * empty (permanently visible), else the Docking Area is only visible when it's not empty.
+     * Specifies if the Docking Area should be permanently visible. If true, the Docking Area is visible also when it's empty (permanently visible), else the Docking Area is only visible when it's not
+     * empty.
      *
-     * @param permanent If true, the Docking Area is visible also when it's empty (permanently visible), else the
-     * Docking Area is only visible when it's not empty
+     * @param permanent If true, the Docking Area is visible also when it's empty (permanently visible), else the Docking Area is only visible when it's not empty
      */
     public void setPermanent(boolean permanent) {
         this.permanent = permanent;
@@ -148,6 +147,24 @@ public final class DockingAreaDescriptor {
      */
     public void setLayoutConstraints(LayoutConstraintsDescriptor layoutConstraints) {
         this.layoutConstraints = layoutConstraints;
+    }
+
+    /**
+     * Marks if the Docking Area has been registered or created ad hoc.
+     *
+     * @param adHoc true, if the Docking Area has been created ad hoc, else false.
+     */
+    public void setAdHoc(boolean adHoc) {
+        this.adHoc = adHoc;
+    }
+
+    /**
+     * Indicates if the Docking Area has been registered or created ad hoc.
+     *
+     * @return true, if the Docking Area has been created ad hoc, else false.
+     */
+    public boolean isAdHoc() {
+        return adHoc;
     }
 
     /**
@@ -181,7 +198,8 @@ public final class DockingAreaDescriptor {
     @Override
     public String toString() {
         return "DockingAreaDescriptor{" + "id=" + id + ", kind=" + kind + ", position=" + position
-                + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints + '}';
+                + ", path=" + parentPath + ", permanent=" + permanent + ", layoutConstraints=" + layoutConstraints
+                + ", adHoc=" + adHoc + '}';
     }
 
 }
