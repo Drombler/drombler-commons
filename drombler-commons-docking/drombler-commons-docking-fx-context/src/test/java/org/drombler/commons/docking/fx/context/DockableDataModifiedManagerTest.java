@@ -3,11 +3,12 @@ package org.drombler.commons.docking.fx.context;
 import java.util.Locale;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.action.command.Savable;
-import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
+import org.drombler.commons.docking.DockableKind;
+import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
@@ -32,7 +33,7 @@ public class DockableDataModifiedManagerTest {
     private final TestPane testPane = new TestPane();
     private final FXDockableData dockableData = new FXDockableData();
     private final DockablePreferences dockablePreferences = new DockablePreferences();
-    private final FXDockableEntry dockableEntry = new FXDockableEntry(testPane, dockableData, dockablePreferences);
+    private final FXDockableEntry dockableEntry = new FXDockableEntry(testPane, DockableKind.EDITOR, dockableData, dockablePreferences);
 
     @Test
     public void testWithoutDockableDataModifiedManager() {

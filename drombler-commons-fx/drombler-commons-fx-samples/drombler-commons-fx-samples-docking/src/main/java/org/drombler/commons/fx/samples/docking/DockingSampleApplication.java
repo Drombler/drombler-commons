@@ -25,18 +25,19 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.client.util.MnemonicUtils;
+import org.drombler.commons.client.util.ResourceBundleUtils;
+import org.drombler.commons.context.ContextManager;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.SimpleDockablePreferencesManager;
-import org.drombler.commons.client.util.MnemonicUtils;
-import org.drombler.commons.client.util.ResourceBundleUtils;
-import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.context.DockingManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,10 +86,10 @@ public class DockingSampleApplication extends Application {
             FXDockableData sampleDockableData = new FXDockableData();
             SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
             sampleEditorPane.setDockableData(sampleDockableData);
-            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
+            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, DockableKind.EDITOR, sampleDockableData,
                     dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
         });
-        final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, leftDockableData,
+        final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, DockableKind.VIEW, leftDockableData,
                 dockablePreferencesManager.getDockablePreferences(leftTestPane));
         dockingPane.getDockables().add(leftDockableEntry);
         MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftDockableEntry, dockingPane);
@@ -97,7 +98,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData rightDockableData = new FXDockableData();
         rightDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(RightTestPane.class)));
         RightTestPane rightTestPane = new RightTestPane();
-        final FXDockableEntry rightDockableEntry = new FXDockableEntry(rightTestPane, rightDockableData,
+        final FXDockableEntry rightDockableEntry = new FXDockableEntry(rightTestPane, DockableKind.VIEW, rightDockableData,
                 dockablePreferencesManager.getDockablePreferences(rightTestPane));
         dockingPane.getDockables().add(rightDockableEntry);
         MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightDockableEntry, dockingPane);
@@ -106,7 +107,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData topDockableData = new FXDockableData();
         topDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(TopTestPane.class)));
         TopTestPane topTestPane = new TopTestPane();
-        final FXDockableEntry topDockableEntry = new FXDockableEntry(topTestPane, topDockableData,
+        final FXDockableEntry topDockableEntry = new FXDockableEntry(topTestPane, DockableKind.VIEW, topDockableData,
                 dockablePreferencesManager.getDockablePreferences(topTestPane));
         dockingPane.getDockables().add(topDockableEntry);
         MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topDockableEntry, dockingPane);
@@ -115,7 +116,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData bottomDockableData = new FXDockableData();
         bottomDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(BottomTestPane.class)));
         BottomTestPane bottomTestPane = new BottomTestPane();
-        final FXDockableEntry bottomDockableEntry = new FXDockableEntry(bottomTestPane, bottomDockableData,
+        final FXDockableEntry bottomDockableEntry = new FXDockableEntry(bottomTestPane, DockableKind.VIEW, bottomDockableData,
                 dockablePreferencesManager.getDockablePreferences(bottomTestPane));
         dockingPane.getDockables().add(bottomDockableEntry);
         MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomDockableEntry, dockingPane);

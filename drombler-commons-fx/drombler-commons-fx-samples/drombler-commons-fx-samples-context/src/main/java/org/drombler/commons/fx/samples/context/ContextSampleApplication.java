@@ -25,17 +25,18 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.context.ContextManager;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.SimpleDockablePreferencesManager;
-import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
-import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.context.DockableDataModifiedManager;
+import org.drombler.commons.docking.fx.context.DockingManager;
 
 /**
  *
@@ -83,7 +84,7 @@ public class ContextSampleApplication extends Application {
         FXDockableData contextProviderPane1DockableData = new FXDockableData();
         ContextProviderPane contextProviderPane1 = new ContextProviderPane(new Sample("Sample 1"));
         contextProviderPane1.setDockableData(contextProviderPane1DockableData);
-        final FXDockableEntry contextProviderPane1FXDockableEntry = new FXDockableEntry(contextProviderPane1,
+        final FXDockableEntry contextProviderPane1FXDockableEntry = new FXDockableEntry(contextProviderPane1, DockableKind.EDITOR,
                 contextProviderPane1DockableData,
                 dockablePreferencesManager.getDockablePreferences(contextProviderPane1));
         dockingPane.getDockables().add(contextProviderPane1FXDockableEntry);
@@ -97,7 +98,7 @@ public class ContextSampleApplication extends Application {
         final DockablePreferences dockablePreferences = dockablePreferencesManager.
                 getDockablePreferences(contextProviderPane2);
         dockablePreferences.setPosition(40);
-        final FXDockableEntry contextProviderPane2FXDockableEntry = new FXDockableEntry(contextProviderPane2,
+        final FXDockableEntry contextProviderPane2FXDockableEntry = new FXDockableEntry(contextProviderPane2, DockableKind.EDITOR,
                 contextProviderPane2DockableData,
                 dockablePreferences);
         dockingPane.getDockables().add(contextProviderPane2FXDockableEntry);
@@ -108,7 +109,7 @@ public class ContextSampleApplication extends Application {
         ContextConsumerPane contextConsumerPane = new ContextConsumerPane();
         FXDockableData contextConsumerPaneDockableData = new FXDockableData();
         contextConsumerPaneDockableData.setTitle("Right");
-        final FXDockableEntry contextConsumerPaneDockableDataFXDockableEntry = new FXDockableEntry(contextConsumerPane,
+        final FXDockableEntry contextConsumerPaneDockableDataFXDockableEntry = new FXDockableEntry(contextConsumerPane, DockableKind.VIEW,
                 contextConsumerPaneDockableData,
                 dockablePreferencesManager.getDockablePreferences(contextConsumerPane));
         dockingPane.getDockables().add(contextConsumerPaneDockableDataFXDockableEntry);

@@ -25,16 +25,19 @@ import java.util.Objects;
 public class DockableEntry<D> {
 
     private final D dockable;
+    private final DockableKind kind;
     private final DockablePreferences dockablePreferences;
 
     /**
      * Creates a new instance of this class.
      *
      * @param dockable the Dockable
+     * @param kind the kind of the Dockable
      * @param dockablePreferences the {@link DockablePreferences} of the Dockable
      */
-    protected DockableEntry(D dockable, DockablePreferences dockablePreferences) {
+    protected DockableEntry(D dockable, DockableKind kind, DockablePreferences dockablePreferences) {
         this.dockable = dockable;
+        this.kind = kind;
         this.dockablePreferences = dockablePreferences;
     }
 
@@ -47,6 +50,12 @@ public class DockableEntry<D> {
         return dockable;
     }
 
+    /**
+     * @return the kind
+     */
+    public DockableKind getKind() {
+        return kind;
+    }
 
     /**
      * Gets the dockable preferences.

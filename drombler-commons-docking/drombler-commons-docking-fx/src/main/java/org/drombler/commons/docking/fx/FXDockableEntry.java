@@ -16,6 +16,7 @@ package org.drombler.commons.docking.fx;
 
 import javafx.scene.Node;
 import org.drombler.commons.docking.DockableEntry;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 
 /**
@@ -32,11 +33,12 @@ public class FXDockableEntry extends DockableEntry<Node> {
      * Creates a new instance of this class.
      *
      * @param dockable the Dockable
+     * @param kind the kind of the Dockable
      * @param dockableData the {@link FXDockableData}
      * @param dockablePreferences the {@link DockablePreferences}
      */
-    public FXDockableEntry(Node dockable, FXDockableData dockableData, DockablePreferences dockablePreferences) {
-        super(dockable, dockablePreferences);
+    public FXDockableEntry(Node dockable, DockableKind kind, FXDockableData dockableData, DockablePreferences dockablePreferences) {
+        super(dockable, kind, dockablePreferences);
         this.dockableData = dockableData;
     }
 
