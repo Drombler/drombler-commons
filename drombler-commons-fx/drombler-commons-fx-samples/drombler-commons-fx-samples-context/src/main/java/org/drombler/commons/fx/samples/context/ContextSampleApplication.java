@@ -30,6 +30,7 @@ import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
 import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.docking.fx.DockingPane;
@@ -157,16 +158,21 @@ public class ContextSampleApplication extends Application {
         // TODO: hide DockingAreaPane from API
         DockingAreaDescriptor centerAreaDescriptor = new DockingAreaDescriptor();
         centerAreaDescriptor.setId(CENTER_AREA_ID);
+        centerAreaDescriptor.setKind(DockingAreaKind.EDITOR);
         centerAreaDescriptor.setParentPath(Arrays.asList(20, 40, 50));
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
+        centerAreaDescriptor.setAdHoc(false);
+
         // TODO: set default
         centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
         rightAreaDescriptor.setId(RIGHT_AREA_ID);
+        rightAreaDescriptor.setKind(DockingAreaKind.VIEW);
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
+        rightAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 

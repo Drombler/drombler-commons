@@ -32,6 +32,7 @@ import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
 import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.docking.fx.DockingPane;
@@ -59,7 +60,7 @@ public class DockingSampleApplication extends Application {
     private DockingManager dockingManager;
 
     @Override
-    public void start(Stage stage)  {
+    public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
@@ -75,7 +76,7 @@ public class DockingSampleApplication extends Application {
         addDockingAreas(dockingPane);
 
         final DockablePreferencesManager<Node> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
-        registerDefaultDockablePreferences(dockablePreferencesManager);
+        registerDefaultDockablePreferences(dockablePreferencesManager, dockingPane.getDefaultEditorAreaId());
 
         FXDockableData leftDockableData = new FXDockableData();
         leftDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(LeftTestPane.class)));
@@ -145,12 +146,12 @@ public class DockingSampleApplication extends Application {
         return openDockablePaneMenuItem;
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager) {
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager, String defaultEditorAreaId) {
         registerDefaultDockablePreferences(dockablePreferencesManager, LeftTestPane.class, LEFT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, RightTestPane.class, RIGHT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, TopTestPane.class, TOP_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, BottomTestPane.class, BOTTOM_AREA_ID, 20);
-        registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, CENTER_AREA_ID, 20);
+        registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, defaultEditorAreaId, 20);
     }
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager,
@@ -165,41 +166,51 @@ public class DockingSampleApplication extends Application {
         // TODO: hide DockingAreaPane from API
         DockingAreaDescriptor centerAreaDescriptor = new DockingAreaDescriptor();
         centerAreaDescriptor.setId(CENTER_AREA_ID);
+        centerAreaDescriptor.setKind(DockingAreaKind.EDITOR);
         centerAreaDescriptor.setParentPath(Arrays.asList(20, 40, 50));
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
+        centerAreaDescriptor.setAdHoc(false);
         // TODO: set default
         centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
 
         DockingAreaDescriptor topAreaDescriptor = new DockingAreaDescriptor();
         topAreaDescriptor.setId(TOP_AREA_ID);
+        topAreaDescriptor.setKind(DockingAreaKind.VIEW);
         topAreaDescriptor.setParentPath(Arrays.asList(20, 40, 20));
         topAreaDescriptor.setPosition(20);
         topAreaDescriptor.setPermanent(false);
+        topAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         topAreaDescriptor.setLayoutConstraints(topLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor bottomAreaDescriptor = new DockingAreaDescriptor();
         bottomAreaDescriptor.setId(BOTTOM_AREA_ID);
+        bottomAreaDescriptor.setKind(DockingAreaKind.VIEW);
         bottomAreaDescriptor.setParentPath(Arrays.asList(20, 40, 80));
         bottomAreaDescriptor.setPosition(20);
         bottomAreaDescriptor.setPermanent(false);
+        bottomAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         bottomAreaDescriptor.setLayoutConstraints(bottomLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor leftAreaDescriptor = new DockingAreaDescriptor();
         leftAreaDescriptor.setId(LEFT_AREA_ID);
+        leftAreaDescriptor.setKind(DockingAreaKind.VIEW);
         leftAreaDescriptor.setParentPath(Arrays.asList(20, 20));
         leftAreaDescriptor.setPosition(20);
         leftAreaDescriptor.setPermanent(false);
+        leftAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         leftAreaDescriptor.setLayoutConstraints(leftLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
         rightAreaDescriptor.setId(RIGHT_AREA_ID);
+        rightAreaDescriptor.setKind(DockingAreaKind.VIEW);
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
+        rightAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 
