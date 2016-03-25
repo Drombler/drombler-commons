@@ -80,7 +80,7 @@ public class ContextSampleApplication extends Application {
         addDockingAreas(dockingPane);
 
         DockablePreferencesManager<Node> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
-        registerDefaultDockablePreferences(dockablePreferencesManager);
+        registerDefaultDockablePreferences(dockablePreferencesManager, dockingPane.getDefaultEditorAreaId());
 
         FXDockableData contextProviderPane1DockableData = new FXDockableData();
         ContextProviderPane contextProviderPane1 = new ContextProviderPane(new Sample("Sample 1"));
@@ -141,8 +141,8 @@ public class ContextSampleApplication extends Application {
         return openDockablePaneMenuItem;
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager) {
-        registerDefaultDockablePreferences(dockablePreferencesManager, ContextProviderPane.class, CENTER_AREA_ID, 20);
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager, String defaultEditorAreaId) {
+        registerDefaultDockablePreferences(dockablePreferencesManager, ContextProviderPane.class, defaultEditorAreaId, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, ContextConsumerPane.class, RIGHT_AREA_ID, 20);
     }
 
