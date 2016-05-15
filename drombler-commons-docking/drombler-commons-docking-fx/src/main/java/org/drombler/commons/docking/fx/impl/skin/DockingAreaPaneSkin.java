@@ -51,7 +51,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                 change.getRemoved().stream().
                         map(dockableEntry -> dockableEntry.getAdapted().getDockableData()).
                         forEach(dockableData -> {
-                            ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
+                    ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
                             remove(dockableData);
                             dockableData.modifiedProperty().removeListener(listener);
                         });
@@ -157,6 +157,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         final FXDockableData dockableData = dockable.getAdapted().getDockableData();
         tab.textProperty().bind(dockableData.titleProperty());
         tab.graphicProperty().bind(dockableData.graphicProperty());
+        tab.tooltipProperty().bind(dockableData.tooltipProperty());
         tab.contextMenuProperty().bind(dockableData.contextMenuProperty());
         tab.setContent(dockable.getAdapted().getDockable());
         observeDockableData(dockableData, tab);
@@ -176,10 +177,8 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             if (!tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
                 tab.getStyleClass().add(DOCKABLE_MODIFIED_STYLE_CLASS);
             }
-        } else {
-            if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
-                tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
-            }
+        } else if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
+            tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
         }
     }
 }
