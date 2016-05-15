@@ -179,6 +179,6 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             }
         } else if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
             tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
-        }        }
+        }
     }
 }
