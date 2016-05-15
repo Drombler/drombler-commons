@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Tooltip;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
@@ -45,11 +46,15 @@ public class FXDockableData implements DockableData {
 //        return resourceBundle;
 //    }
     /**
-     * The title of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
+     * The title of this Dockable. It is used to represent this Dockable e.g. in menus or tabs.
      */
     private final StringProperty title = new SimpleStringProperty(this, "title", "");
     /**
-     * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs. TODO: needed?
+     * The tooltip for this Dockable. It is used to provide additional information about this Dockable.
+     */
+    private final ObjectProperty<Tooltip> tooltip = new SimpleObjectProperty<>(this, "tooltip", null);
+    /**
+     * The graphic of this Dockable. It is used to represent this Dockable e.g. in menus or tabs. TODO: needed?
      */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
@@ -88,6 +93,18 @@ public class FXDockableData implements DockableData {
 
     public StringProperty titleProperty() {
         return title;
+    }
+
+    public final Tooltip getTooltip() {
+        return tooltipProperty().get();
+    }
+
+    public final void setTooltip(Tooltip tooltip) {
+        tooltipProperty().set(tooltip);
+    }
+
+    public ObjectProperty<Tooltip> tooltipProperty() {
+        return tooltip;
     }
 
     public final Node getGraphic() {
