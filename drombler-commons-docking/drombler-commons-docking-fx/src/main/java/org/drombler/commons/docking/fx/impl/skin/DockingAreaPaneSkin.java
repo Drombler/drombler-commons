@@ -51,8 +51,8 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                 change.getRemoved().stream().
                         map(dockableEntry -> dockableEntry.getAdapted().getDockableData()).
                         forEach(dockableData -> {
-                    ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
-                            remove(dockableData);
+                            ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
+                                    remove(dockableData);
                             dockableData.modifiedProperty().removeListener(listener);
                         });
             } else if (change.wasAdded()) {
@@ -177,8 +177,10 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             if (!tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
                 tab.getStyleClass().add(DOCKABLE_MODIFIED_STYLE_CLASS);
             }
-        } else if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
-            tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
+        } else {
+            if (tab.getStyleClass().contains(DOCKABLE_MODIFIED_STYLE_CLASS)) {
+                tab.getStyleClass().remove(DOCKABLE_MODIFIED_STYLE_CLASS);
+            }
         }
     }
 }
