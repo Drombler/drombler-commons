@@ -26,11 +26,12 @@ import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 
 /**
- * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using
- * the dividers. Each Docking Area can hold any number of Dockable Panes, which are layed out as Tabs.
+ * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using the dividers. Each Docking Area can hold any number of Dockable Panes, which are
+ * layed out as Tabs.
  *
  * Wiki: http://wiki.drombler.org/DockingFramework
  *
@@ -123,4 +124,14 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     public ObjectProperty<Node> activeDockableProperty() {
         return activeDockable;
     }
+
+    public String getDefaultEditorAreaId() {
+        return dockingAreaDescriptors.stream()
+                .filter(dockingAreaDescriptor -> dockingAreaDescriptor.getKind() == DockingAreaKind.EDITOR)
+                .filter(dockingAreaDescriptor -> !dockingAreaDescriptor.isAdHoc())
+                .map(DockingAreaDescriptor::getId)
+                .findFirst()
+                .orElse(null);
+    }
+
 }

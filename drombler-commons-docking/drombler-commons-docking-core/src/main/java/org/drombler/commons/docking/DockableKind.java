@@ -15,13 +15,13 @@
 package org.drombler.commons.docking;
 
 /**
- * The Docking Area kind.
+ * The Dockable kind.
  *
  * @author puce
  */
 //@XmlType(name = "DockingAreaKindType")//namespace="http://www.richclientplatform.org/schema/dockingAreas"
 //@XmlEnum
-public enum DockingAreaKind {
+public enum DockableKind {
 
     VIEW, EDITOR;
 }
