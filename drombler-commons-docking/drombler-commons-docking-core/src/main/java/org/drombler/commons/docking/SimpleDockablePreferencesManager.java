@@ -17,6 +17,8 @@ package org.drombler.commons.docking;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A simple in-memory {@link DockablePreferencesManager}.
@@ -29,6 +31,8 @@ import java.util.Map;
  * @param <D> the Dockable type
  */
 public class SimpleDockablePreferencesManager<D> implements DockablePreferencesManager<D> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleDockablePreferencesManager.class);
 
     // TODO: Consider to use weak references
     private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = Collections.synchronizedMap(
@@ -51,6 +55,7 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
         if (!dockablePreferencesMap.containsKey(dockable)) {
             dockablePreferencesMap.put(dockable, new DockablePreferences(defaultDockablePreferencesMap.get(dockable.
                     getClass())));
+            LOG.debug("Registered dockable preferences for: {}", dockable);
         }
         return dockablePreferencesMap.get(dockable);
     }
@@ -61,6 +66,7 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
     @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         defaultDockablePreferencesMap.put(dockableClass, dockablePreferences);
+        LOG.debug("Registered default dockable preferences for: {}", dockableClass);
     }
 
 //    @Override
@@ -72,7 +78,9 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
      */
     @Override
     public DockablePreferences unregisterDockablePreferences(D dockable) {
-        return dockablePreferencesMap.remove(dockable);
+        DockablePreferences dockablePreferences = dockablePreferencesMap.remove(dockable);
+        LOG.debug("Unregistered dockable preferences for: {}", dockable);
+        return dockablePreferences;
     }
 
     /**
