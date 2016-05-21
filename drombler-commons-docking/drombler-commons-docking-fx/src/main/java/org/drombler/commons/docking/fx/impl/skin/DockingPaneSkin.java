@@ -26,12 +26,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.docking.DockingAreaDescriptor;
-import org.drombler.commons.docking.spi.DockingAreaManager;
-import org.drombler.commons.docking.spi.SplitLevel;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.impl.DockingAreaPane;
 import org.drombler.commons.docking.fx.impl.DockingSplitPane;
+import org.drombler.commons.docking.spi.DockingAreaManager;
+import org.drombler.commons.docking.spi.SplitLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
@@ -108,7 +108,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     }
 
     private void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
-        LOG.debug("Added docking area: {}", dockingAreaDescriptor.getId());
+        LOG.debug("Added docking area ({}): {}", dockingAreaDescriptor.getKind(), dockingAreaDescriptor.getId());
         DockingAreaPane dockingArea = createDockingArea(dockingAreaDescriptor);
 
         dockingArea.getSelectionModel().selectedItemProperty().
