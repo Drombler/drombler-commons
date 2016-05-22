@@ -165,7 +165,7 @@ public class DividerPositionRecalculator implements AutoCloseable {
 
             if (requiredRelativeSize > 1) {
                 // TODO: shrink sizes
-                LOG.warn("Parent smaller than preferred size! Behavior not implemented yet! parentSize: {}; requiredRelativeSize: {} ", parentSize, requiredRelativeSize);
+                LOG.debug("Parent smaller than preferred size! Behavior not implemented yet! parentSize: {}; requiredRelativeSize: {} ", parentSize, requiredRelativeSize);
             }
 
             if (flexiblePositions > 0) {

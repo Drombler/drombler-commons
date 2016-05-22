@@ -150,12 +150,36 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     public void addDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualizable()) {
             manager.addDockingArea(dockingArea);
+            if (LOG.isDebugEnabled()) {
+                logShortPaths();
+            }
         }
+    }
+
+    private void logShortPaths() {
+        dockingSplitPaneChildren.stream().
+                forEach((child) -> {
+                    if (child instanceof DockingAreaPane) {
+                        DockingAreaPane dockingArea = (DockingAreaPane) child;
+                        LOG.debug("{} short path: {}", dockingArea, dockingArea.getShortPath());
+                    } else {
+                        if (child instanceof DockingSplitPane) {
+                            DockingSplitPane dockingSplitPane = (DockingSplitPane) child;
+                            // recursion
+                            dockingSplitPane.logShortPaths();
+                        } else {
+                            LOG.debug("Unsupported child type '{}'", child.getClass());
+                        }
+                    }
+                });
     }
 
     public void removeDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualized()) {
             manager.removeDockingArea(dockingArea);
+            if (LOG.isDebugEnabled()) {
+                logShortPaths();
+            }
         }
     }
 
