@@ -36,7 +36,6 @@ public class SimpleDockableDataManager<D, DATA extends DockableData> implements 
 
     // TODO: Consider to use weak references
     private final Map<D, DATA> dockableDataMap = Collections.synchronizedMap(new HashMap<>());
-    private final Map<Class<?>, DATA> classDockableDataMap = Collections.synchronizedMap(new HashMap<>());
 
     /**
      * Creates a new instance of this class.

@@ -22,7 +22,7 @@ import java.util.Collections;
  *
  * @author puce
  */
-public class Contexts {
+public final class Contexts {
 
     private static Context EMPTY_CONTEXT;
 
@@ -60,5 +60,35 @@ public class Contexts {
             };
         }
         return EMPTY_CONTEXT;
+    }
+
+    /**
+     * Gets the local {@link Context} of a {@link LocalContextProvider}.
+     *
+     * @param localContextProvider a LocalContextProvider
+     * @return the local Context of the provided LocalContextProvider
+     * @throws ClassCastException if localContextProvider does not implement LocalContextProvider
+     */
+    public static Context getLocalContext(Object localContextProvider) {
+        return ((LocalContextProvider) localContextProvider).getLocalContext();
+    }
+    /**
+     * Finds an instance of the specified type in the local context of the provided {@link LocalContextProvider}. If the local context has more than one instance of the specified type, the first one
+     * found will be returned.
+     *
+     * @param <T> the specified type
+     * @param localContextProvider a LocalContextProvider
+     * @param type the specified type
+     * @return the first instance found in this context with the specified type, or {@code null} if no instance was found or if localContextProvider does not implement LocalContextProvider.
+     *
+     * TODO: return Optional?
+     */
+    public static <T> T find(Object localContextProvider, Class<T> type) {
+        if (localContextProvider instanceof LocalContextProvider) {
+            Context localContext = getLocalContext(localContextProvider);
+            return localContext.find(type);
+        } else {
+            return null;
+        }
     }
 }

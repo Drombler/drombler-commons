@@ -23,11 +23,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
+import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
 
 /**
  * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using the dividers. Each Docking Area can hold any number of Dockable Panes, which are
@@ -52,6 +54,10 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     // TODO: needed? useful?
     private final Map<Node, FXDockableEntry> dockableEntryMap = new HashMap<>();
 
+    // TODO: should this be a real event handler or a simple property?
+    private final ObjectProperty<EventHandler<DockableCloseRequestEvent>> onDockableCloseRequest = new SimpleEventHandlerProperty<>(this, "onDockableCloseRequest",
+            DockableCloseRequestEvent.DOCKABLE_CLOSE_REQUEST, this::setEventHandler);
+
     /**
      * Creates a new instance of this class.
      */
@@ -61,16 +67,16 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
             if (change.wasAdded()) {
                 dockingAreaIds.add(change.getElementAdded().getId());
             } else if (change.wasRemoved()) {
-                dockingAreaIds.remove(change.getElementRemoved().getId());
-            }
+                    dockingAreaIds.remove(change.getElementRemoved().getId());
+                }
         });
         dockables.addListener((SetChangeListener.Change<? extends FXDockableEntry> change) -> {
             if (change.wasAdded()) {
 //                if (dockingAreaIds.contains(dockableEntry.getDockablePreferences().getAreaId())) { // TODO: needed?
                 dockableEntryMap.put(change.getElementAdded().getDockable(), change.getElementAdded());
             } else if (change.wasRemoved()) {
-                dockableEntryMap.remove(change.getElementRemoved().getDockable());
-            }
+                    dockableEntryMap.remove(change.getElementRemoved().getDockable());
+                }
         });
         setFocusTraversable(false);
     }
@@ -123,6 +129,18 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
 
     public ObjectProperty<Node> activeDockableProperty() {
         return activeDockable;
+    }
+
+    public final EventHandler<DockableCloseRequestEvent> getOnDockableCloseRequest() {
+        return onDockableCloseRequestProperty().get();
+    }
+
+    public final void setOnDockableCloseRequest(EventHandler<DockableCloseRequestEvent> eventHandler) {
+        onDockableCloseRequestProperty().set(eventHandler);
+    }
+
+    public ObjectProperty<EventHandler<DockableCloseRequestEvent>> onDockableCloseRequestProperty() {
+        return onDockableCloseRequest;
     }
 
     public String getDefaultEditorAreaId() {
