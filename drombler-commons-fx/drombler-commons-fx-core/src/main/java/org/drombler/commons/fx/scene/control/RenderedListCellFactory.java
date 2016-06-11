@@ -56,14 +56,18 @@ public class RenderedListCellFactory<T> implements Callback<ListView<T>, ListCel
         @Override
         protected void updateItem(T item, boolean empty) {
             super.updateItem(item, empty);
-            LabeledUtils.configure(this, dataRenderer, item);
+            if (empty || item == null) {
+                LabeledUtils.unconfigure(this, dataRenderer);
+            } else {
+                LabeledUtils.configure(this, dataRenderer, item);
 //        setText(cellRenderer.getText(item));
 //        setGraphic(cellRenderer.getGraphic(item));
-            //setGraphic(new Text("@"));
-            //setTextAlignment(cellRenderer.getTextAlignment());
-            //setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
-            //setAlignment(Pos.CENTER_RIGHT);
+                //setGraphic(new Text("@"));
+                //setTextAlignment(cellRenderer.getTextAlignment());
+                //setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
+                //setAlignment(Pos.CENTER_RIGHT);
 //        getStyleClass().addAll(cellRenderer.getStyleClass(item));
+            }
         }
     }
 }

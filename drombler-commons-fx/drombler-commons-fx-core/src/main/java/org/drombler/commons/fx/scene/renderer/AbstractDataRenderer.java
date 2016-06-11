@@ -17,6 +17,7 @@ package org.drombler.commons.fx.scene.renderer;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 
 /**
  * An abstract base implementation of {@link DataRenderer}.
@@ -36,6 +37,12 @@ public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
     public Node getGraphic(T item) {
         return null;
     }
+
+    @Override
+    public Tooltip getTooltip(T item) {
+        return null;
+    }
+
 
 //    private final StringProperty displayStringProperty = new SimpleStringProperty();
 //    private final ObjectProperty<TextAlignment> textAlignmentProperty = new SimpleObjectProperty<>();

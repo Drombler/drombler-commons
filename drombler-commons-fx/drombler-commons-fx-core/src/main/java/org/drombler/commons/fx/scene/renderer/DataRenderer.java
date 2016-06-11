@@ -16,6 +16,7 @@ package org.drombler.commons.fx.scene.renderer;
 
 import java.util.List;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 
 /**
  * Note: more methods might be added
@@ -46,6 +47,8 @@ public interface DataRenderer<T> {
      * @return a graphical representation of the item
      */
     Node getGraphic(T item);// TODO: is it possible to set the locale of a node? if yes, pass it as parameter.
+
+    Tooltip getTooltip(T item);
 
     /**
      * Gets a list of style classes for the specified item.
