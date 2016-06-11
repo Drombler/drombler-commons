@@ -98,7 +98,7 @@ public class DockingManager implements AutoCloseable {
 
     private Context getLocalContext(Node dockable) {
         if (dockable instanceof LocalContextProvider) {
-            return ((LocalContextProvider) dockable).getLocalContext();
+            return Contexts.getLocalContext(dockable);
         } else {
             return Contexts.emptyContext();
         }
