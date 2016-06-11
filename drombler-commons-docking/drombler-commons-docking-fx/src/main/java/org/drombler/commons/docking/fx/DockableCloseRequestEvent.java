@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DockableCloseRequestEvent extends Event {
 
-    public static EventType<DockableCloseRequestEvent> DOCKABLE_CLOSE_REQUEST = new EventType<>(Event.ANY, "DOCKABLE_CLOSE_REQUEST");
+    public static final EventType<DockableCloseRequestEvent> DOCKABLE_CLOSE_REQUEST = new EventType<>(Event.ANY, "DOCKABLE_CLOSE_REQUEST");
 
     private static final long serialVersionUID = 3700251117280591632L;
     private static final Logger LOG = LoggerFactory.getLogger(DockableCloseRequestEvent.class);

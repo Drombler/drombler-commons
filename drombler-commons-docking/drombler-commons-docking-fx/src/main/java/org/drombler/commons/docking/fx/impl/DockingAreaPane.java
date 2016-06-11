@@ -23,18 +23,15 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
-import org.drombler.commons.docking.fx.DockableCloseRequestEvent;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.docking.spi.DockingArea;
 import org.drombler.commons.docking.spi.DockingAreaManager;
 import org.drombler.commons.docking.spi.DockingAreaUtils;
 import org.drombler.commons.docking.spi.ShortPathPart;
-import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
 import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.Positionables;
@@ -67,10 +64,6 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     private final BooleanProperty visualized = new SimpleBooleanProperty(this, "visualized", false);
     private final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> selectionModel
             = new SimpleObjectProperty<>(this, "singleSelectionModel", new ListSingleSelectionModel<>(dockables));
-
-    // TODO: should this be a real event handler or a simple property?
-    private final ObjectProperty<EventHandler<DockableCloseRequestEvent>> onDockableCloseRequest = new SimpleEventHandlerProperty<>(this, "onDockableCloseRequest",
-            DockableCloseRequestEvent.DOCKABLE_CLOSE_REQUEST, this::setEventHandler);
 
     public DockingAreaPane(String areaId, DockingAreaKind kind, int position, boolean permanent,
             LayoutConstraintsDescriptor layoutConstraints) {
@@ -128,18 +121,6 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
 
     public ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> singleModelProperty() {
         return selectionModel;
-    }
-
-    public final EventHandler<DockableCloseRequestEvent> getOnDockableCloseRequest() {
-        return onDockableCloseRequestProperty().get();
-    }
-
-    public final void setOnDockableCloseRequest(EventHandler<DockableCloseRequestEvent> eventHandler) {
-        onDockableCloseRequestProperty().set(eventHandler);
-    }
-
-    public ObjectProperty<EventHandler<DockableCloseRequestEvent>> onDockableCloseRequestProperty() {
-        return onDockableCloseRequest;
     }
 
     public boolean addDockable(PositionableAdapter<FXDockableEntry> dockable) {

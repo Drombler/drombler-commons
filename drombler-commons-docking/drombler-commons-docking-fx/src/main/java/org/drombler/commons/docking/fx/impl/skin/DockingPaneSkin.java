@@ -139,7 +139,6 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                         }
                     }
                 });
-        dockingArea.onDockableCloseRequestProperty().bind(control.onDockableCloseRequestProperty());
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
         rootDockingAreaManager.addDockingArea(dockingAreaDescriptor.getParentPath(), dockingArea);
         handleDockingArea(dockingArea);
