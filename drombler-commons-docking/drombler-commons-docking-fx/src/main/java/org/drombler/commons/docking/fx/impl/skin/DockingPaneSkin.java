@@ -56,7 +56,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             addDockingArea(change.getElementAdded());
         } else if (change.wasRemoved()) {
 // TODO: remove DockingArea
-        }
+            }
     };
 
     private final SetChangeListener<FXDockableEntry> dockableEntrySetChangeListener = change -> {
@@ -85,6 +85,19 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             }
         });
         this.control.getScene().focusOwnerProperty().addListener(focusOwnerChangeListener);
+        this.control.activeDockableProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                dockingAreaPanes.values().stream()
+                        .filter(dockingAreaPane -> dockingAreaPane.containsDockable(newValue))
+                        .findFirst()
+                        .ifPresent(dockingAreaPane -> {
+                            dockingAreaPane.getDockables().stream()
+                                    .filter(adapter -> adapter.getAdapted().equals(newValue))
+                                    .findFirst()
+                                    .ifPresent(adapter -> dockingAreaPane.getSelectionModel().select(adapter));
+                        });
+            }
+        });
     }
 
     @Override
@@ -129,14 +142,18 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                                 // TODO: ???
                             }
                         } else if (change.wasUpdated()) {
-                            // TODO: ???
-                        } else if (change.wasRemoved()) {
-                            removeDockables(change.getRemoved());
-                        } else if (change.wasAdded()) {
-                            // TODO: ???
-                        } else if (change.wasReplaced()) {
-                            // TODO: ???
-                        }
+                                // TODO: ???
+                            } else if (change.wasRemoved()) {
+                                    removeDockables(change.getRemoved());
+                                } else {
+                                    if (change.wasAdded()) {
+                                        // TODO: ???
+                                    } else {
+                                        if (change.wasReplaced()) {
+                                            // TODO: ???
+                                        }
+                                    }
+                                }
                     }
                 });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
@@ -194,9 +211,9 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                 LOG.debug("Add visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.addDockingArea(dockingArea);
             } else if (!dockingArea.isVisualizable() && dockingArea.isVisualized()) {
-                LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
-                rootSplitPane.removeDockingArea(dockingArea);
-            }
+                    LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
+                    rootSplitPane.removeDockingArea(dockingArea);
+                }
         }
 
         @Override
@@ -230,8 +247,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                             getSelectionModel().getSelectedItem();
                     if (selectedItem != null) {
                         LOG.debug("Dockable found!");
-                        currentNode = selectedItem.getAdapted().getDockable();
-                        control.setActiveDockable(currentNode);
+                        control.setActiveDockable(selectedItem.getAdapted());
                         LOG.debug("Changed active Dockable: '{}'!", selectedItem.getAdapted().getDockableData().
                                 getTitle());
                     }
