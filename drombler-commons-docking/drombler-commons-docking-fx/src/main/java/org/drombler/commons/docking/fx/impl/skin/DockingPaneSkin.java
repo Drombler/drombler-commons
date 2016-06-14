@@ -56,7 +56,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             addDockingArea(change.getElementAdded());
         } else if (change.wasRemoved()) {
 // TODO: remove DockingArea
-            }
+        }
     };
 
     private final SetChangeListener<FXDockableEntry> dockableEntrySetChangeListener = change -> {
@@ -142,18 +142,14 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                                 // TODO: ???
                             }
                         } else if (change.wasUpdated()) {
-                                // TODO: ???
+                            // TODO: ???
                         } else if (change.wasRemoved()) {
-                                    removeDockables(change.getRemoved());
-                                } else {
-                                    if (change.wasAdded()) {
-                                        // TODO: ???
-                                    } else {
-                                        if (change.wasReplaced()) {
-                                            // TODO: ???
-                                        }
-                                    }
-                                }
+                            removeDockables(change.getRemoved());
+                        } else if (change.wasAdded()) {
+                            // TODO: ???
+                        } else if (change.wasReplaced()) {
+                            // TODO: ???
+                        }
                     }
                 });
         dockingAreaPanes.put(dockingArea.getAreaId(), dockingArea);
@@ -211,9 +207,9 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                 LOG.debug("Add visualizable docking area: {}", dockingArea.getAreaId());
                 rootSplitPane.addDockingArea(dockingArea);
             } else if (!dockingArea.isVisualizable() && dockingArea.isVisualized()) {
-                    LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
-                    rootSplitPane.removeDockingArea(dockingArea);
-                }
+                LOG.debug("Remove non-visualizable docking area: {}", dockingArea.getAreaId());
+                rootSplitPane.removeDockingArea(dockingArea);
+            }
         }
 
         @Override
