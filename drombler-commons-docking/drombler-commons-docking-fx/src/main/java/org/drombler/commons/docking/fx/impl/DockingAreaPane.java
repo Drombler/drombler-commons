@@ -124,7 +124,7 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
     }
 
     public boolean addDockable(PositionableAdapter<FXDockableEntry> dockable) {
-        if (!containsDockable(dockable.getAdapted())) {
+        if (!dockableSet.contains(dockable.getAdapted())) {
             dockableSet.add(dockable.getAdapted());
             int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
             dockables.add(insertionPoint, dockable);
@@ -132,10 +132,6 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
         } else {
             return false;
         }
-    }
-
-    public boolean containsDockable(FXDockableEntry dockableEntry) {
-        return dockableSet.contains(dockableEntry);
     }
 
     public PositionableAdapter<FXDockableEntry> removeDockable(int index) {
