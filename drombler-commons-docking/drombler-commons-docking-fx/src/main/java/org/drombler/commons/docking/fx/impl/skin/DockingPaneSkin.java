@@ -143,7 +143,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                             }
                         } else if (change.wasUpdated()) {
                                 // TODO: ???
-                        } else if (change.wasRemoved()) {
+                            } else if (change.wasRemoved()) {
                                     removeDockables(change.getRemoved());
                                 } else {
                                     if (change.wasAdded()) {
