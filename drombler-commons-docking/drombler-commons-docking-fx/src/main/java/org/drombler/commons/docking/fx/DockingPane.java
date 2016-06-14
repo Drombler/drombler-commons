@@ -48,7 +48,7 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     /**
      * The active Dockable.
      */
-    private final ObjectProperty<Node> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
+    private final ObjectProperty<FXDockableEntry> activeDockable = new SimpleObjectProperty<>(this, "activeDockable");
     // TODO: needed? useful?
     private final Set<String> dockingAreaIds = new HashSet<>();
     // TODO: needed? useful?
@@ -77,6 +77,11 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
             } else if (change.wasRemoved()) {
                     dockableEntryMap.remove(change.getElementRemoved().getDockable());
                 }
+        });
+        activeDockable.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.getDockable().requestFocus();
+            }
         });
         setFocusTraversable(false);
     }
@@ -111,23 +116,23 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     }
 
     /**
-     * Gets the Dockables.
+     * Gets the Dockable entry.
      *
-     * @return the Dockables.
+     * @return the Dockable entry.
      */
     public ObservableSet<FXDockableEntry> getDockables() {
         return dockables;
     }
 
-    public final Node getActiveDockable() {
+    public final FXDockableEntry getActiveDockable() {
         return activeDockableProperty().get();
     }
 
-    public final void setActiveDockable(Node dockable) {
+    public final void setActiveDockable(FXDockableEntry dockable) {
         activeDockableProperty().set(dockable);
     }
 
-    public ObjectProperty<Node> activeDockableProperty() {
+    public ObjectProperty<FXDockableEntry> activeDockableProperty() {
         return activeDockable;
     }
 

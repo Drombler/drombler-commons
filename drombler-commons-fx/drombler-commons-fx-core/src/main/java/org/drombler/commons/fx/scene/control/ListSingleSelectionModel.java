@@ -20,6 +20,7 @@ import javafx.scene.control.SingleSelectionModel;
 /**
  * A {@link List} based {@link SingleSelectionModel} implementation.
  *
+ * @param <T> the item type
  * @author puce
  */
 public class ListSingleSelectionModel<T> extends SingleSelectionModel<T> {
@@ -54,4 +55,17 @@ public class ListSingleSelectionModel<T> extends SingleSelectionModel<T> {
     protected int getItemCount() {
         return list.size();
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * This implementation only selects the provided item if it's in the list.
+     */
+    @Override
+    public void select(T obj) {
+        if (list.contains(obj)) {
+            super.select(obj);
+        }
+    }
+
 }

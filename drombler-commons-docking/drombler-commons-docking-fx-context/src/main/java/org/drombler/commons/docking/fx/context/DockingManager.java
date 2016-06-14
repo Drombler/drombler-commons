@@ -15,7 +15,6 @@
 package org.drombler.commons.docking.fx.context;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import org.drombler.commons.context.Context;
@@ -48,7 +47,7 @@ public class DockingManager implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DockingManager.class);
 
-    private final ChangeListener<Node> activeDockableListener = (ObservableValue<? extends Node> ov, Node oldValue, Node newValue) -> {
+    private final ChangeListener<FXDockableEntry> activeDockableListener = (ov, oldValue, newValue) -> {
         // TODO: newValue == null ?
         LOG.debug("Active Dockable changed!");
         handleActiveDockableSelected(newValue);
@@ -92,8 +91,8 @@ public class DockingManager implements AutoCloseable {
         contextManager.removeLocalContext(dockable);
     }
 
-    private void handleActiveDockableSelected(Node dockable) {
-        contextManager.setLocalContextActive(dockable);
+    private void handleActiveDockableSelected(FXDockableEntry dockableEntry) {
+        contextManager.setLocalContextActive(dockableEntry.getDockable());
     }
 
     private Context getLocalContext(Node dockable) {

@@ -85,6 +85,19 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             }
         });
         this.control.getScene().focusOwnerProperty().addListener(focusOwnerChangeListener);
+        this.control.activeDockableProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                dockingAreaPanes.values().stream()
+                        .filter(dockingAreaPane -> dockingAreaPane.containsDockable(newValue))
+                        .findFirst()
+                        .ifPresent(dockingAreaPane -> {
+                            dockingAreaPane.getDockables().stream()
+                                    .filter(adapter -> adapter.getAdapted().equals(newValue))
+                                    .findFirst()
+                                    .ifPresent(adapter -> dockingAreaPane.getSelectionModel().select(adapter));
+                        });
+            }
+        });
     }
 
     @Override
@@ -230,8 +243,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                             getSelectionModel().getSelectedItem();
                     if (selectedItem != null) {
                         LOG.debug("Dockable found!");
-                        currentNode = selectedItem.getAdapted().getDockable();
-                        control.setActiveDockable(currentNode);
+                        control.setActiveDockable(selectedItem.getAdapted());
                         LOG.debug("Changed active Dockable: '{}'!", selectedItem.getAdapted().getDockableData().
                                 getTitle());
                     }

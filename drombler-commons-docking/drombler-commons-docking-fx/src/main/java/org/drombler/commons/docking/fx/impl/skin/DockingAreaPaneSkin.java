@@ -39,7 +39,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     private final Map<FXDockableData, ChangeListener<? super Boolean>> dockableDataModifiedListeners = new HashMap<>();
     private DockingAreaPane control;
     private TabPane tabPane = new TabPane();
-    private TabManager tabManager = new TabManager();
+    private final TabManager tabManager = new TabManager();
 
     private final ListChangeListener<PositionableAdapter<FXDockableEntry>> dockablesChangeListener = change -> {
         while (change.next()) {
