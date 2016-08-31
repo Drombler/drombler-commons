@@ -20,8 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This {@link Context} manager allows to register local contexts for objects and manages the Application Context and
- * the current Active Context.<br>
+ * This {@link Context} manager allows to register local contexts for objects and manages the Application Context and the current Active Context.<br>
  * <br>
  * The <b>Active Context</b> provides access to the content of the currently active local Context.<br>
  * <br>
@@ -64,8 +63,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     }
 
     /**
-     * Sets a local context active. Its content can be accessed from the Active Context. The local context of the
-     * specified object has to be registered prior to calling this method.
+     * Sets a local context active. Its content can be accessed from the Active Context. The local context of the specified object has to be registered prior to calling this method.
      *
      * @param obj the object whose local context should be set active
      */
@@ -81,8 +79,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     }
 
     /**
-     * Registers a local context for the given Object. Its content will be available from the application-wide context
-     * and it can be set active afterwards.
+     * Registers a local context for the given Object. Its content will be available from the application-wide context and it can be set active afterwards.
      *
      * @param obj an object
      * @param context the local context of the object
@@ -112,8 +109,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     }
 
     /**
-     * Unregisters a local context. Its content won't be available from the application-wide context anymore and it
-     * can't be set active anymore.
+     * Unregisters a local context. Its content won't be available from the application-wide context anymore and it can't be set active anymore.
      *
      * @param obj the object whose local context should be unregistered.
      * @return the registered context
@@ -128,6 +124,10 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
         } else {
             return null;
         }
+    }
+
+    public Context getLocalContext(Object obj) {
+        return localContexts.get(obj);
     }
 
     private boolean isLocalContextActive(Object obj) {

@@ -143,10 +143,12 @@ public class FXDockableData implements DockableData {
         return contextMenu;
     }
 
+    @Override
     public final boolean isModified() {
         return modifiedProperty().get();
     }
 
+    @Override
     public final void setModified(boolean modified) {
         modifiedProperty().set(modified);
     }

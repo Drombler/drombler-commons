@@ -21,13 +21,19 @@ package org.drombler.commons.docking;
  */
 // TODO: replace with a JAXB-based implementation
 public class DockablePreferences {
+
     private String areaId;
     private int position;
 
     /**
      * Creates a new instance of this class.
+     *
+     * @param areaId
+     * @param position
      */
-    public DockablePreferences() {
+    public DockablePreferences(String areaId, int position) {
+        this.areaId = areaId;
+        this.position = position;
     }
 
     /**
@@ -36,8 +42,7 @@ public class DockablePreferences {
      * @param dockablePreferences the DockablePreferences to copy
      */
     public DockablePreferences(DockablePreferences dockablePreferences) {
-        this.areaId = dockablePreferences.areaId;
-        this.position = dockablePreferences.position;
+        this(dockablePreferences.areaId, dockablePreferences.position);
     }
 
     /**

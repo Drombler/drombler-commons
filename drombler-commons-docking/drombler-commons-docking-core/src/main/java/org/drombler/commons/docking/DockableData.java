@@ -36,5 +36,9 @@ public interface DockableData {
      */
     void setTitle(String title);
 
+    boolean isModified();
+
+    void setModified(boolean modified);
+
 }
 

@@ -895,9 +895,7 @@ public class DockingSplitPaneTest {
 
         Node dockablePane = new BorderPane();
         FXDockableData dockableData = new FXDockableData();
-        DockablePreferences dockablePreferences = new DockablePreferences();
-        dockablePreferences.setAreaId(id);
-        dockablePreferences.setPosition(10);
+        DockablePreferences dockablePreferences = new DockablePreferences(id, 10);
         dockingAreaPane.addDockable(new PositionableAdapter<>(new FXDockableEntry(dockablePane, DockableKind.VIEW, dockableData,
                 dockablePreferences), 10));
 

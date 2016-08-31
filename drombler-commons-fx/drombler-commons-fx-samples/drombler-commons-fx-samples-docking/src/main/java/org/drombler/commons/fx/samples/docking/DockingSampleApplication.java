@@ -38,7 +38,7 @@ import org.drombler.commons.docking.SimpleDockablePreferencesManager;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
-import org.drombler.commons.docking.fx.context.DockingManager;
+import org.drombler.commons.docking.fx.context.DockingPaneDockingAreaContainerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,14 +57,14 @@ public class DockingSampleApplication extends Application {
     public static final String CENTER_AREA_ID = "center";
 
     private int sampleCounter = 0;
-    private DockingManager dockingManager;
+    private DockingPaneDockingAreaContainerAdapter dockingAreaContainerAdapter;
 
     @Override
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
         ContextManager contextManager = new ContextManager();
-        dockingManager = new DockingManager(dockingPane, contextManager);
+        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -132,7 +132,7 @@ public class DockingSampleApplication extends Application {
 
     @Override
     public void stop() throws Exception {
-        dockingManager.close();
+        dockingAreaContainerAdapter.close();
         super.stop();
     }
 
@@ -156,9 +156,7 @@ public class DockingSampleApplication extends Application {
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager,
             Class<?> type, String areaId, int position) {
-        DockablePreferences leftDockablePreferences = new DockablePreferences();
-        leftDockablePreferences.setAreaId(areaId);
-        leftDockablePreferences.setPosition(position);
+        DockablePreferences leftDockablePreferences = new DockablePreferences(areaId, position);
         dockablePreferencesManager.registerDefaultDockablePreferences(type, leftDockablePreferences);
     }
 
