@@ -1,6 +1,5 @@
 package org.drombler.commons.docking.context;
 
-import org.drombler.commons.docking.context.impl.DockingContextManager;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,7 @@ import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.DockableEntryFactory;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingManager;
+import org.drombler.commons.docking.context.impl.DockingContextManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.ResourceLoader;
@@ -161,6 +161,11 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
     protected final void fireDockableRemoved(E dockableEntry) {
         DockingAreaContainerDockableEvent<D, DATA, E> event = new DockingAreaContainerDockableEvent<>(this, dockableEntry);
         listeners.forEach(listener -> listener.dockableRemoved(event));
+    }
+
+    protected final void fireActiveDockableChanged(E oldActiveDockableEntry, E newActiveDockableEntry) {
+        DockingAreaContainerActiveDockableChangedEvent<D, DATA, E> event = new DockingAreaContainerActiveDockableChangedEvent<>(this, oldActiveDockableEntry, newActiveDockableEntry);
+        listeners.forEach(listener -> listener.activeDockableChanged(event));
     }
 
     /**

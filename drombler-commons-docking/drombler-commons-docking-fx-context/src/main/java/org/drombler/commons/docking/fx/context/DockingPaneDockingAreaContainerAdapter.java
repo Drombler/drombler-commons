@@ -59,8 +59,8 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
                         }
                     }
                 });
+        dockingPane.activeDockableProperty().addListener((observable, oldValue, newValue) -> fireActiveDockableChanged(oldValue, newValue));
     }
-
 
     /**
      * {@inheritDoc }
@@ -75,10 +75,10 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
      */
     @Override
     public boolean addDockable(FXDockableEntry dockableEntry, boolean active, Context... implicitLocalContexts) {
-        boolean added = dockingPane.getDockables().add(dockableEntry);
+        boolean added = getDockables().add(dockableEntry);
         addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
         if (active) {
-            dockingPane.setActiveDockable(dockableEntry);
+            setActiveDockable(dockableEntry);
         }
         return added;
     }
@@ -114,8 +114,5 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
     public FXDockableEntry getActiveDockable() {
         return dockingPane.getActiveDockable();
     }
-
-
-
 
 }
