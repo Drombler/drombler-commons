@@ -91,6 +91,11 @@ public class ProxyContext extends AbstractContext {
         fireContextEvents(Arrays.asList(context));
     }
 
+    public void addContexts(List<Context> contexts) {
+        contexts.forEach(this::addContextOnly);
+        fireContextEvents(contexts);
+    }
+
     private void addContextOnly(Context context) {
         contexts.add(context);
         getListeners().entrySet().forEach(entry
@@ -133,12 +138,12 @@ public class ProxyContext extends AbstractContext {
         List<Context> contextsToRemove = new ArrayList<>(this.contexts);
         contextsToRemove.removeAll(contexts);
 
-        contextsToRemove.forEach(context -> removeContextOnly(context));
+        contextsToRemove.forEach(this::removeContextOnly);
 
         List<Context> contextsToAdd = new ArrayList<>(contexts);
         contextsToAdd.removeAll(this.contexts);
 
-        contexts.forEach(context -> addContextOnly(context));
+        contexts.forEach(this::addContextOnly);
 
         List<Context> changedContexts = new ArrayList<>(contextsToRemove);
         changedContexts.addAll(contextsToAdd);

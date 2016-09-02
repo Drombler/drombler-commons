@@ -23,6 +23,8 @@ import java.util.EventObject;
  */
 public class ContextEvent extends EventObject {
 
+    private static final long serialVersionUID = 5546522706282340729L;
+
     private final Context sourceContext;
 
     /**

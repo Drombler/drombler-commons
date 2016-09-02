@@ -103,6 +103,11 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-docking-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-docking-fx-context</artifactId>
             <version>${project.version}</version>
         </dependency>

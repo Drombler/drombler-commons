@@ -74,7 +74,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         this.control.getDockables().addListener(dockableEntrySetChangeListener);
 
         this.control.getDockingAreaDescriptors().forEach(dockingAreaDescriptor -> addDockingArea(dockingAreaDescriptor));
-        this.control.getDockables().forEach(dockableEntry -> addDockable(dockableEntry));
+        this.control.getDockables().forEach(this::addDockable);
 
         this.control.sceneProperty().addListener((ov, oldValue, newValue) -> {
             if (oldValue != null) {

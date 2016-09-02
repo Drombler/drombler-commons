@@ -25,9 +25,8 @@ import org.drombler.commons.docking.DockablePreferences;
  *
  * @author puce
  */
-public class FXDockableEntry extends DockableEntry<Node> {
+public class FXDockableEntry extends DockableEntry<Node, FXDockableData> {
 
-    private final FXDockableData dockableData;
 
     /**
      * Creates a new instance of this class.
@@ -38,17 +37,8 @@ public class FXDockableEntry extends DockableEntry<Node> {
      * @param dockablePreferences the {@link DockablePreferences}
      */
     public FXDockableEntry(Node dockable, DockableKind kind, FXDockableData dockableData, DockablePreferences dockablePreferences) {
-        super(dockable, kind, dockablePreferences);
-        this.dockableData = dockableData;
+        super(dockable, kind, dockableData, dockablePreferences);
     }
 
-    /**
-     * Gets the {@link FXDockableData}.
-     *
-     * @return the DockableData
-     */
-    public FXDockableData getDockableData() {
-        return dockableData;
-    }
 
 }

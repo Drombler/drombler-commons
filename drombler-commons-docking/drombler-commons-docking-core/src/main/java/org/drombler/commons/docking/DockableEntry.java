@@ -21,10 +21,12 @@ import java.util.Objects;
  *
  * @author puce
  * @param <D> the Dockable type
+ * @param <DATA>
  */
-public class DockableEntry<D> {
+public class DockableEntry<D, DATA extends DockableData> {
 
     private final D dockable;
+    private final DATA dockableData;
     private final DockableKind kind;
     private final DockablePreferences dockablePreferences;
 
@@ -32,12 +34,14 @@ public class DockableEntry<D> {
      * Creates a new instance of this class.
      *
      * @param dockable the Dockable
+     * @param dockableData
      * @param kind the kind of the Dockable
      * @param dockablePreferences the {@link DockablePreferences} of the Dockable
      */
-    protected DockableEntry(D dockable, DockableKind kind, DockablePreferences dockablePreferences) {
+    protected DockableEntry(D dockable, DockableKind kind, DATA dockableData, DockablePreferences dockablePreferences) {
         this.dockable = dockable;
         this.kind = kind;
+        this.dockableData = dockableData;
         this.dockablePreferences = dockablePreferences;
     }
 
@@ -55,6 +59,15 @@ public class DockableEntry<D> {
      */
     public DockableKind getKind() {
         return kind;
+    }
+
+    /**
+     * Gets the {@link DockableData}.
+     *
+     * @return the DockableData
+     */
+    public DATA getDockableData() {
+        return dockableData;
     }
 
     /**
@@ -87,7 +100,7 @@ public class DockableEntry<D> {
         if (!(obj instanceof DockableEntry)) {
             return false;
         }
-        final DockableEntry<D> other = (DockableEntry<D>) obj;
+        final DockableEntry<D, DATA> other = (DockableEntry<D, DATA>) obj;
         return Objects.equals(this.dockable, other.dockable);
     }
 

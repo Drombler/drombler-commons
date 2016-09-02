@@ -36,7 +36,7 @@ class RefelectionUtils {
     }
 
     public static void invokeAnnotatedDockableMethod(
-            PositionableAdapter<? extends DockableEntry<?>> positionableDockableEntry,
+            PositionableAdapter<? extends DockableEntry<?, ?>> positionableDockableEntry,
             Class<? extends Annotation> annotationType) {
         if (positionableDockableEntry != null && positionableDockableEntry.getAdapted() != null && positionableDockableEntry.
                 getAdapted().getDockable() != null) {
