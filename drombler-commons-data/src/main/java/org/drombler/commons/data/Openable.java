@@ -10,10 +10,10 @@ import org.drombler.commons.context.LocalContextProvider;
  * To fully integrate with the framework register the instance provided for the data handler in it's local context.
  *
  * @see LocalContextProvider
- * @see DocumentHandler
- * @see BusinessObjectHandler
  * @author puce
  */
+// * @see DocumentHandler
+// * @see BusinessObjectHandler
 public interface Openable {
 
     /**
