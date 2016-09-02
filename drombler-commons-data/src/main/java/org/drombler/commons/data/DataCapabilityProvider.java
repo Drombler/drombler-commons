@@ -7,10 +7,10 @@ package org.drombler.commons.data;
  *
  * @param <T> the data capability type
  * @see Openable
- * @see DocumentHandler
- * @see BusinessObjectHandler
  * @author puce
  */
+// * @see DocumentHandler
+// * @see BusinessObjectHandler
 public interface DataCapabilityProvider<T> {
 
     /**
@@ -18,8 +18,8 @@ public interface DataCapabilityProvider<T> {
      *
      * @param dataHandler the data handler
      * @return a data capability for the given data handler
-     * @see DocumentHandler
-     * @see BusinessObjectHandler
      */
+//     * @see DocumentHandler
+//     * @see BusinessObjectHandler
     T getDataCapability(Object dataHandler);
 }
