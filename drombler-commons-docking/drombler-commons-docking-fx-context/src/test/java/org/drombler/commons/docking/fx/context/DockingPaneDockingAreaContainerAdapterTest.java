@@ -7,13 +7,9 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.docking.DockableKind;
-import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
-import org.drombler.commons.docking.fx.FXDockableEntry;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -22,7 +18,7 @@ import org.junit.experimental.categories.Category;
  * @author puce
  */
 @Category(GUITests.class)
-public class DockableDataModifiedManagerTest {
+public class DockingPaneDockingAreaContainerAdapterTest {
 
     static {
         SimpleControlLauncher.main(new String[]{});
@@ -32,8 +28,8 @@ public class DockableDataModifiedManagerTest {
 
     private final TestPane testPane = new TestPane();
     private final FXDockableData dockableData = new FXDockableData();
-    private final DockablePreferences dockablePreferences = new DockablePreferences();
-    private final FXDockableEntry dockableEntry = new FXDockableEntry(testPane, DockableKind.EDITOR, dockableData, dockablePreferences);
+//    private final DockablePreferences dockablePreferences = new DockablePreferences();
+//    private final FXDockableEntry dockableEntry = new FXDockableEntry(testPane, DockableKind.EDITOR, dockableData, dockablePreferences);
 
     @Test
     public void testWithoutDockableDataModifiedManager() {
@@ -42,29 +38,29 @@ public class DockableDataModifiedManagerTest {
         assertFalse(dockableData.isModified());
     }
 
-    @Test
-    public void testConstructor() {
-        try (DockableDataModifiedManager instance = new DockableDataModifiedManager(dockingPane)) {
-            dockingPane.getDockables().add(dockableEntry);
-            assertFalse(dockableData.isModified());
-            testPane.modify();
-            assertTrue(dockableData.isModified());
-            testPane.save();
-            assertFalse(dockableData.isModified());
-        }
-    }
+//    @Test
+//    public void testConstructor() {
+//        try (DockableDataModifiedManager instance = new DockableDataModifiedManager(dockingPane)) {
+//            dockingPane.getDockables().add(dockableEntry);
+//            assertFalse(dockableData.isModified());
+//            testPane.modify();
+//            assertTrue(dockableData.isModified());
+//            testPane.save();
+//            assertFalse(dockableData.isModified());
+//        }
+//    }
 
-    @Test
-    public void testClose() {
-        try (DockableDataModifiedManager instance = new DockableDataModifiedManager(dockingPane)) {
-            dockingPane.getDockables().add(dockableEntry);
-            assertFalse(dockableData.isModified());
-            testPane.modify();
-            assertTrue(dockableData.isModified());
-            testPane.save();
-            assertFalse(dockableData.isModified());
-        }
-    }
+//    @Test
+//    public void testClose() {
+//        try (DockableDataModifiedManager instance = new DockableDataModifiedManager(dockingPane)) {
+//            dockingPane.getDockables().add(dockableEntry);
+//            assertFalse(dockableData.isModified());
+//            testPane.modify();
+//            assertTrue(dockableData.isModified());
+//            testPane.save();
+//            assertFalse(dockableData.isModified());
+//        }
+//    }
 
     private static class TestPane extends BorderPane implements LocalContextProvider {
 
