@@ -42,21 +42,17 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
         dockingPane.getDockingAreaDescriptors().addListener(
                 (SetChangeListener.Change<? extends DockingAreaDescriptor> change) -> {
                     if (change.wasAdded()) {
-                        fireDockingAreaAdded(change.getElementAdded().getId());
-                    } else {
-                        if (change.wasRemoved()) {
-                            fireDockingAreaRemoved(change.getElementRemoved().getId());
-                        }
+                        fireDockingAreaAdded(dockingPane.getDockingAreaDescriptors(), change.getElementAdded());
+                    } else if (change.wasRemoved()) {
+                            fireDockingAreaRemoved(dockingPane.getDockingAreaDescriptors(), change.getElementRemoved());
                     }
                 });
         dockingPane.getDockables().addListener(
                 (SetChangeListener.Change<? extends FXDockableEntry> change) -> {
                     if (change.wasAdded()) {
-                        fireDockableAdded(change.getElementAdded());
-                    } else {
-                        if (change.wasRemoved()) {
-                            fireDockableRemoved(change.getElementRemoved());
-                        }
+                        fireDockableAdded(dockingPane.getDockables(), change.getElementAdded());
+                    } else if (change.wasRemoved()) {
+                            fireDockableRemoved(dockingPane.getDockables(), change.getElementRemoved());
                     }
                 });
         dockingPane.activeDockableProperty().addListener((observable, oldValue, newValue) -> fireActiveDockableChanged(oldValue, newValue));

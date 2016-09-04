@@ -26,10 +26,8 @@ import org.drombler.commons.context.LocalContextProvider;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.context.DockingAreaContainer;
-import org.drombler.commons.docking.context.DockingAreaContainerActiveDockableChangedEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerDockableEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerDockingAreaEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerListener;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  * This manager listens for {@link Savable} in the local contexts of the Dockables and synchronizes the {@link FXDockableData#modifiedProperty()} accordingly.
@@ -43,20 +41,11 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
 
     private final Map<D, ContextListener> savableListeners = new HashMap<>();
 
-    private final DockingAreaContainerListener<D, DATA, E> dockablesListener = new DockingAreaContainerListener<D, DATA, E>() {
-        @Override
-        public void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
-            // nothing to do
-        }
+    private final SetChangeListener<E> dockablesListener = new SetChangeListener<E>() {
 
         @Override
-        public void dockingAreaRemoved(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
-            // nothing to do
-        }
-
-        @Override
-        public void dockableAdded(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            final E dockableEntry = event.getDockableEntry();
+        public void elementAdded(SetChangeEvent<E> event) {
+            final E dockableEntry = event.getElement();
             final D dockable = dockableEntry.getDockable();
             if (dockable instanceof LocalContextProvider) {
                 Context localContext = Contexts.getLocalContext(dockable);
@@ -69,8 +58,8 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
         }
 
         @Override
-        public void dockableRemoved(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            final E dockableEntry = event.getDockableEntry();
+        public void elementRemoved(SetChangeEvent<E> event) {
+            final E dockableEntry = event.getElement();
             final D dockable = dockableEntry.getDockable();
             if (dockable instanceof LocalContextProvider) {
                 ContextListener savableListener = savableListeners.remove(dockable);
@@ -78,17 +67,13 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
             }
         }
 
-        @Override
-        public void activeDockableChanged(DockingAreaContainerActiveDockableChangedEvent<D, DATA, E> event) {
-            // nothing to do
-        }
     };
 
     private final DockingAreaContainer<D, DATA, E> dockingAreaContainer;
 
     public DockableDataModifiedManager(DockingAreaContainer<D, DATA, E> dockingAreaContainer) {
         this.dockingAreaContainer = dockingAreaContainer;
-        this.dockingAreaContainer.addDockingAreaContainerListener(dockablesListener);
+        this.dockingAreaContainer.addDockableSetChangeListener(dockablesListener);
     }
 
     private void removeContextListener(D dockable, ContextListener savableListener) {
@@ -103,7 +88,7 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
     @Override
     public void close() {
         // TODO: handle vizualized/ unhandled Dockables?
-        dockingAreaContainer.removeDockingAreaContainerListener(dockablesListener);
+        dockingAreaContainer.removeDockableSetChangeListener(dockablesListener);
         for (Iterator<Map.Entry<D, ContextListener>> iterator = savableListeners.entrySet().iterator();
                 iterator.hasNext();) {
             Map.Entry<D, ContextListener> entry = iterator.next();

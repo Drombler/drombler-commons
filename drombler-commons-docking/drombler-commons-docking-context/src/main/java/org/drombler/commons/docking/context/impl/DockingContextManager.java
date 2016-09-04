@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.docking.context.impl;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextInjector;
@@ -24,12 +26,11 @@ import org.drombler.commons.context.ProxyContext;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.context.DockingAreaContainer;
-import org.drombler.commons.docking.context.DockingAreaContainerActiveDockableChangedEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerDockableEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerDockingAreaEvent;
-import org.drombler.commons.docking.context.DockingAreaContainerListener;
+import static org.drombler.commons.docking.context.DockingAreaContainer.ACTIVE_DOCKABLE_PROPERTY_NAME;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  * The DockingContextManager registers and unregisters the local {@link Context}s of Dockables depending on the Dockables registered in the specified {@link DockingPane} and set the active local
@@ -55,7 +56,8 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
     private static final Logger LOG = LoggerFactory.getLogger(DockingContextManager.class);
 
     private final ContextManager contextManager = new ContextManager();
-    private final DockingAreaContainerListener<D, DATA, E> dockingAreaContainerListener = new ContextAwareListener();
+    private final SetChangeListener<E> dockableSetChangeListener = new DockableListener();
+    private final PropertyChangeListener activeDockableListener = new ActiveDockableListener();
     private final ContextInjector contextInjector = new ContextInjector(contextManager);
     private final DockingAreaContainer<D, DATA, E> dockingAreaContainer;
     private final DockableDataModifiedManager<D, DATA, E> dockableDataModifiedManager;
@@ -73,7 +75,8 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         this.dockableDataModifiedManager = new DockableDataModifiedManager<>(this.dockingAreaContainer);
 
         // TODO: handle vizualized/ unhandled Dockables
-        this.dockingAreaContainer.addDockingAreaContainerListener(dockingAreaContainerListener);
+        this.dockingAreaContainer.addDockableSetChangeListener(dockableSetChangeListener);
+        this.dockingAreaContainer.addPropertyChangeListener(ACTIVE_DOCKABLE_PROPERTY_NAME, activeDockableListener);
     }
 
     public Context getActiveContext() {
@@ -86,18 +89,6 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
 
     public void inject(D dockable) {
         contextInjector.inject(dockable);
-    }
-
-    private void handleDockableAdded(D dockable) {
-        contextManager.putLocalContext(dockable, createProxyContext(dockable));
-    }
-
-    private void handleDockableRemoved(E dockableEntry) {
-        contextManager.removeLocalContext(dockableEntry.getDockable());
-    }
-
-    private void handleActiveDockableSelected(E dockableEntry) {
-        contextManager.setLocalContextActive(dockableEntry.getDockable());
     }
 
     private Context createProxyContext(D dockable) {
@@ -119,39 +110,33 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
     @Override
     public void close() {
         // TODO: handle vizualized/ unhandled Dockables
-        dockingAreaContainer.removeDockingAreaContainerListener(dockingAreaContainerListener);
+        dockingAreaContainer.removeDockableSetChangeListener(dockableSetChangeListener);
+        dockingAreaContainer.removePropertyChangeListener(ACTIVE_DOCKABLE_PROPERTY_NAME, activeDockableListener);
         dockableDataModifiedManager.close();
     }
 
-    private class ContextAwareListener implements DockingAreaContainerListener<D, DATA, E> {
+    private class DockableListener implements SetChangeListener<E> {
 
         @Override
-        public void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
-            // nothing to do
+        public void elementAdded(SetChangeEvent<E> event) {
+            LOG.debug("Dockable added: {}", event.getElement());
+            contextManager.putLocalContext(event.getElement().getDockable(), createProxyContext(event.getElement().getDockable()));
         }
 
         @Override
-        public void dockingAreaRemoved(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
-            // nothing to do
+        public void elementRemoved(SetChangeEvent<E> event) {
+            LOG.debug("Dockable removed: {}", event.getElement());
+            contextManager.removeLocalContext(event.getElement().getDockable());
         }
 
-        @Override
-        public void dockableAdded(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            LOG.debug("Dockable added: {}", event.getDockableEntry());
-            handleDockableAdded(event.getDockableEntry().getDockable());
-        }
+    }
+
+    private class ActiveDockableListener implements PropertyChangeListener {
 
         @Override
-        public void dockableRemoved(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            LOG.debug("Dockable removed: {}", event.getDockableEntry());
-            handleDockableRemoved(event.getDockableEntry());
-        }
-
-        @Override
-        public void activeDockableChanged(DockingAreaContainerActiveDockableChangedEvent<D, DATA, E> event) {
+        public void propertyChange(PropertyChangeEvent event) {
             LOG.debug("Active Dockable changed!");
-            handleActiveDockableSelected(event.getNewActiveDockable());
+            contextManager.setLocalContextActive(((E) event.getNewValue()).getDockable());
         }
-
     }
 }
