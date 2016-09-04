@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.docking.context;
 
+import java.beans.PropertyChangeListener;
 import java.util.Set;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.docking.DockableData;
@@ -21,6 +22,7 @@ import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.softsmithy.lib.util.ResourceLoader;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  *
@@ -31,13 +33,19 @@ import org.softsmithy.lib.util.ResourceLoader;
  */
 public interface DockingAreaContainer<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> {
 
+    static final String ACTIVE_DOCKABLE_PROPERTY_NAME = "activeDockable";
+
     boolean addDockingArea(DockingAreaDescriptor dockingAreaDescriptor);
 
     boolean addDockable(E dockableEntry, boolean active, Context... implicitLocalContexts);
 
-    void addDockingAreaContainerListener(DockingAreaContainerListener<D, DATA, E> listener);
+    void addDockingAreaSetChangeListener(SetChangeListener<DockingAreaDescriptor> listener);
 
-    void removeDockingAreaContainerListener(DockingAreaContainerListener<D, DATA, E> listener);
+    void removeDockingAreaSetChangeListener(SetChangeListener<DockingAreaDescriptor> listener);
+
+    void addDockableSetChangeListener(SetChangeListener<E> listener);
+
+    void removeDockableSetChangeListener(SetChangeListener<E> listener);
 
     String getDefaultEditorAreaId();
 
@@ -59,5 +67,21 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
 
     DockablePreferences getDockablePreferences(D dockable);
+
+    /**
+     * Registers a {@link PropertyChangeListener} for the specified property.
+     *
+     * @param propertyName the property to observe
+     * @param listener the PropertyChangeListener to register
+     */
+    void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
+    /**
+     * Unegisters a {@link PropertyChangeListener} for the specified property.
+     *
+     * @param propertyName the property to stop to observe
+     * @param listener the PropertyChangeListener to unregister
+     */
+    void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
 }

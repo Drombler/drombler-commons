@@ -1,8 +1,11 @@
 package org.drombler.commons.docking.context;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.SimpleContext;
 import org.drombler.commons.context.SimpleContextContent;
@@ -11,19 +14,25 @@ import org.drombler.commons.docking.DockableDataFactory;
 import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.DockableEntryFactory;
 import org.drombler.commons.docking.DockablePreferences;
+import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingManager;
 import org.drombler.commons.docking.context.impl.DockingContextManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.ResourceLoader;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 import org.softsmithy.lib.util.UniqueKeyProvider;
 
 public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> implements DockingAreaContainer<D, DATA, E>, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDockingAreaContainerAdapter.class);
 
-    private final List<DockingAreaContainerListener<D, DATA, E>> listeners = new ArrayList<>();
-    private final DockingAreaListener dockingAreaListener = new DockingAreaListener();
+    private final List<SetChangeListener<DockingAreaDescriptor>> dockingAreaSetChangeListener = new ArrayList<>();
+    private final List<SetChangeListener<E>> dockableSetChangeListener = new ArrayList<>();
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    private final DockableListener dockableListener = new DockableListener();
 
     private final DockingManager<D, DATA, E> dockingManager;
     private final DockingContextManager<D, DATA, E> dockingContextManager;
@@ -32,7 +41,7 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         this.dockingManager = new DockingManager<>(dockableEntryFactory, dockableDataFactory);
         this.dockingContextManager = new DockingContextManager<>(this);
 
-        addDockingAreaContainerListener(this.dockingAreaListener);
+        addDockableSetChangeListener(this.dockableListener);
     }
 
 //    public DockingManager<D, DATA, E> getDockingManager() {
@@ -111,6 +120,7 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         }
     }
 
+    @Deprecated
     @Override
     public void inject(D dockable) {
         dockingContextManager.inject(dockable);
@@ -131,41 +141,69 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
      * {@inheritDoc }
      */
     @Override
-    public final void addDockingAreaContainerListener(DockingAreaContainerListener<D, DATA, E> listener) {
-        listeners.add(listener);
+    public final void addDockingAreaSetChangeListener(SetChangeListener<DockingAreaDescriptor> listener) {
+        dockingAreaSetChangeListener.add(listener);
+    }
+
+    @Override
+    public final void removeDockingAreaSetChangeListener(SetChangeListener<DockingAreaDescriptor> listener) {
+        dockingAreaSetChangeListener.remove(listener);
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public final void removeDockingAreaContainerListener(DockingAreaContainerListener<D, DATA, E> listener) {
-        listeners.remove(listener);
+    public final void addDockableSetChangeListener(SetChangeListener<E> listener) {
+        dockableSetChangeListener.add(listener);
     }
 
-    protected final void fireDockingAreaAdded(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<D, DATA, E> event = new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaId);
-        listeners.forEach(listener -> listener.dockingAreaAdded(event));
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public final void removeDockableSetChangeListener(SetChangeListener<E> listener) {
+        dockableSetChangeListener.remove(listener);
     }
 
-    protected final void fireDockingAreaRemoved(String dockingAreaId) {
-        DockingAreaContainerDockingAreaEvent<D, DATA, E> event = new DockingAreaContainerDockingAreaEvent<>(this, dockingAreaId);
-        listeners.forEach(listener -> listener.dockingAreaRemoved(event));
+    protected final void fireDockingAreaAdded(Set<DockingAreaDescriptor> sourceSet, DockingAreaDescriptor dockingAreaDescriptor) {
+        SetChangeEvent<DockingAreaDescriptor> event = new SetChangeEvent<>(sourceSet, dockingAreaDescriptor);
+        dockingAreaSetChangeListener.forEach(listener -> listener.elementAdded(event));
     }
 
-    protected final void fireDockableAdded(E dockableEntry) {
-        DockingAreaContainerDockableEvent<D, DATA, E> event = new DockingAreaContainerDockableEvent<>(this, dockableEntry);
-        listeners.forEach(listener -> listener.dockableAdded(event));
+    protected final void fireDockingAreaRemoved(Set<DockingAreaDescriptor> sourceSet, DockingAreaDescriptor dockingAreaDescriptor) {
+        SetChangeEvent<DockingAreaDescriptor> event = new SetChangeEvent<>(sourceSet, dockingAreaDescriptor);
+        dockingAreaSetChangeListener.forEach(listener -> listener.elementAdded(event));
     }
 
-    protected final void fireDockableRemoved(E dockableEntry) {
-        DockingAreaContainerDockableEvent<D, DATA, E> event = new DockingAreaContainerDockableEvent<>(this, dockableEntry);
-        listeners.forEach(listener -> listener.dockableRemoved(event));
+    protected final void fireDockableAdded(Set<E> sourceSet, E dockableEntry) {
+        SetChangeEvent<E> event = new SetChangeEvent<>(sourceSet, dockableEntry);
+        dockableSetChangeListener.forEach(listener -> listener.elementAdded(event));
+    }
+
+    protected final void fireDockableRemoved(Set<E> sourceSet, E dockableEntry) {
+        SetChangeEvent<E> event = new SetChangeEvent<>(sourceSet, dockableEntry);
+        dockableSetChangeListener.forEach(listener -> listener.elementRemoved(event));
     }
 
     protected final void fireActiveDockableChanged(E oldActiveDockableEntry, E newActiveDockableEntry) {
-        DockingAreaContainerActiveDockableChangedEvent<D, DATA, E> event = new DockingAreaContainerActiveDockableChangedEvent<>(this, oldActiveDockableEntry, newActiveDockableEntry);
-        listeners.forEach(listener -> listener.activeDockableChanged(event));
+        propertyChangeSupport.firePropertyChange(ACTIVE_DOCKABLE_PROPERTY_NAME, oldActiveDockableEntry, newActiveDockableEntry);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public final void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public final void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
     /**
@@ -176,41 +214,16 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         dockingContextManager.close();
     }
 
-    private class DockingAreaListener implements DockingAreaContainerListener<D, DATA, E> {
+    private class DockableListener implements SetChangeListener<E> {
 
-        /**
-         * This method gets called from the application thread!
-         *
-         * @param event
-         */
         @Override
-        public void dockingAreaAdded(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
-            // do nothing
-        }
-
-        /**
-         * This method gets called from the application thread!
-         *
-         * @param event
-         */
-        @Override
-        public void dockingAreaRemoved(DockingAreaContainerDockingAreaEvent<D, DATA, E> event) {
+        public void elementAdded(SetChangeEvent<E> event) {
             // do nothing
         }
 
         @Override
-        public void dockableAdded(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            // do nothing
-        }
-
-        @Override
-        public void dockableRemoved(DockingAreaContainerDockableEvent<D, DATA, E> event) {
-            dockingManager.unregisterEditor(event.getDockableEntry());
-        }
-
-        @Override
-        public void activeDockableChanged(DockingAreaContainerActiveDockableChangedEvent<D, DATA, E> event) {
-            // do nothing
+        public void elementRemoved(SetChangeEvent<E> event) {
+            dockingManager.unregisterEditor(event.getElement());
         }
 
     }
