@@ -51,8 +51,18 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
 
     Set<E> getDockables();
 
+    /**
+     * bound property
+     *
+     * @param dockableEntry
+     */
     void setActiveDockable(E dockableEntry);
 
+    /**
+     * bound property
+     *
+     * @return
+     */
     E getActiveDockable();
 
     boolean openAndRegisterNewView(D dockable, boolean b, String displayName, String icon, ResourceLoader resourceLoader);
