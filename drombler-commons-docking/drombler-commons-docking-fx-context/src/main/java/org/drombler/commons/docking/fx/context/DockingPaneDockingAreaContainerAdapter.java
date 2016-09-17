@@ -17,7 +17,6 @@ package org.drombler.commons.docking.fx.context;
 import java.util.Set;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
-import org.drombler.commons.context.Context;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.context.AbstractDockingAreaContainerAdapter;
 import org.drombler.commons.docking.fx.DockingPane;
@@ -66,18 +65,6 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
         return dockingPane.getDockingAreaDescriptors().add(dockingAreaDescriptor);
     }
 
-    /**
-     * {@inheritDoc }
-     */
-    @Override
-    public boolean addDockable(FXDockableEntry dockableEntry, boolean active, Context... implicitLocalContexts) {
-        boolean added = getDockables().add(dockableEntry);
-        addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
-        if (active) {
-            setActiveDockable(dockableEntry);
-        }
-        return added;
-    }
 
     /**
      * {@inheritDoc }

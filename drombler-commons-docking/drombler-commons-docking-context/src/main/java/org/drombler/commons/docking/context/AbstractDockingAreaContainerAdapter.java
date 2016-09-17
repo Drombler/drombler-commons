@@ -55,16 +55,35 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         return dockingContextManager.getApplicationContext();
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean addDockable(E dockableEntry, boolean active, Context... implicitLocalContexts) {
+        boolean added = getDockables().add(dockableEntry);
+        addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
+        if (active) {
+            setActiveDockable(dockableEntry);
+        }
+        return added;
+    }
+
     public void addImplicitLocalContext(D dockable, Context... implicitLocalContexts) {
         dockingContextManager.addImplicitLocalContext(dockable, implicitLocalContexts);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openView(D dockable, boolean active) {
         E dockableEntry = dockingManager.createDockableViewEntry(dockable);
         return addDockable(dockableEntry, active);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openAndRegisterNewView(D dockable, boolean active, String displayName, String icon, ResourceLoader resourceLoader) {
         dockingManager.registerDockableData(dockable, displayName, icon, resourceLoader);
@@ -74,6 +93,9 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         return openView(dockable, active);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
         boolean opened = true;
@@ -120,6 +142,9 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Deprecated
     @Override
     public void inject(D dockable) {
@@ -127,6 +152,9 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         dockingManager.inject(dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         dockingManager.registerDefaultDockablePreferences(dockableClass, dockablePreferences);
