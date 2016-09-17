@@ -71,9 +71,6 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
 
     boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
 
-    @Deprecated
-    void inject(D dockable);
-
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
 
     DockablePreferences getDockablePreferences(D dockable);

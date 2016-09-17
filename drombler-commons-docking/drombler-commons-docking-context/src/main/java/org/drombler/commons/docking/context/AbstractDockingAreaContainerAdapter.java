@@ -142,12 +142,7 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         }
     }
 
-    /**
-     * {@inheritDoc }
-     */
-    @Deprecated
-    @Override
-    public void inject(D dockable) {
+    private void inject(D dockable) {
         dockingContextManager.inject(dockable);
         dockingManager.inject(dockable);
     }
