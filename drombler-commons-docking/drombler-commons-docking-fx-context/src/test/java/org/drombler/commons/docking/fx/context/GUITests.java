@@ -19,6 +19,7 @@ package org.drombler.commons.docking.fx.context;
  * @author puce
  */
 // TODO: move to SoftSmithy
+// TODO: needed?
 public interface GUITests {
 
 }
