@@ -87,6 +87,10 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         return contextManager.getApplicationContext();
     }
 
+    public Context getLocalContext(D dockable) {
+        return contextManager.getLocalContext(dockable);
+    }
+
     public void inject(D dockable) {
         contextInjector.inject(dockable);
     }

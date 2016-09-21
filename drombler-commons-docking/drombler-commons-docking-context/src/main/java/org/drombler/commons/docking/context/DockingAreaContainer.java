@@ -69,6 +69,9 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
 
     boolean openView(D dockable, boolean active);
 
+    /**
+     * TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
+     */
     boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
 
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
