@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.docking;
 
+import java.beans.PropertyChangeListener;
 
 /**
  * Data about a Dockable.
@@ -21,6 +22,9 @@ package org.drombler.commons.docking;
  * @author puce
  */
 public interface DockableData {
+
+    public static final String TITLE_PROPERTY_NAME = "title";
+    public static final String MODIFIED_PROPERTY_NAME = "modified";
 
     /**
      * Gets the title of a Dockable.
@@ -40,5 +44,20 @@ public interface DockableData {
 
     void setModified(boolean modified);
 
-}
+    /**
+     * Registers a {@link PropertyChangeListener} for the specified property.
+     *
+     * @param propertyName the property to observe
+     * @param listener the PropertyChangeListener to register
+     */
+    void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
+    /**
+     * Unegisters a {@link PropertyChangeListener} for the specified property.
+     *
+     * @param propertyName the property to stop to observe
+     * @param listener the PropertyChangeListener to unregister
+     */
+    void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
+}
