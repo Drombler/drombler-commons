@@ -14,12 +14,12 @@ package org.drombler.commons.data;
 public interface DataCapabilityProvider<T> {
 
     /**
-     * Gets a data capability for the given data handler.
+     * Gets a data capability for the given {@link DataHandler}.
      *
      * @param dataHandler the data handler
      * @return a data capability for the given data handler
      */
 //     * @see DocumentHandler
 //     * @see BusinessObjectHandler
-    T getDataCapability(Object dataHandler);
+    T getDataCapability(DataHandler<?> dataHandler);
 }
