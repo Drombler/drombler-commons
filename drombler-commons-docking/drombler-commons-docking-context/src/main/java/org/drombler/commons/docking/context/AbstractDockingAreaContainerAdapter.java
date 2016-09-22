@@ -1,5 +1,6 @@
 package org.drombler.commons.docking.context;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
@@ -13,6 +14,7 @@ import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableDataFactory;
 import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.DockableEntryFactory;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingManager;
@@ -55,16 +57,41 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         return dockingContextManager.getApplicationContext();
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean addDockable(E dockableEntry, boolean active, Context... implicitLocalContexts) {
+        boolean added = getDockables().add(dockableEntry);
+        addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
+        if (active) {
+            setActiveDockable(dockableEntry);
+        }
+        return added;
+    }
+
     public void addImplicitLocalContext(D dockable, Context... implicitLocalContexts) {
         dockingContextManager.addImplicitLocalContext(dockable, implicitLocalContexts);
     }
 
+    // TODO: does this method belong to this class?
+    public <T> T getContent(D dockable, Class<T> contentType) {
+        Context localContext = dockingContextManager.getLocalContext(dockable);
+        return localContext.find(contentType);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openView(D dockable, boolean active) {
-        E dockableEntry = dockingManager.createDockableViewEntry(dockable);
+        E dockableEntry = dockingManager.createDockableEntry(dockable, DockableKind.VIEW);
         return addDockable(dockableEntry, active);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openAndRegisterNewView(D dockable, boolean active, String displayName, String icon, ResourceLoader resourceLoader) {
         dockingManager.registerDockableData(dockable, displayName, icon, resourceLoader);
@@ -74,59 +101,88 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
         return openView(dockable, active);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
-        boolean opened = true;
+        final E editorEntry;
         if (content instanceof UniqueKeyProvider) {
-            UniqueKeyProvider<?> uniqueKeyProvider = (UniqueKeyProvider<?>) content;
-            Object uniqueKey = uniqueKeyProvider.getUniqueKey();
-            if (uniqueKey != null) {
-                E editorEntry = dockingManager.getRegisteredEditor(uniqueKey);
-                if (editorEntry != null) {
-                    setActiveDockable(editorEntry);
-                } else {
-                    opened = openNewEditorForContent(content, editorType, icon, resourceLoader);
-                }
-            } else {
-                opened = openNewEditorForContent(content, editorType, icon, resourceLoader);
-            }
+            editorEntry = openEditorForUniqueKeyProvider((UniqueKeyProvider<?>) content, editorType, icon, resourceLoader);
         } else {
-            opened = openNewEditorForContent(content, editorType, icon, resourceLoader);
+            editorEntry = openNewEditorForContent(content, editorType, icon, resourceLoader);
         }
-        return opened;
+        return editorEntry != null;
     }
 
-    private boolean openNewEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
+    private E openEditorForUniqueKeyProvider(UniqueKeyProvider<?> uniqueKeyProvider, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
+        final E editorEntry;
+        Object uniqueKey = uniqueKeyProvider.getUniqueKey();
+        if (uniqueKey != null) {
+            if (dockingManager.containsRegisteredEditor(uniqueKey)) {
+                editorEntry = dockingManager.getRegisteredEditor(uniqueKey);
+                setActiveDockable(editorEntry);
+            } else {
+                editorEntry = openNewEditorForContent(uniqueKeyProvider, editorType, icon, resourceLoader);
+                if (editorEntry != null) {
+                    dockingManager.registerEditor(uniqueKey, editorEntry);
+                }
+            }
+        } else {
+            editorEntry = openNewEditorForContent(uniqueKeyProvider, editorType, icon, resourceLoader);
+            if (editorEntry != null) {
+                final PropertyChangeListener savedListener = new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        boolean saved = !((Boolean) evt.getNewValue());
+                        if (saved && uniqueKeyProvider.getUniqueKey() != null && !dockingManager.containsRegisteredEditor(uniqueKey)) {
+                            dockingManager.registerEditor(uniqueKeyProvider.getUniqueKey(), editorEntry);
+                            editorEntry.getDockableData().removePropertyChangeListener(DockableData.MODIFIED_PROPERTY_NAME, this);
+                        }
+                    }
+                };
+                editorEntry.getDockableData().addPropertyChangeListener(DockableData.MODIFIED_PROPERTY_NAME, savedListener);
+            }
+        }
+        return editorEntry;
+    }
+
+    private E openNewEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
         try {
             D editor = dockingManager.createEditor(content, editorType, icon, resourceLoader);
 
             inject(editor);
 
-            E editorEntry = dockingManager.createDockableEditorEntry(editor, content);
+            E editorEntry = dockingManager.createDockableEntry(editor, DockableKind.EDITOR);
 
-            SimpleContextContent contextContent = new SimpleContextContent();
-            SimpleContext implicitLocalContext = new SimpleContext(contextContent);
-            contextContent.add(content);
+            Context implicitLocalContext = createImplicitLocalContext(content);
 
             if (addDockable(editorEntry, true, implicitLocalContext)) {
-                return true;
+                return editorEntry;
             } else {
-                dockingManager.unregisterEditor(editorEntry);
-                return false;
+                return null;
             }
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             LOG.error(ex.getMessage(), ex);
-            return false;
+            return null;
         }
     }
 
-    @Deprecated
-    @Override
-    public void inject(D dockable) {
+    private Context createImplicitLocalContext(Object content) {
+        SimpleContextContent contextContent = new SimpleContextContent();
+        Context implicitLocalContext = new SimpleContext(contextContent);
+        contextContent.add(content);
+        return implicitLocalContext;
+    }
+
+    private void inject(D dockable) {
         dockingContextManager.inject(dockable);
         dockingManager.inject(dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         dockingManager.registerDefaultDockablePreferences(dockableClass, dockablePreferences);

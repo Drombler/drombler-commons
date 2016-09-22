@@ -3,7 +3,6 @@ package org.drombler.commons.docking;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import org.softsmithy.lib.util.ResourceLoader;
-import org.softsmithy.lib.util.UniqueKeyProvider;
 
 /**
  *
@@ -33,25 +32,12 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
 //    public boolean openView(D dockable) {
 //        return openView(dockable, true);
 //    }
-    public E createDockableViewEntry(D dockable) {
-        return createDockableEntry(dockable, DockableKind.VIEW);
-    }
-
-    public E createDockableEditorEntry(D dockable, Object content) {
-        E editorEntry = createDockableEntry(dockable, DockableKind.EDITOR);
-        if (content instanceof UniqueKeyProvider) {
-            UniqueKeyProvider<?> uniqueKeyProvider = (UniqueKeyProvider<?>) content;
-            editorRegistry.registerEditor(uniqueKeyProvider.getUniqueKey(), editorEntry);
-        }
-        return editorEntry;
+    public boolean containsRegisteredEditor(Object uniqueKey) {
+        return editorRegistry.containsEditor(uniqueKey);
     }
 
     public E getRegisteredEditor(Object uniqueKey) {
-        if (editorRegistry.containsEditor(uniqueKey)) {
-            return editorRegistry.getEditor(uniqueKey);
-        } else {
-            return null;
-        }
+        return editorRegistry.getEditor(uniqueKey);
     }
 
     public void registerDockableData(D dockable, String displayName, String icon, ResourceLoader resourceLoader) {
@@ -59,7 +45,7 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
         dockableDataManager.registerDockableData(dockable, dockableData);
     }
 
-    private E createDockableEntry(D dockable, DockableKind dockableKind) {
+    public E createDockableEntry(D dockable, DockableKind dockableKind) {
         DATA dockableData = dockableDataManager.getDockableData(dockable);
         DockablePreferences dockablePreferences = dockablePreferencesManager.getDockablePreferences(dockable);
         return dockableEntryFactory.createDockableEntry(dockable, dockableKind, dockableData, dockablePreferences);
@@ -94,8 +80,14 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
         return editorConstructor.newInstance(content);
     }
 
+    public void registerEditor(Object uniqueKey, E dockableEntry) {
+        if (uniqueKey != null && dockableEntry != null && dockableEntry.getKind() == DockableKind.EDITOR) {
+            editorRegistry.registerEditor(uniqueKey, dockableEntry);
+        }
+    }
+
     public void unregisterEditor(E dockableEntry) {
-        if (dockableEntry.getKind() == DockableKind.EDITOR) {
+        if (dockableEntry != null && dockableEntry.getKind() == DockableKind.EDITOR) {
             final D dockable = dockableEntry.getDockable();
             dockableDataManager.unregisterDockableData(dockable);
             dockablePreferencesManager.unregisterDockablePreferences(dockable);

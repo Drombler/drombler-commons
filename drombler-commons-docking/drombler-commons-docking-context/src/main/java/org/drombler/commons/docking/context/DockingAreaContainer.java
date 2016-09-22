@@ -51,18 +51,28 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
 
     Set<E> getDockables();
 
+    /**
+     * bound property
+     *
+     * @param dockableEntry
+     */
     void setActiveDockable(E dockableEntry);
 
+    /**
+     * bound property
+     *
+     * @return
+     */
     E getActiveDockable();
 
     boolean openAndRegisterNewView(D dockable, boolean b, String displayName, String icon, ResourceLoader resourceLoader);
 
     boolean openView(D dockable, boolean active);
 
+    /**
+     * TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
+     */
     boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
-
-    @Deprecated
-    void inject(D dockable);
 
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
 

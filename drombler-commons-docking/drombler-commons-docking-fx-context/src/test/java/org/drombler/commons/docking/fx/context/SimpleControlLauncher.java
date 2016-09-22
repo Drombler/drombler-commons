@@ -9,6 +9,8 @@ import javafx.stage.Stage;
  * @author puce
  */
 // TODO: remove duplicated code in other test code.
+// TODO: needed?
+// TODO: replace with TestFX?
 public class SimpleControlLauncher extends Application {
     static CountDownLatch latch = new CountDownLatch(1);
     
