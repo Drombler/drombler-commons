@@ -16,6 +16,7 @@ package org.drombler.commons.docking.context;
 
 import java.beans.PropertyChangeListener;
 import java.util.Set;
+import java.util.SortedSet;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableEntry;
@@ -50,6 +51,8 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     String getDefaultEditorAreaId();
 
     Set<E> getDockables();
+
+    SortedSet<E> getSortedModifiedDockables();
 
     /**
      * bound property
