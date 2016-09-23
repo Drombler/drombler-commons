@@ -26,9 +26,9 @@ import org.softsmithy.lib.util.SetChangeEvent;
 import org.softsmithy.lib.util.SetChangeListener;
 import org.softsmithy.lib.util.UniqueKeyProvider;
 
-public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> implements DockingAreaContainer<D, DATA, E>, AutoCloseable {
+public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> implements DockingAreaContainer<D, DATA, E>, AutoCloseable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractDockingAreaContainerAdapter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractDockingAreaContainer.class);
 
     private final List<SetChangeListener<DockingAreaDescriptor>> dockingAreaSetChangeListener = new ArrayList<>();
     private final List<SetChangeListener<E>> dockableSetChangeListener = new ArrayList<>();
@@ -39,7 +39,7 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
     private final DockingManager<D, DATA, E> dockingManager;
     private final DockingContextManager<D, DATA, E> dockingContextManager;
 
-    public AbstractDockingAreaContainerAdapter(DockableEntryFactory<D, DATA, E> dockableEntryFactory, DockableDataFactory<DATA> dockableDataFactory) {
+    public AbstractDockingAreaContainer(DockableEntryFactory<D, DATA, E> dockableEntryFactory, DockableDataFactory<DATA> dockableDataFactory) {
         this.dockingManager = new DockingManager<>(dockableEntryFactory, dockableDataFactory);
         this.dockingContextManager = new DockingContextManager<>(this);
 
@@ -73,6 +73,7 @@ public abstract class AbstractDockingAreaContainerAdapter<D, DATA extends Dockab
     public void addImplicitLocalContext(D dockable, Context... implicitLocalContexts) {
         dockingContextManager.addImplicitLocalContext(dockable, implicitLocalContexts);
     }
+
 
     // TODO: does this method belong to this class?
     public <T> T getContent(D dockable, Class<T> contentType) {
