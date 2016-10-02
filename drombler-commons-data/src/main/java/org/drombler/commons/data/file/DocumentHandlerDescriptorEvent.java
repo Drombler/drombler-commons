@@ -1,6 +1,5 @@
 package org.drombler.commons.data.file;
 
-import org.drombler.commons.data.file.DocumentHandlerDescriptor;
 import java.util.EventObject;
 
 /**
