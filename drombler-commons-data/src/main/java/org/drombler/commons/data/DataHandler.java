@@ -14,8 +14,18 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  */
 public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T> {
 
+    /**
+     * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.
+     *
+     * @return the title of this data handler
+     */
     String getTitle();
 
+    /**
+     * Gets the tooltip text. This text is intended to be used in tooltips.
+     *
+     * @return the tooltip text
+     */
     String getTooltipText();
 
     /**
