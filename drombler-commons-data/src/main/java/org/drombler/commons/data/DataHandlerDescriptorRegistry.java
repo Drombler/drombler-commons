@@ -43,11 +43,11 @@ public class DataHandlerDescriptorRegistry {
         return documentHandlerClasses.get(dataHandler.getClass());
     }
 
-    public void registerDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
+    public void addDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
         listeners.add(listener);
     }
 
-    public void unregisterDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
+    public void removeDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
         listeners.remove(listener);
     }
 

@@ -65,7 +65,7 @@ public class DocumentHandlerDescriptorRegistry {
      *
      * @param listener a Document Handler descriptor listener
      */
-    public void registerDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
+    public void addDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
         listeners.add(listener);
     }
 
@@ -74,7 +74,7 @@ public class DocumentHandlerDescriptorRegistry {
      *
      * @param listener a Document Handler descriptor listener
      */
-    public void unregisterDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
+    public void removeDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
         listeners.remove(listener);
     }
 
