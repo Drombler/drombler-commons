@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  * A registry for {@link FileExtensionDescriptor}s.
@@ -29,7 +31,7 @@ public class FileExtensionDescriptorRegistry {
 
     private final Map<String, FileExtensionDescriptor> fileExtensions = new HashMap<>();
     private final Set<FileExtensionDescriptor> fileExtensionDescriptors = new HashSet<>();
-    private final Set<FileExtensionListener> listeners = new HashSet<>();
+    private final Set<SetChangeListener<FileExtensionDescriptor>> listeners = new HashSet<>();
 
     /**
      * Registers a {@link FileExtensionDescriptor}.
@@ -68,22 +70,20 @@ public class FileExtensionDescriptorRegistry {
     }
 
     /**
-     * Registers a file extension listener.
+     * Adds a file extension listener.
      *
-     * @param listener a file extension listener
+     * @param listener a listener
      */
-    // TODO: addFileExtensionListener ?
-    public void registerFileExtensionListener(FileExtensionListener listener) {
+    public void addFileExtensionListener(SetChangeListener<FileExtensionDescriptor> listener) {
         listeners.add(listener);
     }
 
     /**
-     * Unregisters a file extension listener.
+     * Removes a file extension listener.
      *
-     * @param listener a file extension listener
+     * @param listener a listener
      */
-    // TODO: removeFileExtensionListener ?
-    public void unregisterFileExtensionListener(FileExtensionListener listener) {
+    public void removeFileExtensionListener(SetChangeListener<FileExtensionDescriptor> listener) {
         listeners.remove(listener);
     }
 
@@ -97,13 +97,13 @@ public class FileExtensionDescriptorRegistry {
     }
 
     private void fireFileExtensionAdded(FileExtensionDescriptor fileExtensionDescriptor) {
-        FileExtensionEvent event = new FileExtensionEvent(this, fileExtensionDescriptor);
-        listeners.forEach(listener -> listener.fileExtensionAdded(event));
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(fileExtensionDescriptors, fileExtensionDescriptor);
+        listeners.forEach(listener -> listener.elementAdded(event));
     }
 
     private void fireFileExtensionRemoved(FileExtensionDescriptor fileExtensionDescriptor) {
-        FileExtensionEvent event = new FileExtensionEvent(this, fileExtensionDescriptor);
-        listeners.forEach(listener -> listener.fileExtensionRemoved(event));
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(fileExtensionDescriptors, fileExtensionDescriptor);
+        listeners.forEach(listener -> listener.elementRemoved(event));
     }
 
 }
