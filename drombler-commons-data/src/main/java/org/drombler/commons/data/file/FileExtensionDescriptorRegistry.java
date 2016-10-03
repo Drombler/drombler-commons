@@ -31,6 +31,7 @@ public class FileExtensionDescriptorRegistry {
 
     private final Map<String, FileExtensionDescriptor> fileExtensions = new HashMap<>();
     private final Set<FileExtensionDescriptor> fileExtensionDescriptors = new HashSet<>();
+    private final Set<FileExtensionDescriptor> unmodifiableFileExtensionDescriptors = Collections.unmodifiableSet(fileExtensionDescriptors);
     private final Set<SetChangeListener<FileExtensionDescriptor>> listeners = new HashSet<>();
 
     /**
@@ -93,16 +94,16 @@ public class FileExtensionDescriptorRegistry {
      * @return all registered file extension descriptors
      */
     public Set<FileExtensionDescriptor> getAllFileExtensionDescriptors() {
-        return Collections.unmodifiableSet(fileExtensionDescriptors);
+        return unmodifiableFileExtensionDescriptors;
     }
 
     private void fireFileExtensionAdded(FileExtensionDescriptor fileExtensionDescriptor) {
-        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(fileExtensionDescriptors, fileExtensionDescriptor);
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(unmodifiableFileExtensionDescriptors, fileExtensionDescriptor);
         listeners.forEach(listener -> listener.elementAdded(event));
     }
 
     private void fireFileExtensionRemoved(FileExtensionDescriptor fileExtensionDescriptor) {
-        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(fileExtensionDescriptors, fileExtensionDescriptor);
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(unmodifiableFileExtensionDescriptors, fileExtensionDescriptor);
         listeners.forEach(listener -> listener.elementRemoved(event));
     }
 

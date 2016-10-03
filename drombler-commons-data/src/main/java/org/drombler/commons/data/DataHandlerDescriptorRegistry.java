@@ -14,10 +14,13 @@
  */
 package org.drombler.commons.data;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  * A registry for Document Handler descriptors.
@@ -26,38 +29,42 @@ import java.util.Set;
  */
 public class DataHandlerDescriptorRegistry {
 
-    private final Map<Class<?>, AbstractDataHandlerDescriptor<?>> documentHandlerClasses = new HashMap<>();
-    private final Set<DataHandlerDescriptorListener> listeners = new HashSet<>();
+    private final Map<Class<?>, AbstractDataHandlerDescriptor<?>> dataHandlerClasses = new HashMap<>();
+    private final Set<AbstractDataHandlerDescriptor<?>> dataHandlerDescriptors = new HashSet<>();
+    private final Set<AbstractDataHandlerDescriptor<?>> unmodifiableDataHandlerDescriptors = Collections.unmodifiableSet(dataHandlerDescriptors);
+    private final Set<SetChangeListener<AbstractDataHandlerDescriptor<?>>> listeners = new HashSet<>();
 
     public void registerDataHandlerDescriptor(AbstractDataHandlerDescriptor<?> dataHandlerDescriptor) {
-        documentHandlerClasses.put(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
+        dataHandlerClasses.put(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
+        dataHandlerDescriptors.add(dataHandlerDescriptor);
         fireDataHandlerDescriptorAdded(dataHandlerDescriptor);
     }
 
     public void unregisterDataHandlerDescriptor(AbstractDataHandlerDescriptor<?> dataHandlerDescriptor) {
-        documentHandlerClasses.remove(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
+        dataHandlerClasses.remove(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
+        dataHandlerDescriptors.remove(dataHandlerDescriptor);
         fireDataHandlerDescriptorRemoved(dataHandlerDescriptor);
     }
 
     public AbstractDataHandlerDescriptor<?> getDataHandlerDescriptor(Object dataHandler) {
-        return documentHandlerClasses.get(dataHandler.getClass());
+        return dataHandlerClasses.get(dataHandler.getClass());
     }
 
-    public void addDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
+    public void addDataHandlerDescriptorListener(SetChangeListener<AbstractDataHandlerDescriptor<?>> listener) {
         listeners.add(listener);
     }
 
-    public void removeDataHandlerDescriptorListener(DataHandlerDescriptorListener listener) {
+    public void removeDataHandlerDescriptorListener(SetChangeListener<AbstractDataHandlerDescriptor<?>> listener) {
         listeners.remove(listener);
     }
 
-    private <D> void fireDataHandlerDescriptorAdded(AbstractDataHandlerDescriptor<D> dataHandlerDescriptor) {
-        DataHandlerDescriptorEvent<D> event = new DataHandlerDescriptorEvent<>(this, dataHandlerDescriptor);
-        listeners.forEach(listener -> listener.dataHandlerDescriptorAdded(event));
+    private void fireDataHandlerDescriptorAdded(AbstractDataHandlerDescriptor<?> dataHandlerDescriptor) {
+        SetChangeEvent<AbstractDataHandlerDescriptor<?>> event = new SetChangeEvent<>(unmodifiableDataHandlerDescriptors, dataHandlerDescriptor);
+        listeners.forEach(listener -> listener.elementAdded(event));
     }
 
     private <D> void fireDataHandlerDescriptorRemoved(AbstractDataHandlerDescriptor<D> dataHandlerDescriptor) {
-        DataHandlerDescriptorEvent<D> event = new DataHandlerDescriptorEvent<>(this, dataHandlerDescriptor);
-        listeners.forEach(listener -> listener.dataHandlerDescriptorRemoved(event));
+        SetChangeEvent<AbstractDataHandlerDescriptor<?>> event = new SetChangeEvent<>(unmodifiableDataHandlerDescriptors, dataHandlerDescriptor);
+        listeners.forEach(listener -> listener.elementRemoved(event));
     }
 }

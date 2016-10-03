@@ -14,10 +14,13 @@
  */
 package org.drombler.commons.data.file;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
 /**
  * A registry for Document Handler descriptors.
@@ -28,7 +31,9 @@ import java.util.Set;
 public class DocumentHandlerDescriptorRegistry {
 
     private final Map<String, DocumentHandlerDescriptor<?>> mimeTypes = new HashMap<>();
-    private final Set<DocumentHandlerDescriptorListener> listeners = new HashSet<>();
+    private final Set<DocumentHandlerDescriptor<?>> documentHandlerDescriptors = new HashSet<>();
+    private final Set<DocumentHandlerDescriptor<?>> unmodifiableDocumentHandlerDescriptors = Collections.unmodifiableSet(documentHandlerDescriptors);
+    private final Set<SetChangeListener<DocumentHandlerDescriptor<?>>> listeners = new HashSet<>();
 
     /**
      * Registers a Document Handler descriptor.
@@ -37,6 +42,7 @@ public class DocumentHandlerDescriptorRegistry {
      */
     public void registerDocumentHandlerDescriptor(DocumentHandlerDescriptor<?> documentHandlerDescriptor) {
         mimeTypes.put(documentHandlerDescriptor.getMimeType().toLowerCase(), documentHandlerDescriptor);
+        documentHandlerDescriptors.add(documentHandlerDescriptor);
         fireDocumentHandlerAdded(documentHandlerDescriptor);
     }
 
@@ -47,6 +53,7 @@ public class DocumentHandlerDescriptorRegistry {
      */
     public void unregisterDocumentHandlerDescriptor(DocumentHandlerDescriptor<?> documentHandlerDescriptor) {
         mimeTypes.remove(documentHandlerDescriptor.getMimeType().toLowerCase(), documentHandlerDescriptor);
+        documentHandlerDescriptors.remove(documentHandlerDescriptor);
         fireDocumentHandlerRemoved(documentHandlerDescriptor);
     }
 
@@ -65,7 +72,7 @@ public class DocumentHandlerDescriptorRegistry {
      *
      * @param listener a Document Handler descriptor listener
      */
-    public void addDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
+    public void addDocumentHandlerDescriptorListener(SetChangeListener<DocumentHandlerDescriptor<?>> listener) {
         listeners.add(listener);
     }
 
@@ -74,17 +81,17 @@ public class DocumentHandlerDescriptorRegistry {
      *
      * @param listener a Document Handler descriptor listener
      */
-    public void removeDocumentHandlerDescriptorListener(DocumentHandlerDescriptorListener listener) {
+    public void removeDocumentHandlerDescriptorListener(SetChangeListener<DocumentHandlerDescriptor<?>> listener) {
         listeners.remove(listener);
     }
 
-    private <D> void fireDocumentHandlerAdded(DocumentHandlerDescriptor<D> documentHandlerDescriptor) {
-        DocumentHandlerDescriptorEvent<D> event = new DocumentHandlerDescriptorEvent<>(this, documentHandlerDescriptor);
-        listeners.forEach(listener -> listener.documentHandlerDescriptorAdded(event));
+    private void fireDocumentHandlerAdded(DocumentHandlerDescriptor<?> documentHandlerDescriptor) {
+        SetChangeEvent<DocumentHandlerDescriptor<?>> event = new SetChangeEvent<>(unmodifiableDocumentHandlerDescriptors, documentHandlerDescriptor);
+        listeners.forEach(listener -> listener.elementAdded(event));
     }
 
     private <D> void fireDocumentHandlerRemoved(DocumentHandlerDescriptor<D> documentHandlerDescriptor) {
-        DocumentHandlerDescriptorEvent<D> event = new DocumentHandlerDescriptorEvent<>(this, documentHandlerDescriptor);
-        listeners.forEach(listener -> listener.documentHandlerDescriptorRemoved(event));
+        SetChangeEvent<DocumentHandlerDescriptor<?>> event = new SetChangeEvent<>(unmodifiableDocumentHandlerDescriptors, documentHandlerDescriptor);
+        listeners.forEach(listener -> listener.elementRemoved(event));
     }
 }
