@@ -1,19 +1,110 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2016 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.commons.data.file;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import org.softsmithy.lib.util.SetChangeEvent;
+import org.softsmithy.lib.util.SetChangeListener;
 
-public interface FileExtensionDescriptorRegistry {
+/**
+ * A registry for {@link FileExtensionDescriptor}s.
+ *
+ * @author puce
+ */
+public class FileExtensionDescriptorRegistry {
 
-    void registerFileExtensionDescriptor(FileExtensionDescriptor fileExtensionDescriptor);
+    private final Map<String, FileExtensionDescriptor> fileExtensions = new HashMap<>();
+    private final Set<FileExtensionDescriptor> fileExtensionDescriptors = new HashSet<>();
+    private final Set<FileExtensionDescriptor> unmodifiableFileExtensionDescriptors = Collections.unmodifiableSet(fileExtensionDescriptors);
+    private final Set<SetChangeListener<FileExtensionDescriptor>> listeners = new HashSet<>();
 
-    void unregisterFileExtensionDescriptor(FileExtensionDescriptor fileExtensionDescriptor);
+    /**
+     * Registers a {@link FileExtensionDescriptor}.
+     *
+     * @param fileExtensionDescriptor a file extension descriptor
+     */
+    public void registerFileExtensionDescriptor(FileExtensionDescriptor fileExtensionDescriptor) {
+        fileExtensionDescriptor.getFileExtensions().stream()
+                .map(String::toLowerCase)
+                .forEach(fileExtension -> fileExtensions.put(fileExtension, fileExtensionDescriptor));
+        fileExtensionDescriptors.add(fileExtensionDescriptor);
+        fireFileExtensionAdded(fileExtensionDescriptor);
+    }
 
-    FileExtensionDescriptor getFileExtensionDescriptor(String fileExtension);
+    /**
+     * Unregisters a {@link FileExtensionDescriptor}.
+     *
+     * @param fileExtensionDescriptor a file extension descriptor
+     */
+    public void unregisterFileExtensionDescriptor(FileExtensionDescriptor fileExtensionDescriptor) {
+        fileExtensionDescriptor.getFileExtensions().stream()
+                .map(String::toLowerCase)
+                .forEach(fileExtensions::remove);
+        fileExtensionDescriptors.remove(fileExtensionDescriptor);
+        fireFileExtensionRemoved(fileExtensionDescriptor);
+    }
 
-    Set<FileExtensionDescriptor> getAllFileExtensionDescriptors();
+    /**
+     * Gets a registered file extension descriptor for the specified file extension.
+     *
+     * @param fileExtension a file extension
+     * @return a registered file extension descriptor for the specified file extension
+     */
+    public FileExtensionDescriptor getFileExtensionDescriptor(String fileExtension) {
+        return fileExtensions.get(fileExtension.toLowerCase());
+    }
 
-    void registerFileExtensionListener(FileExtensionListener listener);
+    /**
+     * Adds a file extension listener.
+     *
+     * @param listener a listener
+     */
+    public void addFileExtensionListener(SetChangeListener<FileExtensionDescriptor> listener) {
+        listeners.add(listener);
+    }
 
-    void unregisterFileExtensionListener(FileExtensionListener listener);
+    /**
+     * Removes a file extension listener.
+     *
+     * @param listener a listener
+     */
+    public void removeFileExtensionListener(SetChangeListener<FileExtensionDescriptor> listener) {
+        listeners.remove(listener);
+    }
+
+    /**
+     * Gets all registered file extension descriptors.
+     *
+     * @return all registered file extension descriptors
+     */
+    public Set<FileExtensionDescriptor> getAllFileExtensionDescriptors() {
+        return unmodifiableFileExtensionDescriptors;
+    }
+
+    private void fireFileExtensionAdded(FileExtensionDescriptor fileExtensionDescriptor) {
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(unmodifiableFileExtensionDescriptors, fileExtensionDescriptor);
+        listeners.forEach(listener -> listener.elementAdded(event));
+    }
+
+    private void fireFileExtensionRemoved(FileExtensionDescriptor fileExtensionDescriptor) {
+        SetChangeEvent<FileExtensionDescriptor> event = new SetChangeEvent<>(unmodifiableFileExtensionDescriptors, fileExtensionDescriptor);
+        listeners.forEach(listener -> listener.elementRemoved(event));
+    }
 
 }

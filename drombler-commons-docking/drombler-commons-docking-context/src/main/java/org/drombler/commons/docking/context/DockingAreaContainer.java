@@ -73,8 +73,17 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     boolean openView(D dockable, boolean active);
 
     /**
-     * TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
+     * Opens an Editor for the specified content.
+     *
+     * If there is already an open Editor for the specified content, no new Editor will be opened but the existing one will be set active.
+     *
+     * @param content the content for the editor to open/ select.
+     * @param editorType the type of the Editor. It must provide a constructor which takes the specified content as its single parameter.
+     * @param icon the icon to use for the Editor
+     * @param resourceLoader the {@link ResourceLoader} to load the icon
+     * @return true if the Editor could be opened/ selected else false
      */
+    // TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
     boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
 
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);

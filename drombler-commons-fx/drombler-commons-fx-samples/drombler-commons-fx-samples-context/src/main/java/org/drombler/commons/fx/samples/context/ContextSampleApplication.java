@@ -25,7 +25,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
@@ -54,7 +53,6 @@ public class ContextSampleApplication extends Application {
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
-        ContextManager contextManager = new ContextManager();
         dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane);
         borderPane.setCenter(dockingPane);
 
@@ -63,12 +61,12 @@ public class ContextSampleApplication extends Application {
         Menu fileMenu = new Menu("File");
         final MenuItem saveMenuItem = new MenuItem("Save");
         final SaveAction saveAction = new SaveAction(saveMenuItem);
-        saveAction.setActiveContext(contextManager.getActiveContext());
+        saveAction.setActiveContext(dockingAreaContainerAdapter.getActiveContext());
         saveMenuItem.setOnAction(saveAction);
         fileMenu.getItems().add(saveMenuItem);
         final MenuItem saveAllMenuItem = new MenuItem("Save All");
         final SaveAllAction saveAllAction = new SaveAllAction(saveAllMenuItem);
-        saveAllAction.setApplicationContext(contextManager.getApplicationContext());
+        saveAllAction.setApplicationContext(dockingAreaContainerAdapter.getApplicationContext());
         saveAllMenuItem.setOnAction(saveAllAction);
         fileMenu.getItems().add(saveAllMenuItem);
         Menu windowMenu = new Menu("Window");
@@ -117,7 +115,7 @@ public class ContextSampleApplication extends Application {
         windowMenu.getItems().add(contextConsumerPaneMenuItem);
 
         // Set active context
-        contextConsumerPane.setActiveContext(contextManager.getActiveContext());
+        contextConsumerPane.setActiveContext(dockingAreaContainerAdapter.getActiveContext());
 
         Scene scene = new Scene(borderPane, 1500, 1000);
 

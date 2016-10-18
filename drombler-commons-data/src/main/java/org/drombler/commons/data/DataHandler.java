@@ -1,3 +1,17 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2016 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.commons.data;
 
 import org.drombler.commons.context.LocalContextProvider;
@@ -14,8 +28,18 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  */
 public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T> {
 
+    /**
+     * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.
+     *
+     * @return the title of this data handler
+     */
     String getTitle();
 
+    /**
+     * Gets the tooltip text. This text is intended to be used in tooltips.
+     *
+     * @return the tooltip text
+     */
     String getTooltipText();
 
     /**

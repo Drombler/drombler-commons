@@ -175,6 +175,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                 -> updateStyleClass(tab, newValue);
         dockableData.modifiedProperty().addListener(dockableDataModifiedListener);
         dockableDataModifiedListeners.put(dockableData, dockableDataModifiedListener);
+        updateStyleClass(tab, dockableData.isModified());
     }
 
     private void updateStyleClass(Tab tab, boolean modified) {

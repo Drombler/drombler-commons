@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @author puce
  * @param <D> the Dockable type
- * @param <DATA>
+ * @param <DATA> the Dockable data type
  */
 public class DockableEntry<D, DATA extends DockableData> {
 
