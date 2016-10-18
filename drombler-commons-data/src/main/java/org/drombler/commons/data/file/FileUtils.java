@@ -33,9 +33,11 @@ public class FileUtils {
     private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
 
     /**
-     * Opens a file. It looks in the {@link FileExtensionDescriptorRegistry} if there is any registered {@link FileExtensionDescriptor} for the file extension of the file open. If one is registered it
-     * lools in the {@link DocumentHandlerDescriptorRegistry} if there is any {@link DocumentHandlerDescriptor} for the associated MIME type. It then tries to create a Document Handler for the
-     * specified file path and looks if there's an {@link Openable} registered in its local {@link Context}. If it finds an Openable it calls {@link Openable#open() }.
+     * Opens a file.
+     *
+     * It looks in the {@link FileExtensionDescriptorRegistry} if there is any registered {@link FileExtensionDescriptor} for the file extension of the file open. If one is registered it looks in the
+     * {@link DocumentHandlerDescriptorRegistry} if there is any {@link DocumentHandlerDescriptor} for the associated MIME type. It then tries to create a Document Handler for the specified file path
+     * and looks if there's an {@link Openable} registered in its local {@link Context}. If it finds an Openable it calls {@link Openable#open() }.
      *
      * @param fileToOpen the path to the file to open.
      * @param fileExtensionDescriptorRegistry the file extension descriptor registry
