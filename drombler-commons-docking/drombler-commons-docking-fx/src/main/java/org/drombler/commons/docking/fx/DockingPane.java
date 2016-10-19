@@ -30,6 +30,8 @@ import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using the dividers. Each Docking Area can hold any number of Dockable Panes, which are
@@ -42,6 +44,7 @@ import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
 public class DockingPane extends Control {//extends BorderPane {// GridPane {
 
     private static final String DEFAULT_STYLE_CLASS = "docking-pane";
+    private static final Logger LOG = LoggerFactory.getLogger(DockingPane.class);
 
     private final ObservableSet<DockingAreaDescriptor> dockingAreaDescriptors = FXCollections.observableSet();
     private final ObservableSet<FXDockableEntry> dockables = FXCollections.observableSet();
@@ -80,6 +83,7 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         });
         activeDockable.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                LOG.debug("Request focus for new active Dockable: '{}'!", newValue.getDockableData().getTitle());
                 newValue.getDockable().requestFocus();
             }
         });

@@ -87,6 +87,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         this.control.getScene().focusOwnerProperty().addListener(focusOwnerChangeListener);
         this.control.activeDockableProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                LOG.debug("Selecting newly active Dockable: '{}'...", newValue.getDockableData().getTitle());
                 dockingAreaPanes.values().stream()
                         .filter(dockingAreaPane -> dockingAreaPane.containsDockable(newValue))
                         .findFirst()
@@ -94,7 +95,10 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                             dockingAreaPane.getDockables().stream()
                                     .filter(adapter -> adapter.getAdapted().equals(newValue))
                                     .findFirst()
-                                    .ifPresent(adapter -> dockingAreaPane.getSelectionModel().select(adapter));
+                                    .ifPresent(adapter -> {
+                                LOG.debug("Select newly active Dockable: '{}'!", newValue.getDockableData().getTitle());
+                                        dockingAreaPane.getSelectionModel().select(adapter);
+                            });
                         });
             }
         });
@@ -128,7 +132,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                 addListener((ov, oldValue, newValue) -> {
                     if (newValue != null) {
 //                        control.setActiveDockable(newValue.getAdapted().getDockable());
-                        LOG.debug("Request focus for Dockable: '{}'!",
+                        LOG.debug("Request focus for newly selected Dockable: '{}'!",
                                 newValue.getAdapted().getDockableData().getTitle());
                         newValue.getAdapted().getDockable().requestFocus();
                     }
@@ -174,7 +178,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             dockingArea.addDockable(new PositionableAdapter<>(dockableEntry,
                     dockableEntry.getDockablePreferences().getPosition()));
 //            this.control.setActiveDockable(dockableEntry.getDockable());
-            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
+                    LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
                     dockableEntry.getDockablePreferences().getAreaId());
         }
     }
