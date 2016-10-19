@@ -178,7 +178,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             dockingArea.addDockable(new PositionableAdapter<>(dockableEntry,
                     dockableEntry.getDockablePreferences().getPosition()));
 //            this.control.setActiveDockable(dockableEntry.getDockable());
-            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
+                    LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
                     dockableEntry.getDockablePreferences().getAreaId());
         }
     }
