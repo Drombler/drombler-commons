@@ -1,1 +1,7 @@
-{"name":"Drombler Commons","tagline":"A collection of reusable libraries and frameworks.","body":"*Drombler Commons* is a collection of reusable libraries and frameworks. They ship with OSGi meta data but don't require an OSGi environment.\r\n\r\n###Documentation\r\n- [v0.7](0.7)\r\n- [v0.6](0.6)\r\n- [v0.5](0.5)\r\n- [v0.4](0.4)\r\n- [v0.3](0.3)\r\n\r\n### Authors and Contributors\r\n* Florian Brunner (@puce77)\r\n\r\n### Support or Contact\r\nCheck out the documentation at https://www.drombler.org/drombler-commons/current/docs or contact @puce77 directly.\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
+{
+  "name": "Drombler Commons",
+  "tagline": "A collection of reusable libraries and frameworks.",
+  "body": "*Drombler Commons* is a collection of reusable libraries and frameworks. They ship with OSGi meta data but don't require an OSGi environment.\r\n\r\n###Documentation\r\n- [v0.9-SNAPSHOT](0.9-SNAPSHOT)\r\n- [v0.8](0.8)\r\n- [v0.7](0.7)\r\n- [v0.6](0.6)\r\n- [v0.5](0.5)\r\n- [v0.4](0.4)\r\n- [v0.3](0.3)\r\n\r\n### Authors and Contributors\r\n* Florian Brunner (@puce77)\r\n\r\n### Support or Contact\r\nCheck out the documentation at https://www.drombler.org/drombler-commons/current/docs or contact @puce77 directly.\r\n",
+  "google": "",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
