@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.8-SNAPSHOT</version>
+        <version>0.9-SNAPSHOT</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-action-fx</artifactId>
