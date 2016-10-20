@@ -26,12 +26,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
+import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.docking.spi.DockingArea;
 import org.drombler.commons.docking.spi.DockingAreaManager;
 import org.drombler.commons.docking.spi.DockingAreaUtils;
 import org.drombler.commons.docking.spi.ShortPathPart;
-import org.drombler.commons.docking.fx.FXDockableEntry;
-import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
 import org.softsmithy.lib.util.PositionableAdapter;
 import org.softsmithy.lib.util.Positionables;
@@ -119,12 +119,12 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
         singleModelProperty().set(selectionModel);
     }
 
-    public final ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> singleModelProperty() {
+    public ObjectProperty<SingleSelectionModel<PositionableAdapter<FXDockableEntry>>> singleModelProperty() {
         return selectionModel;
     }
 
     public boolean addDockable(PositionableAdapter<FXDockableEntry> dockable) {
-        if (!dockableSet.contains(dockable.getAdapted())) {
+        if (!containsDockable(dockable.getAdapted())) {
             dockableSet.add(dockable.getAdapted());
             int insertionPoint = Positionables.getInsertionPoint(dockables, dockable);
             dockables.add(insertionPoint, dockable);
@@ -132,6 +132,10 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
         } else {
             return false;
         }
+    }
+
+    public boolean containsDockable(FXDockableEntry dockableEntry) {
+        return dockableSet.contains(dockableEntry);
     }
 
     public PositionableAdapter<FXDockableEntry> removeDockable(int index) {

@@ -28,8 +28,8 @@ public class DockingAreaUtils {
     private DockingAreaUtils() {
     }
 
-    public static void onSelectionChanged(PositionableAdapter<? extends DockableEntry<?>> oldValue,
-            PositionableAdapter<? extends DockableEntry<?>> newValue) {
+    public static void onSelectionChanged(PositionableAdapter<? extends DockableEntry<?, ?>> oldValue,
+            PositionableAdapter<? extends DockableEntry<?, ?>> newValue) {
         RefelectionUtils.invokeAnnotatedDockableMethod(oldValue, Deselect.class);
         RefelectionUtils.invokeAnnotatedDockableMethod(newValue, Select.class);
     }

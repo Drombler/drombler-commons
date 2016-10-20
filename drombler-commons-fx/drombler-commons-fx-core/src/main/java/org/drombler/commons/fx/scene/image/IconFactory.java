@@ -110,7 +110,7 @@ public class IconFactory implements GraphicFactory {
         }
     }
 
-    private String getIconResourcePath(int size) {
+    protected String getIconResourcePath(int size) {
         String currentIconResourcePath = iconResourcePath;
         if (currentIconResourcePath != null) {
             String[] iconNameParts = currentIconResourcePath.split("\\.");

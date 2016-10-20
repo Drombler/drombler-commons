@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-docking</artifactId>
@@ -67,6 +67,7 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-docking-core</module>
+        <module>drombler-commons-docking-context</module>
         <module>drombler-commons-docking-spi</module>
         <module>drombler-commons-docking-fx</module>
         <module>drombler-commons-docking-fx-context</module>
@@ -87,6 +88,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-docking-fx</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-docking-context</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -22,14 +22,13 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
  *
  * @author puce
  */
-public class LabeledUtils {
+public final class LabeledUtils {
 
     private LabeledUtils() {
     }
 
     /**
-     * Configures a {@link Labeled} with some data and a corresponding
-     * {@link DataRenderer}.
+     * Configures a {@link Labeled} with some data and a corresponding {@link DataRenderer}.
      *
      * @param <T> the type of the data
      * @param labeled the Labeled instance to be configured
@@ -39,9 +38,24 @@ public class LabeledUtils {
     public static <T> void configure(Labeled labeled, DataRenderer<? super T> dataRenderer, T data) {
         labeled.setText(dataRenderer.getText(data));
         labeled.setGraphic(dataRenderer.getGraphic(data));
+        labeled.setTooltip(dataRenderer.getTooltip(data));
 //        labeled.setTextAlignment(cellRenderer.getTextAlignment());
 //        labeled.setAlignment(Pos.BASELINE_RIGHT);
         labeled.getStyleClass().removeAll(dataRenderer.getStyleClass());
         labeled.getStyleClass().addAll(dataRenderer.getStyleClass(data));
+    }
+
+    /**
+     * Unonfigures a {@link Labeled} with a corresponding {@link DataRenderer}.
+     *
+     * @param <T> the type of the data
+     * @param labeled the Labeled instance to be unconfigured
+     * @param dataRenderer the DataRenderer to render the data
+     */
+    public static <T> void unconfigure(Labeled labeled, DataRenderer<? super T> dataRenderer) {
+        labeled.setText(null);
+        labeled.setGraphic(null);
+        labeled.setTooltip(null);
+        labeled.getStyleClass().removeAll(dataRenderer.getStyleClass());
     }
 }

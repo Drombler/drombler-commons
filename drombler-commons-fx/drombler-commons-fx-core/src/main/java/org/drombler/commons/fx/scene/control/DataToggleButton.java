@@ -16,8 +16,6 @@ package org.drombler.commons.fx.scene.control;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ToggleButton;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
@@ -41,8 +39,7 @@ public class DataToggleButton<T> extends ToggleButton {
     /**
      * Creates a new instance of this class.
      *
-     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to
-     * render the data.
+     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to render the data.
      */
     public DataToggleButton() {
         this(new ObjectRenderer());
@@ -51,8 +48,7 @@ public class DataToggleButton<T> extends ToggleButton {
     /**
      * Creates a new instance of this class.
      *
-     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
-     * of this button.
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data} of this button.
      */
     public DataToggleButton(DataRenderer<? super T> dataRenderer) {
         this(dataRenderer, null);
@@ -70,24 +66,12 @@ public class DataToggleButton<T> extends ToggleButton {
     /**
      * Creates a new instance of this class.
      *
-     * @param dataRenderer the {@link DataRenderer} to render the {@link #data}
-     * of this button.
+     * @param dataRenderer the {@link DataRenderer} to render the {@link #data} of this button.
      * @param data the data of this button.
      */
     public DataToggleButton(DataRenderer<? super T> dataRenderer, T data) {
-        this.data.addListener(new ChangeListener<T>() {
-            @Override
-            public void changed(ObservableValue<? extends T> ov, T oldData, T newData) {
-                LabeledUtils.configure(DataToggleButton.this, getDataRenderer(), newData);
-            }
-        });
-
-        this.dataRenderer.addListener(new ChangeListener<DataRenderer<? super T>>() {
-            @Override
-            public void changed(ObservableValue<? extends DataRenderer<? super T>> ov, DataRenderer<? super T> oldData, DataRenderer<? super T> newData) {
-                LabeledUtils.configure(DataToggleButton.this, newData, getData());
-            }
-        });
+        this.data.addListener((ov, oldData, newData) -> LabeledUtils.configure(DataToggleButton.this, getDataRenderer(), newData)); // TODO: this instead of DataToggleButton.this possible with lambdas?
+        this.dataRenderer.addListener((ov, oldData, newData) -> LabeledUtils.configure(DataToggleButton.this, newData, getData())); // TODO: this instead of DataToggleButton.this possible with lambdas?
 
         setData(data);
         setDataRenderer(dataRenderer);

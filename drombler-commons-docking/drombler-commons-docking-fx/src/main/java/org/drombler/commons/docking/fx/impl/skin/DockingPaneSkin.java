@@ -26,12 +26,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.BorderPane;
 import org.drombler.commons.docking.DockingAreaDescriptor;
-import org.drombler.commons.docking.spi.DockingAreaManager;
-import org.drombler.commons.docking.spi.SplitLevel;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.impl.DockingAreaPane;
 import org.drombler.commons.docking.fx.impl.DockingSplitPane;
+import org.drombler.commons.docking.spi.DockingAreaManager;
+import org.drombler.commons.docking.spi.SplitLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.PositionableAdapter;
@@ -74,7 +74,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         this.control.getDockables().addListener(dockableEntrySetChangeListener);
 
         this.control.getDockingAreaDescriptors().forEach(dockingAreaDescriptor -> addDockingArea(dockingAreaDescriptor));
-        this.control.getDockables().forEach(dockableEntry -> addDockable(dockableEntry));
+        this.control.getDockables().forEach(this::addDockable);
 
         this.control.sceneProperty().addListener((ov, oldValue, newValue) -> {
             if (oldValue != null) {
@@ -85,6 +85,23 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             }
         });
         this.control.getScene().focusOwnerProperty().addListener(focusOwnerChangeListener);
+        this.control.activeDockableProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LOG.debug("Selecting newly active Dockable: '{}'...", newValue.getDockableData().getTitle());
+                dockingAreaPanes.values().stream()
+                        .filter(dockingAreaPane -> dockingAreaPane.containsDockable(newValue))
+                        .findFirst()
+                        .ifPresent(dockingAreaPane -> {
+                            dockingAreaPane.getDockables().stream()
+                                    .filter(adapter -> adapter.getAdapted().equals(newValue))
+                                    .findFirst()
+                                    .ifPresent(adapter -> {
+                                LOG.debug("Select newly active Dockable: '{}'!", newValue.getDockableData().getTitle());
+                                        dockingAreaPane.getSelectionModel().select(adapter);
+                            });
+                        });
+            }
+        });
     }
 
     @Override
@@ -108,14 +125,14 @@ public class DockingPaneSkin implements Skin<DockingPane> {
     }
 
     private void addDockingArea(DockingAreaDescriptor dockingAreaDescriptor) {
-        LOG.debug("Added docking area: {}", dockingAreaDescriptor.getId());
+        LOG.debug("Added docking area ({}): {}", dockingAreaDescriptor.getKind(), dockingAreaDescriptor.getId());
         DockingAreaPane dockingArea = createDockingArea(dockingAreaDescriptor);
 
         dockingArea.getSelectionModel().selectedItemProperty().
                 addListener((ov, oldValue, newValue) -> {
                     if (newValue != null) {
 //                        control.setActiveDockable(newValue.getAdapted().getDockable());
-                        LOG.debug("Request focus for Dockable: '{}'!",
+                        LOG.debug("Request focus for newly selected Dockable: '{}'!",
                                 newValue.getAdapted().getDockableData().getTitle());
                         newValue.getAdapted().getDockable().requestFocus();
                     }
@@ -161,7 +178,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
             dockingArea.addDockable(new PositionableAdapter<>(dockableEntry,
                     dockableEntry.getDockablePreferences().getPosition()));
 //            this.control.setActiveDockable(dockableEntry.getDockable());
-            LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
+                    LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
                     dockableEntry.getDockablePreferences().getAreaId());
         }
     }
@@ -230,8 +247,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                             getSelectionModel().getSelectedItem();
                     if (selectedItem != null) {
                         LOG.debug("Dockable found!");
-                        currentNode = selectedItem.getAdapted().getDockable();
-                        control.setActiveDockable(currentNode);
+                        control.setActiveDockable(selectedItem.getAdapted());
                         LOG.debug("Changed active Dockable: '{}'!", selectedItem.getAdapted().getDockableData().
                                 getTitle());
                     }

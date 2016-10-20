@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.docking.fx;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -22,6 +24,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Tooltip;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.fx.scene.GraphicFactory;
 
@@ -45,35 +48,41 @@ public class FXDockableData implements DockableData {
 //        return resourceBundle;
 //    }
     /**
-     * The title of this Dockable. It is used to represent this dockable e.g. in menus or tabs.
+     * The title of this Dockable. It is used to represent this Dockable e.g. in menus or tabs.
      */
-    private final StringProperty title = new SimpleStringProperty(this, "title", "");
+    private final StringProperty title = new SimpleStringProperty(this, TITLE_PROPERTY_NAME, "");
     /**
-     * The graphic of this Dockable. It is used to represent this dockable e.g. in menus or tabs. TODO: needed?
+     * The tooltip for this Dockable. It is used to provide additional information about this Dockable.
+     */
+    private final ObjectProperty<Tooltip> tooltip = new SimpleObjectProperty<>(this, "tooltip", null);
+    /**
+     * The graphic of this Dockable. It is used to represent this Dockable e.g. in menus or tabs. TODO: needed?
      */
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic", null);
 
     /**
      * The {@link GraphicFactory}.
      */
-    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
-            null);
+    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory", null);
 
     /**
      * The {@link ContextMenu}. TODO: needed?
      */
-    private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu",
-            null);
+    private final ObjectProperty<ContextMenu> contextMenu = new SimpleObjectProperty<>(this, "contextMenu", null);
 
     /**
      * The modified flag indicates if the data represented by the Dockable has been modified.
      */
-    private final BooleanProperty modified = new SimpleBooleanProperty(this, "modified", false);
+    private final BooleanProperty modified = new SimpleBooleanProperty(this, MODIFIED_PROPERTY_NAME, false);
+
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     /**
      * Creates a new instance of this class.
      */
     public FXDockableData() {
+        title.addListener((observable, oldValue, newValue) -> propertyChangeSupport.firePropertyChange(TITLE_PROPERTY_NAME, oldValue, newValue));
+        modified.addListener((observable, oldValue, newValue) -> propertyChangeSupport.firePropertyChange(MODIFIED_PROPERTY_NAME, oldValue, newValue));
     }
 
     @Override
@@ -88,6 +97,18 @@ public class FXDockableData implements DockableData {
 
     public StringProperty titleProperty() {
         return title;
+    }
+
+    public final Tooltip getTooltip() {
+        return tooltipProperty().get();
+    }
+
+    public final void setTooltip(Tooltip tooltip) {
+        tooltipProperty().set(tooltip);
+    }
+
+    public ObjectProperty<Tooltip> tooltipProperty() {
+        return tooltip;
     }
 
     public final Node getGraphic() {
@@ -126,16 +147,34 @@ public class FXDockableData implements DockableData {
         return contextMenu;
     }
 
+    @Override
     public final boolean isModified() {
         return modifiedProperty().get();
     }
 
+    @Override
     public final void setModified(boolean modified) {
         modifiedProperty().set(modified);
     }
 
     public BooleanProperty modifiedProperty() {
         return modified;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public final void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public final void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
     /**

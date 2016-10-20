@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import org.drombler.commons.docking.fx.DockableCloseRequestEvent;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.impl.DockingAreaPane;
@@ -38,6 +39,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
     private final Map<FXDockableData, ChangeListener<? super Boolean>> dockableDataModifiedListeners = new HashMap<>();
     private DockingAreaPane control;
     private TabPane tabPane = new TabPane();
+    private final TabManager tabManager = new TabManager();
 
     private final ListChangeListener<PositionableAdapter<FXDockableEntry>> dockablesChangeListener = change -> {
         while (change.next()) {
@@ -52,7 +54,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                         map(dockableEntry -> dockableEntry.getAdapted().getDockableData()).
                         forEach(dockableData -> {
                             ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
-                            remove(dockableData);
+                                    remove(dockableData);
                             dockableData.modifiedProperty().removeListener(listener);
                         });
             } else if (change.wasAdded()) {
@@ -115,6 +117,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             tabPane.getSelectionModel().select(selectedIndex);
         }
 
+        control.getScene().getWindow().addEventHandler(DockableCloseRequestEvent.DOCKABLE_CLOSE_REQUEST, tabManager.getOnDockableCloseRequestHandler());
 //        tabPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
 //
 //            @Override
@@ -157,8 +160,11 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         final FXDockableData dockableData = dockable.getAdapted().getDockableData();
         tab.textProperty().bind(dockableData.titleProperty());
         tab.graphicProperty().bind(dockableData.graphicProperty());
+        tab.tooltipProperty().bind(dockableData.tooltipProperty());
         tab.contextMenuProperty().bind(dockableData.contextMenuProperty());
         tab.setContent(dockable.getAdapted().getDockable());
+
+        tab.setOnCloseRequest(tabManager.createOnCloseRequestHandler(tab, dockable.getAdapted(), control));
         observeDockableData(dockableData, tab);
 
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);
@@ -169,6 +175,7 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
                 -> updateStyleClass(tab, newValue);
         dockableData.modifiedProperty().addListener(dockableDataModifiedListener);
         dockableDataModifiedListeners.put(dockableData, dockableDataModifiedListener);
+        updateStyleClass(tab, dockableData.isModified());
     }
 
     private void updateStyleClass(Tab tab, boolean modified) {

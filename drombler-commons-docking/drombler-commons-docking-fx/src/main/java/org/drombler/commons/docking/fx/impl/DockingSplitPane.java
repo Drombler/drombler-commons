@@ -27,9 +27,9 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
+import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.docking.spi.ShortPathPart;
 import org.drombler.commons.docking.spi.SplitLevel;
-import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.fx.geometry.OrientationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,6 +106,10 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         return getOrientation().equals(Orientation.HORIZONTAL);
     }
 
+    public boolean isVertical() {
+        return getOrientation().equals(Orientation.VERTICAL);
+    }
+
     /**
      * @return the position
      */
@@ -146,12 +150,36 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
     public void addDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualizable()) {
             manager.addDockingArea(dockingArea);
+            if (LOG.isDebugEnabled()) {
+                logShortPaths();
+            }
         }
+    }
+
+    private void logShortPaths() {
+        dockingSplitPaneChildren.stream().
+                forEach((child) -> {
+                    if (child instanceof DockingAreaPane) {
+                        DockingAreaPane dockingArea = (DockingAreaPane) child;
+                        LOG.debug("{} short path: {}", dockingArea, dockingArea.getShortPath());
+                    } else {
+                        if (child instanceof DockingSplitPane) {
+                            DockingSplitPane dockingSplitPane = (DockingSplitPane) child;
+                            // recursion
+                            dockingSplitPane.logShortPaths();
+                        } else {
+                            LOG.debug("Unsupported child type '{}'", child.getClass());
+                        }
+                    }
+                });
     }
 
     public void removeDockingArea(DockingAreaPane dockingArea) {
         if (dockingArea.isVisualized()) {
             manager.removeDockingArea(dockingArea);
+            if (LOG.isDebugEnabled()) {
+                logShortPaths();
+            }
         }
     }
 
@@ -442,8 +470,7 @@ public class DockingSplitPane extends DockingSplitPaneChildBase {
         }
 
         /**
-         * Checks if this DockingSplitPane contains a DockingAreaPane or a child DockingSplitPane, which contains any
-         * docking area.
+         * Checks if this DockingSplitPane contains a DockingAreaPane or a child DockingSplitPane, which contains any docking area.
          *
          *
          * @return if this DockingSplitPane directly or indirectly contains any DockingAreaPane, else false.

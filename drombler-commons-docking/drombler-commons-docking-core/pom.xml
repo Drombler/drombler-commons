@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-docking-core</artifactId>
@@ -68,9 +68,17 @@ Contributor(s): .
 
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
     </dependencies>
 </project>

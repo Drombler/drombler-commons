@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.7</version>
+        <version>0.8</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-docking</artifactId>
@@ -99,6 +99,11 @@ Contributor(s): .
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-docking-fx</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-docking-context</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

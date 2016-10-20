@@ -15,7 +15,6 @@
 package org.drombler.commons.fx.scene.renderer;
 
 import java.util.Locale;
-import javafx.scene.text.TextAlignment;
 import org.softsmithy.lib.text.Localizer;
 
 /**

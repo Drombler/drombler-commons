@@ -25,18 +25,19 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.client.util.MnemonicUtils;
+import org.drombler.commons.client.util.ResourceBundleUtils;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockablePreferencesManager;
 import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.SimpleDockablePreferencesManager;
-import org.drombler.commons.client.util.MnemonicUtils;
-import org.drombler.commons.client.util.ResourceBundleUtils;
-import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.docking.fx.context.DockingManager;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.context.DockingPaneDockingAreaContainerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,14 +56,13 @@ public class DockingSampleApplication extends Application {
     public static final String CENTER_AREA_ID = "center";
 
     private int sampleCounter = 0;
-    private DockingManager dockingManager;
+    private DockingPaneDockingAreaContainerAdapter dockingAreaContainerAdapter;
 
     @Override
-    public void start(Stage stage)  {
+    public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
-        ContextManager contextManager = new ContextManager();
-        dockingManager = new DockingManager(dockingPane, contextManager);
+        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -74,7 +74,7 @@ public class DockingSampleApplication extends Application {
         addDockingAreas(dockingPane);
 
         final DockablePreferencesManager<Node> dockablePreferencesManager = new SimpleDockablePreferencesManager<>();
-        registerDefaultDockablePreferences(dockablePreferencesManager);
+        registerDefaultDockablePreferences(dockablePreferencesManager, dockingPane.getDefaultEditorAreaId());
 
         FXDockableData leftDockableData = new FXDockableData();
         leftDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(LeftTestPane.class)));
@@ -85,10 +85,10 @@ public class DockingSampleApplication extends Application {
             FXDockableData sampleDockableData = new FXDockableData();
             SampleEditorPane sampleEditorPane = new SampleEditorPane(sample);
             sampleEditorPane.setDockableData(sampleDockableData);
-            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, sampleDockableData,
+            dockingPane.getDockables().add(new FXDockableEntry(sampleEditorPane, DockableKind.EDITOR, sampleDockableData,
                     dockablePreferencesManager.getDockablePreferences(sampleEditorPane)));
         });
-        final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, leftDockableData,
+        final FXDockableEntry leftDockableEntry = new FXDockableEntry(leftTestPane, DockableKind.VIEW, leftDockableData,
                 dockablePreferencesManager.getDockablePreferences(leftTestPane));
         dockingPane.getDockables().add(leftDockableEntry);
         MenuItem leftTestPaneMenuItem = createDockablePaneMenuItem(leftDockableEntry, dockingPane);
@@ -97,7 +97,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData rightDockableData = new FXDockableData();
         rightDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(RightTestPane.class)));
         RightTestPane rightTestPane = new RightTestPane();
-        final FXDockableEntry rightDockableEntry = new FXDockableEntry(rightTestPane, rightDockableData,
+        final FXDockableEntry rightDockableEntry = new FXDockableEntry(rightTestPane, DockableKind.VIEW, rightDockableData,
                 dockablePreferencesManager.getDockablePreferences(rightTestPane));
         dockingPane.getDockables().add(rightDockableEntry);
         MenuItem rightTestPaneMenuItem = createDockablePaneMenuItem(rightDockableEntry, dockingPane);
@@ -106,7 +106,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData topDockableData = new FXDockableData();
         topDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(TopTestPane.class)));
         TopTestPane topTestPane = new TopTestPane();
-        final FXDockableEntry topDockableEntry = new FXDockableEntry(topTestPane, topDockableData,
+        final FXDockableEntry topDockableEntry = new FXDockableEntry(topTestPane, DockableKind.VIEW, topDockableData,
                 dockablePreferencesManager.getDockablePreferences(topTestPane));
         dockingPane.getDockables().add(topDockableEntry);
         MenuItem topTestPanePaneMenuItem = createDockablePaneMenuItem(topDockableEntry, dockingPane);
@@ -115,7 +115,7 @@ public class DockingSampleApplication extends Application {
         FXDockableData bottomDockableData = new FXDockableData();
         bottomDockableData.setTitle(MnemonicUtils.removeMnemonicChar(getDisplayName(BottomTestPane.class)));
         BottomTestPane bottomTestPane = new BottomTestPane();
-        final FXDockableEntry bottomDockableEntry = new FXDockableEntry(bottomTestPane, bottomDockableData,
+        final FXDockableEntry bottomDockableEntry = new FXDockableEntry(bottomTestPane, DockableKind.VIEW, bottomDockableData,
                 dockablePreferencesManager.getDockablePreferences(bottomTestPane));
         dockingPane.getDockables().add(bottomDockableEntry);
         MenuItem bottomTestPanePaneMenuItem = createDockablePaneMenuItem(bottomDockableEntry, dockingPane);
@@ -130,7 +130,7 @@ public class DockingSampleApplication extends Application {
 
     @Override
     public void stop() throws Exception {
-        dockingManager.close();
+        dockingAreaContainerAdapter.close();
         super.stop();
     }
 
@@ -144,19 +144,17 @@ public class DockingSampleApplication extends Application {
         return openDockablePaneMenuItem;
     }
 
-    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager) {
+    private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager, String defaultEditorAreaId) {
         registerDefaultDockablePreferences(dockablePreferencesManager, LeftTestPane.class, LEFT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, RightTestPane.class, RIGHT_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, TopTestPane.class, TOP_AREA_ID, 20);
         registerDefaultDockablePreferences(dockablePreferencesManager, BottomTestPane.class, BOTTOM_AREA_ID, 20);
-        registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, CENTER_AREA_ID, 20);
+        registerDefaultDockablePreferences(dockablePreferencesManager, SampleEditorPane.class, defaultEditorAreaId, 20);
     }
 
     private void registerDefaultDockablePreferences(DockablePreferencesManager<Node> dockablePreferencesManager,
             Class<?> type, String areaId, int position) {
-        DockablePreferences leftDockablePreferences = new DockablePreferences();
-        leftDockablePreferences.setAreaId(areaId);
-        leftDockablePreferences.setPosition(position);
+        DockablePreferences leftDockablePreferences = new DockablePreferences(areaId, position);
         dockablePreferencesManager.registerDefaultDockablePreferences(type, leftDockablePreferences);
     }
 
@@ -164,41 +162,51 @@ public class DockingSampleApplication extends Application {
         // TODO: hide DockingAreaPane from API
         DockingAreaDescriptor centerAreaDescriptor = new DockingAreaDescriptor();
         centerAreaDescriptor.setId(CENTER_AREA_ID);
+        centerAreaDescriptor.setKind(DockingAreaKind.EDITOR);
         centerAreaDescriptor.setParentPath(Arrays.asList(20, 40, 50));
         centerAreaDescriptor.setPosition(20);
         centerAreaDescriptor.setPermanent(true);
+        centerAreaDescriptor.setAdHoc(false);
         // TODO: set default
         centerAreaDescriptor.setLayoutConstraints(LayoutConstraintsDescriptor.flexible());
 
         DockingAreaDescriptor topAreaDescriptor = new DockingAreaDescriptor();
         topAreaDescriptor.setId(TOP_AREA_ID);
+        topAreaDescriptor.setKind(DockingAreaKind.VIEW);
         topAreaDescriptor.setParentPath(Arrays.asList(20, 40, 20));
         topAreaDescriptor.setPosition(20);
         topAreaDescriptor.setPermanent(false);
+        topAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor topLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         topAreaDescriptor.setLayoutConstraints(topLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor bottomAreaDescriptor = new DockingAreaDescriptor();
         bottomAreaDescriptor.setId(BOTTOM_AREA_ID);
+        bottomAreaDescriptor.setKind(DockingAreaKind.VIEW);
         bottomAreaDescriptor.setParentPath(Arrays.asList(20, 40, 80));
         bottomAreaDescriptor.setPosition(20);
         bottomAreaDescriptor.setPermanent(false);
+        bottomAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor bottomLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefHeight(100.0);
         bottomAreaDescriptor.setLayoutConstraints(bottomLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor leftAreaDescriptor = new DockingAreaDescriptor();
         leftAreaDescriptor.setId(LEFT_AREA_ID);
+        leftAreaDescriptor.setKind(DockingAreaKind.VIEW);
         leftAreaDescriptor.setParentPath(Arrays.asList(20, 20));
         leftAreaDescriptor.setPosition(20);
         leftAreaDescriptor.setPermanent(false);
+        leftAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor leftLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         leftAreaDescriptor.setLayoutConstraints(leftLayoutConstraintsDescriptor);
 
         DockingAreaDescriptor rightAreaDescriptor = new DockingAreaDescriptor();
         rightAreaDescriptor.setId(RIGHT_AREA_ID);
+        rightAreaDescriptor.setKind(DockingAreaKind.VIEW);
         rightAreaDescriptor.setParentPath(Arrays.asList(20, 80));
         rightAreaDescriptor.setPosition(20);
         rightAreaDescriptor.setPermanent(false);
+        rightAreaDescriptor.setAdHoc(false);
         LayoutConstraintsDescriptor rightLayoutConstraintsDescriptor = LayoutConstraintsDescriptor.prefWidth(200.0);
         rightAreaDescriptor.setLayoutConstraints(rightLayoutConstraintsDescriptor);
 

@@ -39,31 +39,39 @@ public class DividerPositionRecalculator implements AutoCloseable {
     private final SplitPane splitPane;
     private final BooleanProperty adjusting = new SimpleBooleanProperty(this, "adjusting", false);
 
-    private final ChangeListener<Object> sizeChangeListener = (ov, oldValue, newValue) -> {
-        LOG.debug("ObservableValue: {}: old value: {}, new value: {}", ov, oldValue, newValue);
-        recalculateDividerPositions();
-    };
+    private final ChangeListener<Object> widthChangeListener;
+
+    private final ChangeListener<Object> heightChangeListener;
 
 //    private final ListChangeListener<Node> splitPaneItemsListener = change -> {
 //        LOG.debug("SplitPane items change: {}", change);
 //        recalculateDividerPositions();
 //    };
     private final ListChangeListener<DockingSplitPaneChildBase> dockingSplitPaneChildrenListener = change -> {
-        LOG.debug("DockingSplitPane children change: {}", change);
+        LOG.debug("DockingSplitPane children changed: {}", change);
         recalculateDividerPositions();
     };
 
     public DividerPositionRecalculator(DockingSplitPane dockingSplitPane, SplitPane splitPane) {
         this.dockingSplitPane = dockingSplitPane;
         this.splitPane = splitPane;
-
+        this.widthChangeListener = (ov, oldValue, newValue) -> {
+            if (dockingSplitPane.isHorizontal()) {
+                LOG.debug("width changed: {}: old value: {}, new value: {}", ov, oldValue, newValue);
+                recalculateDividerPositions();
+            }
+        };
+        this.heightChangeListener = (ov, oldValue, newValue) -> {
+            if (dockingSplitPane.isVertical()) {
+                LOG.debug("height changed: {}: old value: {}, new value: {}", ov, oldValue, newValue);
+                recalculateDividerPositions();
+            }
+        };
 //        this.splitPane.getItems().addListener(splitPaneItemsListener);
         this.dockingSplitPane.getDockingSplitPaneChildren().addListener(dockingSplitPaneChildrenListener);
-        this.dockingSplitPane.widthProperty().addListener(sizeChangeListener);
-        this.dockingSplitPane.heightProperty().addListener(sizeChangeListener);
+        this.dockingSplitPane.widthProperty().addListener(widthChangeListener);
+        this.dockingSplitPane.heightProperty().addListener(heightChangeListener);
     }
-
-
 
     public final boolean isAdjusting() {
         return adjustingProperty().get();
@@ -105,8 +113,6 @@ public class DividerPositionRecalculator implements AutoCloseable {
             LOG.debug("{}: adjusting finished!", dockingSplitPane);
         }
     }
-
-
 
     private boolean isInSync() {
         return dockingSplitPane.getDockingSplitPaneChildren().size() == splitPane.getItems().size();
@@ -159,6 +165,7 @@ public class DividerPositionRecalculator implements AutoCloseable {
 
             if (requiredRelativeSize > 1) {
                 // TODO: shrink sizes
+                LOG.debug("Parent smaller than preferred size! Behavior not implemented yet! parentSize: {}; requiredRelativeSize: {} ", parentSize, requiredRelativeSize);
             }
 
             if (flexiblePositions > 0) {
@@ -188,8 +195,7 @@ public class DividerPositionRecalculator implements AutoCloseable {
     @Override
     public void close() {
         dockingSplitPane.getDockingSplitPaneChildren().removeListener(dockingSplitPaneChildrenListener);
-        dockingSplitPane.widthProperty().removeListener(sizeChangeListener);
-        dockingSplitPane.heightProperty().removeListener(sizeChangeListener);
-        dockingSplitPane.layoutConstraintsProperty().removeListener(sizeChangeListener);
+        dockingSplitPane.widthProperty().removeListener(widthChangeListener);
+        dockingSplitPane.heightProperty().removeListener(heightChangeListener);
     }
 }
