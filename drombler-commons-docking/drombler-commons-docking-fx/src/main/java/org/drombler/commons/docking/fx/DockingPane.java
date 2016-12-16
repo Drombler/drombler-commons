@@ -25,11 +25,13 @@ import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Control;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.fx.impl.skin.Stylesheets;
 import org.drombler.commons.fx.event.SimpleEventHandlerProperty;
+import org.drombler.commons.fx.scene.Nodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +84,8 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
                 }
         });
         activeDockable.addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (newValue != null && (newValue.getDockable() instanceof Parent)
+                    && !Nodes.isParent((Parent) newValue.getDockable(), newValue.getDockable().getScene().getFocusOwner())) {
                 LOG.debug("Request focus for new active Dockable: '{}'!", newValue.getDockableData().getTitle());
                 newValue.getDockable().requestFocus();
             }
