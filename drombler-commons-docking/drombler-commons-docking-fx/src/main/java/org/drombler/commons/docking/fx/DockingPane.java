@@ -84,8 +84,9 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
                 }
         });
         activeDockable.addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && (newValue.getDockable() instanceof Parent)
-                    && !Nodes.isParent((Parent) newValue.getDockable(), newValue.getDockable().getScene().getFocusOwner())) {
+            if (newValue != null
+                    && !((newValue.getDockable() instanceof Parent)
+                    && Nodes.isParent((Parent) newValue.getDockable(), newValue.getDockable().getScene().getFocusOwner()))) {
                 LOG.debug("Request focus for new active Dockable: '{}'!", newValue.getDockableData().getTitle());
                 newValue.getDockable().requestFocus();
             }
