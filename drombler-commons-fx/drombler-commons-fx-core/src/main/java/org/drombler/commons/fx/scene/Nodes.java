@@ -17,6 +17,7 @@ package org.drombler.commons.fx.scene;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Window;
 
@@ -50,5 +51,25 @@ public class Nodes {
 //        double x = window.getX() + scene.getX() + boundsInLocal.getMinX() + 300;
 //        double y = window.getY() + scene.getY() + boundsInLocal.getMinY() + 250;
         return new Point2D(x, y);
+    }
+
+    /**
+     * Checks if the provided {@link Parent] is either a direct or indirect parent of the provided {@link Node}.
+     *
+     * @param parent the parent
+     * @param node the node
+     * @return true if the provided {@link Parent] is either a direct or indirect parent of the provided {@link Node}, else false
+     */
+    public static boolean isParent(Parent parent, Node node) {
+        boolean found = false;
+        Parent currentParent = node.getParent();
+        while (!found && currentParent != null) {
+            if (currentParent != parent) {
+                found = true;
+            } else {
+                currentParent = currentParent.getParent();
+            }
+        }
+        return found;
     }
 }

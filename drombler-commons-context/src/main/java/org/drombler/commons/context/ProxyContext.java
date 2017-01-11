@@ -143,7 +143,7 @@ public class ProxyContext extends AbstractContext {
         List<Context> contextsToAdd = new ArrayList<>(contexts);
         contextsToAdd.removeAll(this.contexts);
 
-        contexts.forEach(this::addContextOnly);
+        contextsToAdd.forEach(this::addContextOnly);
 
         List<Context> changedContexts = new ArrayList<>(contextsToRemove);
         changedContexts.addAll(contextsToAdd);
