@@ -19,7 +19,7 @@ package org.drombler.commons.docking;
  *
  * @author puce
  */
-//@XmlType(name = "DockingAreaKindType")//namespace="http://www.richclientplatform.org/schema/dockingAreas"
+//@XmlType(name = "DockingAreaKindType")//namespace="http://www.drombler.org/schema/acp/dockingAreas"
 //@XmlEnum
 public enum DockingAreaKind {
 
