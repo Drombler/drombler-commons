@@ -106,6 +106,16 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
      * {@inheritDoc }
      */
     @Override
+    public void closeAndUnregisterView(D dockable) {
+        E dockableEntry = dockingManager.createDockableEntry(dockable, DockableKind.VIEW);
+        getDockables().remove(dockableEntry);
+        dockingManager.unregisterDockableData(dockable);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
     public boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
         final E editorEntry;
         if (content instanceof UniqueKeyProvider) {
@@ -169,6 +179,11 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
         }
     }
 
+    @Override
+    public void closeEditors(Class<? extends D> editorType) {
+        getDockables().removeIf(dockableEntry -> (dockableEntry.getKind() == DockableKind.EDITOR) && dockableEntry.getDockable().getClass().equals(editorType));
+    }
+
     private Context createImplicitLocalContext(Object content) {
         SimpleContextContent contextContent = new SimpleContextContent();
         Context implicitLocalContext = new SimpleContext(contextContent);
@@ -187,6 +202,14 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
     @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         dockingManager.registerDefaultDockablePreferences(dockableClass, dockablePreferences);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass) {
+        return dockingManager.unregisterDefaultDockablePreferences(dockableClass);
     }
 
     @Override
@@ -280,7 +303,11 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
 
         @Override
         public void elementRemoved(SetChangeEvent<E> event) {
-            dockingManager.unregisterEditor(event.getElement());
+            try {
+                dockingManager.unregisterEditor(event.getElement());
+            } catch (Exception ex) {
+                LOG.error(ex.getMessage(), ex);
+            }
         }
 
     }

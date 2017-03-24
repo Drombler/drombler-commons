@@ -69,6 +69,16 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
         LOG.debug("Registered default dockable preferences for: {}", dockableClass);
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass) {
+        DockablePreferences dockablePreferences = defaultDockablePreferencesMap.remove(dockableClass);
+        LOG.debug("Unregistered default dockable preferences for: {}", dockableClass);
+        return dockablePreferences;
+    }
+
 //    @Override
 //    public void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences) {
 //        dockablePreferencesMap.put(dockable, dockablePreferences);

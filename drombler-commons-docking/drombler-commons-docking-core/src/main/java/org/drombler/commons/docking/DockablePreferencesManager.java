@@ -39,7 +39,15 @@ public interface DockablePreferencesManager<D> {
      * @param dockablePreferences
      */
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
-    
+
+    /**
+     * Unregisters the default {@link DockablePreferences}
+     *
+     * @param dockableClass
+     * @return the registered DockablePreferences
+     */
+    DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass);
+
 //    void registerDockablePreferences(D dockable, DockablePreferences dockablePreferences);
     /**
      * Unregisters the {@link DockablePreferences} of the specified Dockable.

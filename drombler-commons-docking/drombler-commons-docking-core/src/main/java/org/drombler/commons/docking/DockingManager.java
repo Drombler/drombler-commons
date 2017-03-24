@@ -45,6 +45,10 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
         dockableDataManager.registerDockableData(dockable, dockableData);
     }
 
+    public DATA unregisterDockableData(D dockable) {
+        return dockableDataManager.unregisterDockableData(dockable);
+    }
+
     public E createDockableEntry(D dockable, DockableKind dockableKind) {
         DATA dockableData = dockableDataManager.getDockableData(dockable);
         DockablePreferences dockablePreferences = dockablePreferencesManager.getDockablePreferences(dockable);
@@ -70,6 +74,10 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
         dockablePreferencesManager.registerDefaultDockablePreferences(dockableClass, dockablePreferences);
     }
 
+    public DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass) {
+        return dockablePreferencesManager.unregisterDefaultDockablePreferences(dockableClass);
+    }
+
     public DockablePreferences getDockablePreferences(D dockable) {
         return dockablePreferencesManager.getDockablePreferences(dockable);
     }
@@ -86,12 +94,15 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
         }
     }
 
-    public void unregisterEditor(E dockableEntry) {
+    public void unregisterEditor(E dockableEntry) throws Exception {
         if (dockableEntry != null && dockableEntry.getKind() == DockableKind.EDITOR) {
             final D dockable = dockableEntry.getDockable();
             dockableDataManager.unregisterDockableData(dockable);
             dockablePreferencesManager.unregisterDockablePreferences(dockable);
             editorRegistry.unregisterEditor(dockableEntry);
+            if (dockable instanceof AutoCloseable) {
+                ((AutoCloseable) dockable).close();
+            }
         }
     }
 
