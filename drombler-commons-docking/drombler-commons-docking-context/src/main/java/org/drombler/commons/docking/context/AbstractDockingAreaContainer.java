@@ -115,14 +115,12 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
      * {@inheritDoc }
      */
     @Override
-    public boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
-        final E editorEntry;
+    public E openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
         if (content instanceof UniqueKeyProvider) {
-            editorEntry = openEditorForUniqueKeyProvider((UniqueKeyProvider<?>) content, editorType, icon, resourceLoader);
+            return openEditorForUniqueKeyProvider((UniqueKeyProvider<?>) content, editorType, icon, resourceLoader);
         } else {
-            editorEntry = openNewEditorForContent(content, editorType, icon, resourceLoader);
+            return openNewEditorForContent(content, editorType, icon, resourceLoader);
         }
-        return editorEntry != null;
     }
 
     private E openEditorForUniqueKeyProvider(UniqueKeyProvider<?> uniqueKeyProvider, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
