@@ -12,44 +12,45 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.docking;
+package org.drombler.commons.docking.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.drombler.commons.docking.DockablePreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A simple in-memory {@link DockablePreferencesManager}.
+ * A manager to manage the {@link DockablePreferences}.
  *
- * Note: This class is some pre-work changing (once drag'n'drop * is supported) DockablePreferences.
+ * Note: This class is some pre-work for changing (once drag'n'drop is supported) DockablePreferences.
  *
  * TODO: Thread-safe?
  *
  * @author puce
  * @param <D> the Dockable type
  */
-public class SimpleDockablePreferencesManager<D> implements DockablePreferencesManager<D> {
+public class DockablePreferencesManager<D> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleDockablePreferencesManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DockablePreferencesManager.class);
 
     // TODO: Consider to use weak references
-    private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = Collections.synchronizedMap(
-            new HashMap<Class<?>, DockablePreferences>());
-    private final Map<D, DockablePreferences> dockablePreferencesMap = Collections.synchronizedMap(
-            new HashMap<D, DockablePreferences>());
+    private final Map<Class<?>, DockablePreferences> defaultDockablePreferencesMap = Collections.synchronizedMap(new HashMap<>());
+    private final Map<D, DockablePreferences> dockablePreferencesMap = Collections.synchronizedMap(new HashMap<>());
 
     /**
      * Creates a new instance of this class.
      */
-    public SimpleDockablePreferencesManager() {
+    public DockablePreferencesManager() {
     }
 
     /**
-     * {@inheritDoc }
+     * Gets the {@link DockablePreferences} of the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @return the DockablePreferences of the specified Dockable
      */
-    @Override
     public DockablePreferences getDockablePreferences(D dockable) {
         // TODO: not thread-safe (map can change between calls)
         if (!dockablePreferencesMap.containsKey(dockable)) {
@@ -61,18 +62,22 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
     }
 
     /**
-     * {@inheritDoc }
+     * Registers the default {@link DockablePreferences}
+     *
+     * @param dockableClass
+     * @param dockablePreferences
      */
-    @Override
     public void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences) {
         defaultDockablePreferencesMap.put(dockableClass, dockablePreferences);
         LOG.debug("Registered default dockable preferences for: {}", dockableClass);
     }
 
     /**
-     * {@inheritDoc }
+     * Unregisters the default {@link DockablePreferences}
+     *
+     * @param dockableClass
+     * @return the registered DockablePreferences
      */
-    @Override
     public DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass) {
         DockablePreferences dockablePreferences = defaultDockablePreferencesMap.remove(dockableClass);
         LOG.debug("Unregistered default dockable preferences for: {}", dockableClass);
@@ -84,9 +89,11 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
 //        dockablePreferencesMap.put(dockable, dockablePreferences);
 //    }
     /**
-     * {@inheritDoc }
+     * Unregisters the {@link DockablePreferences} of the specified Dockable.
+     *
+     * @param dockable the {@link DockablePreferences} of the specified Dockable
+     * @return
      */
-    @Override
     public DockablePreferences unregisterDockablePreferences(D dockable) {
         DockablePreferences dockablePreferences = dockablePreferencesMap.remove(dockable);
         LOG.debug("Unregistered dockable preferences for: {}", dockable);
@@ -94,9 +101,8 @@ public class SimpleDockablePreferencesManager<D> implements DockablePreferencesM
     }
 
     /**
-     * {@inheritDoc }
+     * Resets the {@link DockablePreferences} of all Dockables to their default values.
      */
-    @Override
     public void reset() {
         dockablePreferencesMap.clear();
     }
