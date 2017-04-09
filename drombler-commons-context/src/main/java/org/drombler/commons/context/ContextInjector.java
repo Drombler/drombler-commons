@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.context;
 
+import org.softsmithy.lib.util.Injector;
+
 /**
  * The ContextInjector injects the active {@link Context} to Objects, which implement the {@link ActiveContextSensitive}
  * interface and the application {@link Context} to Objects, which implement the {@link ApplicationContextSensitive}
@@ -23,7 +25,7 @@ package org.drombler.commons.context;
  *
  * @author puce
  */
-public class ContextInjector {
+public class ContextInjector implements Injector<Object> {
 
     private final ActiveContextProvider activeContextProvider;
     private final ApplicationContextProvider applicationContextProvider;
@@ -55,6 +57,7 @@ public class ContextInjector {
      *
      * @param target the target Object
      */
+    @Override
     public void inject(Object target) {
         if (target instanceof ActiveContextSensitive) {
             ((ActiveContextSensitive) target).setActiveContext(activeContextProvider.getActiveContext());
