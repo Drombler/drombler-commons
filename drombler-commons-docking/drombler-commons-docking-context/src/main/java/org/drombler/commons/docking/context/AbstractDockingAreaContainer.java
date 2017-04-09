@@ -40,15 +40,12 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
     private final DockingContextManager<D, DATA, E> dockingContextManager;
 
     public AbstractDockingAreaContainer(DockableEntryFactory<D, DATA, E> dockableEntryFactory, DockableDataFactory<DATA> dockableDataFactory) {
-        this.dockingManager = new DockingManager<>(dockableEntryFactory, dockableDataFactory);
         this.dockingContextManager = new DockingContextManager<>(this);
+        this.dockingManager = new DockingManager<>(dockableEntryFactory, dockableDataFactory, dockingContextManager.getContextInjector());
 
         addDockableSetChangeListener(this.dockableListener);
     }
 
-//    public DockingManager<D, DATA, E> getDockingManager() {
-//        return dockingManager;
-//    }
     public Context getActiveContext() {
         return dockingContextManager.getActiveContext();
     }
@@ -85,31 +82,33 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
      * {@inheritDoc }
      */
     @Override
-    public boolean openView(D dockable, boolean active) {
-        E dockableEntry = dockingManager.createDockableEntry(dockable, DockableKind.VIEW);
-        return addDockable(dockableEntry, active);
+    public E openAndRegisterNewView(Class<? extends D> viewType, boolean active, String displayName, String icon, ResourceLoader resourceLoader) {
+        try {
+            E viewEntry = dockingManager.createAndRegisterViewEntry(viewType, displayName, icon, resourceLoader);
+            if (addDockable(viewEntry, active)) {
+                return viewEntry;
+            } else {
+                return null;
+            }
+        } catch (InstantiationException | IllegalAccessException | RuntimeException ex) {
+            LOG.error(ex.getMessage(), ex);
+            return null;
+        }
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public boolean openAndRegisterNewView(D dockable, boolean active, String displayName, String icon, ResourceLoader resourceLoader) {
-        dockingManager.registerDockableData(dockable, displayName, icon, resourceLoader);
-
-        inject(dockable);
-
-        return openView(dockable, active);
-    }
-
-    /**
-     * {@inheritDoc }
-     */
-    @Override
-    public void closeAndUnregisterView(D dockable) {
-        E dockableEntry = dockingManager.createDockableEntry(dockable, DockableKind.VIEW);
-        getDockables().remove(dockableEntry);
-        dockingManager.unregisterDockableData(dockable);
+    public void closeAndUnregisterView(E viewEntry) {
+        try {
+            if (viewEntry != null && viewEntry.getKind() == DockableKind.VIEW) {
+                getDockables().remove(viewEntry);
+                dockingManager.unregisterView(viewEntry);
+            }
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -160,11 +159,7 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
 
     private E openNewEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader) {
         try {
-            D editor = dockingManager.createEditor(content, editorType, icon, resourceLoader);
-
-            inject(editor);
-
-            E editorEntry = dockingManager.createDockableEntry(editor, DockableKind.EDITOR);
+            E editorEntry = dockingManager.createEditorEntry(content, editorType, icon, resourceLoader);
 
             Context implicitLocalContext = createImplicitLocalContext(content);
 
@@ -189,11 +184,6 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
         Context implicitLocalContext = new SimpleContext(contextContent);
         contextContent.add(content);
         return implicitLocalContext;
-    }
-
-    private void inject(D dockable) {
-        dockingContextManager.inject(dockable);
-        dockingManager.inject(dockable);
     }
 
     /**
@@ -292,6 +282,7 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
     @Override
     public void close() {
         dockingContextManager.close();
+        dockingManager.close();
     }
 
     private class DockableListener implements SetChangeListener<E> {

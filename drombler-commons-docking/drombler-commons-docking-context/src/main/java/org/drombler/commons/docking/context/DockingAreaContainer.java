@@ -68,11 +68,9 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
      */
     E getActiveDockable();
 
-    boolean openAndRegisterNewView(D dockable, boolean b, String displayName, String icon, ResourceLoader resourceLoader);
+    E openAndRegisterNewView(Class<? extends D> viewType, boolean active, String displayName, String icon, ResourceLoader resourceLoader);
 
-    void closeAndUnregisterView(D dockable);
-
-    boolean openView(D dockable, boolean active);
+    void closeAndUnregisterView(E viewEntry);
 
     /**
      * Opens an Editor for the specified content.
