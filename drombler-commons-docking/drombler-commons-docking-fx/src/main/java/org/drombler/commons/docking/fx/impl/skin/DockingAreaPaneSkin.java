@@ -15,6 +15,7 @@
 package org.drombler.commons.docking.fx.impl.skin;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
@@ -50,13 +51,10 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             } else if (change.wasUpdated()) {
                 // TODO: ???
             } else if (change.wasRemoved()) {
-                change.getRemoved().stream().
-                        map(dockableEntry -> dockableEntry.getAdapted().getDockableData()).
-                        forEach(dockableData -> {
-                            ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.
-                                    remove(dockableData);
-                            dockableData.modifiedProperty().removeListener(listener);
-                        });
+                Iterator<? extends PositionableAdapter<FXDockableEntry>> iterator = change.getRemoved().iterator();
+                for (int i = change.getFrom() + change.getRemovedSize() - 1; i >= change.getFrom(); i--) {
+                    removeTab(i, iterator.next());
+                }
             } else if (change.wasAdded()) {
                 for (int index = change.getFrom(); index < change.getTo(); index++) {
                     addTab(change.getList().get(index));
@@ -76,7 +74,10 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
             } else if (change.wasUpdated()) {
                 // TODO: ???
             } else if (change.wasRemoved()) {
-                control.removeDockable(change.getFrom());
+                Iterator<? extends Tab> iterator = change.getRemoved().iterator();
+                for (int i = change.getFrom() + change.getRemovedSize() - 1; i >= change.getFrom(); i--) {
+                    removeDockable(i, iterator.next().getContent());
+                }
                 if (change.getFrom() == tabPane.getSelectionModel().getSelectedIndex()) {
                     // selectedIndex did not change, but selectedItem changed -> trigger selectedItem change
                     control.getSelectionModel().select(tabPane.getSelectionModel().getSelectedIndex());
@@ -168,6 +169,21 @@ public class DockingAreaPaneSkin implements Skin<DockingAreaPane> {
         observeDockableData(dockableData, tab);
 
         tabPane.getTabs().add(control.getDockables().indexOf(dockable), tab);
+    }
+
+    private void removeTab(int index, PositionableAdapter<FXDockableEntry> dockableEntry) {
+        FXDockableData dockableData = dockableEntry.getAdapted().getDockableData();
+        ChangeListener<? super Boolean> listener = dockableDataModifiedListeners.remove(dockableData);
+        dockableData.modifiedProperty().removeListener(listener);
+        if (tabPane.getTabs().size() > index && tabPane.getTabs().get(index).getContent().equals(dockableEntry.getAdapted().getDockable())) {
+            tabPane.getTabs().remove(index);
+        }
+    }
+
+    private void removeDockable(int index, Node dockable) {
+        if (control.getDockables().size() > index && control.getDockables().get(index).getAdapted().getDockable().equals(dockable)) {
+            control.removeDockable(index);
+        }
     }
 
     private void observeDockableData(FXDockableData dockableData, Tab tab) {

@@ -68,9 +68,9 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
      */
     E getActiveDockable();
 
-    boolean openAndRegisterNewView(D dockable, boolean b, String displayName, String icon, ResourceLoader resourceLoader);
+    E openAndRegisterNewView(Class<? extends D> viewType, boolean active, String displayName, String icon, ResourceLoader resourceLoader);
 
-    boolean openView(D dockable, boolean active);
+    void closeAndUnregisterView(E viewEntry);
 
     /**
      * Opens an Editor for the specified content.
@@ -84,9 +84,13 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
      * @return true if the Editor could be opened/ selected else false
      */
     // TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
-    boolean openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
+    E openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
+
+    void closeEditors(Class<? extends D> editorType);
 
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
+
+    DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass);
 
     DockablePreferences getDockablePreferences(D dockable);
 

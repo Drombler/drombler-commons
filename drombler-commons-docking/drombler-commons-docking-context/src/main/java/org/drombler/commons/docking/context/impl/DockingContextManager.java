@@ -91,8 +91,8 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         return contextManager.getLocalContext(dockable);
     }
 
-    public void inject(D dockable) {
-        contextInjector.inject(dockable);
+    public ContextInjector getContextInjector() {
+        return contextInjector;
     }
 
     private Context createProxyContext(D dockable) {
