@@ -15,6 +15,7 @@
 package org.drombler.commons.data;
 
 import org.drombler.commons.context.LocalContextProvider;
+import org.softsmithy.lib.beans.Bean;
 import org.softsmithy.lib.util.UniqueKeyProvider;
 
 /**
@@ -26,7 +27,11 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  * @param <T> the type of the unique key of this data handler
  * @author puce
  */
-public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T> {
+public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T>, Bean {
+    String UNIQUE_KEY_PROPERTY_NAME = "uniqueKey";
+    String TITLE_PROPERTY_NAME = "title";
+    String TOOLTIP_TEXT_PROPERTY_NAME = "tooltipText";
+    String DIRTY_PROPERTY_NAME = "dirty";
 
     /**
      * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.
