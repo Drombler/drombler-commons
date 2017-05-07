@@ -16,13 +16,14 @@ package org.drombler.commons.docking;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import org.softsmithy.lib.beans.Bean;
 
 /**
  * The layout constraints of a Docking Area.
  *
  * @author puce
  */
-public final class LayoutConstraintsDescriptor {
+public final class LayoutConstraintsDescriptor implements Bean {
 
     public static final double FLEXIBLE_PREF = -1.0;
 
@@ -119,10 +120,12 @@ public final class LayoutConstraintsDescriptor {
         return size >= 0;
     }
 
+    @Override
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
     }
 
+    @Override
     public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }

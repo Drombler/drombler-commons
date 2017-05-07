@@ -65,5 +65,12 @@ Contributor(s): .
             </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-beans</artifactId>
+        </dependency>
+    </dependencies>
    
 </project>

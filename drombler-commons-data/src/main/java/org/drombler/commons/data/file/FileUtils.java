@@ -18,6 +18,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.Contexts;
+import org.drombler.commons.data.DataHandler;
+import org.drombler.commons.data.DataHandlerRegistry;
 import org.drombler.commons.data.Openable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,10 +44,36 @@ public class FileUtils {
      * @param fileToOpen the path to the file to open.
      * @param fileExtensionDescriptorRegistry the file extension descriptor registry
      * @param documentHandlerDescriptorRegistry the document handler descriptor registry
+     * @param dataHandlerRegistry the data handler registry
      * @see Openable#open()
      */
-    public static void openFile(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
+    public static void openFile(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry,
+            DataHandlerRegistry dataHandlerRegistry) {
         LOG.debug("Start opening file {}...", fileToOpen);
+        Object documentHandler = getDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry, dataHandlerRegistry);
+        if (documentHandler != null) {
+            openDocument(documentHandler);
+        }
+    }
+
+    private static Object getDocumentHandler(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry,
+            DataHandlerRegistry dataHandlerRegistry) {
+        if (dataHandlerRegistry.containsDataHandlerForUniqueKey(fileToOpen)) {
+            return dataHandlerRegistry.getDataHandler(fileToOpen);
+        } else {
+            Object documentHandler = createNewDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
+            registerDataHandler(documentHandler, dataHandlerRegistry);
+            return documentHandler;
+        }
+    }
+
+    private static void registerDataHandler(Object documentHandler, DataHandlerRegistry dataHandlerRegistry) {
+        if (documentHandler != null && documentHandler instanceof DataHandler) {
+            dataHandlerRegistry.registerDataHandler((DataHandler<?>) documentHandler);
+        }
+    }
+
+    private static Object createNewDocumentHandler(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
         String extension = PathUtils.getExtension(fileToOpen);
         FileExtensionDescriptor fileExtensionDescriptor = fileExtensionDescriptorRegistry.getFileExtensionDescriptor(extension);
         if (fileExtensionDescriptor != null) {
@@ -53,14 +81,7 @@ public class FileUtils {
             DocumentHandlerDescriptor<?> documentHandlerDescriptor = documentHandlerDescriptorRegistry.getDocumentHandlerDescriptor(mimeType);
             if (documentHandlerDescriptor != null) {
                 try {
-                    Object documentHandler = documentHandlerDescriptor.createDocumentHandler(fileToOpen);
-                    Openable openable = Contexts.find(documentHandler, Openable.class);
-                    if (openable != null) {
-                        openable.open(); // TODO: load them in background
-                    } else {
-                        LOG.warn("No Openable found for " + documentHandler + "! "
-                                + "The document handler either does not implement LocalContextProvider or does not observe registered DataCapabilityProvider.");
-                    }
+                    return documentHandlerDescriptor.createDocumentHandler(fileToOpen);
                 } catch (IllegalAccessException | SecurityException | InvocationTargetException | InstantiationException | IllegalArgumentException | NoSuchMethodException ex) {
                     LOG.error("Could not create a document handler for " + fileToOpen + "!", ex);
                 }
@@ -69,6 +90,17 @@ public class FileUtils {
             }
         } else {
             LOG.warn("No FileExtensionDescriptor found for:" + extension + "!");
+        }
+        return null;
+    }
+
+    private static void openDocument(Object documentHandler) {
+        Openable openable = Contexts.find(documentHandler, Openable.class);
+        if (openable != null) {
+            openable.open(); // TODO: load them in background
+        } else {
+            LOG.warn("No Openable found for " + documentHandler + "! "
+                    + "The document handler either does not implement LocalContextProvider or does not observe registered DataCapabilityProvider.");
         }
     }
 

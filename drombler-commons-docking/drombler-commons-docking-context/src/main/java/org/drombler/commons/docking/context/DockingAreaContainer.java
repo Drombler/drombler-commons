@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.docking.context;
 
-import java.beans.PropertyChangeListener;
 import java.util.Set;
 import java.util.SortedSet;
 import org.drombler.commons.context.Context;
@@ -22,6 +21,7 @@ import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableEntry;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingAreaDescriptor;
+import org.softsmithy.lib.beans.Bean;
 import org.softsmithy.lib.util.ResourceLoader;
 import org.softsmithy.lib.util.SetChangeListener;
 
@@ -32,7 +32,7 @@ import org.softsmithy.lib.util.SetChangeListener;
  * @param <DATA>
  * @param <E>
  */
-public interface DockingAreaContainer<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> {
+public interface DockingAreaContainer<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> extends Bean {
 
     static final String ACTIVE_DOCKABLE_PROPERTY_NAME = "activeDockable";
 
@@ -93,21 +93,5 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass);
 
     DockablePreferences getDockablePreferences(D dockable);
-
-    /**
-     * Registers a {@link PropertyChangeListener} for the specified property.
-     *
-     * @param propertyName the property to observe
-     * @param listener the PropertyChangeListener to register
-     */
-    void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
-
-    /**
-     * Unegisters a {@link PropertyChangeListener} for the specified property.
-     *
-     * @param propertyName the property to stop to observe
-     * @param listener the PropertyChangeListener to unregister
-     */
-    void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
 }

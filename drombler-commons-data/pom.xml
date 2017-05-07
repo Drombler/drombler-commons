@@ -62,5 +62,9 @@
             <groupId>org.softsmithy.lib</groupId>
             <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-beans</artifactId>
+        </dependency>
     </dependencies>
 </project>
