@@ -37,27 +37,30 @@ public class FileUtils {
     /**
      * Opens a file.
      *
-     * It looks in the {@link FileExtensionDescriptorRegistry} if there is any registered {@link FileExtensionDescriptor} for the file extension of the file open. If one is registered it looks in the
-     * {@link DocumentHandlerDescriptorRegistry} if there is any {@link DocumentHandlerDescriptor} for the associated MIME type. It then tries to create a Document Handler for the specified file path
-     * and looks if there's an {@link Openable} registered in its local {@link Context}. If it finds an Openable it calls {@link Openable#open() }.
+     * This method looks first in the {@link DataHandlerRegistry} if there is already a registered {@link DataHandler} for the specified file path and uses it if available. <br><br>
+     * If the DataHandlerRegistry does not contain an according DataHandler, this method looks in the {@link FileExtensionDescriptorRegistry} if there is any registered {@link FileExtensionDescriptor}
+     * for the file extension of the file to open. If one is registered this method then looks looks in the {@link DocumentHandlerDescriptorRegistry} if there is any {@link DocumentHandlerDescriptor}
+     * for the associated MIME type. It then tries to create a DataHandler for the specified file path and register it in the DataHandlerRegistry. <br><br>
+     * Once it has found or created a DataHandler it looks if there's an {@link Openable} registered in the local {@link Context} of the DataHandler. If it finds an Openable it calls
+     * {@link Openable#open()}.
      *
      * @param fileToOpen the path to the file to open.
+     * @param dataHandlerRegistry the data handler registry
      * @param fileExtensionDescriptorRegistry the file extension descriptor registry
      * @param documentHandlerDescriptorRegistry the document handler descriptor registry
-     * @param dataHandlerRegistry the data handler registry
      * @see Openable#open()
      */
-    public static void openFile(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry,
-            DataHandlerRegistry dataHandlerRegistry) {
+    public static void openFile(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
         LOG.debug("Start opening file {}...", fileToOpen);
-        Object documentHandler = getDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry, dataHandlerRegistry);
+        Object documentHandler = getDocumentHandler(fileToOpen, dataHandlerRegistry, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
         if (documentHandler != null) {
             openDocument(documentHandler);
         }
     }
 
-    private static Object getDocumentHandler(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry,
-            DataHandlerRegistry dataHandlerRegistry) {
+    private static Object getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
         if (dataHandlerRegistry.containsDataHandlerForUniqueKey(fileToOpen)) {
             return dataHandlerRegistry.getDataHandler(fileToOpen);
         } else {
