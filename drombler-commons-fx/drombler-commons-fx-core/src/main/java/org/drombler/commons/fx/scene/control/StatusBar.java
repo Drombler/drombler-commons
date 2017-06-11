@@ -40,4 +40,25 @@ public class StatusBar extends Control {
         return new StatusBarSkin(this);
     }
 
+    /**
+     * @return the leftEntries
+     */
+    public ObservableList<Node> getLeftEntries() {
+        return leftEntries;
+    }
+
+    /**
+     * @return the centerEntries
+     */
+    public ObservableList<Node> getCenterEntries() {
+        return centerEntries;
+    }
+
+    /**
+     * @return the rightEntries
+     */
+    public ObservableList<Node> getRightEntries() {
+        return rightEntries;
+    }
+
 }
