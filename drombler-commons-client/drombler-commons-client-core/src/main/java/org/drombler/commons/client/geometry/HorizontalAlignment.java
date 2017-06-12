@@ -19,18 +19,18 @@ public enum HorizontalAlignment {
     RIGHT,
     LEADING {
         @Override
-        public HorizontalAlignment orient(boolean leftToRight) {
-            return leftToRight ? LEFT : RIGHT;
+        public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
+            return leftToRight || mirroringEnabled ? LEFT : RIGHT;
         }
     },
     TRAILING {
         @Override
-        public HorizontalAlignment orient(boolean leftToRight) {
-            return leftToRight ? RIGHT : LEFT;
+        public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
+            return leftToRight || mirroringEnabled ? RIGHT : LEFT;
         }
     };
 
-    public HorizontalAlignment orient(boolean leftToRight) {
+    public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
         return this;
     }
 

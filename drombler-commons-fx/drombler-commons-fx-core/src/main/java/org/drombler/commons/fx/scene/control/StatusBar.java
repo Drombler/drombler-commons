@@ -12,8 +12,6 @@ import org.drombler.commons.fx.scene.control.impl.skin.Stylesheets;
  *
  * @author puce
  */
-
-
 public class StatusBar extends Control {
     private static final String DEFAULT_STYLE_CLASS = "status-bar";
 

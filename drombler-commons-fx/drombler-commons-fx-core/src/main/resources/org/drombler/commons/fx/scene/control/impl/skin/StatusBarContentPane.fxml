@@ -3,7 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" type="GridPane" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" type="GridPane" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" />
       <ColumnConstraints hgrow="SOMETIMES" />
@@ -13,9 +13,9 @@
     <RowConstraints vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-       <HBox fx:id="leftPane" alignment="BASELINE_LEFT" style="-fx-background-color: red;" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
-       <HBox fx:id="centerPane" alignment="BASELINE_LEFT" style="-fx-background-color: green;" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-       <HBox fx:id="rightPane" alignment="BASELINE_RIGHT" style="-fx-background-color: blue;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+       <HBox fx:id="leftPane" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.halignment="LEFT" />
+       <HBox fx:id="centerPane" alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+       <HBox fx:id="rightPane" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
    </children>
 </fx:root>
 
