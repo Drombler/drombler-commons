@@ -2,7 +2,6 @@ package org.drombler.commons.fx.scene.control.impl.skin;
 
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Point2D;
-import javafx.scene.control.ListView;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.SkinBase;
 import javafx.stage.PopupWindow;
@@ -35,7 +34,7 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
     private void displayAllTasks() {
         // TODO: check if hide instead of display?
         PopupControl tasksPopup = new PopupControl();
-        tasksPopup.getContent().add(new ListView(getSkinnable().getTasks()));
+//        tasksPopup.getContent().add(new ListView(getSkinnable().getTasks()));
         tasksPopup.setAutoHide(true);
         tasksPopup.setAnchorLocation(PopupWindow.AnchorLocation.WINDOW_BOTTOM_LEFT);
         Point2D screenLocation = Nodes.getScreenLocation(contentPane);
