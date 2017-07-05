@@ -12,7 +12,11 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.docking;
+package org.drombler.commons.docking.impl;
+
+import org.softsmithy.lib.util.Injector;
+import org.drombler.commons.docking.DockableData;
+import org.drombler.commons.docking.DockableDataSensitive;
 
 /**
  * The DockingInjector injects the registered {@link DockableData} to Dockables, which implement the
@@ -25,7 +29,7 @@ package org.drombler.commons.docking;
  *
  * @author puce
  */
-public class DockingInjector<D, DATA extends DockableData> {
+public class DockingInjector<D, DATA extends DockableData> implements Injector<D> {
 
     private final DockableDataManager<D, DATA> dockableDataManager;
 
@@ -44,6 +48,7 @@ public class DockingInjector<D, DATA extends DockableData> {
      *
      * @param target
      */
+    @Override
     public void inject(D target) {
         if (target instanceof DockableDataSensitive) {
             ((DockableDataSensitive<DATA>) target).setDockableData(dockableDataManager.getDockableData(target));

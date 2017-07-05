@@ -63,7 +63,7 @@ public class DockingPaneSkin implements Skin<DockingPane> {
         if (change.wasAdded()) {
             addDockable(change.getElementAdded());
         } else if (change.wasRemoved()) {
-// TODO: remove Dockable
+            removeDockable(change.getElementRemoved());
         }
     };
 
@@ -181,6 +181,14 @@ public class DockingPaneSkin implements Skin<DockingPane> {
                     LOG.debug("Dockable '{}' added to the Docking Area '{}'.", dockableEntry.getDockableData().getTitle(),
                     dockableEntry.getDockablePreferences().getAreaId());
         }
+    }
+
+    private void removeDockable(FXDockableEntry dockableEntry) {
+        dockingAreaPanes.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .filter(dockingAreaPane -> dockingAreaPane.containsDockable(dockableEntry))
+                .findFirst()
+                .ifPresent(dockingAreaPane -> dockingAreaPane.removeDockable(dockableEntry));
     }
 
     private DockingAreaPane getDockingArea(String areaId) {

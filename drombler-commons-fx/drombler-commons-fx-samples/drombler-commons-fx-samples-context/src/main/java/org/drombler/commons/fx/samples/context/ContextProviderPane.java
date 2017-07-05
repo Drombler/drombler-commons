@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import org.drombler.commons.action.command.Savable;
-import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableDataSensitive;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.Context;
@@ -37,7 +36,7 @@ public class ContextProviderPane extends GridPane implements LocalContextProvide
 
     @FXML
     private TextField nameField;
-    private DockableData dockableData;
+    private FXDockableData dockableData;
 
     public ContextProviderPane(Sample sample) {
         loadFXML();
@@ -76,7 +75,7 @@ public class ContextProviderPane extends GridPane implements LocalContextProvide
     @Override
     public void setDockableData(FXDockableData dockableData) {
         this.dockableData = dockableData;
-        dockableData.titleProperty().bind(nameField.textProperty());
+        this.dockableData.titleProperty().bind(nameField.textProperty());
 
     }
 

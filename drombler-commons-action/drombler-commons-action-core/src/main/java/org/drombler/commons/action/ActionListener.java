@@ -14,7 +14,7 @@
  */
 package org.drombler.commons.action;
 
-import java.beans.PropertyChangeListener;
+import org.softsmithy.lib.beans.Bean;
 
 /**
  * A GUI toolkit agnostic interface which keeps the state (enabled/ disabled) and the logic between menu items and
@@ -27,7 +27,7 @@ import java.beans.PropertyChangeListener;
  * @author puce
  * @param <E> the type of the action event
  */
-public interface ActionListener<E> {
+public interface ActionListener<E> extends Bean {
 
     /**
      * This method which gets called when the action gets fired.
@@ -43,19 +43,4 @@ public interface ActionListener<E> {
      */
     boolean isEnabled();
 
-    /**
-     * Registers a {@link PropertyChangeListener} for the specified property.
-     *
-     * @param propertyName the property to observe
-     * @param listener the PropertyChangeListener to register
-     */
-    void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
-
-    /**
-     * Unegisters a {@link PropertyChangeListener} for the specified property.
-     *
-     * @param propertyName the property to stop to observe
-     * @param listener the PropertyChangeListener to unregister
-     */
-    void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
 }

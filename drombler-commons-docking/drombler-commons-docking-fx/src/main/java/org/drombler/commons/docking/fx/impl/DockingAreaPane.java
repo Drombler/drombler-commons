@@ -144,6 +144,16 @@ public class DockingAreaPane extends DockingSplitPaneChildBase implements Dockin
         return dockable;
     }
 
+    public boolean removeDockable(FXDockableEntry dockableEntry) {
+        if (containsDockable(dockableEntry)) {
+            dockableSet.remove(dockableEntry);
+            dockables.removeIf(adapter -> adapter.getAdapted().equals(dockableEntry));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @return the dockablePanes
      */

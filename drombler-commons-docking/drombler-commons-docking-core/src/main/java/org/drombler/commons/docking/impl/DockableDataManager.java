@@ -12,17 +12,17 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.docking;
+package org.drombler.commons.docking.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.drombler.commons.docking.DockableData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A simple in-memory {@link DockableDataManager}.
- *
+ * A manager to manage the {@link DockableData}.
  *
  * TODO: Thread-safe?
  *
@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
  * @param <D> the Dockable type
  * @param <DATA> the DockableData type
  */
-public class SimpleDockableDataManager<D, DATA extends DockableData> implements DockableDataManager<D, DATA> {
+public class DockableDataManager<D, DATA extends DockableData> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleDockableDataManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DockableDataManager.class);
 
     // TODO: Consider to use weak references
     private final Map<D, DATA> dockableDataMap = Collections.synchronizedMap(new HashMap<>());
@@ -40,30 +40,36 @@ public class SimpleDockableDataManager<D, DATA extends DockableData> implements 
     /**
      * Creates a new instance of this class.
      */
-    public SimpleDockableDataManager() {
+    public DockableDataManager() {
     }
 
     /**
-     * {@inheritDoc }
+     * Gets the registered {@link DockableData} of the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @return the DockableData of the specified Dockable
      */
-    @Override
     public DATA getDockableData(D dockable) {
         return dockableDataMap.get(dockable);
     }
 
     /**
-     * {@inheritDoc }
+     * Registers the {@link DockableData} for the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @param dockableData the DockableData to register
      */
-    @Override
     public void registerDockableData(D dockable, DATA dockableData) {
         dockableDataMap.put(dockable, dockableData);
         LOG.debug("Registered dockable: {}", dockableData.getTitle());
     }
 
     /**
-     * {@inheritDoc }
+     * Unregisters the {@link DockableData} for the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @return the unregistered DockableData
      */
-    @Override
     public DATA unregisterDockableData(D dockable) {
         DATA dockableData = dockableDataMap.remove(dockable);
         LOG.debug("Unregistered dockable: {}", dockableData != null ? dockableData.getTitle() : null);
