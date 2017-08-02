@@ -1,5 +1,7 @@
 package org.drombler.commons.fx.scene.control.impl.skin;
 
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -34,6 +36,9 @@ public class ProgressMonitorContentPane extends GridPane {
     private Button cancelButton;
     @FXML
     private Label moreTasksIndicatorLabel;
+    @FXML
+    private ResourceBundle resources;
+    private MessageFormat moreTasksIndicatorLabelMessageFormat;
 
     public ProgressMonitorContentPane() {
         FXMLLoaders.loadRoot(this);
@@ -41,7 +46,7 @@ public class ProgressMonitorContentPane extends GridPane {
         cancelButton.setCursor(Cursor.DEFAULT);
 
         moreTasksIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalTasks, 0));
-        moreTasksIndicatorLabel.setText("(?? more...)");
+        moreTasksIndicatorLabel.textProperty().bind(Bindings.createStringBinding(this::getMoreTasksIndicatorLabelText, numberOfAdditionalTasks));
 
         cancelButton.setTooltip(new Tooltip("Click to cancel task"));
 
@@ -56,6 +61,11 @@ public class ProgressMonitorContentPane extends GridPane {
                 cancelButton.setOnAction(event -> newValue.cancel());
             }
         });
+    }
+
+    @FXML
+    public void initialize() {
+        moreTasksIndicatorLabelMessageFormat = new MessageFormat(resources.getString("moreTasksIndicatorLabel.textFormat"));
     }
 
     public final Task<?> getTask() {
@@ -82,5 +92,7 @@ public class ProgressMonitorContentPane extends GridPane {
         return numberOfAdditionalTasks;
     }
 
-
+    private String getMoreTasksIndicatorLabelText() {
+        return moreTasksIndicatorLabelMessageFormat.format(new Object[]{getNumberOfAdditionalTasks()});
+    }
 }

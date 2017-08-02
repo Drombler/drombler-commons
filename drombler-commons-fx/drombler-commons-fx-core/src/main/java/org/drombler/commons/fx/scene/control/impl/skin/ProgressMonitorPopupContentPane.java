@@ -24,7 +24,6 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
 
     private final ObservableList<Task<?>> tasks = FXCollections.observableArrayList();
     private final ObjectProperty<Task<?>> mainTask = new SimpleObjectProperty<>(this, "mainTask");
-    private final TaskRenderer taskRenderer = new TaskRenderer();
 
     public ProgressMonitorPopupContentPane() {
         FXMLLoaders.loadRoot(this);
