@@ -1,6 +1,8 @@
 package org.drombler.commons.fx.scene.control.impl.skin;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -16,6 +18,8 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  */
 public class TaskPane extends GridPane {
 
+    private static final String MAIN_TASK_TITLE_LABEL_STYLE_CLASS = "task-pane-main-task-title-label";
+
     @FXML
     private Label titleLabel;
     @FXML
@@ -26,6 +30,8 @@ public class TaskPane extends GridPane {
     private Button cancelButton;
 
     private final ObjectProperty<Task<?>> task = new SimpleObjectProperty<>(this, "task");
+
+    private final BooleanProperty mainTask = new SimpleBooleanProperty(this, "mainTask", false);
 
     public TaskPane() {
         FXMLLoaders.loadRoot(this);
@@ -43,6 +49,14 @@ public class TaskPane extends GridPane {
                 cancelButton.setOnAction(event -> newValue.cancel());
             }
         });
+
+        mainTask.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                titleLabel.getStyleClass().add(MAIN_TASK_TITLE_LABEL_STYLE_CLASS);
+            } else {
+                titleLabel.getStyleClass().remove(MAIN_TASK_TITLE_LABEL_STYLE_CLASS);
+            }
+        });
     }
 
     public final Task<?> getTask() {
@@ -57,4 +71,15 @@ public class TaskPane extends GridPane {
         return task;
     }
 
+    public final boolean isMainTask() {
+        return mainTaskProperty().get();
+    }
+
+    public final void setMainTask(boolean mainTask) {
+        mainTaskProperty().set(mainTask);
+    }
+
+    public BooleanProperty mainTaskProperty() {
+        return mainTask;
+    }
 }

@@ -59,12 +59,22 @@
     -fx-skin: "org.drombler.commons.fx.scene.control.impl.skin.ProgressMonitorSkin";
 }
 
-.progress-monitor .task-renderer-main-task-title-label{ 
+.progress-monitor .task-pane-main-task-title-label { 
     -fx-font-weight: bold;
 }
 
-.progress-monitor .task-renderer-message-label{ 
+.progress-monitor .task-pane-message-label { 
     -fx-font-size: 0.916667em; /* 11pt - 1 less than the default font */
     -fx-opacity: 0.4;
+}
+
+.progress-monitor PopupControl {
+    -fx-border-color: black; /* -fx-box-border; */
+    -fx-border-width: 1px;
+}
+
+.progress-monitor-popup {
+    -fx-border-color: black; /* -fx-box-border; */
+    -fx-border-width: 1px;
 }
 

@@ -16,11 +16,11 @@
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
   <children>
-      <Label fx:id="titleLabel" labelFor="$progressBar" styleClass="task-renderer-title-label" />
+      <Label fx:id="titleLabel" labelFor="$progressBar" styleClass="task-pane-title-label" />
       <ProgressBar fx:id="progressBar" prefWidth="250.0" progress="0.0" GridPane.columnIndex="1" />
       <Button fx:id="cancelButton" mnemonicParsing="false" text="x" GridPane.columnIndex="2" />
       <Label fx:id="moreTasksIndicatorLabel" GridPane.columnIndex="3" />
-      <Label fx:id="messageLabel" styleClass="task-renderer-message-label" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+      <Label fx:id="messageLabel" styleClass="task-pane-message-label" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
    </children>
 </fx:root>
 
