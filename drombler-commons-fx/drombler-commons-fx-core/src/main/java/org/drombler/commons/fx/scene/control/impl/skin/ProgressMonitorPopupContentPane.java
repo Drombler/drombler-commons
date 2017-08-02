@@ -1,6 +1,7 @@
 package org.drombler.commons.fx.scene.control.impl.skin;
 
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -34,7 +35,7 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
                         TaskPane taskPane = new TaskPane();
                         taskPane.setTask(task);
                         Tooltip tooltip = new Tooltip();
-                        tooltip.setText(task.getTitle());
+                        tooltip.textProperty().bind(Bindings.format("%s (%s)", task.titleProperty(), task.stateProperty()));
                         Tooltip.install(taskPane, tooltip);
                         taskBox.getChildren().add(taskPane);
                     });

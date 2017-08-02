@@ -1,8 +1,10 @@
 package org.drombler.commons.fx.scene.control;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -38,6 +40,7 @@ public class ProgressMonitor extends Control {
     private final MainTaskProperty mainTask = new MainTaskProperty();
     private final ObjectBinding<Task<?>> firstTaskBinding;
     private final Map<Task<?>, TaskFinishedListener> taskFinishedListeners = new HashMap<>();
+    private final Set<Worker.State> FINISHED_STATES = EnumSet.of(Worker.State.SUCCEEDED, Worker.State.FAILED, Worker.State.CANCELLED);
 
     /**
      * Creates a new instance of this class.
@@ -49,19 +52,27 @@ public class ProgressMonitor extends Control {
         tasks.addListener((ListChangeListener.Change<? extends Task<?>> change) -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    change.getAddedSubList().forEach(task -> {
-                        TaskFinishedListener taskFinishedListener = new TaskFinishedListener(task);
-                        taskFinishedListeners.put(task, taskFinishedListener);
-                        task.stateProperty().addListener(taskFinishedListener);
-                    });
+                    change.getAddedSubList().forEach(this::addTaskFinishedListener);
                 } else if (change.wasRemoved()) {
-                        change.getRemoved().forEach(task -> {
-                            TaskFinishedListener taskFinishedListener = taskFinishedListeners.remove(task);
-                            task.stateProperty().removeListener(taskFinishedListener);
-                        });
+                    change.getRemoved().forEach(this::removeTaskFinishedListener);
                     }
             }
         });
+    }
+
+    private void addTaskFinishedListener(Task<?> task) {
+        TaskFinishedListener taskFinishedListener = new TaskFinishedListener(task);
+        taskFinishedListeners.put(task, taskFinishedListener);
+        task.stateProperty().addListener(taskFinishedListener);
+
+        if (FINISHED_STATES.contains(task.getState())) { // state listener won't get triggered
+            tasks.remove(task);
+        }
+    }
+
+    private void removeTaskFinishedListener(Task<?> task) {
+        TaskFinishedListener taskFinishedListener = taskFinishedListeners.remove(task);
+        task.stateProperty().removeListener(taskFinishedListener);
     }
 
     /**
@@ -129,15 +140,8 @@ public class ProgressMonitor extends Control {
 
         @Override
         public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
-            switch (newValue) {
-                case SUCCEEDED:
-                case FAILED:
-                case CANCELLED:
-                    tasks.remove(task);
-                    break;
-                default:
-                    // do nothing
-                    break;
+            if (FINISHED_STATES.contains(newValue)) {
+                tasks.remove(task);
             }
         }
     }
