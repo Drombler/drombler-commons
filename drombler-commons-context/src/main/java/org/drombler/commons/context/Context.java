@@ -60,7 +60,7 @@ public interface Context {
     void addContextListener(Class<?> type, ContextListener listener);
 
     /**
-     * Unegisters a {@link ContextListener} for a specified type.
+     * Unregisters a {@link ContextListener} for a specified type.
      *
      * @param type the type to listen for
      * @param listener the ContextListener

@@ -91,4 +91,11 @@ public final class Contexts {
             return null;
         }
     }
+
+    public static Context createFixedContext(Object... content) {
+        SimpleContextContent contextContent = new SimpleContextContent();
+        Context fixedContext = new SimpleContext(contextContent);
+        contextContent.addAll(content);
+        return fixedContext;
+    }
 }

@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.drombler.commons.client.util.MnemonicUtils;
 import org.drombler.commons.client.util.ResourceBundleUtils;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingAreaKind;
@@ -50,6 +51,7 @@ public class DockingSampleApplication extends Application {
     public static final String TOP_AREA_ID = "top";
     public static final String CENTER_AREA_ID = "center";
 
+    private final ContextManager contextManager = new ContextManager();
     private int sampleCounter = 0;
     private DockingPaneDockingAreaContainerAdapter dockingAreaContainerAdapter;
 
@@ -57,7 +59,7 @@ public class DockingSampleApplication extends Application {
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         final DockingPane dockingPane = new DockingPane();
-        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane);
+        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
