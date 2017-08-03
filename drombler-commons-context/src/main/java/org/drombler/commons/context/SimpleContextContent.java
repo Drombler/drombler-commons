@@ -15,7 +15,6 @@
 package org.drombler.commons.context;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -54,11 +53,7 @@ public class SimpleContextContent {
         return types;
     }
 
-    public void addAll(Object... content) {
-        addAll(Arrays.asList(content));
-    }
-
-    public void addAll(List<Object> contentList) {
+    public void addAll(Collection<?> contentList) {
         Set<Class<?>> types = new HashSet<>();
         contentList.forEach(content -> types.addAll(addOnly(content)));
 

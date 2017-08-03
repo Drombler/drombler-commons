@@ -92,10 +92,11 @@ public final class Contexts {
         }
     }
 
-    public static Context createFixedContext(Object... content) {
+    public static Context createFixedContext(Collection<?> content) {
         SimpleContextContent contextContent = new SimpleContextContent();
         Context fixedContext = new SimpleContext(contextContent);
         contextContent.addAll(content);
         return fixedContext;
     }
+
 }

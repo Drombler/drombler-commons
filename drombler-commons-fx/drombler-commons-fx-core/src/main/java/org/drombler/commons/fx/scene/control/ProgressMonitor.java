@@ -1,10 +1,8 @@
 package org.drombler.commons.fx.scene.control;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -18,6 +16,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import org.drombler.commons.fx.concurrent.WorkerUtils;
 import org.drombler.commons.fx.scene.control.impl.skin.ProgressMonitorSkin;
 import org.drombler.commons.fx.scene.control.impl.skin.Stylesheets;
 
@@ -40,7 +39,6 @@ public class ProgressMonitor extends Control {
     private final MainTaskProperty mainTask = new MainTaskProperty();
     private final ObjectBinding<Task<?>> firstTaskBinding;
     private final Map<Task<?>, TaskFinishedListener> taskFinishedListeners = new HashMap<>();
-    private final Set<Worker.State> FINISHED_STATES = EnumSet.of(Worker.State.SUCCEEDED, Worker.State.FAILED, Worker.State.CANCELLED);
 
     /**
      * Creates a new instance of this class.
@@ -65,7 +63,7 @@ public class ProgressMonitor extends Control {
         taskFinishedListeners.put(task, taskFinishedListener);
         task.stateProperty().addListener(taskFinishedListener);
 
-        if (FINISHED_STATES.contains(task.getState())) { // state listener won't get triggered
+        if (WorkerUtils.getFinishedStates().contains(task.getState())) { // state listener won't get triggered
             tasks.remove(task);
         }
     }
@@ -140,7 +138,7 @@ public class ProgressMonitor extends Control {
 
         @Override
         public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
-            if (FINISHED_STATES.contains(newValue)) {
+            if (WorkerUtils.getFinishedStates().contains(newValue)) {
                 tasks.remove(task);
             }
         }
