@@ -12,7 +12,7 @@ import java.util.Collection;
  * @see #createLocalProxyContext(java.lang.Object)
  * @author puce
  */
-public class LocalProxyContext extends AbstractContext {
+public class LocalProxyContext implements Context {
 
     private final ProxyContext proxyContext = new ProxyContext();
     private final ProxyContext implicitContext = new ProxyContext();
@@ -45,6 +45,22 @@ public class LocalProxyContext extends AbstractContext {
     @Override
     public <T> Collection<? extends T> findAll(Class<T> type) {
         return proxyContext.findAll(type);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void addContextListener(Class<?> type, ContextListener listener) {
+        proxyContext.addContextListener(type, listener);
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void removeContextListener(Class<?> type, ContextListener listener) {
+        proxyContext.removeContextListener(type, listener);
     }
 
     /**
