@@ -17,7 +17,11 @@ package org.drombler.commons.data.file;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextInjector;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
+import org.drombler.commons.data.CloseEvent;
+import org.drombler.commons.data.CloseEventListener;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.data.DataHandlerRegistry;
 import org.drombler.commons.data.Openable;
@@ -48,32 +52,45 @@ public class FileUtils {
      * @param dataHandlerRegistry the data handler registry
      * @param fileExtensionDescriptorRegistry the file extension descriptor registry
      * @param documentHandlerDescriptorRegistry the document handler descriptor registry
+     * @param contextManager the context manager
+     * @param contextInjector the context injector
      * @see Openable#open()
      */
     public static void openFile(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
-            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
+            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry, ContextManager contextManager, ContextInjector contextInjector) {
         LOG.debug("Start opening file {}...", fileToOpen);
-        Object documentHandler = getDocumentHandler(fileToOpen, dataHandlerRegistry, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
+        Object documentHandler = getDocumentHandler(fileToOpen, dataHandlerRegistry, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry, contextManager, contextInjector);
         if (documentHandler != null) {
             openDocument(documentHandler);
         }
     }
 
     private static Object getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
-            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
+            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry, ContextManager contextManager, ContextInjector contextInjector) {
         if (dataHandlerRegistry.containsDataHandlerForUniqueKey(fileToOpen)) {
             return dataHandlerRegistry.getDataHandler(fileToOpen);
         } else {
             Object documentHandler = createNewDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
-            registerDataHandler(documentHandler, dataHandlerRegistry);
+            if (documentHandler != null && documentHandler instanceof DataHandler) {
+                configureDataHandler(documentHandler, contextManager, contextInjector, dataHandlerRegistry);
+            }
             return documentHandler;
         }
     }
 
-    private static void registerDataHandler(Object documentHandler, DataHandlerRegistry dataHandlerRegistry) {
-        if (documentHandler != null && documentHandler instanceof DataHandler) {
-            dataHandlerRegistry.registerDataHandler((DataHandler<?>) documentHandler);
-        }
+    private static void configureDataHandler(Object documentHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
+        DataHandler<?> dataHandler = (DataHandler<?>) documentHandler;
+        contextManager.putLocalContext(dataHandler);
+        contextInjector.inject(dataHandler);
+        dataHandlerRegistry.registerDataHandler(dataHandler);
+        dataHandler.addCloseEventListener(new CloseEventListener() {
+            @Override
+            public void onClose(CloseEvent evt) {
+                dataHandler.removeCloseEventListener(this);
+                dataHandlerRegistry.unregisterDataHandler(dataHandler);
+                contextManager.removeLocalContext(dataHandler);
+            }
+        });
     }
 
     private static Object createNewDocumentHandler(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {

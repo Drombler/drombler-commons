@@ -27,7 +27,7 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  * @param <T> the type of the unique key of this data handler
  * @author puce
  */
-public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T>, Bean {
+public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T>, Bean, AutoCloseable {
     String UNIQUE_KEY_PROPERTY_NAME = "uniqueKey";
     String TITLE_PROPERTY_NAME = "title";
     String TOOLTIP_TEXT_PROPERTY_NAME = "tooltipText";
@@ -65,4 +65,19 @@ public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<
      * @return true, if the content is marked as dirty, else false
      */
     boolean isDirty();
+
+    /**
+     * Registers a listener, which gets notified when this DataHandler gets closed.
+     *
+     * @param listener the listener to add
+     */
+    void addCloseEventListener(CloseEventListener listener);
+
+    /**
+     * Unregisters a listener, which gets notified when this DataHandler gets closed.
+     *
+     * @param listener the listener to remove
+     */
+    void removeCloseEventListener(CloseEventListener listener);
+
 }
