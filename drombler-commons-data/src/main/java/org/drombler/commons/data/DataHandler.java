@@ -32,6 +32,7 @@ public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<
     String TITLE_PROPERTY_NAME = "title";
     String TOOLTIP_TEXT_PROPERTY_NAME = "tooltipText";
     String DIRTY_PROPERTY_NAME = "dirty";
+    String INITIALIZED_PROPERTY_NAME = "initialized";
 
     /**
      * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.
@@ -65,6 +66,13 @@ public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<
      * @return true, if the content is marked as dirty, else false
      */
     boolean isDirty();
+
+    /**
+     * A flag if this data handler is initialized.
+     *
+     * @return true, if the data handler is initialized, else false
+     */
+    boolean isInitialized();
 
     /**
      * Registers a listener, which gets notified when this DataHandler gets closed.

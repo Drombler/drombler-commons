@@ -14,6 +14,8 @@
  */
 package org.drombler.commons.data.file;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import org.drombler.commons.context.Context;
@@ -60,7 +62,8 @@ public class FileUtils {
             DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry, ContextManager contextManager, ContextInjector contextInjector) {
         LOG.debug("Start opening file {}...", fileToOpen);
         Object documentHandler = getDocumentHandler(fileToOpen, dataHandlerRegistry, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry, contextManager, contextInjector);
-        if (documentHandler != null) {
+        if (documentHandler != null
+                && (!(documentHandler instanceof DataHandler) || ((DataHandler<?>) documentHandler).isInitialized())) {
             openDocument(documentHandler);
         }
     }
@@ -72,16 +75,26 @@ public class FileUtils {
         } else {
             Object documentHandler = createNewDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
             if (documentHandler != null && documentHandler instanceof DataHandler) {
-                configureDataHandler(documentHandler, contextManager, contextInjector, dataHandlerRegistry);
+                configureDataHandler((DataHandler<?>) documentHandler, contextManager, contextInjector, dataHandlerRegistry);
             }
             return documentHandler;
         }
     }
 
-    private static void configureDataHandler(Object documentHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
-        DataHandler<?> dataHandler = (DataHandler<?>) documentHandler;
+    private static void configureDataHandler(DataHandler<?> dataHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
         contextManager.putLocalContext(dataHandler);
         contextInjector.inject(dataHandler);
+        if (!dataHandler.isInitialized()) {
+            dataHandler.addPropertyChangeListener(DataHandler.INITIALIZED_PROPERTY_NAME, new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if (dataHandler.isInitialized()) {
+                        openDocument(dataHandler);
+                        dataHandler.removePropertyChangeListener(DataHandler.INITIALIZED_PROPERTY_NAME, this);
+                    }
+                }
+            });
+        }
         dataHandlerRegistry.registerDataHandler(dataHandler);
         dataHandler.addCloseEventListener(new CloseEventListener() {
             @Override
