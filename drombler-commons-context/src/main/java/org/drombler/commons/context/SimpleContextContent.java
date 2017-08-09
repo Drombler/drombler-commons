@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,8 +42,20 @@ public class SimpleContextContent {
      * @param obj the object to be added
      */
     public void add(Object obj) {
+        Set<Class<?>> types = addOnly(obj);
+
+        fireContextEvents(types);
+    }
+
+    private Set<Class<?>> addOnly(Object obj) {
         Set<Class<?>> types = Classes.getTypes(obj);
         types.forEach(type -> add(type, obj));
+        return types;
+    }
+
+    public void addAll(Collection<?> contentList) {
+        Set<Class<?>> types = new HashSet<>();
+        contentList.forEach(content -> types.addAll(addOnly(content)));
 
         fireContextEvents(types);
     }

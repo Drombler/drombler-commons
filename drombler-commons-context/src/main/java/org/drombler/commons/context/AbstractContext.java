@@ -39,7 +39,6 @@ public abstract class AbstractContext implements Context {
             listeners.put(type, new ArrayList<>());
         }
         listeners.get(type).add(listener);
-
     }
 
     /**

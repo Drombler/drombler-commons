@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import javafx.collections.SetChangeListener;
 import javafx.scene.Node;
 import org.drombler.commons.action.command.Savable;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.context.AbstractDockingAreaContainer;
@@ -39,8 +40,8 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
 
     private final DockingPane dockingPane;
 
-    public DockingPaneDockingAreaContainerAdapter(DockingPane dockingPane) {
-        super(new FXDockableEntryFactory(), new FXDockableDataFactory()); // TODO remove?
+    public DockingPaneDockingAreaContainerAdapter(DockingPane dockingPane, ContextManager contextManager) {
+        super(new FXDockableEntryFactory(), new FXDockableDataFactory(), contextManager); // TODO remove?
 
         this.dockingPane = dockingPane;
 

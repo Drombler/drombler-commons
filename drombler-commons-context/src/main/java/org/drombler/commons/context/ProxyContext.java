@@ -151,6 +151,15 @@ public class ProxyContext extends AbstractContext {
         fireContextEvents(changedContexts);
     }
 
+    /**
+     * Indicates if this proxy has some contexts.
+     *
+     * @return true, if the proxy has no contexts, else false
+     */
+    public boolean isEmpty() {
+        return contexts.isEmpty();
+    }
+
     private void fireContextEvents(List<Context> changedContexts) {
         for (Class<?> type : getListeners().keySet()) {
             for (Context context : changedContexts) {

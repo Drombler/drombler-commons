@@ -37,7 +37,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     private final Context applicationContextWrapper = new ContextWrapper(applicationContext);
     private final Context activeContextWrapper = new ContextWrapper(activeContext);
     // TODO use Identity or Weak HashMap?
-    private final Map<Object, Context> localContexts = new HashMap<>();
+    private final Map<Object, LocalProxyContext> localContexts = new HashMap<>();
     private Object activeObject = null;
 
     /**
@@ -85,7 +85,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      * @param context the local context of the object
      */
     // TODO: Good name? registerLocalContext?
-    public void putLocalContext(Object obj, Context context) {
+    public void putLocalContext(Object obj, LocalProxyContext context) {
         if (context == null) {
             // TODO error message
             throw new IllegalArgumentException();
@@ -109,15 +109,30 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
     }
 
     /**
+     * Registers the local context of the given object if it implements {@link LocalContextProvider}.
+     *
+     * Its content will be available from the application-wide context and it can be set active afterwards.
+     *
+     * @param obj an object
+     */
+    // TODO: Good name? registerLocalContext?
+    public void putLocalContext(Object obj) {
+        if (obj instanceof LocalContextProvider) {
+            LocalProxyContext localProxyContext = LocalProxyContext.createLocalProxyContext(obj);
+            putLocalContext(obj, localProxyContext);
+        }
+    }
+
+    /**
      * Unregisters a local context. Its content won't be available from the application-wide context anymore and it can't be set active anymore.
      *
      * @param obj the object whose local context should be unregistered.
      * @return the registered context
      */
     // TODO: Good name? unregisterLocalContext?
-    public Context removeLocalContext(Object obj) {
+    public LocalProxyContext removeLocalContext(Object obj) {
         if (localContexts.containsKey(obj)) {
-            Context oldContext = localContexts.remove(obj);
+            LocalProxyContext oldContext = localContexts.remove(obj);
             activeContext.removeContext(oldContext);
             applicationContext.removeContext(oldContext);
             return oldContext;
@@ -126,7 +141,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
         }
     }
 
-    public Context getLocalContext(Object obj) {
+    public LocalProxyContext getLocalContext(Object obj) {
         return localContexts.get(obj);
     }
 
