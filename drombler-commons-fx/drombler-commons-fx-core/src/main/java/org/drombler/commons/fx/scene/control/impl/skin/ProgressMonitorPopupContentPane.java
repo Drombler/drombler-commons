@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
@@ -21,30 +21,30 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 public class ProgressMonitorPopupContentPane extends BorderPane {
 
     @FXML
-    private VBox taskBox;
+    private VBox workerBox;
 
-    private final ObservableList<Task<?>> tasks = FXCollections.observableArrayList();
-    private final ObjectProperty<Task<?>> mainTask = new SimpleObjectProperty<>(this, "mainTask");
+    private final ObservableList<Worker<?>> workers = FXCollections.observableArrayList();
+    private final ObjectProperty<Worker<?>> mainWorker = new SimpleObjectProperty<>(this, "mainWorker");
 
     public ProgressMonitorPopupContentPane() {
         FXMLLoaders.loadRoot(this);
-        tasks.addListener((ListChangeListener.Change<? extends Task<?>> change) -> {
+        workers.addListener((ListChangeListener.Change<? extends Worker<?>> change) -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    change.getAddedSubList().forEach(task -> {
-                        TaskPane taskPane = new TaskPane();
-                        taskPane.setTask(task);
+                    change.getAddedSubList().forEach(worker -> {
+                        WorkerPane workerPane = new WorkerPane();
+                        workerPane.setWorker(worker);
                         Tooltip tooltip = new Tooltip();
-                        tooltip.textProperty().bind(Bindings.format("%s (%s)", task.titleProperty(), task.stateProperty()));
-                        Tooltip.install(taskPane, tooltip);
-                        taskBox.getChildren().add(taskPane);
+                        tooltip.textProperty().bind(Bindings.format("%s (%s)", worker.titleProperty(), worker.stateProperty()));
+                        Tooltip.install(workerPane, tooltip);
+                        workerBox.getChildren().add(workerPane);
                     });
                 } else {
                     if (change.wasRemoved()) {
-                        change.getRemoved().forEach(task -> {
-                            Optional<TaskPane> foundTaskPane = findTaskPane(task);
-                            if (foundTaskPane.isPresent()) { // should always be the case
-                                taskBox.getChildren().remove(foundTaskPane.get());
+                        change.getRemoved().forEach(worker -> {
+                            Optional<WorkerPane> foundWorkerPane = findWorkerPane(worker);
+                            if (foundWorkerPane.isPresent()) { // should always be the case
+                                workerBox.getChildren().remove(foundWorkerPane.get());
                             }
                         });
                     }
@@ -52,40 +52,40 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
             }
         });
 
-        mainTask.addListener((observable, oldValue, newValue) -> {
-            Optional<TaskPane> foundOldMainTaskPane = findTaskPane(oldValue);
-            if (foundOldMainTaskPane.isPresent()) {
-                foundOldMainTaskPane.get().setMainTask(false);
+        mainWorker.addListener((observable, oldValue, newValue) -> {
+            Optional<WorkerPane> foundOldMainWorkerPane = findWorkerPane(oldValue);
+            if (foundOldMainWorkerPane.isPresent()) {
+                foundOldMainWorkerPane.get().setMainWorker(false);
             }
 
-            Optional<TaskPane> foundNewMainTaskPane = findTaskPane(newValue);
-            if (foundNewMainTaskPane.isPresent()) {
-                foundNewMainTaskPane.get().setMainTask(true);
+            Optional<WorkerPane> foundNewMainWorkerPane = findWorkerPane(newValue);
+            if (foundNewMainWorkerPane.isPresent()) {
+                foundNewMainWorkerPane.get().setMainWorker(true);
             }
         });
     }
 
-    private Optional<TaskPane> findTaskPane(Task<?> task) {
-        Optional<TaskPane> foundTaskPane = taskBox.getChildren().stream()
-                .map(node -> (TaskPane) node)
-                .filter(taskPane -> taskPane.getTask().equals(task))
+    private Optional<WorkerPane> findWorkerPane(Worker<?> worker) {
+        Optional<WorkerPane> foundWorkerPane = workerBox.getChildren().stream()
+                .map(node -> (WorkerPane) node)
+                .filter(workerPane -> workerPane.getWorker().equals(worker))
                 .findFirst();
-        return foundTaskPane;
+        return foundWorkerPane;
     }
 
-    public ObservableList<Task<?>> getTasks() {
-        return tasks;
+    public ObservableList<Worker<?>> getWorkers() {
+        return workers;
     }
 
-    public final Task<?> getMainTask() {
-        return mainTaskProperty().get();
+    public final Worker<?> getMainWorker() {
+        return mainWorkerProperty().get();
     }
 
-    public final void setMainTask(Task<?> mainTask) {
-        mainTaskProperty().set(mainTask);
+    public final void setMainWorker(Worker<?> mainWorker) {
+        mainWorkerProperty().set(mainWorker);
     }
 
-    public ObjectProperty<Task<?>> mainTaskProperty() {
-        return mainTask;
+    public ObjectProperty<Worker<?>> mainWorkerProperty() {
+        return mainWorker;
     }
 }

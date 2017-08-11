@@ -4,7 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +16,9 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-public class TaskPane extends GridPane {
+public class WorkerPane extends GridPane {
 
-    private static final String MAIN_TASK_TITLE_LABEL_STYLE_CLASS = "task-pane-main-task-title-label";
+    private static final String MAIN_TASK_TITLE_LABEL_STYLE_CLASS = "worker-pane-main-worker-title-label";
 
     @FXML
     private Label titleLabel;
@@ -29,14 +29,14 @@ public class TaskPane extends GridPane {
     @FXML
     private Button cancelButton;
 
-    private final ObjectProperty<Task<?>> task = new SimpleObjectProperty<>(this, "task");
+    private final ObjectProperty<Worker<?>> worker = new SimpleObjectProperty<>(this, "worker");
 
-    private final BooleanProperty mainTask = new SimpleBooleanProperty(this, "mainTask", false);
+    private final BooleanProperty mainWorker = new SimpleBooleanProperty(this, "mainWorker", false);
 
-    public TaskPane() {
+    public WorkerPane() {
         FXMLLoaders.loadRoot(this);
 
-        task.addListener((observable, oldValue, newValue) -> {
+        worker.addListener((observable, oldValue, newValue) -> {
             titleLabel.textProperty().unbind();
             messageLabel.textProperty().unbind();
             progressBar.progressProperty().unbind();
@@ -50,7 +50,7 @@ public class TaskPane extends GridPane {
             }
         });
 
-        mainTask.addListener((observable, oldValue, newValue) -> {
+        mainWorker.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 titleLabel.getStyleClass().add(MAIN_TASK_TITLE_LABEL_STYLE_CLASS);
             } else {
@@ -59,27 +59,27 @@ public class TaskPane extends GridPane {
         });
     }
 
-    public final Task<?> getTask() {
-        return taskProperty().get();
+    public final Worker<?> getWorker() {
+        return workerProperty().get();
     }
 
-    public final void setTask(Task<?> task) {
-        taskProperty().set(task);
+    public final void setWorker(Worker<?> worker) {
+        workerProperty().set(worker);
     }
 
-    public ObjectProperty<Task<?>> taskProperty() {
-        return task;
+    public ObjectProperty<Worker<?>> workerProperty() {
+        return worker;
     }
 
-    public final boolean isMainTask() {
-        return mainTaskProperty().get();
+    public final boolean isMainWorker() {
+        return mainWorkerProperty().get();
     }
 
-    public final void setMainTask(boolean mainTask) {
-        mainTaskProperty().set(mainTask);
+    public final void setMainWorker(boolean mainWorker) {
+        mainWorkerProperty().set(mainWorker);
     }
 
-    public BooleanProperty mainTaskProperty() {
-        return mainTask;
+    public BooleanProperty mainWorkerProperty() {
+        return mainWorker;
     }
 }
