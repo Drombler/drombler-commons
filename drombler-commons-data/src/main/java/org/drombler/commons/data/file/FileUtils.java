@@ -84,18 +84,20 @@ public class FileUtils {
     private static void configureDataHandler(DataHandler<?> dataHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
         contextManager.putLocalContext(dataHandler);
         contextInjector.inject(dataHandler);
-        if (!dataHandler.isInitialized()) {
+        if (dataHandler.isInitialized()) {
+            dataHandlerRegistry.registerDataHandler(dataHandler);
+        } else {
             dataHandler.addPropertyChangeListener(DataHandler.INITIALIZED_PROPERTY_NAME, new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (dataHandler.isInitialized()) {
+                        dataHandlerRegistry.registerDataHandler(dataHandler);
                         openDocument(dataHandler);
                         dataHandler.removePropertyChangeListener(DataHandler.INITIALIZED_PROPERTY_NAME, this);
                     }
                 }
             });
         }
-        dataHandlerRegistry.registerDataHandler(dataHandler);
         dataHandler.addCloseEventListener(new CloseEventListener() {
             @Override
             public void onClose(CloseEvent evt) {
