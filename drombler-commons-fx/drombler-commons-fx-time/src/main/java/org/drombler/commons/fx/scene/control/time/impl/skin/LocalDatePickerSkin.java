@@ -16,10 +16,6 @@ package org.drombler.commons.fx.scene.control.time.impl.skin;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,7 +23,6 @@ import javafx.scene.control.Skin;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import javafx.stage.WindowEvent;
 import org.drombler.commons.fx.scene.Nodes;
 import org.drombler.commons.fx.scene.control.FormattedTextField;
 import org.drombler.commons.fx.scene.control.time.LocalDateChooser;
@@ -43,10 +38,8 @@ import org.softsmithy.lib.time.format.TemporalAccessorFormatter;
 public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
 
     /**
-     * The {@code Control} that is referencing this Skin. There is a one-to-one
-     * relationship between a {@code Skin} and a {@code Control}. When a
-     * {@code Skin} is set on a {@code Control}, this variable is automatically
-     * updated.
+     * The {@code Control} that is referencing this Skin. There is a one-to-one relationship between a {@code Skin} and a {@code Control}. When a {@code Skin} is set on a {@code Control}, this
+     * variable is automatically updated.
      */
     private LocalDatePicker control;
     /**
@@ -56,11 +49,11 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
     private FormattedTextField<LocalDate> dateField = new FormattedTextField<>(new FormatterDataRenderer<>(
             new TemporalAccessorFormatter()),
             new Parser<LocalDate>() {
-                @Override
-                public LocalDate parse(CharSequence text) throws ParseException {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-            });
+        @Override
+        public LocalDate parse(CharSequence text) throws ParseException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    });
     private LocalDateChooser dateChooser = new LocalDateChooser();
     private Button dateButton = new Button("...");
 //    private PopupControl popupControl = new PopupControl() {
@@ -103,28 +96,19 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
 //        });
         pane.getChildren().addAll(dateField, dateButton);
 
-
         //popupControl.getContent().add(datePicker);
         popupControl.setAutoHide(true);
-        popupControl.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                showing = false;
-            }
-        });
+        popupControl.setOnHiding(event -> showing = false);
         popupControl.setAutoFix(true);
         popupControl.getContent().add(dateChooser);
 //        datePicker.getStyleClass().add("date-picker-popup");
-        
+
         // TODO: provide this fill via CSS
         popupControl.getScene().setFill(Color.WHITE);// setOpacity(1.0);
 //        datePicker.setOpacity(1.0);
 //        datePicker.setStyle("-fx-background-color: slateblue;");
 
 //        popupControl.getStyleClass().add("local-date-field-popup");
-
-
-
         dateChooser.nextMonthsProperty().bind(this.control.nextMonthsProperty());
         dateChooser.nextWeeksProperty().bind(this.control.nextWeeksProperty());
         dateChooser.previousMonthsProperty().bind(this.control.previousMonthsProperty());
@@ -134,27 +118,21 @@ public class LocalDatePickerSkin implements Skin<LocalDatePicker> {
         dateChooser.showingYearScrollButtonProperty().bind(this.control.showingYearScrollButtonProperty());
         dateChooser.selectedDateProperty().maxProperty().bind(this.control.selectedDateProperty().maxProperty());
         dateChooser.selectedDateProperty().minProperty().bind(this.control.selectedDateProperty().minProperty());
-        dateChooser.selectedDateProperty().addListener(new ChangeListener<LocalDate>() {
-            @Override
-            public void changed(ObservableValue<? extends LocalDate> ov, LocalDate oldVal, LocalDate newVal) {
-                dateField.setValue(newVal);
-                LocalDatePickerSkin.this.control.setSelectedDate(newVal);
+        dateChooser.selectedDateProperty().addListener((ov, oldVal, newVal) -> {
+            dateField.setValue(newVal);
+            LocalDatePickerSkin.this.control.setSelectedDate(newVal);
 
-                popupControl.hide();
-            }
+            popupControl.hide();
         });
 
-        dateButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (!showing) {
-                    showing = true;
-                    dateChooser.setYearMonth(LocalDatePickerSkin.this.control.getYearMonth());
-                    Point2D screenLocation = Nodes.getScreenLocation(dateField);
-                    popupControl.show(LocalDatePickerSkin.this.control.getScene().getWindow(),
-                            screenLocation.getX() + dateField.getLayoutX(),
-                            screenLocation.getY() + dateField.getHeight());
-                }
+        dateButton.setOnAction(event -> {
+            if (!showing) {
+                showing = true;
+                dateChooser.setYearMonth(LocalDatePickerSkin.this.control.getYearMonth());
+                Point2D screenLocation = Nodes.getScreenLocation(dateField);
+                popupControl.show(LocalDatePickerSkin.this.control.getScene().getWindow(),
+                        screenLocation.getX() + dateField.getLayoutX(),
+                        screenLocation.getY() + dateField.getHeight());
             }
         });
 

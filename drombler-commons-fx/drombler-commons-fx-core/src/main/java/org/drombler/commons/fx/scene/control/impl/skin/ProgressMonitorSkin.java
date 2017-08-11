@@ -15,7 +15,7 @@ import org.drombler.commons.fx.scene.control.ProgressMonitor;
 public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
 
     private final ProgressMonitorContentPane contentPane = new ProgressMonitorContentPane();
-    private final PopupControl tasksPopup;
+    private final PopupControl workersPopup;
 
     /**
      *
@@ -24,36 +24,47 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
     public ProgressMonitorSkin(ProgressMonitor progressMonitor) {
         super(progressMonitor);
         getChildren().add(contentPane);
-        contentPane.taskProperty().bind(getSkinnable().mainTaskProperty());
-        contentPane.numberOfAdditionalTasksProperty().bind(Bindings.size(getSkinnable().getTasks()).subtract(1));
-        contentPane.visibleProperty().bind(Bindings.isNotNull(getSkinnable().mainTaskProperty()));
+        contentPane.workerProperty().bind(getSkinnable().mainWorkerProperty());
+        contentPane.numberOfAdditionalWorkersProperty().bind(Bindings.size(getSkinnable().getWorkers()).subtract(1));
+        contentPane.visibleProperty().bind(Bindings.isNotNull(getSkinnable().mainWorkerProperty()));
         contentPane.setOnMouseClicked(event -> displayAllTasks());
 
-        tasksPopup = createPopup();
+        workersPopup = createPopup();
     }
 
     private void displayAllTasks() {
-        if (tasksPopup.isShowing()) {
-            tasksPopup.hide();
+        if (workersPopup.isShowing()) {
+            workersPopup.hide();
         } else {
-            tasksPopup.setWidth(contentPane.getWidth());
-            Point2D screenLocation = Nodes.getScreenLocation(contentPane);
-            tasksPopup.show(contentPane, screenLocation.getX(), screenLocation.getY());
+            workersPopup.setWidth(getSkinnable().getWidth());
+            Point2D screenLocation = Nodes.getScreenLocation(getSkinnable());
+            workersPopup.show(getSkinnable(), screenLocation.getX(), screenLocation.getY());
         }
     }
 
     private PopupControl createPopup() {
         // TODO: check if hide instead of display?
-//        PopupControl tasksPopup = new PopupControl();
+//        PopupControl workersPopup = new PopupControl();
         ProgressMonitorPopupContentPane popupContentPane = new ProgressMonitorPopupContentPane();
-        Bindings.bindContent(popupContentPane.getTasks(), getSkinnable().getTasks());
-        popupContentPane.mainTaskProperty().bind(getSkinnable().mainTaskProperty());
+        Bindings.bindContent(popupContentPane.getWorkers(), getSkinnable().getWorkers());
+        popupContentPane.mainWorkerProperty().bind(getSkinnable().mainWorkerProperty());
 
         PopupControl popup = new PopupControl();
+        Bindings.size(popupContentPane.getWorkers()).isEqualTo(0).addListener((observable, oldValue, newValue) -> {
+            if (popup.isShowing()) {
+                popup.hide();
+            }
+        });
+
         popup.getScene().setRoot(popupContentPane);
+//        popup.getScene().setUserAgentStylesheet(getSkinnable().getUserAgentStylesheet());
         popup.setAutoHide(true);
         popup.setAnchorLocation(PopupWindow.AnchorLocation.WINDOW_BOTTOM_LEFT);
+//        popup.getScene().setFill(Color.LIGHTBLUE);
+        popup.setStyle("-fx-background-color: green;");//-fx-border-color: black; -fx-border-width: 1px;");
         popup.getStyleClass().add("progress-monitor-popup");
+//        popup.getStyleClass().add("progress-monitor-popup");
+
         return popup;
     }
 

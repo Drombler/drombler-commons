@@ -19,7 +19,7 @@
         <Label fx:id="titleLabel" labelFor="$progressBar"/>
         <ProgressBar fx:id="progressBar" prefWidth="250.0" progress="0.0" GridPane.columnIndex="1" />
         <Button fx:id="cancelButton" mnemonicParsing="false" text="x" GridPane.columnIndex="2" />
-        <Label fx:id="moreTasksIndicatorLabel" GridPane.columnIndex="3" />
+        <Label fx:id="moreWorkersIndicatorLabel" GridPane.columnIndex="3" />
     </children>
     <cursor>
         <Cursor fx:constant="HAND" />

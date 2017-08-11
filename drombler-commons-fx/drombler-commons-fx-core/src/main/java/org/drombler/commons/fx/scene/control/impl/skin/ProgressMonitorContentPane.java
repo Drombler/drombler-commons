@@ -7,7 +7,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -25,8 +25,8 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 public class ProgressMonitorContentPane extends GridPane {
 
-    private final ObjectProperty<Task<?>> task = new SimpleObjectProperty<>(this, "task", null);
-    private final IntegerProperty numberOfAdditionalTasks = new SimpleIntegerProperty(this, "numberOfAdditionalTasks", 0);
+    private final ObjectProperty<Worker<?>> worker = new SimpleObjectProperty<>(this, "worker", null);
+    private final IntegerProperty numberOfAdditionalWorkers = new SimpleIntegerProperty(this, "numberOfAdditionalWorkers", 0);
 
     @FXML
     private Label titleLabel;
@@ -35,22 +35,22 @@ public class ProgressMonitorContentPane extends GridPane {
     @FXML
     private Button cancelButton;
     @FXML
-    private Label moreTasksIndicatorLabel;
+    private Label moreWorkersIndicatorLabel;
     @FXML
     private ResourceBundle resources;
-    private MessageFormat moreTasksIndicatorLabelMessageFormat;
+    private MessageFormat moreWorkersIndicatorLabelMessageFormat;
 
     public ProgressMonitorContentPane() {
         FXMLLoaders.loadRoot(this);
 
         cancelButton.setCursor(Cursor.DEFAULT);
 
-        moreTasksIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalTasks, 0));
-        moreTasksIndicatorLabel.textProperty().bind(Bindings.createStringBinding(this::getMoreTasksIndicatorLabelText, numberOfAdditionalTasks));
+        moreWorkersIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalWorkers, 0));
+        moreWorkersIndicatorLabel.textProperty().bind(Bindings.createStringBinding(this::getMoreWorkersIndicatorLabelText, numberOfAdditionalWorkers));
 
-        cancelButton.setTooltip(new Tooltip("Click to cancel task"));
+        cancelButton.setTooltip(new Tooltip("Click to cancel worker")); // TODO: i18n
 
-        task.addListener((observable, oldValue, newValue) -> {
+        worker.addListener((observable, oldValue, newValue) -> {
             titleLabel.textProperty().unbind();
             progressBar.progressProperty().unbind();
             cancelButton.setOnAction(null);
@@ -65,34 +65,34 @@ public class ProgressMonitorContentPane extends GridPane {
 
     @FXML
     public void initialize() {
-        moreTasksIndicatorLabelMessageFormat = new MessageFormat(resources.getString("moreTasksIndicatorLabel.textFormat"));
+        moreWorkersIndicatorLabelMessageFormat = new MessageFormat(resources.getString("moreWorkersIndicatorLabel.textFormat"));
     }
 
-    public final Task<?> getTask() {
-        return taskProperty().get();
+    public final Worker<?> getWorker() {
+        return workerProperty().get();
     }
 
-    public final void setTask(Task<?> task) {
-        taskProperty().set(task);
+    public final void setWorker(Worker<?> worker) {
+        workerProperty().set(worker);
     }
 
-    public ObjectProperty<Task<?>> taskProperty() {
-        return task;
+    public ObjectProperty<Worker<?>> workerProperty() {
+        return worker;
     }
 
-    public final int getNumberOfAdditionalTasks() {
-        return numberOfAdditionalTasksProperty().get();
+    public final int getNumberOfAdditionalWorkers() {
+        return numberOfAdditionalWorkersProperty().get();
     }
 
-    public final void setnumberOfAdditionalTasks(int numberOfAdditionalTasks) {
-        numberOfAdditionalTasksProperty().set(numberOfAdditionalTasks);
+    public final void setNumberOfAdditionalWorkers(int numberOfAdditionalWorkers) {
+        numberOfAdditionalWorkersProperty().set(numberOfAdditionalWorkers);
     }
 
-    public IntegerProperty numberOfAdditionalTasksProperty() {
-        return numberOfAdditionalTasks;
+    public IntegerProperty numberOfAdditionalWorkersProperty() {
+        return numberOfAdditionalWorkers;
     }
 
-    private String getMoreTasksIndicatorLabelText() {
-        return moreTasksIndicatorLabelMessageFormat.format(new Object[]{getNumberOfAdditionalTasks()});
+    private String getMoreWorkersIndicatorLabelText() {
+        return moreWorkersIndicatorLabelMessageFormat.format(new Object[]{getNumberOfAdditionalWorkers()});
     }
 }
