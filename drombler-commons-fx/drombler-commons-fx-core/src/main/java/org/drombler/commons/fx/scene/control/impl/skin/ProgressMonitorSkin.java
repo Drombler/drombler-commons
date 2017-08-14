@@ -27,6 +27,7 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
         contentPane.workerProperty().bind(getSkinnable().mainWorkerProperty());
         contentPane.numberOfAdditionalWorkersProperty().bind(Bindings.size(getSkinnable().getWorkers()).subtract(1));
         contentPane.visibleProperty().bind(Bindings.isNotNull(getSkinnable().mainWorkerProperty()));
+        contentPane.managedProperty().bind(contentPane.visibleProperty());
         contentPane.setOnMouseClicked(event -> displayAllTasks());
 
         workersPopup = createPopup();

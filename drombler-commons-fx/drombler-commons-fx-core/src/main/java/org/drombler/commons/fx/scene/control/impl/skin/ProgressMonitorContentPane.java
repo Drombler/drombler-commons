@@ -13,7 +13,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -46,9 +45,8 @@ public class ProgressMonitorContentPane extends GridPane {
         cancelButton.setCursor(Cursor.DEFAULT);
 
         moreWorkersIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalWorkers, 0));
+        moreWorkersIndicatorLabel.managedProperty().bind(moreWorkersIndicatorLabel.visibleProperty());
         moreWorkersIndicatorLabel.textProperty().bind(Bindings.createStringBinding(this::getMoreWorkersIndicatorLabelText, numberOfAdditionalWorkers));
-
-        cancelButton.setTooltip(new Tooltip("Click to cancel worker")); // TODO: i18n
 
         worker.addListener((observable, oldValue, newValue) -> {
             titleLabel.textProperty().unbind();
