@@ -17,6 +17,7 @@ package org.drombler.commons.docking;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.softsmithy.lib.beans.Bean;
+import static org.softsmithy.lib.beans.PropertyChangeUtils.firePropertyChange;
 
 /**
  * The layout constraints of a Docking Area.
@@ -102,14 +103,6 @@ public final class LayoutConstraintsDescriptor implements Bean {
         double oldValue = this.prefHeight;
         this.prefHeight = getPrefSize(prefHeight);
         firePropertyChange(propertyChangeSupport, "prefHeight", oldValue, this.prefHeight);
-    }
-
-    // TODO: use from SoftSmithy: PropertyChangeUtils#firePropertyChange
-    public void firePropertyChange(PropertyChangeSupport propertyChangeSupport, String propertyName, double oldValue,
-            double newValue) {
-        if (oldValue != newValue) {
-            propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
-        }
     }
 
     public static boolean isFlexible(double size) {

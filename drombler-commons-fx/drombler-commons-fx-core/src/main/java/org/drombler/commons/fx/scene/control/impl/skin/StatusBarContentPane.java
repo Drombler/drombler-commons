@@ -10,8 +10,6 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-
-
 public class StatusBarContentPane extends GridPane {
 
     @FXML

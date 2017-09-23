@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.data;
 
+import org.softsmithy.lib.util.CloseEventListener;
 import org.drombler.commons.context.LocalContextProvider;
 import org.softsmithy.lib.beans.Bean;
 import org.softsmithy.lib.util.UniqueKeyProvider;

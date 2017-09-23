@@ -22,8 +22,8 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextInjector;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
-import org.drombler.commons.data.CloseEvent;
-import org.drombler.commons.data.CloseEventListener;
+import org.softsmithy.lib.util.CloseEvent;
+import org.softsmithy.lib.util.CloseEventListener;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.data.DataHandlerRegistry;
 import org.drombler.commons.data.Openable;
@@ -82,8 +82,7 @@ public class FileUtils {
     }
 
     private static void configureDataHandler(DataHandler<?> dataHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
-        contextManager.putLocalContext(dataHandler);
-        contextInjector.inject(dataHandler);
+        Contexts.configureObject(dataHandler, contextManager, contextInjector);
         if (dataHandler.isInitialized()) {
             dataHandlerRegistry.registerDataHandler(dataHandler);
         } else {
