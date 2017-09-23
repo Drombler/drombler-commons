@@ -99,4 +99,8 @@ public final class Contexts {
         return fixedContext;
     }
 
+    public static void configureObject(Object obj, ContextManager contextManager, ContextInjector contextInjector) {
+        contextManager.putLocalContext(obj);
+        contextInjector.inject(obj);
+    }
 }
