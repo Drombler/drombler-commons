@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.Map;
 import org.drombler.commons.action.command.Savable;
 import org.drombler.commons.context.Context;
-import org.drombler.commons.context.ContextEvent;
 import org.drombler.commons.context.ContextListener;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.context.LocalContextProvider;
@@ -39,7 +38,7 @@ import org.softsmithy.lib.util.SetChangeListener;
  */
 public class DockableDataModifiedManager<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> implements AutoCloseable {
 
-    private final Map<D, ContextListener> savableListeners = new HashMap<>();
+    private final Map<D, ContextListener<Savable>> savableListeners = new HashMap<>();
 
     private final SetChangeListener<E> dockablesListener = new SetChangeListener<E>() {
 
@@ -49,7 +48,7 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
             final D dockable = dockableEntry.getDockable();
             if (dockable instanceof LocalContextProvider) {
                 Context localContext = Contexts.getLocalContext(dockable);
-                final ContextListener savableListener = (ContextEvent contextEvent)
+                final ContextListener<Savable> savableListener = contextEvent
                         -> updateDockableDataModified(dockableEntry.getDockableData(), localContext);
                 savableListeners.put(dockable, savableListener);
                 localContext.addContextListener(Savable.class, savableListener);
@@ -62,7 +61,7 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
             final E dockableEntry = event.getElement();
             final D dockable = dockableEntry.getDockable();
             if (dockable instanceof LocalContextProvider) {
-                ContextListener savableListener = savableListeners.remove(dockable);
+                ContextListener<Savable> savableListener = savableListeners.remove(dockable);
                 removeContextListener(dockable, savableListener);
             }
         }
@@ -76,7 +75,7 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
         this.dockingAreaContainer.addDockableSetChangeListener(dockablesListener);
     }
 
-    private void removeContextListener(D dockable, ContextListener savableListener) {
+    private void removeContextListener(D dockable, ContextListener<Savable> savableListener) {
         Context localContext = Contexts.getLocalContext(dockable);
         localContext.removeContextListener(Savable.class, savableListener);
     }
@@ -89,9 +88,9 @@ public class DockableDataModifiedManager<D, DATA extends DockableData, E extends
     public void close() {
         // TODO: handle vizualized/ unhandled Dockables?
         dockingAreaContainer.removeDockableSetChangeListener(dockablesListener);
-        for (Iterator<Map.Entry<D, ContextListener>> iterator = savableListeners.entrySet().iterator();
+        for (Iterator<Map.Entry<D, ContextListener<Savable>>> iterator = savableListeners.entrySet().iterator();
                 iterator.hasNext();) {
-            Map.Entry<D, ContextListener> entry = iterator.next();
+            Map.Entry<D, ContextListener<Savable>> entry = iterator.next();
             removeContextListener(entry.getKey(), entry.getValue());
             iterator.remove();
         }

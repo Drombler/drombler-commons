@@ -23,6 +23,7 @@ import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.LocalProxyContext;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableEntry;
+import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.context.DockingAreaContainer;
 import static org.drombler.commons.docking.context.DockingAreaContainer.ACTIVE_DOCKABLE_PROPERTY_NAME;
 import org.slf4j.Logger;
@@ -86,7 +87,6 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         return contextInjector;
     }
 
-
     public void addImplicitLocalContext(D dockable, Context... implicitLocalContexts) {
         LocalProxyContext localContext = contextManager.getLocalContext(dockable);
         if (localContext == null) { // dockable is not an instance of LocalContextProvider and no other implicit contexts have been associated
@@ -128,7 +128,11 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         @Override
         public void propertyChange(PropertyChangeEvent event) {
             LOG.debug("Active Dockable changed!");
-            contextManager.setLocalContextActive(((E) event.getNewValue()).getDockable());
+            final E dockableEntry = (E) event.getNewValue();
+            LocalProxyContext localContext = contextManager.getLocalContext(dockableEntry.getDockable());
+            if (dockableEntry.getKind() == DockableKind.EDITOR || (localContext != null && localContext.hasExplicitContext())) {
+                contextManager.setLocalContextActive(dockableEntry.getDockable());
+            }
         }
     }
 }
