@@ -49,12 +49,12 @@ public final class Contexts {
                 }
 
                 @Override
-                public void addContextListener(Class<?> type, ContextListener listener) {
+                public <T> void addContextListener(Class<T> type, ContextListener<T> listener) {
                     // there will be no changes -> nothing to do
                 }
 
                 @Override
-                public void removeContextListener(Class<?> type, ContextListener listener) {
+                public <T> void removeContextListener(Class<T> type, ContextListener<T> listener) {
                     // there will be no changes -> nothing to do
                 }
             };
