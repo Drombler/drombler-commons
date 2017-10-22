@@ -11,6 +11,7 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -37,6 +38,8 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
                         Tooltip tooltip = new Tooltip();
                         tooltip.textProperty().bind(Bindings.format("%s (%s)", worker.titleProperty(), worker.stateProperty()));
                         Tooltip.install(workerPane, tooltip);
+                        workerPane.setMaxWidth(Double.MAX_VALUE);
+                        VBox.setVgrow(workerPane, Priority.ALWAYS);
                         workerBox.getChildren().add(workerPane);
                     });
                 } else {
@@ -45,6 +48,7 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
                             Optional<WorkerPane> foundWorkerPane = findWorkerPane(worker);
                             if (foundWorkerPane.isPresent()) { // should always be the case
                                 workerBox.getChildren().remove(foundWorkerPane.get());
+                                VBox.clearConstraints(foundWorkerPane.get());
                             }
                         });
                     }
@@ -71,6 +75,14 @@ public class ProgressMonitorPopupContentPane extends BorderPane {
                 .filter(workerPane -> workerPane.getWorker().equals(worker))
                 .findFirst();
         return foundWorkerPane;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getUserAgentStylesheet() {
+        return Stylesheets.getDefaultStylesheet();
     }
 
     public ObservableList<Worker<?>> getWorkers() {
