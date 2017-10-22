@@ -1,8 +1,9 @@
 package org.drombler.commons.fx.scene.control.impl.skin;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
-import javafx.scene.control.PopupControl;
 import javafx.scene.control.SkinBase;
 import javafx.stage.PopupWindow;
 import org.drombler.commons.fx.scene.Nodes;
@@ -15,7 +16,9 @@ import org.drombler.commons.fx.scene.control.ProgressMonitor;
 public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
 
     private final ProgressMonitorContentPane contentPane = new ProgressMonitorContentPane();
-    private final PopupControl workersPopup;
+    private final WorkersPopup workersPopup = new WorkersPopup();
+//    private final ProgressMonitorPopupContentPane popupContentPane = new ProgressMonitorPopupContentPane();
+    private final BooleanBinding workersEmptyBinding = Bindings.isEmpty(workersPopup.getWorkers());
 
     /**
      *
@@ -30,7 +33,8 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
         contentPane.managedProperty().bind(contentPane.visibleProperty());
         contentPane.setOnMouseClicked(event -> displayAllTasks());
 
-        workersPopup = createPopup();
+//        workersPopup = createPopup();
+        createPopup();
     }
 
     private void displayAllTasks() {
@@ -43,30 +47,66 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
         }
     }
 
-    private PopupControl createPopup() {
+    private void createPopup() {
         // TODO: check if hide instead of display?
 //        PopupControl workersPopup = new PopupControl();
-        ProgressMonitorPopupContentPane popupContentPane = new ProgressMonitorPopupContentPane();
-        Bindings.bindContent(popupContentPane.getWorkers(), getSkinnable().getWorkers());
-        popupContentPane.mainWorkerProperty().bind(getSkinnable().mainWorkerProperty());
 
-        PopupControl popup = new PopupControl();
-        Bindings.size(popupContentPane.getWorkers()).isEqualTo(0).addListener((observable, oldValue, newValue) -> {
+        Bindings.bindContent(workersPopup.getWorkers(), getSkinnable().getWorkers());
+        workersPopup.mainWorkerProperty().bind(getSkinnable().mainWorkerProperty());
+//        Bindings.isEmpty(popupContentPane.getWorkers()).and(popupContentPane.focusedProperty()).addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+//            getSkinnable()
+//        });
+
+//        WorkersPopup popup = new WorkersPopup();// {
+        WorkersPopup popup = this.workersPopup;
+
+
+//            @Override
+//            public Styleable getStyleableParent() {
+//                return ProgressMonitorSkin.this.getSkinnable();
+//            }
+
+//            {
+//        popup.setSkin(new Skin<Skinnable>() {
+//                    @Override
+//                    public Skinnable getSkinnable() {
+//                        return popup;
+//                    }
+//
+//                    @Override
+//                    public Node getNode() {
+//                        return popupContentPane;
+//                    }
+//
+//                    @Override
+//                    public void dispose() {
+//                    }
+//                });
+//            }
+//        };
+
+        getSkinnable().sceneProperty().addListener(o -> {
+            if (((ObservableValue) o).getValue() == null) {
+                if (popup.isShowing()) {
+                    popup.hide();
+                }
+            }
+        });
+        workersEmptyBinding.addListener((observable, oldValue, newValue) -> {
             if (popup.isShowing()) {
                 popup.hide();
             }
         });
 
-        popup.getScene().setRoot(popupContentPane);
+//        popup.getScene().setRoot(popupContentPane);
 //        popup.getScene().setUserAgentStylesheet(getSkinnable().getUserAgentStylesheet());
         popup.setAutoHide(true);
         popup.setAnchorLocation(PopupWindow.AnchorLocation.WINDOW_BOTTOM_LEFT);
 //        popup.getScene().setFill(Color.LIGHTBLUE);
-        popup.setStyle("-fx-background-color: green;");//-fx-border-color: black; -fx-border-width: 1px;");
+//        popup.setStyle("-fx-background-color: green;");//-fx-border-color: black; -fx-border-width: 1px;");
         popup.getStyleClass().add("progress-monitor-popup");
-//        popup.getStyleClass().add("progress-monitor-popup");
 
-        return popup;
+//        return popup;
     }
 
 }

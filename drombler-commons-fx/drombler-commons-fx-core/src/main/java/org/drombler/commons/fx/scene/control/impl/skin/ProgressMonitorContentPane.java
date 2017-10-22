@@ -20,8 +20,6 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-
-
 public class ProgressMonitorContentPane extends GridPane {
 
     private final ObjectProperty<Worker<?>> worker = new SimpleObjectProperty<>(this, "worker", null);
@@ -43,6 +41,7 @@ public class ProgressMonitorContentPane extends GridPane {
         FXMLLoaders.loadRoot(this);
 
         cancelButton.setCursor(Cursor.DEFAULT);
+//        cancelButton.setPadding(Insets.EMPTY);
 
         moreWorkersIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalWorkers, 0));
         moreWorkersIndicatorLabel.managedProperty().bind(moreWorkersIndicatorLabel.visibleProperty());
