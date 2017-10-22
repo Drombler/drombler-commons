@@ -54,16 +54,18 @@ public interface Context {
      *
      * The listener will be notified when instances of the specified type get added or removed.
      *
+     * @param <T> the specified type
      * @param type the type to listen for
      * @param listener the ContextListener
      */
-    void addContextListener(Class<?> type, ContextListener listener);
+    <T> void addContextListener(Class<T> type, ContextListener<T> listener);
 
     /**
      * Unregisters a {@link ContextListener} for a specified type.
      *
+     * @param <T> the specified type
      * @param type the type to listen for
      * @param listener the ContextListener
      */
-    void removeContextListener(Class<?> type, ContextListener listener);
+    <T> void removeContextListener(Class<T> type, ContextListener<T> listener);
 }

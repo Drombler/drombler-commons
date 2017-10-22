@@ -49,12 +49,12 @@ public final class Contexts {
                 }
 
                 @Override
-                public void addContextListener(Class<?> type, ContextListener listener) {
+                public <T> void addContextListener(Class<T> type, ContextListener<T> listener) {
                     // there will be no changes -> nothing to do
                 }
 
                 @Override
-                public void removeContextListener(Class<?> type, ContextListener listener) {
+                public <T> void removeContextListener(Class<T> type, ContextListener<T> listener) {
                     // there will be no changes -> nothing to do
                 }
             };
@@ -99,4 +99,8 @@ public final class Contexts {
         return fixedContext;
     }
 
+    public static void configureObject(Object obj, ContextManager contextManager, ContextInjector contextInjector) {
+        contextManager.putLocalContext(obj);
+        contextInjector.inject(obj);
+    }
 }

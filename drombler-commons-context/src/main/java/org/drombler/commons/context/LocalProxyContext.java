@@ -51,7 +51,7 @@ public class LocalProxyContext implements Context {
      * {@inheritDoc }
      */
     @Override
-    public void addContextListener(Class<?> type, ContextListener listener) {
+    public <T> void addContextListener(Class<T> type, ContextListener<T> listener) {
         proxyContext.addContextListener(type, listener);
     }
 
@@ -59,7 +59,7 @@ public class LocalProxyContext implements Context {
      * {@inheritDoc }
      */
     @Override
-    public void removeContextListener(Class<?> type, ContextListener listener) {
+    public <T> void removeContextListener(Class<T> type, ContextListener<T> listener) {
         proxyContext.removeContextListener(type, listener);
     }
 

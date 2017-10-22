@@ -14,19 +14,16 @@
  */
 package org.drombler.commons.context;
 
-import org.drombler.commons.context.ContextListener;
-import org.drombler.commons.context.ContextEvent;
-
 /**
  *
  * @author puce
  */
-public class TestContextListener implements ContextListener {
+public class TestContextListener<T> implements ContextListener<T> {
 
     private boolean contextChanged = false;
 
     @Override
-    public void contextChanged(ContextEvent event) {
+    public void contextChanged(ContextEvent<T> event) {
         contextChanged = true;
     }
 
