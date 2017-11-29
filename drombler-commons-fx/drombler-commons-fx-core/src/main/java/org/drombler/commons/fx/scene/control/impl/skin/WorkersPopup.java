@@ -12,8 +12,6 @@ import javafx.scene.control.Skin;
  *
  * @author puce
  */
-
-
 public class WorkersPopup extends PopupControl {
 
     private static final String DEFAULT_STYLE_CLASS = "worker-popup";

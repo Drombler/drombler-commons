@@ -5,6 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Worker;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +19,7 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  */
 public class WorkerPane extends GridPane {
 
-    private static final String MAIN_TASK_TITLE_LABEL_STYLE_CLASS = "worker-pane-main-worker-title-label";
+    private static final PseudoClass MAIN_WORKER_PSEUDO_CLASS = PseudoClass.getPseudoClass("main-worker");
 
     @FXML
     private Label titleLabel;
@@ -50,13 +51,9 @@ public class WorkerPane extends GridPane {
             }
         });
 
-        mainWorker.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                titleLabel.getStyleClass().add(MAIN_TASK_TITLE_LABEL_STYLE_CLASS);
-            } else {
-                titleLabel.getStyleClass().remove(MAIN_TASK_TITLE_LABEL_STYLE_CLASS);
-            }
-        });
+        mainWorker.addListener((observable) -> pseudoClassStateChanged(MAIN_WORKER_PSEUDO_CLASS, mainWorker.get()));
+        
+         getStyleClass().add("worker-pane");
     }
 
     public final Worker<?> getWorker() {
