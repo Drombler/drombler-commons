@@ -41,7 +41,6 @@ public class ProgressMonitorContentPane extends GridPane {
         FXMLLoaders.loadRoot(this);
 
         cancelButton.setCursor(Cursor.DEFAULT);
-//        cancelButton.setPadding(Insets.EMPTY);
 
         moreWorkersIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalWorkers, 0));
         moreWorkersIndicatorLabel.managedProperty().bind(moreWorkersIndicatorLabel.visibleProperty());
