@@ -66,8 +66,6 @@ public class ProgressMonitorSampleApplication extends Application {
         GridPane.setFillWidth(createButton, Boolean.FALSE);
         GridPane.setFillWidth(statusBar, Boolean.TRUE);
 
-//        progressMonitor.setMaxHeight(progressMonitor.getMinHeight());
-//        progressMonitor.setMaxWidth(progressMonitor.getMinWidth());
         Scene scene = new Scene(root, 800, 200);
 
         primaryStage.setTitle("ProgressMonitorSampleApplication");
