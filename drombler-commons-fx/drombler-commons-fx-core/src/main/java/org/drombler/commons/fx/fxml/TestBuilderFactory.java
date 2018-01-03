@@ -21,6 +21,7 @@ class TestBuilderFactory implements BuilderFactory {
     }
     
     private <T> Builder<T> createBuilderWrapper(Class<T> type){
+        @SuppressWarnings("unchecked")
         Builder<T> builder = (Builder<T>) builderFactory.getBuilder(type);
         return new BuilderWrapper<>(builder, type);
     }
