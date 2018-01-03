@@ -1,3 +1,17 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2017 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.commons.fx.scene.control.impl.skin;
 
 import java.text.MessageFormat;
@@ -12,8 +26,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -21,8 +33,6 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-
-
 public class ProgressMonitorContentPane extends GridPane {
 
     private final ObjectProperty<Worker<?>> worker = new SimpleObjectProperty<>(this, "worker", null);
@@ -31,7 +41,7 @@ public class ProgressMonitorContentPane extends GridPane {
     @FXML
     private Label titleLabel;
     @FXML
-    private ProgressBar progressBar;
+    private XProgressBar progressBar;
     @FXML
     private Button cancelButton;
     @FXML
@@ -46,9 +56,8 @@ public class ProgressMonitorContentPane extends GridPane {
         cancelButton.setCursor(Cursor.DEFAULT);
 
         moreWorkersIndicatorLabel.visibleProperty().bind(Bindings.greaterThan(numberOfAdditionalWorkers, 0));
+        moreWorkersIndicatorLabel.managedProperty().bind(moreWorkersIndicatorLabel.visibleProperty());
         moreWorkersIndicatorLabel.textProperty().bind(Bindings.createStringBinding(this::getMoreWorkersIndicatorLabelText, numberOfAdditionalWorkers));
-
-        cancelButton.setTooltip(new Tooltip("Click to cancel worker")); // TODO: i18n
 
         worker.addListener((observable, oldValue, newValue) -> {
             titleLabel.textProperty().unbind();

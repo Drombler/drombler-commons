@@ -4,12 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import org.drombler.commons.fx.scene.control.impl.skin.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="GridPane" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="GridPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" />
-        <ColumnConstraints hgrow="SOMETIMES" />
-        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="NEVER" />
+        <ColumnConstraints fillWidth="false" hgrow="NEVER" />
         <ColumnConstraints hgrow="SOMETIMES" />
     </columnConstraints>
     <rowConstraints>
@@ -17,8 +19,15 @@
     </rowConstraints>
     <children>
         <Label fx:id="titleLabel" labelFor="$progressBar"/>
-        <ProgressBar fx:id="progressBar" prefWidth="250.0" progress="0.0" GridPane.columnIndex="1" />
-        <Button fx:id="cancelButton" mnemonicParsing="false" text="x" GridPane.columnIndex="2" />
+        <XProgressBar fx:id="progressBar" prefWidth="250.0" progress="0.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-button" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+            <graphic>
+                <SVGPath content="M0, 0 L5, 5 M5, 0 L0, 5z" styleClass="icon"/>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%cancelButton.tooltip" />
+            </tooltip>
+        </Button>
         <Label fx:id="moreWorkersIndicatorLabel" GridPane.columnIndex="3" />
     </children>
     <cursor>
