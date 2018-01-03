@@ -26,7 +26,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
@@ -42,7 +41,7 @@ public class ProgressMonitorContentPane extends GridPane {
     @FXML
     private Label titleLabel;
     @FXML
-    private ProgressBar progressBar;
+    private XProgressBar progressBar;
     @FXML
     private Button cancelButton;
     @FXML
