@@ -1,5 +1,8 @@
 package test;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -89,7 +92,16 @@ public class ProgressMonitorSampleApplication extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        configureLogging();
         launch(args);
+    }
+
+    private static void configureLogging() {
+        Path loggingPropertiesPath = Paths.get("src", "test", "resources", "test", "logging.properties");
+        System.out.println("Logging configuration file: " + loggingPropertiesPath + " exists: " + Files.exists(loggingPropertiesPath));
+        if (Files.exists(loggingPropertiesPath)) {
+            System.setProperty("java.util.logging.config.file", loggingPropertiesPath.toString());
+        }
     }
 
     private static class TestWorker extends Task<Long> {
