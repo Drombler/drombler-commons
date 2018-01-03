@@ -22,7 +22,7 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * WholeNumberCellRenderer                                                                                *
+ * WholeNumberCellRenderer                                                                        *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -94,33 +94,3 @@
     -fx-font-size: 0.916667em; /* 11pt - 1 less than the default font */
     -fx-opacity: 0.4;
 }
-
-/*.progress-monitor .popup {
-    -fx-border-color: black;  -fx-box-border; 
-    -fx-border-width: 1px;
-    -fx-background-color: red;
-}
-
-.progress-monitor PopupControl {
-    -fx-border-color: black;  -fx-box-border; 
-    -fx-border-width: 1px;
-    -fx-background-color: blue;
-}
-
-.progress-monitor-popup {
-    -fx-border-color: black;  -fx-box-border; 
-    -fx-border-width: 1px;
-    -fx-background-color: yellow;
-}
-
-.progress-monitor-popup .worker-pane-main-worker-title-label { 
-    -fx-font-weight: bold;
-}
-
-.progress-monitor-popup .worker-pane-message-label { 
-    -fx-font-size: 0.916667em;  11pt - 1 less than the default font 
-    -fx-opacity: 0.4;
-}*/
-
-
-
