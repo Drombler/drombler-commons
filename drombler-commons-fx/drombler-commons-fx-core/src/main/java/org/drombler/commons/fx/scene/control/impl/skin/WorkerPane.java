@@ -93,4 +93,11 @@ public class WorkerPane extends GridPane {
     public BooleanProperty mainWorkerProperty() {
         return mainWorker;
     }
+
+    @Override
+    public String toString() {
+        return "WorkerPane[" + "worker=" + getWorker() + ", mainWorker=" + isMainWorker() + ']';
+    }
+    
+    
 }
