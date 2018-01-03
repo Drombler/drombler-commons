@@ -6,8 +6,9 @@
  * compliance with the License. A copy of the License is available at
  * http://www.opensource.org/licenses/cddl1.txt
  *
- * The Original Code is SoftSmithy Utility Library. The Initial Developer of the
- * Original Code is Florian Brunner (Sourceforge.net user: puce). All Rights Reserved.
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2015 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */

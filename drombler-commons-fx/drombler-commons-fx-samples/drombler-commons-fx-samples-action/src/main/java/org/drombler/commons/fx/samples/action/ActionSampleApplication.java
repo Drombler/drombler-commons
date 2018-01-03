@@ -112,7 +112,7 @@ public class ActionSampleApplication extends Application {
         addMenuItem(fileMenu, exitAction);
 
         ContentPane contentPane = new ContentPane();
-        contextManager.putLocalContext(contentPane, contentPane.getLocalContext());
+        contextManager.putLocalContext(contentPane);
         contextManager.setLocalContextActive(contentPane);
         root.add(contentPane, 0, 2);
         GridPane.setHgrow(contentPane, Priority.ALWAYS);

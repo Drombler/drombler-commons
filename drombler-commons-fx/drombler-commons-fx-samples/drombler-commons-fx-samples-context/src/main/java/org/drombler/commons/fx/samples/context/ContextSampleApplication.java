@@ -24,6 +24,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.docking.DockablePreferences;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.DockingAreaKind;
@@ -41,6 +42,7 @@ public class ContextSampleApplication extends Application {
     public static final String RIGHT_AREA_ID = "right";
     public static final String CENTER_AREA_ID = "center";
 
+    private final ContextManager contextManager = new ContextManager();
     private DockingPaneDockingAreaContainerAdapter dockingAreaContainerAdapter;
 
 
@@ -48,7 +50,7 @@ public class ContextSampleApplication extends Application {
     public void start(Stage stage) {
         BorderPane borderPane = new BorderPane();
         DockingPane dockingPane = new DockingPane();
-        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane);
+        dockingAreaContainerAdapter = new DockingPaneDockingAreaContainerAdapter(dockingPane, contextManager);
         borderPane.setCenter(dockingPane);
 
         MenuBar menuBar = new MenuBar();
@@ -56,12 +58,12 @@ public class ContextSampleApplication extends Application {
         Menu fileMenu = new Menu("File");
         final MenuItem saveMenuItem = new MenuItem("Save");
         final SaveAction saveAction = new SaveAction(saveMenuItem);
-        saveAction.setActiveContext(dockingAreaContainerAdapter.getActiveContext());
+        saveAction.setActiveContext(contextManager.getActiveContext());
         saveMenuItem.setOnAction(saveAction);
         fileMenu.getItems().add(saveMenuItem);
         final MenuItem saveAllMenuItem = new MenuItem("Save All");
         final SaveAllAction saveAllAction = new SaveAllAction(saveAllMenuItem);
-        saveAllAction.setApplicationContext(dockingAreaContainerAdapter.getApplicationContext());
+        saveAllAction.setApplicationContext(contextManager.getApplicationContext());
         saveAllMenuItem.setOnAction(saveAllAction);
         fileMenu.getItems().add(saveAllMenuItem);
         Menu windowMenu = new Menu("Window");
@@ -72,15 +74,6 @@ public class ContextSampleApplication extends Application {
 
         registerDefaultDockablePreferences(dockingAreaContainerAdapter.getDefaultEditorAreaId());
 
-        FXDockableEntry contextProviderPane1FXDockableEntry = dockingAreaContainerAdapter.openEditorForContent(new Sample("Sample 1"), ContextProviderPane.class, null, null);
-        MenuItem contextProviderPane1MenuItem = createDockablePaneMenuItem(contextProviderPane1FXDockableEntry, dockingPane);
-        windowMenu.getItems().add(contextProviderPane1MenuItem);
-
-        FXDockableEntry contextProviderPane2FXDockableEntry = dockingAreaContainerAdapter.openEditorForContent(new Sample("Sample 2"), ContextProviderPane.class, null, null);
-        contextProviderPane2FXDockableEntry.getDockablePreferences().setPosition(40);
-        MenuItem contextProviderPane2MenuItem = createDockablePaneMenuItem(contextProviderPane2FXDockableEntry, dockingPane);
-        windowMenu.getItems().add(contextProviderPane2MenuItem);
-
         FXDockableEntry contextConsumerPaneEntry = dockingAreaContainerAdapter.openAndRegisterNewView(ContextConsumerPane.class, false, "Right", null, null);
         MenuItem contextConsumerPaneMenuItem = createDockablePaneMenuItem(contextConsumerPaneEntry, dockingPane);
         windowMenu.getItems().add(contextConsumerPaneMenuItem);
@@ -90,6 +83,11 @@ public class ContextSampleApplication extends Application {
         stage.setTitle("Context Sample Application");
         stage.setScene(scene);
         stage.show();
+
+        FXDockableEntry contextProviderPane1FXDockableEntry = dockingAreaContainerAdapter.openEditorForContent(new Sample("Sample 1"), ContextProviderPane.class, null, null);
+
+        FXDockableEntry contextProviderPane2FXDockableEntry = dockingAreaContainerAdapter.openEditorForContent(new Sample("Sample 2"), ContextProviderPane.class, null, null);
+        contextProviderPane2FXDockableEntry.getDockablePreferences().setPosition(40);
     }
 
     @Override

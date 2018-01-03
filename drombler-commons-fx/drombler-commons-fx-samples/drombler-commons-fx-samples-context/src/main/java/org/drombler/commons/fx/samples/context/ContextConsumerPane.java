@@ -21,14 +21,16 @@ import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.context.ActiveContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
+import org.drombler.commons.context.ContextListener;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
-public class ContextConsumerPane extends GridPane implements ActiveContextSensitive {
+public class ContextConsumerPane extends GridPane implements ActiveContextSensitive, AutoCloseable {
 
     private Context activeContext;
     @FXML
     private Label nameLabel;
 
+    private final ContextListener<Sample> contextListener = this::contextChanged;
     private Sample sample;
 
     public ContextConsumerPane() {
@@ -42,12 +44,12 @@ public class ContextConsumerPane extends GridPane implements ActiveContextSensit
     @Override
     public void setActiveContext(Context activeContext) {
         this.activeContext = activeContext;
-        this.activeContext.addContextListener(Sample.class, (ContextEvent event) -> contextChanged());
-        contextChanged();
+        this.activeContext.addContextListener(Sample.class, contextListener);
+        contextChanged(new ContextEvent<>(this.activeContext, Sample.class));
     }
 
-    private void contextChanged() {
-        Sample newSample = activeContext.find(Sample.class);
+    private void contextChanged(ContextEvent<Sample> contextEvent) {
+        Sample newSample = this.activeContext.find(contextEvent.getType());
         if ((sample == null && newSample != null) || (sample != null && !sample.equals(newSample))) {
             if (sample != null) {
                 unregister();
@@ -66,6 +68,12 @@ public class ContextConsumerPane extends GridPane implements ActiveContextSensit
 
     private void register() {
         nameLabel.textProperty().bind(sample.nameProperty());
+    }
+
+    @Override
+    public void close() {
+        this.activeContext.removeContextListener(Sample.class, contextListener);
+        this.activeContext = null;
     }
 
 }
