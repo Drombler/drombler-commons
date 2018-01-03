@@ -31,7 +31,7 @@ public class ATest {
         URI isoURI = new URI("iso:" + ATest.class.getResource("/test.iso").toURI().toString());
         ISOFileSystemProvider isoFileSystemProvider = new ISOFileSystemProvider();
         try (FileSystem isoFileSystem = isoFileSystemProvider.newFileSystem(isoURI, null)) {
-
+isoFileSystem.getRootDirectories().forEach(System.out::println);
         }
     }
 }
