@@ -8,7 +8,7 @@ import org.drombler.commons.context.ContextEvent;
  */
 
 
-public interface ContextConsumerType<T> {
+ interface ContextConsumerType<T> {
 
     void find(ContextEvent<T> contextEvent);
 

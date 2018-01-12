@@ -9,7 +9,7 @@ import org.drombler.commons.context.ContextEvent;
  */
 
 
-public class SingelContextConsumerType<T> implements ContextConsumerType<T> {
+ class SingelContextConsumerType<T> implements ContextConsumerType<T> {
 
     private final Consumer<T> onActionHandler;
     private T actionCommand;
