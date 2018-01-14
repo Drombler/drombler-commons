@@ -13,6 +13,6 @@
  * Contributor(s): .
  */
 /**
- * The JavaFX specific Context Framework utility classes for the Action Framework.
+ * JavaFX specific Context Framework utility classes for the Action Framework.
  */
 package org.drombler.commons.action.fx.context;

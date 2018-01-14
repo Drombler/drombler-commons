@@ -26,7 +26,7 @@
     <packaging>bundle</packaging>
 
     <name>Drombler Commons - Action - FX - Context</name>
-    <description>The JavaFX specific Context Framework utility classes for the Action Framework.</description>
+    <description>JavaFX specific Context Framework utility classes for the Action Framework.</description>
     <inceptionYear>2018</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
