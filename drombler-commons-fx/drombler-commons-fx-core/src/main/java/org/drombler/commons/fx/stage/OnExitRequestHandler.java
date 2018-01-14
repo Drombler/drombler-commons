@@ -8,12 +8,13 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (GitHub user: puce77).
- * Copyright 2016 Drombler.org. All Rights Reserved.
+ * Copyright 2018 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
 package org.drombler.commons.fx.stage;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -21,9 +22,9 @@ import javafx.stage.WindowEvent;
 /**
  * An application exit request handler.
  * 
- * Imp to reuse............. exit  onclose
- *
- * @author puce
+ * This is an interface to easily reuse implimentations e.g. in exit menu items and window on close event handlers.
+ * 
+ * Implementations e.g. can check if the user really wants to close the application or check if there is any unsaved data.
  */
 public interface OnExitRequestHandler {
 
@@ -35,20 +36,19 @@ public interface OnExitRequestHandler {
     boolean handleExitRequest();
 
     /**
-     * Creates a new OnCloseRequest {@link EventHandler} based on the provided OnExitRequestHandler.
+     * Creates a new OnCloseRequest Window-{@link EventHandler} based on the provided OnExitRequestHandler.
      *
-     * If {@link #handleExitRequest() } method of the OnExitRequestHandler returns false, the EventHandler will consume the {@link WindowEvent}.
+     * If {@link #handleExitRequest() } method of the OnExitRequestHandler returns false, the EventHandler will {@link Event#consume()} the {@link WindowEvent}.
      *
      * @param onExitRequestHandler the OnExitRequestHandler
      * @return a new OnCloseRequest {@link EventHandler} based on the provided OnExitRequestHandler
      * @see Window#setOnCloseRequest(javafx.event.EventHandler)
      */
-    public static EventHandler<WindowEvent> createOnCloseRequestEventHandler(OnExitRequestHandler onExitRequestHandler) {
+    public static EventHandler<WindowEvent> createOnWindowCloseRequestEventHandler(OnExitRequestHandler onExitRequestHandler) {
         return event -> {
             if (!onExitRequestHandler.handleExitRequest()) {
                 event.consume();
             }
         };
     }
-;
 }
