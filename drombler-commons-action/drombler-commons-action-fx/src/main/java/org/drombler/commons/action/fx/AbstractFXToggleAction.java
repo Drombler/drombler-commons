@@ -10,7 +10,7 @@ import javafx.event.ActionEvent;
  */
 
 
-public class AbstractFXToggleAction extends AbstractFXAction implements FXToggleAction {
+public abstract class AbstractFXToggleAction extends AbstractFXAction implements FXToggleAction {
 
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
 
