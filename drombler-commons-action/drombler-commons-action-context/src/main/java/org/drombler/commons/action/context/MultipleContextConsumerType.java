@@ -11,7 +11,7 @@ import org.drombler.commons.context.ContextEvent;
  *
  * @author puce
  */
-public class MultipleContextConsumerType<T> implements ContextConsumerType<T> {
+ class MultipleContextConsumerType<T> implements ContextConsumerType<T> {
 
     private final Consumer<T> onActionHandler;
     private Collection<? extends T> actionCommandCollection = Collections.emptyList();
