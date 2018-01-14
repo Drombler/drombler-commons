@@ -5,15 +5,14 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 
 /**
- *
- * @author puce
+ * A base class for {@link FXToggleAction}s.
  */
-
-
 public abstract class AbstractFXToggleAction extends AbstractFXAction implements FXToggleAction {
 
+    /**
+     * {@inheritDoc }
+     */
     private final BooleanProperty selected = new SimpleBooleanProperty(this, "selected");
-
 
     @Override
     public final boolean isSelected() {

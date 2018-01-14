@@ -8,7 +8,7 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (GitHub user: puce77).
- * Copyright 2017 Drombler.org. All Rights Reserved.
+ * Copyright 2018 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
