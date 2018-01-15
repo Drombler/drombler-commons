@@ -103,6 +103,11 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-action-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-context</artifactId>
             <version>${project.version}</version>
         </dependency>

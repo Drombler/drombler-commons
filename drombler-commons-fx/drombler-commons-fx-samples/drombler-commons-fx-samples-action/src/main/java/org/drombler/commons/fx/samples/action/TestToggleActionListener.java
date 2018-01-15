@@ -14,10 +14,10 @@
  */
 package org.drombler.commons.fx.samples.action;
 
-import org.drombler.commons.action.AbstractActionListener;
+import org.drombler.commons.action.AbstractToggleActionListener;
 
 /**
- * Implements {@code ActionListener<Object>}.
+ * Implements {@code  org.drombler.commons.action.ToggleActionListener}.
  *
  * <pre>
  * Pros:
@@ -27,15 +27,15 @@ import org.drombler.commons.action.AbstractActionListener;
  * - dependencies on Drombler Commons
  * </pre>
  *
- * Note: For JavaFX applications, the generic type parameter passed to ActionListener/ AbstractActionListener must be
- * javafx.event.ActionEvent or one of its super-classes (here: Object).
+ * Note: For JavaFX applications, the generic type parameter passed to ToggleActionListener/
+ * AbstractToggleActionListener must be javafx.event.ActionEvent or one of its super-classes (here: Object).
  *
  * @author puce
  */
-public class ActionListenerTestAction extends AbstractActionListener<Object> {
+public class TestToggleActionListener extends AbstractToggleActionListener<Object> {
 
     @Override
-    public void onAction(Object event) {
-        System.out.println("Test1Action implements ActionListener<Object>!");
+    public void onSelectionChanged(boolean oldValue, boolean newValue) {
+        System.out.println("Test4ToggleAction selection changed: " + newValue);
     }
 }
