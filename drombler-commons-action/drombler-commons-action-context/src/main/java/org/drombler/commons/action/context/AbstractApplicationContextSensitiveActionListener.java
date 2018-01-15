@@ -15,6 +15,7 @@
 package org.drombler.commons.action.context;
 
 import org.drombler.commons.action.AbstractActionListener;
+import org.drombler.commons.action.ActionListener;
 import org.drombler.commons.context.ApplicationContextSensitive;
 import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;

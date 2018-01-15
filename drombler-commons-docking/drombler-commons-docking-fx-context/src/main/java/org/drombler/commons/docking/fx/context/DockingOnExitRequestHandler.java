@@ -32,7 +32,7 @@ import org.drombler.commons.fx.stage.OnExitRequestHandler;
  * A {@link OnExitRequestHandler} which handles modified Dockables on exit request.
  *
  * @see Window#setOnCloseRequest(javafx.event.EventHandler)
- * @see OnExitRequestHandler#createOnCloseRequestEventHandler(org.drombler.commons.fx.stage.OnExitRequestHandler) 
+ * @see OnExitRequestHandler#createOnWindowCloseRequestEventHandler(org.drombler.commons.fx.stage.OnExitRequestHandler)
  * @author puce
  */
 public class DockingOnExitRequestHandler implements OnExitRequestHandler {
