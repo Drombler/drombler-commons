@@ -49,7 +49,7 @@ public class LocalDatePicker extends Control {
      * create a DataRenderer which uses
      * {@link DateTimeFormatter#ofLocalizedDate(java.time.format.FormatStyle)}
      * and {@link FormatStyle#MEDIUM}:<br><br>
-     * {@code new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))}
+     * {@code new FormatterDataRenderer<>(new TemporalAccessorFormatter(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))}
      */
     private final ObjectProperty<DataRenderer<? super LocalDate>> dataRenderer = new SimpleObjectProperty<>(this,
             "dataRenderer",
