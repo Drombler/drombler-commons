@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Application;
@@ -38,12 +39,13 @@ public class ProgressMonitorSampleApplication extends Application {
     private long counter = 1;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws InterruptedException {
         StatusBar statusBar = new StatusBar();
         ProgressMonitor progressMonitor = new ProgressMonitor();
-        statusBar.getRightEntries().add(progressMonitor);
+        statusBar.getRightElements().add(progressMonitor);
 
         addTestWorker(counter++, progressMonitor);
+        Thread.sleep(2000l);
         addTestWorker(counter++, progressMonitor);
 
         Button createButton = new Button("Create Task");
@@ -97,6 +99,7 @@ public class ProgressMonitorSampleApplication extends Application {
     }
 
     private static void configureLogging() {
+        Locale.setDefault(Locale.ENGLISH);
         Path loggingPropertiesPath = Paths.get("src", "test", "resources", "test", "logging.properties");
         System.out.println("Logging configuration file: " + loggingPropertiesPath + " exists: " + Files.exists(loggingPropertiesPath));
         if (Files.exists(loggingPropertiesPath)) {
