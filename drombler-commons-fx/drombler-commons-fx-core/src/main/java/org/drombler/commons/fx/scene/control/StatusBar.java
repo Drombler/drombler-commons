@@ -23,8 +23,9 @@ import org.drombler.commons.fx.scene.control.impl.skin.StatusBarSkin;
 import org.drombler.commons.fx.scene.control.impl.skin.Stylesheets;
 
 /**
+ * A StatusBar typically is placed at the bottom of the application to show the user some information.
  *
- * @author puce
+ * This control provides an API to place status bar element to the right-side, left-side or center of this status bar.
  */
 public class StatusBar extends Control {
     private static final String DEFAULT_STYLE_CLASS = "status-bar";
@@ -33,11 +34,13 @@ public class StatusBar extends Control {
     private final ObservableList<Node> centerEntries = FXCollections.observableArrayList();
     private final ObservableList<Node> rightEntries = FXCollections.observableArrayList();
 
+    /**
+     * Creates a new instance of this class.
+     */
     public StatusBar() {
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
 
     }
-
 
     /**
      * {@inheritDoc}
@@ -47,29 +50,38 @@ public class StatusBar extends Control {
         return Stylesheets.getDefaultStylesheet();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new StatusBarSkin(this);
     }
 
     /**
-     * @return the leftEntries
+     * Gets the left status bar elements.
+     *
+     * @return the left status bar elements
      */
-    public ObservableList<Node> getLeftEntries() {
+    public ObservableList<Node> getLeftElements() {
         return leftEntries;
     }
 
     /**
-     * @return the centerEntries
+     * Gets the center status bar elements.
+     *
+     * @return the center status bar elements
      */
-    public ObservableList<Node> getCenterEntries() {
+    public ObservableList<Node> getCenterElements() {
         return centerEntries;
     }
 
     /**
-     * @return the rightEntries
+     * Gets the rights status bar elements.
+     *
+     * @return the right status bar elements
      */
-    public ObservableList<Node> getRightEntries() {
+    public ObservableList<Node> getRightElements() {
         return rightEntries;
     }
 

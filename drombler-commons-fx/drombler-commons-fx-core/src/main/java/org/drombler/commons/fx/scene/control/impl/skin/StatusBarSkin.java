@@ -28,9 +28,9 @@ public class StatusBarSkin extends SkinBase<StatusBar> {
     public StatusBarSkin(StatusBar control) {
         super(control);
         getChildren().add(contentPane);
-        Bindings.bindContent(contentPane.getLeftPane().getChildren(), getSkinnable().getLeftEntries());
-        Bindings.bindContent(contentPane.getCenterPane().getChildren(), getSkinnable().getCenterEntries());
-        Bindings.bindContent(contentPane.getRightPane().getChildren(), getSkinnable().getRightEntries());
+        Bindings.bindContent(contentPane.getLeftPane().getChildren(), getSkinnable().getLeftElements());
+        Bindings.bindContent(contentPane.getCenterPane().getChildren(), getSkinnable().getCenterElements());
+        Bindings.bindContent(contentPane.getRightPane().getChildren(), getSkinnable().getRightElements());
     }
 
 }
