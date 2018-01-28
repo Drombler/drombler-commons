@@ -18,42 +18,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.drombler.commons.action.AbstractActionListener;
-import org.drombler.commons.context.ApplicationContextSensitive;
+import org.drombler.commons.action.context.AbstractApplicationContextSensitiveActionListener;
 import org.drombler.commons.context.Context;
+import org.drombler.commons.context.ContextEvent;
 
 /**
- * The following sample shows a application context sensitive action implementation. It looks for all MyCommand
- * instances in the application-wide context and listens for changes of this context. If it finds any MyCommand
- * instance, the Action gets enabled, else it gets disabled. If the Action gets triggered (onAction-method), then a
- * method of MyCommand gets called on all found instances.
+ * The following sample shows a application context sensitive action implementation. It looks for all MyCommand instances in the application-wide context and listens for changes of this context. If it
+ * finds any MyCommand instance, the Action gets enabled, else it gets disabled. If the Action gets triggered (onAction-method), then a method of MyCommand gets called on all found instances.
  *
  * @author puce
  */
-public class ApplicationContextSensitiveAction extends AbstractActionListener<Object> implements ApplicationContextSensitive {
+public class TestApplicationContextSensitiveActionListener extends AbstractApplicationContextSensitiveActionListener<MyCommand, Object> {
 
     private Collection<? extends MyCommand> myCommands = Collections.emptyList();
     private Context applicationContext;
 
-    public ApplicationContextSensitiveAction() {
+    public TestApplicationContextSensitiveActionListener() {
+        super(MyCommand.class);
         setEnabled(false);
     }
 
     @Override
     public void onAction(Object event) {
         List<MyCommand> currentMyCommands = new ArrayList<>(myCommands); // protect against modification during iteration TODO: needed?
-        currentMyCommands.forEach(myCommand -> myCommand.doSomething());
+        currentMyCommands.forEach(MyCommand::doSomething);
     }
 
     @Override
-    public void setApplicationContext(Context applicationContext) {
-        this.applicationContext = applicationContext;
-        this.applicationContext.addContextListener(MyCommand.class, event -> contextChanged());
-        contextChanged();
-    }
-
-    private void contextChanged() {
+    protected void contextChanged(ContextEvent<MyCommand> event) {
         myCommands = applicationContext.findAll(MyCommand.class);
         setEnabled(!myCommands.isEmpty());
     }
+
 }

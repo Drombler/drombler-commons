@@ -34,12 +34,12 @@ import org.softsmithy.lib.util.ResourceLoader;
  *
  * @author puce
  */
-public class FXActionTestAction extends AbstractFXAction {
+public class TestFXAction extends AbstractFXAction {
 
-    public FXActionTestAction(String displayName, String accelerator, String icon) {
+    public TestFXAction(String displayName, String accelerator, String icon) {
         setDisplayName(displayName);
         setAccelerator(KeyCombination.keyCombination(accelerator));
-        setGraphicFactory(new IconFactory(icon, new ResourceLoader(FXActionTestAction.class), false));
+        setGraphicFactory(new IconFactory(icon, new ResourceLoader(TestFXAction.class), false));
     }
 
     @Override

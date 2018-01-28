@@ -35,6 +35,9 @@ import org.drombler.commons.fx.scene.control.impl.skin.Stylesheets;
 
 /**
  * A control to monitor the progress of a list of background {@link Worker}s.
+ * <p>
+ *   <img src="doc-files/progress-monitor.png" alt="ProgressMonitor Sample">
+ * </p>
  *
  * @author puce
  */
@@ -65,9 +68,9 @@ public class ProgressMonitor extends Control {
                 if (change.wasAdded()) {
                     change.getAddedSubList().forEach(this::addWorkerFinishedListener);
                 } else if (change.wasRemoved()) {
-                    change.getRemoved().forEach(this::removeWorkerFinishedListener);
+                        change.getRemoved().forEach(this::removeWorkerFinishedListener);
                     }
-            }
+                }
         });
     }
 
@@ -102,6 +105,11 @@ public class ProgressMonitor extends Control {
         return new ProgressMonitorSkin(this);
     }
 
+    /**
+     * Gets the list of background {@link Worker}s
+     *
+     * @return the list of background Workers
+     */
     public ObservableList<Worker<?>> getWorkers() {
         return workers;
     }
