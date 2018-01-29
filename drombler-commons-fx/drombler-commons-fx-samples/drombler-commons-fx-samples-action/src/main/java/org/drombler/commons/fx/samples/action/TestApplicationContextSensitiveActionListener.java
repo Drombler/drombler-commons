@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import org.drombler.commons.action.context.AbstractApplicationContextSensitiveActionListener;
-import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextEvent;
 
 /**
@@ -31,7 +30,6 @@ import org.drombler.commons.context.ContextEvent;
 public class TestApplicationContextSensitiveActionListener extends AbstractApplicationContextSensitiveActionListener<MyCommand, Object> {
 
     private Collection<? extends MyCommand> myCommands = Collections.emptyList();
-    private Context applicationContext;
 
     public TestApplicationContextSensitiveActionListener() {
         super(MyCommand.class);
@@ -46,7 +44,7 @@ public class TestApplicationContextSensitiveActionListener extends AbstractAppli
 
     @Override
     protected void contextChanged(ContextEvent<MyCommand> event) {
-        myCommands = applicationContext.findAll(MyCommand.class);
+        myCommands = getApplicationContext().findAll(MyCommand.class);
         setEnabled(!myCommands.isEmpty());
     }
 
