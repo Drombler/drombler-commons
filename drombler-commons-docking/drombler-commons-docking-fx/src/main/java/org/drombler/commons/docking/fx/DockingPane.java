@@ -84,14 +84,19 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
                 }
         });
         activeDockable.addListener((observable, oldValue, newValue) -> {
-            if (newValue != null
-                    && !((newValue.getDockable() instanceof Parent)
-                    && Nodes.isParent((Parent) newValue.getDockable(), newValue.getDockable().getScene().getFocusOwner()))) {
-                LOG.debug("Request focus for new active Dockable: '{}'!", newValue.getDockableData().getTitle());
-                newValue.getDockable().requestFocus();
+            if (newValue != null) {
+                final Node currentFocusOwner = newValue.getDockable().getScene().getFocusOwner();
+                if (currentFocusOwner == null || !isFocusInDockable(newValue.getDockable(), currentFocusOwner)) {
+                    LOG.debug("Request focus for new active Dockable: '{}'!", newValue.getDockableData().getTitle());
+                    newValue.getDockable().requestFocus();
+                }
             }
         });
         setFocusTraversable(false);
+    }
+
+    private boolean isFocusInDockable(Node dockable, final Node currentFocusOwner) {
+        return (dockable instanceof Parent) && Nodes.isParent((Parent) dockable, currentFocusOwner);
     }
 
     /**
