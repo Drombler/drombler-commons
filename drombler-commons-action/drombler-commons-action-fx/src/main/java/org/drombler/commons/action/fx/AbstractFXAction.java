@@ -20,8 +20,9 @@ import javafx.beans.property.ReadOnlyBooleanPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCombination;
-import org.drombler.commons.fx.scene.GraphicFactory;
+import org.drombler.commons.client.graphic.GraphicFactory;
 
 /**
  * A base class for {@link FXAction}s.
@@ -45,7 +46,7 @@ public abstract class AbstractFXAction implements FXAction {
     /**
      * {@inheritDoc }
      */
-    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
+    private final ObjectProperty<GraphicFactory<Node>> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory",
             null);
 
     @Override
@@ -93,17 +94,17 @@ public abstract class AbstractFXAction implements FXAction {
     }
 
     @Override
-    public final GraphicFactory getGraphicFactory() {
+    public final GraphicFactory<Node> getGraphicFactory() {
         return graphicFactoryProperty().get();
     }
 
     @Override
-    public final void setGraphicFactory(GraphicFactory graphicFactory) {
+    public final void setGraphicFactory(GraphicFactory<Node> graphicFactory) {
         graphicFactoryProperty().set(graphicFactory);
     }
 
     @Override
-    public ObjectProperty<GraphicFactory> graphicFactoryProperty() {
+    public ObjectProperty<GraphicFactory<Node>> graphicFactoryProperty() {
         return graphicFactory;
     }
 

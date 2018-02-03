@@ -48,6 +48,8 @@ public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<
      * @return the tooltip text
      */
     String getTooltipText();
+    
+    
 
     /**
      * Marks the content of this data handler as dirty.
