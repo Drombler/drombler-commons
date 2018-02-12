@@ -21,7 +21,7 @@ package org.drombler.commons.fx.samples.action;
 
 
 public interface MyCommand {
-
+    
     void doSomething();
 
 }
