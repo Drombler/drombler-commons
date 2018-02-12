@@ -1,0 +1,40 @@
+-classpath
+'/home/puce/.m2/repository/org/drombler/commons/drombler-commons-context/0.11/drombler-commons-context-0.11.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-action-command/0.11/drombler-commons-action-command-0.11.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.9/softsmithy-lib-core-0.9.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-beans/0.9/softsmithy-lib-beans-0.9.jar:/home/puce/.m2/repository/org/slf4j/slf4j-api/1.7.22/slf4j-api-1.7.22.jar:/home/puce/.m2/repository/org/drombler/commons/drombler-commons-docking-core/0.11/drombler-commons-docking-core-0.11.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/fastdata/Programming/Java/drombler/drombler-commons/releases/0.11/drombler-commons/drombler-commons-docking/drombler-commons-docking-context/src/main/java'
+-javafx
+-Xdoclint:accessibility
+-Xdoclint:html
+-Xdoclint:missing
+-Xdoclint:reference
+-author
+-bottom
+'Copyright &#169; 2016&#x2013;2018 <a href="http://www.drombler.com">Drombler</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/fastdata/Programming/Java/drombler/drombler-commons/releases/0.11/drombler-commons/drombler-commons-docking/drombler-commons-docking-context/target/site/apidocs'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'Drombler Commons - Docking - Context 0.11 API'
+-link
+'https://docs.oracle.com/javaee/7/api'
+-link
+'https://docs.oracle.com/javase/8/javafx/api'
+-link
+'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
+-link
+'http://www.slf4j.org/apidocs'
+-link
+'http://mockito.org/apidocs'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' '/fastdata/Programming/Java/drombler/drombler-commons/releases/0.11/drombler-commons/drombler-commons-docking/drombler-commons-docking-context/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Drombler Commons - Docking - Context 0.11 API'
