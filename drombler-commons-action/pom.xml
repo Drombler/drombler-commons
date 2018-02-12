@@ -19,7 +19,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.10</version>
+        <version>0.11</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-action</artifactId>
@@ -68,8 +68,10 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-action-core</module>
+        <module>drombler-commons-action-context</module>
         <module>drombler-commons-action-command</module>
         <module>drombler-commons-action-fx</module>
+        <module>drombler-commons-action-fx-context</module>
     </modules>
     
     <dependencyManagement>
@@ -81,12 +83,22 @@ Contributor(s): .
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-action-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-action-fx</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-action-fx-context</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

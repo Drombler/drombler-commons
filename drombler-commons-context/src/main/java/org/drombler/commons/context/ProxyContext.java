@@ -58,7 +58,7 @@ public class ProxyContext extends AbstractContext {
      * {@inheritDoc }
      */
     @Override
-    public void addContextListener(Class<?> type, ContextListener listener) {
+    public <T> void addContextListener(Class<T> type, ContextListener<T> listener) {
         super.addContextListener(type, listener);
 
         contexts.forEach(context -> context.addContextListener(type, listener));
@@ -68,7 +68,7 @@ public class ProxyContext extends AbstractContext {
      * {@inheritDoc }
      */
     @Override
-    public void removeContextListener(Class<?> type, ContextListener listener) {
+    public <T> void removeContextListener(Class<T> type, ContextListener<T> listener) {
         super.removeContextListener(type, listener);
         contexts.forEach(context -> context.removeContextListener(type, listener));
     }
@@ -100,7 +100,12 @@ public class ProxyContext extends AbstractContext {
         contexts.add(context);
         getListeners().entrySet().forEach(entry
                 -> entry.getValue().forEach(contextListener
-                        -> context.addContextListener(entry.getKey(), contextListener)));
+                        -> addContextListener(context, entry.getKey(), contextListener)));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void addContextListener(Context context, Class<?> type, ContextListener<?> contextListener) {
+        context.addContextListener((Class<T>) type, (ContextListener<T>) contextListener);
     }
 
     /**
@@ -117,7 +122,12 @@ public class ProxyContext extends AbstractContext {
         contexts.remove(context);
         getListeners().entrySet().forEach(entry
                 -> entry.getValue().forEach(contextListener
-                        -> context.removeContextListener(entry.getKey(), contextListener)));
+                        -> removeContextListener(context, entry.getKey(), contextListener)));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void removeContextListener(Context context, Class<?> type, ContextListener<?> contextListener) {
+        context.removeContextListener((Class<T>) type, (ContextListener<T>) contextListener);
     }
 
     /**
@@ -149,6 +159,15 @@ public class ProxyContext extends AbstractContext {
         changedContexts.addAll(contextsToAdd);
 
         fireContextEvents(changedContexts);
+    }
+
+    /**
+     * Indicates if this proxy has some contexts.
+     *
+     * @return true, if the proxy has no contexts, else false
+     */
+    public boolean isEmpty() {
+        return contexts.isEmpty();
     }
 
     private void fireContextEvents(List<Context> changedContexts) {

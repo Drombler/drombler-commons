@@ -19,14 +19,15 @@ import java.util.EventListener;
 /**
  * A listener to listen for changes in a {@link Context}.
  *
+ * @param <T> the type of objects to listen for in the context
  * @author puce
  */
-public interface ContextListener extends EventListener {
+public interface ContextListener<T> extends EventListener {
 
     /**
      * A call-back method which gets called when a {@link Context} changed.
      *
      * @param event the context event
      */
-    void contextChanged(ContextEvent event);
+    void contextChanged(ContextEvent<T> event);
 }

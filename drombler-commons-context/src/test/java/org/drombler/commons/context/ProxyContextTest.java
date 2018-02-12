@@ -139,7 +139,7 @@ public class ProxyContextTest {
         MyCustomFoo foo1 = new MyCustomFoo();
         content1.add(foo1);
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
 
         assertFalse(fooContextListener.isContextChanged());
@@ -175,7 +175,7 @@ public class ProxyContextTest {
         MyCustomFoo foo1 = new MyCustomFoo();
         content1.add(foo1);
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
 
         assertFalse(fooContextListener.isContextChanged());
@@ -206,13 +206,13 @@ public class ProxyContextTest {
     public void testAddContextListener() {
         System.out.println("addContextListener");
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
-        TestContextListener myCustomFooContextListener = new TestContextListener();
-        TestContextListener abstractFooContextListener = new TestContextListener();
-        TestContextListener objectContextListener = new TestContextListener();
+        TestContextListener<MyCustomFoo> myCustomFooContextListener = new TestContextListener<>();
+        TestContextListener<AbstractFoo> abstractFooContextListener = new TestContextListener<>();
+        TestContextListener<Object> objectContextListener = new TestContextListener<>();
 
-        TestContextListener dateContextListener = new TestContextListener();
+        TestContextListener<Date> dateContextListener = new TestContextListener<>();
 
         SimpleContextContent content1 = new SimpleContextContent();
         SimpleContext context1 = new SimpleContext(content1);
@@ -309,16 +309,16 @@ public class ProxyContextTest {
     public void testRemoveContextListener() {
         System.out.println("removeContextListener");
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
-        TestContextListener myCustomFooContextListener = new TestContextListener();
+        TestContextListener<MyCustomFoo> myCustomFooContextListener = new TestContextListener<>();
         context.addContextListener(MyCustomFoo.class, myCustomFooContextListener);
-        TestContextListener abstractFooContextListener = new TestContextListener();
+        TestContextListener<AbstractFoo> abstractFooContextListener = new TestContextListener<>();
         context.addContextListener(AbstractFoo.class, abstractFooContextListener);
-        TestContextListener objectContextListener = new TestContextListener();
+        TestContextListener<Object> objectContextListener = new TestContextListener<>();
         context.addContextListener(Object.class, objectContextListener);
 
-        TestContextListener dateContextListener = new TestContextListener();
+        TestContextListener<Date> dateContextListener = new TestContextListener<>();
         context.addContextListener(Date.class, dateContextListener);
 
         context.removeContextListener(Foo.class, fooContextListener);

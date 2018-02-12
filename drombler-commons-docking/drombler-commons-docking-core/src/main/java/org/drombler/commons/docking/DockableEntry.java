@@ -100,7 +100,7 @@ public class DockableEntry<D, DATA extends DockableData> {
         if (!(obj instanceof DockableEntry)) {
             return false;
         }
-        final DockableEntry<D, DATA> other = (DockableEntry<D, DATA>) obj;
+        final DockableEntry<?, ?> other = (DockableEntry<?, ?>) obj;
         return Objects.equals(this.dockable, other.dockable);
     }
 

@@ -56,7 +56,8 @@ public class DataHandlerRegistry implements AutoCloseable {
      */
     @Override
     public void close() {
-        dataHandlers.entrySet().stream()
+        HashMap<Object, DataHandler<?>> dataHandlersCopy = new HashMap<>(dataHandlers);
+        dataHandlersCopy.entrySet().stream()
                 .map(Map.Entry::getValue)
                 .forEach(this::closeDataHandler);
         dataHandlers.clear();

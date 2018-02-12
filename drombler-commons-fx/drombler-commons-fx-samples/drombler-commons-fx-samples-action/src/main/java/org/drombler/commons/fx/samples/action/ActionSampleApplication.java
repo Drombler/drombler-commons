@@ -105,6 +105,10 @@ public class ActionSampleApplication extends Application {
         fileMenu.getItems().add(contextSensitiveMenu);
         addMenuItems(contextSensitiveMenu, contextSensitiveFXActions);
         addToolBarButtons(toolBar, contextSensitiveFXActions);
+        
+        List<FXToggleAction> contextSensitiveFXToggleActions = createContextSensitiveFXToggleActions(resourceLoader, contextInjector);
+        addCheckMenuItems(contextSensitiveMenu, contextSensitiveFXToggleActions);
+        addUngroupedToggleToolBarButtons(toolBar, contextSensitiveFXToggleActions);
 
         addSeparator(fileMenu);
 
@@ -112,7 +116,7 @@ public class ActionSampleApplication extends Application {
         addMenuItem(fileMenu, exitAction);
 
         ContentPane contentPane = new ContentPane();
-        contextManager.putLocalContext(contentPane, contentPane.getLocalContext());
+        contextManager.putLocalContext(contentPane);
         contextManager.setLocalContextActive(contentPane);
         root.add(contentPane, 0, 2);
         GridPane.setHgrow(contentPane, Priority.ALWAYS);
@@ -187,7 +191,7 @@ public class ActionSampleApplication extends Application {
     }
 
     private List<FXAction> createFXActions(ResourceLoader resourceLoader) {
-        final ActionListener<Object> test1ActionListener = new ActionListenerTestAction();
+        final ActionListener<Object> test1ActionListener = new TestActionListener();
         final FXAction test1Action = new ActionListenerAdapter(test1ActionListener);
         test1Action.setDisplayName("Test _1");
         test1Action.setAccelerator(KeyCombination.keyCombination("Shortcut+1"));
@@ -199,45 +203,45 @@ public class ActionSampleApplication extends Application {
         test2Action.setAccelerator(KeyCombination.keyCombination("Shortcut+2"));
         test2Action.setGraphicFactory(new IconFactory("two.png", resourceLoader, false));
 
-        final FXAction test3Action = new FXActionTestAction("Test _3", "Shortcut+3", "three.png");
+        final FXAction test3Action = new TestFXAction("Test _3", "Shortcut+3", "three.png");
 
         return Arrays.asList(test1Action, test2Action, test3Action);
     }
 
     private List<FXToggleAction> createFXToggleActionsForGrouped(ResourceLoader resourceLoader) {
-        final ToggleActionListener<Object> test4ToggleActionListener = new ToggleActionListenerTestAction();
+        final ToggleActionListener<Object> test4ToggleActionListener = new TestToggleActionListener();
         final FXToggleAction test4ToggleAction = new ToggleActionListenerAdapter(test4ToggleActionListener);
         test4ToggleAction.setDisplayName("Test _4");
         test4ToggleAction.setAccelerator(KeyCombination.keyCombination("Shortcut+4"));
         test4ToggleAction.setGraphicFactory(new IconFactory("four.png", resourceLoader, false));
 
-        final FXToggleAction test5ToggleAction = new FXToggleActionTestAction("Test _5", "Shortcut+5", "five.png");
+        final FXToggleAction test5ToggleAction = new TestFXToggleAction("Test _5", "Shortcut+5", "five.png");
 
         return Arrays.asList(test4ToggleAction, test5ToggleAction);
     }
 
     private List<FXToggleAction> createFXToggleActionsForUngrouped(ResourceLoader resourceLoader) {
-        final ToggleActionListener<Object> test6ToggleActionListener = new ToggleActionListenerTestAction();
+        final ToggleActionListener<Object> test6ToggleActionListener = new TestToggleActionListener();
         final FXToggleAction test6ToggleAction = new ToggleActionListenerAdapter(test6ToggleActionListener);
         test6ToggleAction.setDisplayName("Test _6");
         test6ToggleAction.setAccelerator(KeyCombination.keyCombination("Shortcut+6"));
         test6ToggleAction.setGraphicFactory(new IconFactory("six.png", resourceLoader, false));
 
-        final FXToggleAction test7ToggleAction = new FXToggleActionTestAction("Test _7", "Shortcut+7", "seven.png");
+        final FXToggleAction test7ToggleAction = new TestFXToggleAction("Test _7", "Shortcut+7", "seven.png");
 
         return Arrays.asList(test6ToggleAction, test7ToggleAction);
     }
 
     private List<FXAction> createContextSensitiveFXActions(ResourceLoader resourceLoader,
             ContextInjector contextInjector) {
-        final ActiveContextSensitiveAction test8Action = new ActiveContextSensitiveAction();
+        final TestActiveContextSensitiveActionListener test8Action = new TestActiveContextSensitiveActionListener();
         contextInjector.inject(test8Action);
         final FXAction test8ActionListenerAdapter = new ActionListenerAdapter(test8Action);
         test8ActionListenerAdapter.setDisplayName("Test _8");
         test8ActionListenerAdapter.setAccelerator(KeyCombination.keyCombination("Shortcut+8"));
         test8ActionListenerAdapter.setGraphicFactory(new IconFactory("eight.png", resourceLoader, false));
 
-        final ApplicationContextSensitiveAction test9Action = new ApplicationContextSensitiveAction();
+        final TestApplicationContextSensitiveActionListener test9Action = new TestApplicationContextSensitiveActionListener();
         contextInjector.inject(test9Action);
         final FXAction test9ActionListenerAdapter = new ActionListenerAdapter(test9Action);
         test9ActionListenerAdapter.setDisplayName("Test _9");
@@ -245,6 +249,18 @@ public class ActionSampleApplication extends Application {
         test9ActionListenerAdapter.setGraphicFactory(new IconFactory("nine.png", resourceLoader, false));
 
         return Arrays.asList(test8ActionListenerAdapter, test9ActionListenerAdapter);
+    }
+
+    private List<FXToggleAction> createContextSensitiveFXToggleActions(ResourceLoader resourceLoader,
+            ContextInjector contextInjector) {
+
+        final TestActiveContextSensitiveToggleAction test10Action = new TestActiveContextSensitiveToggleAction();
+        contextInjector.inject(test10Action);
+        test10Action.setDisplayName("Test 1_0");
+        test10Action.setAccelerator(KeyCombination.keyCombination("Shortcut+0"));
+        test10Action.setGraphicFactory(new IconFactory("ten.png", resourceLoader, false));
+
+        return Arrays.asList(test10Action);
     }
 
     private FXAction createExitAction() {

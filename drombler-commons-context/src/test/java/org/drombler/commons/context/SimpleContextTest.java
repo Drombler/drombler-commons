@@ -80,16 +80,16 @@ public class SimpleContextTest {
     public void testAddContextListener() {
         System.out.println("addContextListener");
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
-        TestContextListener myCustomFooContextListener = new TestContextListener();
+        TestContextListener<MyCustomFoo> myCustomFooContextListener = new TestContextListener<>();
         context.addContextListener(MyCustomFoo.class, myCustomFooContextListener);
-        TestContextListener abstractFooContextListener = new TestContextListener();
+        TestContextListener<AbstractFoo> abstractFooContextListener = new TestContextListener<>();
         context.addContextListener(AbstractFoo.class, abstractFooContextListener);
-        TestContextListener objectContextListener = new TestContextListener();
+        TestContextListener<Object> objectContextListener = new TestContextListener<>();
         context.addContextListener(Object.class, objectContextListener);
 
-        TestContextListener dateContextListener = new TestContextListener();
+        TestContextListener<Date> dateContextListener = new TestContextListener<>();
         context.addContextListener(Date.class, dateContextListener);
 
         assertFalse(fooContextListener.isContextChanged());
@@ -135,16 +135,16 @@ public class SimpleContextTest {
     public void testRemoveContextListener() {
         System.out.println("removeContextListener");
 
-        TestContextListener fooContextListener = new TestContextListener();
+        TestContextListener<Foo> fooContextListener = new TestContextListener<>();
         context.addContextListener(Foo.class, fooContextListener);
-        TestContextListener myCustomFooContextListener = new TestContextListener();
+        TestContextListener<MyCustomFoo> myCustomFooContextListener = new TestContextListener<>();
         context.addContextListener(MyCustomFoo.class, myCustomFooContextListener);
-        TestContextListener abstractFooContextListener = new TestContextListener();
+        TestContextListener<AbstractFoo> abstractFooContextListener = new TestContextListener<>();
         context.addContextListener(AbstractFoo.class, abstractFooContextListener);
-        TestContextListener objectContextListener = new TestContextListener();
+        TestContextListener<Object> objectContextListener = new TestContextListener<>();
         context.addContextListener(Object.class, objectContextListener);
 
-        TestContextListener dateContextListener = new TestContextListener();
+        TestContextListener<Date> dateContextListener = new TestContextListener<>();
         context.addContextListener(Date.class, dateContextListener);
 
         context.removeContextListener(Foo.class, fooContextListener);

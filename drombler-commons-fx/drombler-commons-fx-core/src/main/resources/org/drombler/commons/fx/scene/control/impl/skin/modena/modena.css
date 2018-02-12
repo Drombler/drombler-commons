@@ -22,7 +22,7 @@
 
 /**************************************************************************************************
  *                                                                                                *
- * WholeNumberCellRenderer                                                                                *
+ * WholeNumberCellRenderer                                                                        *
  *                                                                                                *
  **************************************************************************************************/
 
@@ -35,3 +35,62 @@
     -fx-text-fill: red;
 }
 
+/**************************************************************************************************
+ *                                                                                                *
+ * StatusBar                                                                                      *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.status-bar { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.impl.skin.StatusBarSkin";
+}
+
+.status-bar .separator{ 
+    -fx-padding: 5px 0px 5px 0px;
+}
+
+/**************************************************************************************************
+ *                                                                                                *
+ * ProgressMonitor                                                                                *
+ *                                                                                                *
+ **************************************************************************************************/
+
+.progress-monitor { 
+    -fx-skin: "org.drombler.commons.fx.scene.control.impl.skin.ProgressMonitorSkin";
+}
+
+.progress-monitor .cancel-button {
+    -fx-content-display: graphic-only;
+    -fx-padding: -0.166667em 0.083333em -0.166667em 0.083333em; /*  -2 1 -2 1 */ 
+}
+
+.progress-monitor .cancel-button .icon {
+    -size: 8;
+    -fx-min-height: -size;
+    -fx-min-width: -size;
+    -fx-max-height: -size;
+    -fx-max-width: -size;
+
+    -fx-stroke: black;
+}
+
+.progress-monitor .worker-pane-message-label { 
+    -fx-font-size: 0.916667em; /* 11pt - 1 less than the default font */
+    -fx-opacity: 0.4;
+}
+
+.progress-monitor .worker-popup {
+    -fx-border-color: -fx-box-border; 
+    -fx-border-width: 1px;
+    -fx-background-color: -fx-background;
+
+}
+
+.progress-monitor .worker-pane:main-worker .worker-pane-title-label { 
+    -fx-font-weight: bold;
+}
+
+.progress-monitor .worker-popup .worker-pane-message-label { 
+    -fx-font-size: 0.916667em; /* 11pt - 1 less than the default font */
+    -fx-opacity: 0.4;
+}

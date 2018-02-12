@@ -16,31 +16,31 @@ package org.drombler.commons.docking.fx.context;
 
 import java.util.ResourceBundle;
 import java.util.SortedSet;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.stage.Window;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.drombler.commons.docking.context.DockingAreaContainer;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.context.impl.SaveModifiedDockablesPane;
+import org.drombler.commons.fx.stage.OnExitRequestHandler;
 
 /**
- * A window on close request handler which handles modified Dockables on window close request.
+ * A {@link OnExitRequestHandler} which handles modified Dockables on exit request.
  *
- * @see Stage#setOnCloseRequest(javafx.event.EventHandler)
+ * @see Window#setOnCloseRequest(javafx.event.EventHandler)
+ * @see OnExitRequestHandler#createOnWindowCloseRequestEventHandler(org.drombler.commons.fx.stage.OnExitRequestHandler)
  * @author puce
  */
-public class WindowOnCloseRequestHandler implements EventHandler<WindowEvent> {
+public class DockingOnExitRequestHandler implements OnExitRequestHandler {
 
-    private final ResourceBundle resourceBundle = ResourceBundleUtils.getClassResourceBundle(WindowOnCloseRequestHandler.class);
+    private final ResourceBundle resourceBundle = ResourceBundleUtils.getClassResourceBundle(DockingOnExitRequestHandler.class);
     private final DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer;
 
-    public WindowOnCloseRequestHandler(DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer) {
+    public DockingOnExitRequestHandler(DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer) {
         this.dockingAreaContainer = dockingAreaContainer;
     }
 
@@ -48,10 +48,8 @@ public class WindowOnCloseRequestHandler implements EventHandler<WindowEvent> {
      * {@inheritDoc }
      */
     @Override
-    public void handle(WindowEvent event) {
-        if (!handleModifiedDockables()) {
-            event.consume();
-        }
+    public boolean handleExitRequest() {
+        return handleModifiedDockables();
     }
 
     public boolean handleModifiedDockables() {

@@ -14,11 +14,7 @@
  */
 package org.drombler.commons.fx.fxml;
 
-import org.drombler.commons.fx.fxml.TestBuilderFactory;
 import java.io.FileNotFoundException;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -26,9 +22,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.softsmithy.lib.util.ResourceFileNotFoundException;
 
 /**
  *

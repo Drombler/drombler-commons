@@ -5,11 +5,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import org.drombler.commons.context.Context;
-import org.drombler.commons.context.SimpleContext;
-import org.drombler.commons.context.SimpleContextContent;
+import org.drombler.commons.context.ContextManager;
+import org.drombler.commons.context.Contexts;
 import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.docking.DockableDataFactory;
 import org.drombler.commons.docking.DockableEntry;
@@ -39,19 +40,11 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
     private final DockingManager<D, DATA, E> dockingManager;
     private final DockingContextManager<D, DATA, E> dockingContextManager;
 
-    public AbstractDockingAreaContainer(DockableEntryFactory<D, DATA, E> dockableEntryFactory, DockableDataFactory<DATA> dockableDataFactory) {
-        this.dockingContextManager = new DockingContextManager<>(this);
+    public AbstractDockingAreaContainer(DockableEntryFactory<D, DATA, E> dockableEntryFactory, DockableDataFactory<DATA> dockableDataFactory, ContextManager contextManager) {
+        this.dockingContextManager = new DockingContextManager<>(this, contextManager);
         this.dockingManager = new DockingManager<>(dockableEntryFactory, dockableDataFactory, dockingContextManager.getContextInjector());
 
         addDockableSetChangeListener(this.dockableListener);
-    }
-
-    public Context getActiveContext() {
-        return dockingContextManager.getActiveContext();
-    }
-
-    public Context getApplicationContext() {
-        return dockingContextManager.getApplicationContext();
     }
 
     /**
@@ -60,17 +53,12 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
     @Override
     public boolean addDockable(E dockableEntry, boolean active, Context... implicitLocalContexts) {
         boolean added = getDockables().add(dockableEntry);
-        addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
+        dockingContextManager.addImplicitLocalContext(dockableEntry.getDockable(), implicitLocalContexts);
         if (active) {
             setActiveDockable(dockableEntry);
         }
         return added;
     }
-
-    public void addImplicitLocalContext(D dockable, Context... implicitLocalContexts) {
-        dockingContextManager.addImplicitLocalContext(dockable, implicitLocalContexts);
-    }
-
 
     // TODO: does this method belong to this class?
     public <T> T getContent(D dockable, Class<T> contentType) {
@@ -159,7 +147,7 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
         try {
             E editorEntry = dockingManager.createEditorEntry(content, editorType, icon, resourceLoader);
 
-            Context implicitLocalContext = createImplicitLocalContext(content);
+            Context implicitLocalContext = Contexts.createFixedContext(Arrays.asList(content));
 
             if (addDockable(editorEntry, true, implicitLocalContext)) {
                 return editorEntry;
@@ -177,12 +165,6 @@ public abstract class AbstractDockingAreaContainer<D, DATA extends DockableData,
         getDockables().removeIf(dockableEntry -> (dockableEntry.getKind() == DockableKind.EDITOR) && dockableEntry.getDockable().getClass().equals(editorType));
     }
 
-    private Context createImplicitLocalContext(Object content) {
-        SimpleContextContent contextContent = new SimpleContextContent();
-        Context implicitLocalContext = new SimpleContext(contextContent);
-        contextContent.add(content);
-        return implicitLocalContext;
-    }
 
     /**
      * {@inheritDoc }
