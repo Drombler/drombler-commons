@@ -33,3 +33,5 @@
 /drombler-commons-data/target/
 /drombler-commons-action/drombler-commons-action-context/target/
 /drombler-commons-action/drombler-commons-action-fx-context/target/
+/drombler-commons-settings/drombler-commons-settings-core/target/
+/drombler-commons-settings/drombler-commons-settings-fx/target/
