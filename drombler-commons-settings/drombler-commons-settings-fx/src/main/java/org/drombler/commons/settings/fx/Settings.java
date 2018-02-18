@@ -1,14 +1,13 @@
 package org.drombler.commons.settings.fx;
 
 import javafx.scene.Node;
-import org.drombler.commons.settings.SettingsCategory;
 
 /**
  *
  * @author puce
  */
 
-
+@Deprecated
 public class Settings<T> {
 
     private final SettingsCategory category;

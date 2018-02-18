@@ -10,7 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.drombler.commons.settings.SettingsCategory;
+import org.drombler.commons.settings.fx.impl.skin.DefaultSettingsCategoryPane;
 
 /**
  *
@@ -32,11 +32,20 @@ public class SettingsDialogTest extends Application {
                 event.consume();
             });
         }
-        SettingsCategory aCategory = new SettingsCategory(SettingsCategory.ROOT, "Aaa");
-        SettingsCategory bCategory = new SettingsCategory(aCategory, "Bbb");
-        Settings<FooSettings> foo = new Settings<>(bCategory, FooSettings.class, FooSettingsPane.class);
+        SettingsCategory rootCategory = new SettingsCategory();
+        SettingsCategory aCategory = new SettingsCategory();
+        aCategory.setId("a");
+        aCategory.setDisplayName("Aaa");
+        aCategory.setContentPaneType(DefaultSettingsCategoryPane.class);
+        rootCategory.getSubCategories().add(aCategory);
+        SettingsCategory bCategory = new SettingsCategory();
+        bCategory.setId("b");
+        bCategory.setDisplayName("Bbb");
+        bCategory.setContentPaneType(FooSettingsPane.class);
+        aCategory.getSubCategories().add(bCategory);
+//        Settings<FooSettings> foo = new Settings<>(bCategory, FooSettings.class, FooSettingsPane.class);
         
-        settingsPane.getSettings().add(foo);
+        settingsPane.setRootSettingsCategory(rootCategory);
         
         Button btn = new Button();
         btn.setText("Settings...'");
