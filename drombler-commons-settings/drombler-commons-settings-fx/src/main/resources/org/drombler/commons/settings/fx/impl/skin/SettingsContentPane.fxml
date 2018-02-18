@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+       <SplitPane dividerPositions="0.28595317725752506" BorderPane.alignment="CENTER">
+         <items>
+             <VBox>
+               <children>
+                   <TreeView fx:id="settingsTreeView" showRoot="false" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <BorderPane fx:id="settingsContentContainer" />
+         </items>
+      </SplitPane>
+   </center>
+</fx:root>
+

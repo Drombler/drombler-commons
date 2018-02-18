@@ -66,5 +66,11 @@ Contributor(s): .
         </plugins>
     </build>
     
+    <dependencies>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+    </dependencies>
    
 </project>
