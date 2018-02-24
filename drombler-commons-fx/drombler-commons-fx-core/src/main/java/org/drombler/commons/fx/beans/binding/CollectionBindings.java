@@ -117,16 +117,12 @@ public final class CollectionBindings {
                     if (change.wasPermutated()) {
                         removeElements(targetList, change);
                         addAll(targetList, change.getFrom(), change.getList().subList(change.getFrom(), change.getTo()));
-                    } else {
-                        if (change.wasRemoved()) {
-                            removeElements(targetList, change);
-                        } else {
-                            if (change.wasAdded()) {
-                                List<? extends S> addedSourceSubList = change.getAddedSubList();
-                                int index = change.getFrom();
-                                addAll(targetList, index, addedSourceSubList);
-                            }
-                        }
+                    } else if (change.wasRemoved()) {
+                        removeElements(targetList, change);
+                    } else if (change.wasAdded()) {
+                        List<? extends S> addedSourceSubList = change.getAddedSubList();
+                        int index = change.getFrom();
+                        addAll(targetList, index, addedSourceSubList);
                     }
                 }
             }
