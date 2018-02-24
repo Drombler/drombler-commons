@@ -67,4 +67,11 @@ public class SettingsCategory {
     public ObservableList<SettingsCategory> getSubCategories(){
         return subCategories;
     }
+
+    @Override
+    public String toString() {
+        return "SettingsCategory[" + "id=" + getId() + ", displayName=" + getDisplayName() + ']';
+    }
+    
+    
 }
