@@ -10,12 +10,12 @@ import javafx.scene.layout.GridPane;
  */
 
 
-public class FooSettingsPane extends GridPane{
+public class BarSettingsPane extends GridPane{
 
-    public FooSettingsPane() {
-        Label label = new Label("Foo: ");
+    public BarSettingsPane() {
+        Label label = new Label("Bar: ");
         TextField textField = new TextField();
-        textField.setPromptText("foo");
+        textField.setPromptText("bar");
         add(label, 0, 0);
         add(textField, 1, 0);
         setHgap(5.0);

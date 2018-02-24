@@ -35,20 +35,28 @@ public class SettingsDialogTest extends Application {
         SettingsCategory aCategory = new SettingsCategory();
         aCategory.setId("a");
         aCategory.setDisplayName("Aaa");
+        aCategory.setDisplayDescription("Something Aaa.");
         aCategory.setContentPaneType(DefaultSettingsCategoryPane.class);
-        SettingsCategory bCategory = new SettingsCategory();
-        bCategory.setId("b");
-        bCategory.setDisplayName("Bbb");
-        bCategory.setContentPaneType(FooSettingsPane.class);
-        aCategory.getSubCategories().add(bCategory);
+        SettingsCategory fooCategory = new SettingsCategory();
+        fooCategory.setId("foo");
+        fooCategory.setDisplayName("Foo");
+        fooCategory.setContentPaneType(FooSettingsPane.class);
+        aCategory.getSubCategories().add(fooCategory);
         SettingsCategory cCategory = new SettingsCategory();
         cCategory.setId("c");
         cCategory.setDisplayName("Ccc");
+        cCategory.setDisplayDescription("Something Ccc.");
         cCategory.setContentPaneType(DefaultSettingsCategoryPane.class);
 //        Settings<FooSettings> foo = new Settings<>(bCategory, FooSettings.class, FooSettingsPane.class);
-        
+
         settingsPane.getTopCategories().addAll(aCategory, cCategory);
-        
+
+        SettingsCategory barCategory = new SettingsCategory();
+        barCategory.setId("bar");
+        barCategory.setDisplayName("Bar");
+        barCategory.setContentPaneType(BarSettingsPane.class);
+        aCategory.getSubCategories().add(0, barCategory);
+
         Button btn = new Button();
         btn.setText("Settings...'");
         btn.setOnAction((ActionEvent event) -> {
