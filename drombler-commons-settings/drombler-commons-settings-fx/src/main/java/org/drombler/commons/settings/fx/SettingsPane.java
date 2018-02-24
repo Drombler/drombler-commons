@@ -3,6 +3,8 @@ package org.drombler.commons.settings.fx;
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import org.drombler.commons.settings.SettingsStorageManager;
@@ -18,6 +20,7 @@ public class SettingsPane extends Control {
 
     private static final String DEFAULT_STYLE_CLASS = "settings-pane";
     private ObjectProperty<SettingsCategory> rootSettingsCategory = new SimpleObjectProperty<>(this, "rootSettingsCategory");
+    private final ObservableList<SettingsCategory> topCategories = FXCollections.observableArrayList();
 
     private final ObjectProperty<SettingsStorageManager<?>> settingsStorageManager = new SimpleObjectProperty<>(this, "settingsStorageManager");
 
@@ -41,16 +44,8 @@ public class SettingsPane extends Control {
         return new SettingsPaneSkin(this);
     }
 
-    public final SettingsCategory getRootSettingsCategory() {
-        return rootSettingsCategoryProperty().get();
-    }
-
-    public final void setRootSettingsCategory(SettingsCategory rootSettingsCategory) {
-        rootSettingsCategoryProperty().set(rootSettingsCategory);
-    }
-
-    public ObjectProperty<SettingsCategory> rootSettingsCategoryProperty() {
-        return rootSettingsCategory;
+    public ObservableList<SettingsCategory> getTopCategories() {
+        return topCategories;
     }
 
     public final SettingsStorageManager<?> getSettingsStorageManager() {

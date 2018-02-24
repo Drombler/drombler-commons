@@ -32,20 +32,22 @@ public class SettingsDialogTest extends Application {
                 event.consume();
             });
         }
-        SettingsCategory rootCategory = new SettingsCategory();
         SettingsCategory aCategory = new SettingsCategory();
         aCategory.setId("a");
         aCategory.setDisplayName("Aaa");
         aCategory.setContentPaneType(DefaultSettingsCategoryPane.class);
-        rootCategory.getSubCategories().add(aCategory);
         SettingsCategory bCategory = new SettingsCategory();
         bCategory.setId("b");
         bCategory.setDisplayName("Bbb");
         bCategory.setContentPaneType(FooSettingsPane.class);
         aCategory.getSubCategories().add(bCategory);
+        SettingsCategory cCategory = new SettingsCategory();
+        cCategory.setId("c");
+        cCategory.setDisplayName("Ccc");
+        cCategory.setContentPaneType(DefaultSettingsCategoryPane.class);
 //        Settings<FooSettings> foo = new Settings<>(bCategory, FooSettings.class, FooSettingsPane.class);
         
-        settingsPane.setRootSettingsCategory(rootCategory);
+        settingsPane.getTopCategories().addAll(aCategory, cCategory);
         
         Button btn = new Button();
         btn.setText("Settings...'");
