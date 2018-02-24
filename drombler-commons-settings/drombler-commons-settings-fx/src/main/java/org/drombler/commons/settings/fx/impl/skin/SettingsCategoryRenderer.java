@@ -1,8 +1,9 @@
-package org.drombler.commons.settings.fx;
+package org.drombler.commons.settings.fx.impl.skin;
 
 import javafx.scene.control.Tooltip;
 import org.apache.commons.lang3.StringUtils;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
+import org.drombler.commons.settings.fx.SettingsCategory;
 
 /**
  *

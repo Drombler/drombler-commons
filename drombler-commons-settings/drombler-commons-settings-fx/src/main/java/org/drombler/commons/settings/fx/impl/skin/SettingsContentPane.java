@@ -7,7 +7,6 @@ import javafx.scene.layout.BorderPane;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 import org.drombler.commons.fx.scene.control.RenderedTreeCellFactory;
 import org.drombler.commons.settings.fx.SettingsCategory;
-import org.drombler.commons.settings.fx.SettingsCategoryRenderer;
 
 /**
  *
