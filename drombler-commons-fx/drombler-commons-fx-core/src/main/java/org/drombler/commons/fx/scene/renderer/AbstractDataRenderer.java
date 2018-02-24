@@ -14,7 +14,7 @@
  */
 package org.drombler.commons.fx.scene.renderer;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
@@ -70,7 +70,7 @@ public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
      */
     @Override
     public List<String> getStyleClass(T item) {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     /**
@@ -80,6 +80,6 @@ public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
      */
     @Override
     public List<String> getStyleClass() {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }
