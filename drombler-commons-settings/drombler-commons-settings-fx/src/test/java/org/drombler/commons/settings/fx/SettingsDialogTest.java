@@ -62,7 +62,7 @@ public class SettingsDialogTest extends Application {
         btn.setOnAction((ActionEvent event) -> {
             Optional<FooSettings> fooSettingsOptional = dialog.showAndWait();
             if (fooSettingsOptional.isPresent()) {
-                FooSettings fooSettings = fooSettingsOptional.get();
+//                FooSettings fooSettings = fooSettingsOptional.get();
             }
         });
 
