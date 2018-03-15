@@ -2,6 +2,8 @@ package org.drombler.commons.settings.fx.impl.skin;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
@@ -39,20 +41,41 @@ public class SettingsContentPane extends BorderPane {
             } else {
                 SettingsCategory settingsCategory = newValue.getValue();
                 if (!contentPanes.containsKey(settingsCategory)) {
-                    registerContentPane(settingsCategory);
+                    registerContentPane(newValue);
                 }
                 settingsContentContainer.setCenter(contentPanes.get(settingsCategory));
             }
         });
     }
 
-    private void registerContentPane(SettingsCategory settingsCategory) {
+    private void registerContentPane(TreeItem<SettingsCategory> settingsCategoryTreeItem) {
         try {
-            Node contentPane = settingsCategory.getContentPaneType().newInstance();
-            contentPanes.put(settingsCategory, contentPane);
+            Node contentPane = createContentPane(settingsCategoryTreeItem);
+            contentPanes.put(settingsCategoryTreeItem.getValue(), contentPane);
         } catch (InstantiationException | IllegalAccessException ex) {
             LOG.error(ex.getMessage(), ex);
         }
+    }
+
+    private Node createContentPane(TreeItem<SettingsCategory> settingsCategoryTreeItem) throws IllegalAccessException, InstantiationException {
+        SettingsCategory settingsCategory = settingsCategoryTreeItem.getValue();
+        if (settingsCategory.getContentPaneType() == null) {
+            return createDefaultSettingsCategoryPane(settingsCategoryTreeItem);
+        } else {
+            return settingsCategory.getContentPaneType().newInstance();
+        }
+    }
+
+    private Node createDefaultSettingsCategoryPane(TreeItem<SettingsCategory> settingsCategoryTreeItem) {
+        DefaultSettingsCategoryPane defaultSettingsCategoryPane = new DefaultSettingsCategoryPane();
+        defaultSettingsCategoryPane.setSettingsCategoryTreeItem(settingsCategoryTreeItem);
+        ObjectBinding<TreeItem<SettingsCategory>> settingsCategoryTreeItemBinding = Bindings.select(defaultSettingsCategoryPane.selectionModelProperty(), "selectedItem");
+        settingsCategoryTreeItemBinding.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                settingsTreeView.getSelectionModel().select(newValue);
+            }
+        });
+        return defaultSettingsCategoryPane;
     }
 
     public TreeItem<SettingsCategory> getRootSettingsCategoryItem() {
