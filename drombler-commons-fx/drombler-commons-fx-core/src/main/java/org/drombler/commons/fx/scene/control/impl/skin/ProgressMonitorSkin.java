@@ -71,7 +71,7 @@ public class ProgressMonitorSkin extends SkinBase<ProgressMonitor> {
             }
         });
         workersEmptyBinding.addListener((observable, oldValue, newValue) -> {
-            if (workersPopup.isShowing()) {
+            if (newValue && workersPopup.isShowing()) {
                 workersPopup.hide();
             }
         });
