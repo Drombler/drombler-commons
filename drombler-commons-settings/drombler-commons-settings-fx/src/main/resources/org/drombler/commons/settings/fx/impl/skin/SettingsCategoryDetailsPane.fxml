@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.161">
+  <columnConstraints>
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="NEVER" />
+    <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="titleLabel" styleClass="settingsCategoryTitleLabel" />
+      <Label fx:id="descriptionLabel" GridPane.rowIndex="1" />
+      <BorderPane fx:id="contentPaneContainer" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+   </children>
+</fx:root>
+

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import org.drombler.commons.settings.fx.impl.skin.*?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -13,7 +14,7 @@
                    <TreeView fx:id="settingsTreeView" showRoot="false" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <BorderPane fx:id="settingsContentContainer" />
+            <SettingsCategoryDetailsPane fx:id="detailsPane" />
          </items>
       </SplitPane>
    </center>

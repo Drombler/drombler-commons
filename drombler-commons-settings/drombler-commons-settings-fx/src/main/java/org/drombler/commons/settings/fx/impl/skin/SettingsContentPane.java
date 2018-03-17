@@ -1,3 +1,17 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2018 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.commons.settings.fx.impl.skin;
 
 import java.util.IdentityHashMap;
@@ -29,7 +43,7 @@ public class SettingsContentPane extends BorderPane {
     private TreeView<SettingsCategory> settingsTreeView;
 
     @FXML
-    private BorderPane settingsContentContainer;
+    private SettingsCategoryDetailsPane detailsPane;
 
     public SettingsContentPane() {
         FXMLLoaders.loadRoot(this);
@@ -37,13 +51,17 @@ public class SettingsContentPane extends BorderPane {
         settingsTreeView.setCellFactory(new RenderedTreeCellFactory<>(new SettingsCategoryRenderer()));
         settingsTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                settingsContentContainer.setCenter(null);
+                detailsPane.setTitle(null);
+                detailsPane.setDescription(null);
+                detailsPane.setContentPane(null);
             } else {
                 SettingsCategory settingsCategory = newValue.getValue();
                 if (!contentPanes.containsKey(settingsCategory)) {
                     registerContentPane(newValue);
                 }
-                settingsContentContainer.setCenter(contentPanes.get(settingsCategory));
+                detailsPane.setTitle(settingsCategory.getDisplayName());
+                detailsPane.setDescription(settingsCategory.getDisplayDescription());
+                detailsPane.setContentPane(contentPanes.get(settingsCategory));
             }
         });
     }
