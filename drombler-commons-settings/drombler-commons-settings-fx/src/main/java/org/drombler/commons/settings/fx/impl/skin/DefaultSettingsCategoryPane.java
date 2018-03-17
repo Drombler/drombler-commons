@@ -1,3 +1,17 @@
+/*
+ *         COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+ *
+ * The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. A copy of the License is available at
+ * http://www.opensource.org/licenses/cddl1.txt
+ *
+ * The Original Code is Drombler.org. The Initial Developer of the
+ * Original Code is Florian Brunner (GitHub user: puce77).
+ * Copyright 2018 Drombler.org. All Rights Reserved.
+ *
+ * Contributor(s): .
+ */
 package org.drombler.commons.settings.fx.impl.skin;
 
 import javafx.beans.property.ObjectProperty;
@@ -9,7 +23,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.drombler.commons.fx.beans.binding.CollectionBindings;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
+import org.drombler.commons.fx.scene.control.DataHyperlink;
 import org.drombler.commons.fx.scene.control.ListSingleSelectionModel;
+import org.drombler.commons.fx.scene.renderer.TreeItemDataRenderer;
 import org.drombler.commons.settings.fx.SettingsCategory;
 
 /**
@@ -37,9 +53,8 @@ public class DefaultSettingsCategoryPane extends BorderPane {
         });
     }
 
-    private SettingsCategoryTreeItemLink createLink(TreeItem<SettingsCategory> settingsCategoryTreeItem) {
-        SettingsCategoryTreeItemLink link = new SettingsCategoryTreeItemLink();
-        link.setSettingsCategoryTreeItem(settingsCategoryTreeItem);
+    private DataHyperlink<TreeItem<SettingsCategory>> createLink(TreeItem<SettingsCategory> settingsCategoryTreeItem) {
+        DataHyperlink<TreeItem<SettingsCategory>> link = new DataHyperlink<>(new TreeItemDataRenderer<>(new SettingsCategoryRenderer()), settingsCategoryTreeItem);
         link.setOnAction(event -> getSelectionModel().select(settingsCategoryTreeItem));
         return link;
     }
