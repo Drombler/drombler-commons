@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+
+The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+Version 1.0 (the "License"); you may not use this file except in
+compliance with the License. A copy of the License is available at
+http://www.opensource.org/licenses/cddl1.txt
+
+The Original Code is Drombler.org. The Initial Developer of the
+Original Code is Florian Brunner (Sourceforge.net user: puce).
+Copyright 2012 Drombler.org. All Rights Reserved.
+
+Contributor(s): .
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.drombler.org/schema/commons/settings" 
+        xmlns:tns="http://www.drombler.org/schema/commons/settings" elementFormDefault="qualified" 
+        version="${project.version}">
+
+    <element name="settings2">
+        <complexType>
+            <complexContent>
+                <extension base="tns:NodeType" />
+            </complexContent>
+        </complexType>
+    </element>
+
+    <complexType name="NodeType">
+        <sequence>
+            <element name="children" type="tns:NodeType" minOccurs="0" maxOccurs="unbounded"/>
+            <!--<choice maxOccurs="unbounded">-->
+            <element name="entries" type="tns:AbstractEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <!--            <element name="intEntries" type="tns:IntEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="longEntries" type="tns:LongEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="doubleEntries" type="tns:DoubleEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="floatEntries" type="tns:FloatEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="booleanEntries" type="tns:BooleanEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="byteArrayEntries" type="tns:ByteArrayEntryType" minOccurs="0" maxOccurs="unbounded"/>-->
+            <!--        </choice>-->
+        </sequence>
+        <attribute name="name" type="string" use="required"/>
+    </complexType>
+
+    <complexType name="StringEntryType">
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="string" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="IntEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="int" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="LongEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="long" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="DoubleEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="double" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="FloatEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="float" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="BooleanEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="boolean" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="ByteArrayEntryType">        
+        <complexContent>
+            <extension base="tns:AbstractEntryType">
+                <attribute name="value" type="base64Binary" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="AbstractEntryType">
+        <attribute name="key" type="string" use="required"/>
+    </complexType>
+</schema>
