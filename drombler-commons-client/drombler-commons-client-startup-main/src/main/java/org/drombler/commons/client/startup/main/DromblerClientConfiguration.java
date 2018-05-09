@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.client.startup.main;
 
+import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,8 +91,13 @@ public class DromblerClientConfiguration {
     public DromblerClientConfiguration(CommandLineArgs commandLineArgs) throws URISyntaxException, IOException,
             MissingPropertyException {
         this.commandLineArgs = commandLineArgs;
-        Path mainJarPath = determineMainJarPath();
-        this.installDirPath = determineInstallDirPath(mainJarPath);
+        if (commandLineArgs.getInstallDirSwitch().getInstallDir() != null) {
+            this.installDirPath = Paths.get(commandLineArgs.getInstallDirSwitch().getInstallDir());
+        } else {
+            Path mainJarPath = determineMainJarPath();
+            this.installDirPath = determineInstallDirPath(mainJarPath);
+        }
+        System.out.println("Installation dir: " + installDirPath);
         this.installConfigDirPath = installDirPath.resolve(CONFIG_DIRECTORY_NAME);
 
         loadSystemProperties(getInstallDirPath());
@@ -188,8 +194,8 @@ public class DromblerClientConfiguration {
     }
 
     private void overrideInstallConfigProps(Properties installConfigProps, CommandLineArgs commandLineArgs) {
-        if (commandLineArgs.getUserDir() != null) {
-            installConfigProps.setProperty(USER_DIR_PROPERTY, commandLineArgs.getUserDir());
+        if (commandLineArgs.getUserDirSwitch().getUserDir() != null) {
+            installConfigProps.setProperty(USER_DIR_PROPERTY, commandLineArgs.getUserDirSwitch().getUserDir());
         }
     }
 
@@ -202,17 +208,15 @@ public class DromblerClientConfiguration {
         return Paths.get(userDirName);
     }
 
-
-
     protected void copySystemProperties(Properties configProps) {
         // does currently nothing by default
     }
 
-    
     protected void resolveProperties(Properties systemProps) {
         // does currently nothing by default
         // TODO: is property substitution generally required or only for Drombler FX applications?
     }
+
     /**
      * @return the installDirPath
      */
@@ -255,6 +259,5 @@ public class DromblerClientConfiguration {
     public ApplicationConfiguration getApplicationConfig() {
         return applicationConfig;
     }
-
 
 }

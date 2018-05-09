@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
+import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 import org.drombler.commons.client.startup.main.impl.singleinstance.SingleInstanceStarter;
 
 public abstract class DromblerClientStarter<T extends DromblerClientConfiguration> {
