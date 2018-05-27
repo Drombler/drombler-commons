@@ -56,11 +56,11 @@ public class Nodes {
     }
 
     /**
-     * Checks if the provided {@link Parent] is either a direct or indirect parent of the provided {@link Node}.
+     * Checks if the provided {@link Parent} is either a direct or indirect parent of the provided {@link Node}.
      *
      * @param parent the parent
      * @param node the node
-     * @return true if the provided {@link Parent] is either a direct or indirect parent of the provided {@link Node}, else false
+     * @return true if the provided {@link Parent} is either a direct or indirect parent of the provided {@link Node}, else false
      */
     public static boolean isParent(Parent parent, Node node) {
         boolean found = false;

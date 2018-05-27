@@ -21,6 +21,7 @@ import javafx.beans.property.Property;
  * value.
  *
  * @author puce
+ * @param <T> the property type
  */
 public interface LimitedProperty<T> extends Property<T> {
 
@@ -28,6 +29,7 @@ public interface LimitedProperty<T> extends Property<T> {
      * The minimum value.
      * 
      * TODO: should this be a LimitedProperty?
+     * @return the property for the minimum value
      */
     Property<T> minProperty();
 
@@ -39,6 +41,7 @@ public interface LimitedProperty<T> extends Property<T> {
      * The maximum value.
      * 
      * TODO: should this be a LimitedProperty?
+     * @return the property for the maximum value
      */
     Property<T> maxProperty();
 

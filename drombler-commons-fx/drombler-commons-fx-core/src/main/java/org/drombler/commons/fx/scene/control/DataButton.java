@@ -24,7 +24,7 @@ import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
  * A {@link Button} which can hold some data and knows how to render it.
  *
  * @author puce
- * @param <T>
+ * @param <T> the data type
  */
 public class DataButton<T> extends Button {
 
