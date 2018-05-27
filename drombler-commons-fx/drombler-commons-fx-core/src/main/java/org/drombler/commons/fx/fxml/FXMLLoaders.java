@@ -83,7 +83,7 @@ public final class FXMLLoaders {
      * </ul>
      * TODO: needed?
      *
-     * @param loader
+     * @param loader a {@link FXMLLoader}
      * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object)
      * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object, java.util.ResourceBundle)
      * @see #load(javafx.fxml.FXMLLoader, java.lang.Class, java.util.ResourceBundle)
