@@ -34,7 +34,7 @@ import javafx.event.EventType;
  * </pre>
  *
  * @author puce
- * @param <E>
+ * @param <E> the event type
  */
 public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyBase<EventHandler<E>> {
 
