@@ -1,0 +1,34 @@
+-classpath
+'/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-fx/drombler-commons-fx-core/target/classes:/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-fx/target/classes:/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-client/drombler-commons-client-core/target/classes:/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-context/target/classes:/home/puce/.m2/repository/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar:/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-core/target/classes:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-beans/0.9/softsmithy-lib-beans-0.9.jar:/home/puce/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.9/softsmithy-lib-core-0.9.jar:/home/puce/.m2/repository/org/slf4j/slf4j-api/1.7.22/slf4j-api-1.7.22.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-fx-context/src/main/java:/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-fx-context/target/generated-sources/annotations'
+-javafx
+-Xdoclint:accessibility
+-Xdoclint:html
+-Xdoclint:missing
+-Xdoclint:reference
+-author
+-bottom
+'Copyright &#169; 2018 <a href="http://www.drombler.com">Drombler</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-fx-context/target/site/apidocs'
+-docencoding
+'UTF-8'
+-docfilessubdirs
+-doctitle
+'Drombler Commons - Action - FX - Context 0.12 API'
+-link
+'https://docs.oracle.com/javaee/7/api'
+-link
+'https://docs.oracle.com/javase/8/javafx/api'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/fastdata/Programming/Java/drombler/drombler-commons/releases/0.12/drombler-commons/drombler-commons-action/drombler-commons-action-fx-context/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Drombler Commons - Action - FX - Context 0.12 API'
