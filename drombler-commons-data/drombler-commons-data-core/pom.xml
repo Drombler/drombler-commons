@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.drombler.commons</groupId>
+        <artifactId>drombler-commons-parent</artifactId>
+        <version>0.11-SNAPSHOT</version>
+        <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>drombler-commons-data-core</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>Drombler Commons - Data - Core</name>
+    <description>Drombler Commons - Data Framework Core.</description>
+    <inceptionYear>2016</inceptionYear>
+    <!-- required for Javadoc (apidocs) linking -->
+    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <url>${distributionManagement.parent.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <scm.connection>${scm.parent.connection}</scm.connection>
+        <scm.developerConnection>${scm.parent.developerConnection}</scm.developerConnection>
+        <scm.url>${scm.parent.url}</scm.url>
+    </properties>
+    
+    <!-- Not inherited!?? -->
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>         
+        </plugins>
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-beans</artifactId>
+        </dependency>
+    </dependencies>
+</project>
