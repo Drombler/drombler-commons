@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.11-SNAPSHOT</version>
+        <version>0.13-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-action</artifactId>
@@ -104,6 +104,11 @@ Contributor(s): .
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-action-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-action-fx-context</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

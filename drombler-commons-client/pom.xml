@@ -17,7 +17,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-client-parent</artifactId>
-        <version>0.11-SNAPSHOT</version>
+        <version>0.13-SNAPSHOT</version>
         <relativePath>drombler-commons-client-parent/pom.xml</relativePath>
     </parent>
     
@@ -68,6 +68,7 @@ Contributor(s): .
     <modules>
         <module>drombler-commons-client-parent</module>
         <module>drombler-commons-client-core</module>
+        <module>drombler-commons-client-startup-main</module>
     </modules>
     
     <dependencyManagement>
@@ -75,6 +76,11 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-client-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-client-startup-main</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

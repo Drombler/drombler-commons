@@ -105,6 +105,10 @@ public class ActionSampleApplication extends Application {
         fileMenu.getItems().add(contextSensitiveMenu);
         addMenuItems(contextSensitiveMenu, contextSensitiveFXActions);
         addToolBarButtons(toolBar, contextSensitiveFXActions);
+        
+        List<FXToggleAction> contextSensitiveFXToggleActions = createContextSensitiveFXToggleActions(resourceLoader, contextInjector);
+        addCheckMenuItems(contextSensitiveMenu, contextSensitiveFXToggleActions);
+        addUngroupedToggleToolBarButtons(toolBar, contextSensitiveFXToggleActions);
 
         addSeparator(fileMenu);
 
@@ -245,6 +249,18 @@ public class ActionSampleApplication extends Application {
         test9ActionListenerAdapter.setGraphicFactory(new IconFactory("nine.png", resourceLoader, false));
 
         return Arrays.asList(test8ActionListenerAdapter, test9ActionListenerAdapter);
+    }
+
+    private List<FXToggleAction> createContextSensitiveFXToggleActions(ResourceLoader resourceLoader,
+            ContextInjector contextInjector) {
+
+        final TestActiveContextSensitiveToggleAction test10Action = new TestActiveContextSensitiveToggleAction();
+        contextInjector.inject(test10Action);
+        test10Action.setDisplayName("Test 1_0");
+        test10Action.setAccelerator(KeyCombination.keyCombination("Shortcut+0"));
+        test10Action.setGraphicFactory(new IconFactory("ten.png", resourceLoader, false));
+
+        return Arrays.asList(test10Action);
     }
 
     private FXAction createExitAction() {
