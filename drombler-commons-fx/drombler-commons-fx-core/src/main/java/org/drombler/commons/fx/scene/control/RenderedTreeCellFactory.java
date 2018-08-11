@@ -9,6 +9,7 @@ import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 import org.apache.commons.lang3.ClassUtils;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
+import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 
 /**
  * A tree cell factory using a {@link DataRenderer}.
@@ -38,6 +39,7 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
     private static class RenderedTreeCell<T> extends TreeCell<T> {
 
         private final Map<Class<?>, DataRenderer<?>> dataRenderers;
+        private final DataRenderer<Object> defaultDataRenderer = new ObjectRenderer();
 
         public RenderedTreeCell(Map<Class<?>, DataRenderer<?>> dataRenderers) {
             this.dataRenderers = dataRenderers;
@@ -45,16 +47,14 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
 
         @Override
         protected void updateItem(T item, boolean empty) {
-            DataRenderer<? super T> oldItemdataRenderer = getItem() != null ? getDataRenderer(getItem().getClass()) : null;
-            if ((empty || item == null) && oldItemdataRenderer != null) {
+            if (getItem() != null && (empty || item == null)) {
+                DataRenderer<? super T> oldItemdataRenderer = getDataRenderer(getItem().getClass());
                 LabeledUtils.unconfigure(this, oldItemdataRenderer);
             }
             super.updateItem(item, empty);
             if (item != null && !empty) {
                 DataRenderer<? super T> dataRenderer = getDataRenderer(item.getClass());
-                if (dataRenderer != null) {
-                    LabeledUtils.configure(this, dataRenderer, item);
-                }
+                LabeledUtils.configure(this, dataRenderer, item);
             }
 //        setText(cellRenderer.getText(item));
 //        setGraphic(cellRenderer.getGraphic(item));
@@ -81,7 +81,7 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
                     }
                 }
             }
-            return (DataRenderer<? super T>) dataRenderer;
+            return dataRenderer != null ? (DataRenderer<? super T>) dataRenderer : defaultDataRenderer;
         }
     }
 
