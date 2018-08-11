@@ -1,8 +1,13 @@
 package org.drombler.commons.fx.scene.control;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
+import org.apache.commons.lang3.ClassUtils;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
@@ -12,15 +17,14 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
  */
 public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCell<T>> {
 
-    private final DataRenderer<? super T> dataRenderer;
+    private final Map<Class<?>, DataRenderer<?>> dataRenderers = new HashMap<>();
 
-    /**
-     * Creates a new instance of this class.
-     *
-     * @param dataRenderer a {@link DataRenderer}
-     */
-    public RenderedTreeCellFactory(DataRenderer<? super T> dataRenderer) {
-        this.dataRenderer = dataRenderer;
+    public <E extends T> DataRenderer<? super E> registerDataRenderer(Class<E> type, DataRenderer<? super E> dataRenderer) {
+        return (DataRenderer<? super E>) dataRenderers.put(type, dataRenderer);
+    }
+
+    public <E extends T> DataRenderer<? super E> unregisterDataRenderer(Class<E> type) {
+        return (DataRenderer<? super E>) dataRenderers.remove(type);
     }
 
     /**
@@ -28,32 +32,57 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
      */
     @Override
     public TreeCell<T> call(TreeView<T> param) {
-        return new RenderedTreeCell<>(dataRenderer); // TODO: create a new one or cache it?
+        return new RenderedTreeCell<>(dataRenderers); // TODO: create a new one or cache it?
     }
 
     private static class RenderedTreeCell<T> extends TreeCell<T> {
 
-        private final DataRenderer<? super T> dataRenderer;
+        private final Map<Class<?>, DataRenderer<?>> dataRenderers;
 
-        public RenderedTreeCell(DataRenderer<? super T> dataRenderer) {
-            this.dataRenderer = dataRenderer;
+        public RenderedTreeCell(Map<Class<?>, DataRenderer<?>> dataRenderers) {
+            this.dataRenderers = dataRenderers;
         }
 
         @Override
         protected void updateItem(T item, boolean empty) {
+            DataRenderer<? super T> oldItemdataRenderer = getItem() != null ? getDataRenderer(getItem().getClass()) : null;
+            if ((empty || item == null) && oldItemdataRenderer != null) {
+                LabeledUtils.unconfigure(this, oldItemdataRenderer);
+            }
             super.updateItem(item, empty);
-            if (empty || item == null) {
-                LabeledUtils.unconfigure(this, dataRenderer);
-            } else {
-                LabeledUtils.configure(this, dataRenderer, item);
+            if (item != null && !empty) {
+                DataRenderer<? super T> dataRenderer = getDataRenderer(item.getClass());
+                if (dataRenderer != null) {
+                    LabeledUtils.configure(this, dataRenderer, item);
+                }
+            }
 //        setText(cellRenderer.getText(item));
 //        setGraphic(cellRenderer.getGraphic(item));
-                //setGraphic(new Text("@"));
-                //setTextAlignment(cellRenderer.getTextAlignment());
-                //setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
-                //setAlignment(Pos.CENTER_RIGHT);
+            //setGraphic(new Text("@"));
+            //setTextAlignment(cellRenderer.getTextAlignment());
+            //setStyle("-fx-background-color: blue, red; -fx-background-insets: 2, 5;");
+            //setAlignment(Pos.CENTER_RIGHT);
 //        getStyleClass().addAll(cellRenderer.getStyleClass(item));
+        }
+
+        private DataRenderer<? super T> getDataRenderer(Class<?> type) {
+            DataRenderer<?> dataRenderer = null;
+            for (Class<?> t = type; dataRenderer == null && t != null; t = t.getSuperclass()) {
+                if (dataRenderers.containsKey(t)) {
+                    dataRenderer = dataRenderers.get(t);
+                }
             }
+            if (dataRenderer == null) {
+                List<Class<?>> interfaces = ClassUtils.getAllInterfaces(type);
+                for (Class<?> t : interfaces) {
+                    if (dataRenderers.containsKey(t)) {
+                        dataRenderer = dataRenderers.get(t);
+                        break;
+                    }
+                }
+            }
+            return (DataRenderer<? super T>) dataRenderer;
         }
     }
+
 }
