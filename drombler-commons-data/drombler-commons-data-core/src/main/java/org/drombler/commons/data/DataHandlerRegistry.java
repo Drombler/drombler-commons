@@ -19,9 +19,14 @@ public class DataHandlerRegistry implements AutoCloseable {
 
     private final Map<Object, DataHandler<?>> dataHandlers = new HashMap<>();
 
-    public void registerDataHandler(DataHandler<?> dataHandler) {
+    public <T> DataHandler<T> registerDataHandler(DataHandler<T> dataHandler) {
         if (dataHandler.getUniqueKey() != null) {
-            dataHandlers.put(dataHandler.getUniqueKey(), dataHandler);
+            if (! dataHandlers.containsKey(dataHandler.getUniqueKey())) {
+                dataHandlers.put(dataHandler.getUniqueKey(), dataHandler);
+                return dataHandler;
+            } else {
+                return (DataHandler<T>) dataHandlers.get(dataHandler.getUniqueKey());
+            }
         } else {
             final PropertyChangeListener uniqueKeyListener = new PropertyChangeListener() {
                 @Override
@@ -35,6 +40,7 @@ public class DataHandlerRegistry implements AutoCloseable {
                 }
             };
             dataHandler.addPropertyChangeListener(DataHandler.UNIQUE_KEY_PROPERTY_NAME, uniqueKeyListener);
+            return dataHandler;
         }
     }
 
