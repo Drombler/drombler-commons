@@ -17,8 +17,6 @@ package org.drombler.commons.fx.scene.control;
 import java.text.ParseException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
@@ -80,27 +78,21 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     public FormattedTextField(DataRenderer<? super T> dataRenderer, Parser<? extends T> parser) {
         setDataRenderer(dataRenderer);
         setParser(parser);
-        value.addListener(new ChangeListener<T>() {
-            @Override
-            public void changed(ObservableValue<? extends T> ov, T oldValue, T newValue) {
-                adjusting = true;
-                if (getDataRenderer() != null) {
-                    setText(getDataRenderer().getText(newValue));
-                } else {
-                    setText(newValue != null ? newValue.toString() : "");
-                }
-                adjusting = false;
+        value.addListener((ov, oldValue, newValue) -> {
+            adjusting = true;
+            if (getDataRenderer() != null) {
+                setText(getDataRenderer().getText(newValue));
+            } else {
+                setText(newValue != null ? newValue.toString() : "");
             }
+            adjusting = false;
         });
-        textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
-                if (!adjusting && getParser() != null) {
-                    try {
-                        setValue(getParser().parse(newValue));
-                    } catch (ParseException ex) {
-                        LOG.error(ex.getMessage(), ex);
-                    }
+        textProperty().addListener((ov, oldValue, newValue) -> {
+            if (!adjusting && getParser() != null) {
+                try {
+                    setValue(getParser().parse(newValue));
+                } catch (ParseException ex) {
+                    LOG.error(ex.getMessage(), ex);
                 }
             }
         });
