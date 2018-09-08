@@ -10,10 +10,7 @@ import javafx.beans.WeakListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author puce
- */
+
 public final class CollectionBindings {
 
     private CollectionBindings() {

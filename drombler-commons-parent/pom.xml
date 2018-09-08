@@ -19,12 +19,12 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.7</version>
+        <version>3.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-parent</artifactId>
-    <version>0.12-SNAPSHOT</version>
+    <version>0.13-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
