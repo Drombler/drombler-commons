@@ -74,6 +74,7 @@ Contributor(s): .
             <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.7.1-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>jar</id>
@@ -82,6 +83,7 @@ Contributor(s): .
                         </goals>
                         <configuration>
                             <mainClass>org.drombler.commons.fx.samples.context.ContextSampleApplication</mainClass>
+                            <updateExistingJar>true</updateExistingJar>
                         </configuration>
                     </execution>
                 </executions>

@@ -23,17 +23,12 @@ import org.drombler.commons.fx.concurrent.WorkerUtils;
 import org.drombler.commons.fx.scene.control.ProgressMonitor;
 import org.drombler.commons.fx.scene.control.StatusBar;
 
-/**
- *
- * @author puce
- */
 public class ProgressMonitorSampleApplication extends Application {
 
     private final List<Worker<?>> workers = new ArrayList<>();
     private final ExecutorService executorService = Executors.newCachedThreadPool(runnable -> {
         Thread thread = new Thread(runnable);
         thread.setDaemon(true);
-//        thread.setName
         return thread;
     });
     private long counter = 1;
@@ -56,7 +51,6 @@ public class ProgressMonitorSampleApplication extends Application {
         root.add(statusBar, 0, 1);
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setHgrow(Priority.ALWAYS);
-//        columnConstraints.setFillWidth(false);
         columnConstraints.setHalignment(HPos.CENTER);
         root.getColumnConstraints().add(columnConstraints);
 
@@ -87,12 +81,9 @@ public class ProgressMonitorSampleApplication extends Application {
         });
         workers.add(testWorker);
         executorService.execute(testWorker);
-        progressMonitor.getWorkers().addAll(testWorker);
+        progressMonitor.getWorkers().add(testWorker);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         configureLogging();
         launch(args);
@@ -135,5 +126,4 @@ public class ProgressMonitorSampleApplication extends Application {
         }
 
     }
-
 }
