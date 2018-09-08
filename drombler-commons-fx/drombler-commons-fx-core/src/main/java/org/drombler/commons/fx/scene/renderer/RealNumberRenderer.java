@@ -17,21 +17,22 @@ package org.drombler.commons.fx.scene.renderer;
 import java.text.NumberFormat;
 
 /**
- * A {@link DataRenderer} for whole numbers. This renderer provides no graphical
+ * A {@link DataRenderer} for real numbers. This renderer provides no graphical
  * representations by default.
  *
  * @param <T> the number type of the data to render
  * @author puce
  */
-public class WholeNumberRenderer<T extends Number & Comparable<T>> extends AbstractNumberRenderer<T> {
+public class RealNumberRenderer<T extends Number & Comparable<T>> extends AbstractNumberRenderer<T> {
+
 
     /**
      * Creates a new instance of this class.
      *
      * @param zero the zero representation of the used number type
      */
-    public WholeNumberRenderer(T zero) {
-        this(NumberFormat.getIntegerInstance(), zero);
+    public RealNumberRenderer(T zero) {
+        this(NumberFormat.getInstance(), zero);
     }
 
     /**
@@ -40,7 +41,7 @@ public class WholeNumberRenderer<T extends Number & Comparable<T>> extends Abstr
      * @param numberFormat A {@link NumberFormat} used to format the numbers
      * @param zero the zero representation of the used number type
      */
-    public WholeNumberRenderer(NumberFormat numberFormat, T zero) {
+    public RealNumberRenderer(NumberFormat numberFormat, T zero) {
         super(numberFormat, zero);
     }
 

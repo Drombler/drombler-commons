@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.drombler.commons.fx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="GridPane" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+       <ColumnConstraints />
+       <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+       <RowConstraints />
+       <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+   </rowConstraints>
+   <children>
+      <Label text="Byte:" />
+      <ByteField GridPane.columnIndex="1" />
+      <Label text="Short:" GridPane.rowIndex="1" />
+      <ShortField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Integer:" GridPane.rowIndex="2" />
+      <IntegerField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   </children>
+</fx:root>
+

@@ -12,36 +12,33 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene.renderer;
+package org.drombler.commons.fx.scene.control;
 
 import java.text.NumberFormat;
+import org.drombler.commons.fx.scene.renderer.RealNumberRenderer;
+import org.softsmithy.lib.text.DoubleParser;
 
 /**
- * A {@link DataRenderer} for whole numbers. This renderer provides no graphical
- * representations by default.
+ * An Integer field.
  *
- * @param <T> the number type of the data to render
  * @author puce
  */
-public class WholeNumberRenderer<T extends Number & Comparable<T>> extends AbstractNumberRenderer<T> {
+public class DoubleField extends FormattedTextField<Double> {
 
     /**
      * Creates a new instance of this class.
-     *
-     * @param zero the zero representation of the used number type
      */
-    public WholeNumberRenderer(T zero) {
-        this(NumberFormat.getIntegerInstance(), zero);
+    public DoubleField() {
+        super(new RealNumberRenderer<>(0d), new DoubleParser());
     }
 
     /**
      * Creates a new instance of this class.
      *
-     * @param numberFormat A {@link NumberFormat} used to format the numbers
-     * @param zero the zero representation of the used number type
+     * @param numberFormat the {@link NumberFormat} to configure the
+     * {@link #dataRendererProperty()} and the {@link #parserProperty()}
      */
-    public WholeNumberRenderer(NumberFormat numberFormat, T zero) {
-        super(numberFormat, zero);
+    public DoubleField(NumberFormat numberFormat) {
+        super(new RealNumberRenderer<>(numberFormat, 0d), new DoubleParser(numberFormat));
     }
-
 }
