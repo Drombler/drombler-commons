@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+        COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Notice
+
+The contents of this file are subject to the COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)
+Version 1.0 (the "License"); you may not use this file except in
+compliance with the License. A copy of the License is available at
+http://www.opensource.org/licenses/cddl1.txt
+
+The Original Code is Drombler.org. The Initial Developer of the
+Original Code is Florian Brunner (Sourceforge.net user: puce).
+Copyright 2012 Drombler.org. All Rights Reserved.
+
+Contributor(s): .
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.drombler.org/schema/commons/settings"
+        xmlns:tns="http://www.drombler.org/schema/commons/settings" elementFormDefault="qualified" 
+        version="${project.version}">
+
+    <element name="settings">
+        <complexType>
+            <sequence>
+                <element name="entries" type="tns:SettingsEntriesType" minOccurs="0" />
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="SettingsEntriesType">
+        <sequence>
+            <any namespace="##other" minOccurs="0" maxOccurs="unbounded"  />
+        </sequence>
+    </complexType>
+</schema>
