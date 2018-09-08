@@ -70,7 +70,7 @@ public class DataButton<T> extends Button {
      * @param dataRenderer the {@link DataRenderer} to render the {@link #data} of this button.
      * @param data the data of this button.
      */
-    public DataButton(DataRenderer<? super T> dataRenderer, T data) {
+    public DataButton(DataRenderer<? super T> dataRenderer, T data) { // TODO: buggy when both non-null
         this.data.addListener((ov, oldData, newData)
                 -> LabeledUtils.configure(DataButton.this, getDataRenderer(), newData));
 
