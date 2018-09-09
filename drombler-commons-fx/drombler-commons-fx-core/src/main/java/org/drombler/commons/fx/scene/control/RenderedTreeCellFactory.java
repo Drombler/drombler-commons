@@ -81,6 +81,7 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
                     }
                 }
             }
+            // use the default ObjectRenderer only if no interface renderer could be found either
             return dataRenderer != null ? (DataRenderer<? super T>) dataRenderer : defaultDataRenderer;
         }
     }
