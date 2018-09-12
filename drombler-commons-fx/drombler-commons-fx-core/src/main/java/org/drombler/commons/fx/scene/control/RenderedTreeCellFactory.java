@@ -47,7 +47,7 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
 
         @Override
         protected void updateItem(T item, boolean empty) {
-            if (getItem() != null && (empty || item == null)) {
+            if (getItem() != null && !isEmpty()) {
                 DataRenderer<? super T> oldItemdataRenderer = getDataRenderer(getItem().getClass());
                 LabeledUtils.unconfigure(this, oldItemdataRenderer);
             }
@@ -81,6 +81,7 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
                     }
                 }
             }
+            // use the default ObjectRenderer only if no interface renderer could be found either
             return dataRenderer != null ? (DataRenderer<? super T>) dataRenderer : defaultDataRenderer;
         }
     }
