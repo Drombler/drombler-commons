@@ -26,6 +26,8 @@
 'https://docs.oracle.com/javaee/7/api'
 -link
 'https://docs.oracle.com/javase/8/javafx/api'
+-link
+'http://www.drombler.org/drombler-commons/0.13-SNAPSHOT/docs/site/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-action/drombler-commons-action-context/target/javadoc-bundle-options'
 -use
