@@ -17,9 +17,10 @@ package org.drombler.commons.fx.scene.image;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.drombler.commons.fx.scene.GraphicFactory;
+import org.drombler.commons.client.graphic.GraphicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.util.ResourceLoader;
@@ -43,7 +44,7 @@ import org.softsmithy.lib.util.ResourceLoader;
  *
  * @author puce
  */
-public class IconFactory implements GraphicFactory {
+public class IconFactory implements GraphicFactory<Node> {
 
     private static final Logger LOG = LoggerFactory.getLogger(IconFactory.class);
 

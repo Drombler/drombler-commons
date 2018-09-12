@@ -26,7 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tooltip;
 import org.drombler.commons.docking.DockableData;
-import org.drombler.commons.fx.scene.GraphicFactory;
+import org.drombler.commons.client.graphic.GraphicFactory;
 
 /**
  * Data about a Dockable.
@@ -63,7 +63,7 @@ public class FXDockableData implements DockableData {
     /**
      * The {@link GraphicFactory}.
      */
-    private final ObjectProperty<GraphicFactory> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory", null);
+    private final ObjectProperty<GraphicFactory<Node>> graphicFactory = new SimpleObjectProperty<>(this, "graphicFactory", null);
 
     /**
      * The {@link ContextMenu}. TODO: needed?
@@ -123,15 +123,15 @@ public class FXDockableData implements DockableData {
         return graphic;
     }
 
-    public final GraphicFactory getGraphicFactory() {
+    public final GraphicFactory<Node> getGraphicFactory() {
         return graphicFactoryProperty().get();
     }
 
-    public final void setGraphicFactory(GraphicFactory graphicFactory) {
+    public final void setGraphicFactory(GraphicFactory<Node> graphicFactory) {
         graphicFactoryProperty().set(graphicFactory);
     }
 
-    public ObjectProperty<GraphicFactory> graphicFactoryProperty() {
+    public ObjectProperty<GraphicFactory<Node>> graphicFactoryProperty() {
         return graphicFactory;
     }
 

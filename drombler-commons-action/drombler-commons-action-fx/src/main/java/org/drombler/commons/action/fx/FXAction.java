@@ -19,8 +19,9 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCombination;
-import org.drombler.commons.fx.scene.GraphicFactory;
+import org.drombler.commons.client.graphic.GraphicFactory;
 
 /**
  * FXAction keeps the state (enabled/ disabled etc.), the information (texts, image etc.) and the logic between menu
@@ -61,15 +62,15 @@ public interface FXAction extends EventHandler<ActionEvent> {
      */
     ReadOnlyBooleanProperty enabledProperty();
     
-    GraphicFactory getGraphicFactory();
+    GraphicFactory<Node> getGraphicFactory();
     
-    void setGraphicFactory(GraphicFactory graphicFactory);
+    void setGraphicFactory(GraphicFactory<Node> graphicFactory);
 
     /**
      * The {@link GraphicFactory}.
      *
      * @return the GraphicFactory
      */
-    ObjectProperty<GraphicFactory> graphicFactoryProperty();
+    ObjectProperty<GraphicFactory<Node>> graphicFactoryProperty();
 
 }

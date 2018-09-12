@@ -12,16 +12,16 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.fx.scene;
+package org.drombler.commons.client.graphic;
 
-import javafx.scene.Node;
 
 /**
- * A graphic factory can create graphics in different sizes.
+ * A GUI-toolkit agnostic graphic factory can create graphics in different sizes.
  *
+ * @param <T> the GUI-toolkit specific graphic type
  * @author puce
  */
-public interface GraphicFactory {
+public interface GraphicFactory<T> {
 
     /**
      * Creates a graphic with the specifed size.
@@ -29,5 +29,5 @@ public interface GraphicFactory {
      * @param size the graphic size
      * @return the graphic
      */
-    Node createGraphic(int size);
+    T createGraphic(int size);
 }
