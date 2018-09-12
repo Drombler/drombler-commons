@@ -3,8 +3,7 @@ package org.drombler.commons.client.dialog;
 import java.nio.file.Path;
 
 /**
- *
- * @author Florian
+ * Provides a directory chooser.
  */
 public interface DirectoryChooserProvider {
 
