@@ -27,6 +27,8 @@
 -link
 'https://docs.oracle.com/javase/8/javafx/api'
 -link
+'http://www.drombler.org/drombler-commons/0.13-SNAPSHOT/docs/site/apidocs'
+-link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
 -link
 'http://www.slf4j.org/apidocs'
