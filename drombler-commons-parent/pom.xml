@@ -87,6 +87,7 @@ Contributor(s): .
                     <artifactId>gitflow-maven-plugin</artifactId>
                     <version>1.10.0</version>
                     <configuration>
+                        <verbose>true</verbose>
                         <gitFlowConfig>
                             <versionTagPrefix>release-</versionTagPrefix>
                         </gitFlowConfig>
