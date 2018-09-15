@@ -4,6 +4,7 @@ org.drombler.commons.action.context
 org.drombler.commons.action.command
 org.drombler.commons.client.geometry
 org.drombler.commons.client.util
+org.drombler.commons.client.graphic
 org.drombler.commons.client.dialog
 org.drombler.commons.fx.application
 org.drombler.commons.fx.stage
@@ -22,6 +23,7 @@ org.drombler.commons.action.fx
 org.drombler.commons.action.fx.context
 org.drombler.commons.data
 org.drombler.commons.data.file
+org.drombler.commons.data.fx
 org.drombler.commons.docking
 org.drombler.commons.docking.context
 org.drombler.commons.docking.spi
