@@ -78,4 +78,21 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!--TODO: move to SoftSmithy Parent-->
+                    <groupId>com.amashchenko.maven.plugin</groupId>
+                    <artifactId>gitflow-maven-plugin</artifactId>
+                    <version>1.10.0</version>
+                    <configuration>
+                        <gitFlowConfig>
+                            <versionTagPrefix>release-</versionTagPrefix>
+                        </gitFlowConfig>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
