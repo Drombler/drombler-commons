@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.12</version>
+        <version>0.13</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-context</artifactId>
@@ -82,6 +82,7 @@ Contributor(s): .
                         </goals>
                         <configuration>
                             <mainClass>org.drombler.commons.fx.samples.context.ContextSampleApplication</mainClass>
+                            <updateExistingJar>true</updateExistingJar>
                         </configuration>
                     </execution>
                 </executions>

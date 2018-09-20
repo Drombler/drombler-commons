@@ -25,10 +25,10 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  * To fully integrate with the framework it should observe registered {@link DataCapabilityProvider}s and add the found data capabilities to it's local context.
  *
  *
- * @param <T> the type of the unique key of this data handler
+ * @param <K> the type of the unique key of this data handler
  * @author puce
  */
-public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<T>, Bean, AutoCloseable {
+public interface DataHandler<K> extends LocalContextProvider, UniqueKeyProvider<K>, Bean, AutoCloseable {
     String UNIQUE_KEY_PROPERTY_NAME = "uniqueKey";
     String TITLE_PROPERTY_NAME = "title";
     String TOOLTIP_TEXT_PROPERTY_NAME = "tooltipText";
@@ -48,6 +48,8 @@ public interface DataHandler<T> extends LocalContextProvider, UniqueKeyProvider<
      * @return the tooltip text
      */
     String getTooltipText();
+    
+    
 
     /**
      * Marks the content of this data handler as dirty.

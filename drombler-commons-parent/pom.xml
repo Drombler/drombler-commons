@@ -19,12 +19,12 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.10</version>
+        <version>3.1</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-parent</artifactId>
-    <version>0.12</version>
+    <version>0.13</version>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
@@ -78,4 +78,22 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!--TODO: move to SoftSmithy Parent-->
+                    <groupId>com.amashchenko.maven.plugin</groupId>
+                    <artifactId>gitflow-maven-plugin</artifactId>
+                    <version>1.10.0</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <gitFlowConfig>
+                            <versionTagPrefix>release-</versionTagPrefix>
+                        </gitFlowConfig>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
