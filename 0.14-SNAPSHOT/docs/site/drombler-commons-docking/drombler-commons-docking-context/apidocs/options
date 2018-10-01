@@ -1,5 +1,5 @@
 -classpath
-'/var/lib/jenkins/.m2/repository/org/mockito/mockito-core/2.15.0/mockito-core-2.15.0.jar:/var/lib/jenkins/.m2/repository/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11.jar:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-context/target/classes:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-action/drombler-commons-action-command/target/classes:/var/lib/jenkins/.m2/repository/net/bytebuddy/byte-buddy-agent/1.7.11/byte-buddy-agent-1.7.11.jar:/var/lib/jenkins/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/var/lib/jenkins/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.9/softsmithy-lib-core-0.9.jar:/var/lib/jenkins/.m2/repository/org/softsmithy/lib/softsmithy-lib-beans/0.9/softsmithy-lib-beans-0.9.jar:/var/lib/jenkins/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-docking/drombler-commons-docking-core/target/classes:/var/lib/jenkins/.m2/repository/junit/junit/4.12/junit-4.12.jar:/var/lib/jenkins/.m2/repository/org/objenesis/objenesis/2.6/objenesis-2.6.jar'
+'/var/lib/jenkins/.m2/repository/org/mockito/mockito-core/2.15.0/mockito-core-2.15.0.jar:/var/lib/jenkins/.m2/repository/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11.jar:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-context/target/classes:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-action/drombler-commons-action-command/target/classes:/var/lib/jenkins/.m2/repository/net/bytebuddy/byte-buddy-agent/1.7.11/byte-buddy-agent-1.7.11.jar:/var/lib/jenkins/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/var/lib/jenkins/.m2/repository/org/softsmithy/lib/softsmithy-lib-core/0.10-SNAPSHOT/softsmithy-lib-core-0.10-SNAPSHOT.jar:/var/lib/jenkins/.m2/repository/org/softsmithy/lib/softsmithy-lib-beans/0.10-SNAPSHOT/softsmithy-lib-beans-0.10-SNAPSHOT.jar:/var/lib/jenkins/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-docking/drombler-commons-docking-core/target/classes:/var/lib/jenkins/.m2/repository/junit/junit/4.12/junit-4.12.jar:/var/lib/jenkins/.m2/repository/org/objenesis/objenesis/2.6/objenesis-2.6.jar'
 -encoding
 'UTF-8'
 -protected
@@ -25,9 +25,7 @@
 -link
 'http://www.drombler.org/drombler-commons/0.14-SNAPSHOT/docs/site/apidocs'
 -link
-'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
--link
-'https://www.slf4j.org/apidocs'
+'http://www.softsmithy.org/softsmithy-lib/lib/0.10-SNAPSHOT/docs/site/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-docking/drombler-commons-docking-context/target/javadoc-bundle-options'
 -use
