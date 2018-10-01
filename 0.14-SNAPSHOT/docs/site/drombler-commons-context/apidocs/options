@@ -23,11 +23,7 @@
 -doctitle
 'Drombler Commons - Context 0.14-SNAPSHOT API'
 -link
-'https://docs.oracle.com/javaee/7/api'
--link
-'https://docs.oracle.com/javase/8/javafx/api'
--link
-'http://www.slf4j.org/apidocs'
+'https://www.slf4j.org/apidocs'
 -link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
 -linkoffline
