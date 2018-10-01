@@ -23,13 +23,9 @@
 -doctitle
 'Drombler Commons - Docking - Core 0.14-SNAPSHOT API'
 -link
-'https://docs.oracle.com/javaee/7/api'
--link
-'https://docs.oracle.com/javase/8/javafx/api'
--link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
 -link
-'http://www.slf4j.org/apidocs'
+'https://www.slf4j.org/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-docking/drombler-commons-docking-core/target/javadoc-bundle-options'
 -use
