@@ -20,10 +20,6 @@
 -docfilessubdirs
 -doctitle
 'Drombler Commons - Action - Command 0.14-SNAPSHOT API'
--link
-'https://docs.oracle.com/javaee/7/api'
--link
-'https://docs.oracle.com/javase/8/javafx/api'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-action/drombler-commons-action-command/target/javadoc-bundle-options'
 -use
