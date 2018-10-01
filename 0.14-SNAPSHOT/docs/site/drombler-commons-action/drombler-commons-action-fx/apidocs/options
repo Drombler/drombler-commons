@@ -23,9 +23,7 @@
 -doctitle
 'Drombler Commons - Action - FX 0.14-SNAPSHOT API'
 -link
-'https://docs.oracle.com/javaee/7/api'
--link
-'https://docs.oracle.com/javase/8/javafx/api'
+'http://www.drombler.org/drombler-commons/0.14-SNAPSHOT/docs/site/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-action/drombler-commons-action-fx/target/javadoc-bundle-options'
 -use
