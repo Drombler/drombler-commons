@@ -23,9 +23,7 @@
 -doctitle
 'Drombler Commons - FX - Date and Time 0.14-SNAPSHOT API'
 -link
-'https://docs.oracle.com/javaee/7/api'
--link
-'https://docs.oracle.com/javase/8/javafx/api'
+'http://www.drombler.org/drombler-commons/0.14-SNAPSHOT/docs/site/apidocs'
 -link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.9/docs/site/apidocs'
 -linkoffline
