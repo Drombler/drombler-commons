@@ -74,6 +74,7 @@ Contributor(s): .
         <module>drombler-commons-docking</module>
         <module>drombler-commons-fx</module>
         <module>drombler-commons-client</module>
+        <module>drombler-commons-spring</module>
         <module>drombler-commons-iso</module>
         <module>drombler-commons-docs</module>
     </modules>
@@ -116,6 +117,13 @@ Contributor(s): .
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>drombler-commons-fx</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-spring</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
