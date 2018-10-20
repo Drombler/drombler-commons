@@ -23,6 +23,8 @@
 -doctitle
 'Drombler Commons - Context 0.14-SNAPSHOT API'
 -link
+'https://www.slf4j.org/apidocs'
+-link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.10-SNAPSHOT/docs/site/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-context/target/javadoc-bundle-options'
