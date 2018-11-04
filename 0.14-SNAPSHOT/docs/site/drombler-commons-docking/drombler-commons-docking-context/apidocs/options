@@ -26,6 +26,8 @@
 'http://www.drombler.org/drombler-commons/0.14-SNAPSHOT/docs/site/apidocs'
 -link
 'http://www.softsmithy.org/softsmithy-lib/lib/0.10-SNAPSHOT/docs/site/apidocs'
+-link
+'https://www.slf4j.org/apidocs'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/var/lib/jenkins/jobs/Drombler-Commons-Site/workspace/drombler-commons-docking/drombler-commons-docking-context/target/javadoc-bundle-options'
 -use
