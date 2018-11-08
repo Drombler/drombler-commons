@@ -29,7 +29,7 @@ Contributor(s): .
         client side docking framework.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -62,7 +62,18 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-            </plugin>         
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.commons.docking.core</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>        
         </plugins>
     </build>
 

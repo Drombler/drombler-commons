@@ -29,7 +29,7 @@ Contributor(s): .
     <description>Drombler Commons - Data Framework.</description>
     <inceptionYear>2018</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -49,7 +49,7 @@ Contributor(s): .
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
+            <!--<url>https://opensource.org/licenses/CDDL-1.0</url>-->
             <url>../LICENSE.txt</url>
         </license>
     </licenses>

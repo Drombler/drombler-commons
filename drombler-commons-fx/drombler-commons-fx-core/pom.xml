@@ -29,7 +29,7 @@ Contributor(s): .
     <description>Drombler Commons - FX - Core is a collection of utility classes and frameworks for JavaFX.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -63,7 +63,17 @@ Contributor(s): .
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>org.drombler.commons.fx.core</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
             <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
