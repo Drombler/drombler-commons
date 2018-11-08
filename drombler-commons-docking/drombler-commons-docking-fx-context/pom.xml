@@ -28,7 +28,7 @@ Contributor(s): .
     <description>Drombler Commons - Docking - FX - Context provides Context support for the Docking Framework.</description>
     <inceptionYear>2015</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>

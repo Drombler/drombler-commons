@@ -14,7 +14,7 @@
     <description>The main classes to startup a Drombler Commons Client based application.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-acp/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-acp/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>

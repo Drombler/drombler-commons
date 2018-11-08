@@ -14,7 +14,7 @@
     <description>JavaFX specific extensions and utility classes for the Data Framework.</description>
     <inceptionYear>2018</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
