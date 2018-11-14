@@ -14,9 +14,9 @@
  */
 package org.drombler.commons.docking.fx;
 
-import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.impl.skin.DockingPaneSkin;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+
 
 /**
  *
@@ -38,7 +38,7 @@ public class DockingPaneTest {
 //        SimpleControlLauncher.main(new String[]{});
 //    }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         dockingPane.setSkin(new DockingPaneSkin(dockingPane));
     }

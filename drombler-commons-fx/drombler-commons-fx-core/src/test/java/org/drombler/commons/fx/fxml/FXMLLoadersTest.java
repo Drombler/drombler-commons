@@ -22,10 +22,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -34,7 +34,7 @@ import org.junit.Test;
 public class FXMLLoadersTest {
 
     @Test
-    @Ignore
+    @Disabled
     public void testLoadRootWithFXMLControllerAnnotation() throws IOException {
         TestRootControllerPane testRootController = new TestRootControllerPane();
 //        FXMLLoaders.loadRoot(testRootController, testRootController.getClass().getAnnotation(FXMLController.class));
@@ -47,7 +47,7 @@ public class FXMLLoadersTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testLoadFxmlWithBuilderFactory() throws IOException {
         TestRootControllerPane controllerPane = new TestRootControllerPane();
 

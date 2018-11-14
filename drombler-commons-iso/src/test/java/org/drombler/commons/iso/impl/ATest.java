@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *

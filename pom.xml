@@ -30,7 +30,7 @@ Contributor(s): .
         in your dependencyManagement section to manage your Drombler Commons dependencies.</description>
     <inceptionYear>2012</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     
     <scm>
         <connection>${scm.connection}</connection>
@@ -56,7 +56,7 @@ Contributor(s): .
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
+            <!--<url>https://opensource.org/licenses/CDDL-1.0</url>-->
             <url>LICENSE.txt</url>
         </license>
     </licenses>
@@ -131,6 +131,18 @@ Contributor(s): .
         </dependencies>
     </dependencyManagement>
     
+    <dependencies>
+        <!--        Temporary solution to add the dependency:
+        https://issues.apache.org/jira/browse/MJAVADOC-390
+        https://stackoverflow.com/questions/22701905/maven-javadoc-report-aggregate-and-detectlinks-->
+        <!--        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib</artifactId>
+            <version>${dependency.softsmithy.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>-->
+    </dependencies>
     <profiles>
         <profile>
             <id>all</id>
