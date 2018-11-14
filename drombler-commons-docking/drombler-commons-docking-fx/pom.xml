@@ -119,7 +119,7 @@ Contributor(s): .
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <excludedGroups>org.drombler.commons.docking.fx.GUITests</excludedGroups>
+                            <excludedGroups>GUITests</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

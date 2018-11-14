@@ -19,6 +19,6 @@ package org.drombler.commons.docking.fx;
  * @author puce
  */
 // TODO: move to SoftSmithy
-public interface GUITests {
-
+public final class GUITests {
+    public static final String TAG_NAME = "GUITests";
 }
