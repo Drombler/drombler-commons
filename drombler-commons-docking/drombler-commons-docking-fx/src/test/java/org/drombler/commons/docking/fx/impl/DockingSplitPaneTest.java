@@ -28,6 +28,7 @@ import org.drombler.commons.docking.DockingAreaKind;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableEntry;
+import org.drombler.commons.docking.fx.GUITests;
 import org.drombler.commons.docking.fx.SimpleControlLauncher;
 import org.drombler.commons.docking.spi.DockingAreaManager;
 import org.drombler.commons.docking.spi.SplitLevel;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.softsmithy.lib.util.PositionableAdapter;
 
@@ -43,7 +45,7 @@ import org.softsmithy.lib.util.PositionableAdapter;
  *
  * @author puce
  */
-//@Category(GUITests.class)
+@Tag(GUITests.TAG_NAME)
 public class DockingSplitPaneTest {
 
     private static final String TEST1 = "test1";
