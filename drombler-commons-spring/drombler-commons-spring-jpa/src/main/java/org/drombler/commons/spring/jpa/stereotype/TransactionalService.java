@@ -1,4 +1,4 @@
-package org.drombler.commons.spring.core.stereotype;
+package org.drombler.commons.spring.jpa.stereotype;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

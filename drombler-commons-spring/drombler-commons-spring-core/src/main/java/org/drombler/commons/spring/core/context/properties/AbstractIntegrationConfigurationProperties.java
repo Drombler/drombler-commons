@@ -1,7 +1,7 @@
 package org.drombler.commons.spring.core.context.properties;
 
 
-import java.net.URL;
+import java.net.URI;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,21 +12,21 @@ public abstract class AbstractIntegrationConfigurationProperties {
 
 
     @NotNull
-    private URL endpoint;
+    private URI endpoint;
     private int connectTimeout = 20000;
     private int readTimeout = 70000;
 
     /**
      * @return the endpoint
      */
-    public URL getEndpoint() {
+    public URI getEndpoint() {
         return endpoint;
     }
 
     /**
      * @param endpoint the endpoint to set
      */
-    public void setEndpoint(URL endpoint) {
+    public void setEndpoint(URI endpoint) {
         this.endpoint = endpoint;
     }
 
