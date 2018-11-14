@@ -1,7 +1,7 @@
 package org.drombler.commons.spring.core.context.properties.converter;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -11,19 +11,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationPropertiesBinding
-public class StringToURLConverter implements Converter<String, URL> {
+public class StringToURIConverter implements Converter<String, URI> {
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public URL convert(String urlString) {
+    public URI convert(String urlString) {
         if (urlString == null) {
             return null;
         }
         try {
-            return new URL(urlString);
-        } catch (MalformedURLException ex) {
+            return new URI(urlString);
+        } catch (URISyntaxException ex) {
             throw new IllegalArgumentException(ex.getMessage(), ex);
         }
     }
