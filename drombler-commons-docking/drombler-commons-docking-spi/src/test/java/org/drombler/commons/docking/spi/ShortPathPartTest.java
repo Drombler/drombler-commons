@@ -14,7 +14,7 @@
  */
 package org.drombler.commons.docking.spi;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.softsmithy.devlib.junit.Tests;
 
 /**

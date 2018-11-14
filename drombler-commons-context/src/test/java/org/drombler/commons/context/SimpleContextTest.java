@@ -19,9 +19,10 @@ import java.util.Collections;
 import java.util.Date;
 import static org.drombler.commons.context.ContextTests.assertEqualsMyCustomFoo;
 import static org.drombler.commons.context.ContextTests.assertEqualsMyCustomFooList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -174,8 +175,8 @@ public class SimpleContextTest {
         assertFalse(dateContextListener.isContextChanged());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testAddContentToTwoContexts() {
-        new SimpleContext(content);
+        assertThrows(IllegalStateException.class, () -> new SimpleContext(content));
     }
 }

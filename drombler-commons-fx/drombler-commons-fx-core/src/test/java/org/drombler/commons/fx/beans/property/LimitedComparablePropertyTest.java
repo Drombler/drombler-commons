@@ -14,10 +14,9 @@
  */
 package org.drombler.commons.fx.beans.property;
 
-import org.junit.After;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -25,16 +24,7 @@ import org.junit.Test;
  */
 public class LimitedComparablePropertyTest {
 
-    private LimitedComparableProperty<Integer> test;
-
-    public LimitedComparablePropertyTest() {
-    }
-
-    @Before
-    public void setUp() {
-        test = new LimitedComparableProperty<>();
-    }
-
+    private final LimitedComparableProperty<Integer> test = new LimitedComparableProperty<>();
 
     @Test
     public void testSetWithMinMax() {

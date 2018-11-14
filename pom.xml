@@ -131,6 +131,18 @@ Contributor(s): .
         </dependencies>
     </dependencyManagement>
     
+    <dependencies>
+        <!--        Temporary solution to add the dependency:
+        https://issues.apache.org/jira/browse/MJAVADOC-390
+        https://stackoverflow.com/questions/22701905/maven-javadoc-report-aggregate-and-detectlinks-->
+        <!--        <dependency>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib</artifactId>
+            <version>${dependency.softsmithy.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>-->
+    </dependencies>
     <profiles>
         <profile>
             <id>all</id>
