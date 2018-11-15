@@ -15,7 +15,7 @@ import org.drombler.commons.fx.scene.control.RenderedTreeCellFactory;
  *
  * @author puce
  */
-public class DirectoryTreeViewSample extends Application {
+public class FacilityTreeViewSample extends Application {
 
     @Override
     public void start(Stage primaryStage) {
