@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.drombler.commons.data.DataHandlerDescriptorRegistry;
 import org.drombler.commons.fx.scene.control.RenderedTreeCellFactory;
 
 /**
@@ -29,7 +28,6 @@ public class FacilityTreeViewSample extends Application {
             }
         });
 
-        DataHandlerDescriptorRegistry dataHandlerDescriptorRegistry = new DataHandlerDescriptorRegistry();
         BorderPane root = new BorderPane();
         root.setTop(btn);
 //        TreeView<DataHandler<?>> treeView = new TreeView<>();
