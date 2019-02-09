@@ -89,7 +89,4 @@ public class FacilityTreeViewSample extends Application {
         return room;
     }
 
-//    private static class SimpleDirectoryHandler extends AbstractDirectoryHandler{
-//        
-//    }
 }
