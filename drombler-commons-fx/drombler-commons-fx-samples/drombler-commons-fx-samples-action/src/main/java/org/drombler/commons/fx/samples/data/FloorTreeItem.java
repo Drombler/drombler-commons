@@ -1,6 +1,5 @@
 package org.drombler.commons.fx.samples.data;
 
-import javafx.scene.control.TreeItem;
 import org.drombler.commons.fx.beans.binding.CollectionBindings;
 
 /**
@@ -9,12 +8,17 @@ import org.drombler.commons.fx.beans.binding.CollectionBindings;
  */
 
 
-public class FloorTreeItem extends TreeItem<Facility>{
+public class FloorTreeItem extends AbstractFacilityTreeItem<Floor>{
 
 
     public FloorTreeItem(Floor floor) {
        super(floor);
         CollectionBindings.bindContent(getChildren(), floor.getRooms(), RoomTreeItem::new);
+    }
+    
+        @Override
+    public FloorPane createFacilityEditor() {
+        return new FloorPane(getFacility());
     }
     
 }

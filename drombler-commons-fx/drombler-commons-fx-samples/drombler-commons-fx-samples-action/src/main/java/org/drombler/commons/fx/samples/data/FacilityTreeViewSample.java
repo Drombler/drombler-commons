@@ -1,10 +1,10 @@
 package org.drombler.commons.fx.samples.data;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,33 +18,46 @@ public class FacilityTreeViewSample extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        Building building = createBuilding();
 
         BorderPane root = new BorderPane();
-        root.setTop(btn);
-//        TreeView<DataHandler<?>> treeView = new TreeView<>();
+
+        TreeView<Facility> facilityTreeView = createFacilityTreeView(building);
+        facilityTreeView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends TreeItem<Facility>> observable, TreeItem<Facility> oldValue, TreeItem<Facility> newValue) -> {
+            if (newValue != null){
+                root.setCenter(((AbstractFacilityTreeItem<?>) newValue).createFacilityEditor());
+            } else {
+                root.setCenter(null);
+            }
+        });
+        
+        BorderPane detailsParentPane = new BorderPane();
+        root.setLeft(facilityTreeView);
+        root.setCenter(detailsParentPane);
+        Scene scene = new Scene(root, 600, 250);
+
+        primaryStage.setTitle("Facility TreeView Sample");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private TreeView<Facility> createFacilityTreeView(Building building) {
+        // A TreeView of the common base type Facility
         TreeView<Facility> treeView = new TreeView<>();
-//        RenderedTreeCellFactory<DataHandler<?>> renderedTreeCellFactory = new RenderedTreeCellFactory<>();
+
+        // A RenderedTreeCellFactory of the common base type Facility
+        // It allows to register DataRenderers for subclasses
         RenderedTreeCellFactory<Facility> renderedTreeCellFactory = new RenderedTreeCellFactory<>();
         renderedTreeCellFactory.registerDataRenderer(Building.class, new BuildingRenderer());
         renderedTreeCellFactory.registerDataRenderer(Floor.class, new FloorRenderer());
         renderedTreeCellFactory.registerDataRenderer(Room.class, new RoomRenderer());
-        treeView.setCellFactory(renderedTreeCellFactory);
-        treeView.setRoot(new BuildingTreeItem(createBuilding()));
-        root.setCenter(treeView);
-        Scene scene = new Scene(root, 300, 250);
 
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        treeView.setCellFactory(renderedTreeCellFactory);
+        treeView.setRoot(new BuildingTreeItem(building));
+        
+        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                
+        return treeView;
     }
 
     /**
@@ -65,7 +78,7 @@ public class FacilityTreeViewSample extends Application {
     private static Floor createFloor(int level) {
         Floor floor = new Floor();
         floor.setName("Floor " + level);
-        floor.getRooms().addAll(createRoom("A1", 8), createRoom("C3", 20));
+        floor.getRooms().addAll(createRoom("A" + level, 8), createRoom("C" + level, 20));
         return floor;
     }
 

@@ -1,18 +1,20 @@
 package org.drombler.commons.fx.samples.data;
 
-import javafx.scene.control.TreeItem;
-
 /**
  *
  * @author puce
  */
 
 
-public class RoomTreeItem extends TreeItem<Facility>{
+public class RoomTreeItem extends AbstractFacilityTreeItem<Room>{
 
 
     public RoomTreeItem(Room room) {
        super(room);
     }
     
+        @Override
+    public RoomPane createFacilityEditor() {
+        return new RoomPane(getFacility());
+    }
 }
