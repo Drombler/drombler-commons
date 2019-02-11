@@ -23,18 +23,20 @@ public class FacilityTreeViewSample extends Application {
         BorderPane root = new BorderPane();
 
         TreeView<Facility> facilityTreeView = createFacilityTreeView(building);
-        facilityTreeView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends TreeItem<Facility>> observable, TreeItem<Facility> oldValue, TreeItem<Facility> newValue) -> {
-            if (newValue != null){
-                root.setCenter(((AbstractFacilityTreeItem<?>) newValue).createFacilityEditor());
-            } else {
-                root.setCenter(null);
-            }
-        });
-        
+        facilityTreeView.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends TreeItem<Facility>> observable, TreeItem<Facility> oldValue, TreeItem<Facility> newValue) -> {
+                    if (newValue != null) {
+                        root.setCenter(((AbstractFacilityTreeItem<?>) newValue).createFacilityEditor());
+                    } else {
+                        root.setCenter(null);
+                    }
+                });
+
         BorderPane detailsParentPane = new BorderPane();
         root.setLeft(facilityTreeView);
         root.setCenter(detailsParentPane);
         Scene scene = new Scene(root, 600, 250);
+        scene.getStylesheets().add(FacilityTreeViewSample.class.getResource("FacilityTreeViewSample.css").toExternalForm());
 
         primaryStage.setTitle("Facility TreeView Sample");
         primaryStage.setScene(scene);
@@ -54,9 +56,9 @@ public class FacilityTreeViewSample extends Application {
 
         treeView.setCellFactory(renderedTreeCellFactory);
         treeView.setRoot(new BuildingTreeItem(building));
-        
+
         treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-                
+
         return treeView;
     }
 

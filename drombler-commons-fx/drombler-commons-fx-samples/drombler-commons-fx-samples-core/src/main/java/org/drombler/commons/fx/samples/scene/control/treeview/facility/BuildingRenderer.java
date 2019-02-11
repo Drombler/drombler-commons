@@ -18,6 +18,4 @@ public class BuildingRenderer extends AbstractFacilityRenderer<Building> {
         return new Tooltip(item.getAddress());
     }
 
-
-
 }
