@@ -21,10 +21,10 @@ Contributor(s): .
         <version>0.14-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-fx-samples-fxml</artifactId>
+    <artifactId>drombler-commons-fx-samples-core</artifactId>
     <packaging>jar</packaging>
 
-    <name>Drombler Commons - FX - Samples - FXML</name>
+    <name>Drombler Commons - FX - Samples - Core</name>
     <!-- required for Javadoc (apidocs) linking -->
     <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
@@ -56,7 +56,7 @@ Contributor(s): .
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.commons.fx.samples.fxml</Automatic-Module-Name>
+                            <Automatic-Module-Name>org.drombler.commons.fx.samples.core</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
