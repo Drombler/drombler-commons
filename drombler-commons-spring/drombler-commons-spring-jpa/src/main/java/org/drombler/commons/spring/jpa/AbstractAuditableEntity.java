@@ -24,8 +24,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
+ * A base class for auditable entities.
  *
- * @author puce
+ * @see AuditingEntityListener
  */
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
@@ -48,28 +49,36 @@ public class AbstractAuditableEntity extends AbstractVersionedEntity {
     private String lastModifiedBy;
 
     /**
-     * @return the createdAt
+     * Gets the timestamp, when this entity was created.
+     *
+     * @return the timestamp, when this entity was created
      */
     public Instant getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * @return the createdBy
+     * Gets the user id, who created this entity.
+     *
+     * @return the user id, who created this entity
      */
     public String getCreatedBy() {
         return createdBy;
     }
 
     /**
-     * @return the lastModifiedAt
+     * Gets the timestamp, when this entity was last modified.
+     *
+     * @return the timestamp, when this entity was last modified
      */
     public Instant getLastModifiedAt() {
         return lastModifiedAt;
     }
 
     /**
-     * @return the lastModifiedBy
+     * Gets the user id, who last modified this entity.
+     *
+     * @return the user id, who last modified this entity
      */
     public String getLastModifiedBy() {
         return lastModifiedBy;
