@@ -10,12 +10,23 @@ import javafx.beans.WeakListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-
+/**
+ * 
+ * @author puce
+ */
 public final class CollectionBindings {
 
     private CollectionBindings() {
     }
 
+    /**
+     * 
+     * @param <S>
+     * @param <T>
+     * @param targetList
+     * @param sourceList
+     * @param mapper 
+     */
     public static <S, T> void bindContent(List<T> targetList, ObservableList<? extends S> sourceList, Function<? super S, ? extends T> mapper) {
         List<? extends T> elements = mapList(sourceList, mapper);
         setContent(targetList, elements);
@@ -24,6 +35,13 @@ public final class CollectionBindings {
         sourceList.addListener(contentListener);
     }
 
+    /**
+     * 
+     * @param <S>
+     * @param <T>
+     * @param targetList
+     * @param sourceList 
+     */
     public static <S, T> void unbindContent(List<T> targetList, ObservableList<? extends S> sourceList) {
         sourceList.removeListener(new ListContentListener<>(targetList, null));
     }
@@ -37,6 +55,16 @@ public final class CollectionBindings {
         }
     }
 
+    /**
+     * 
+     * @param <S>
+     * @param <T>
+     * @param targetList
+     * @param targetChildListExtractor
+     * @param sourceList
+     * @param sourceChildListExtractor
+     * @param mapper 
+     */
     public static <S, T> void bindTreeContent(List<T> targetList, Function<? super T, ? extends List<T>> targetChildListExtractor,
             ObservableList<? extends S> sourceList, Function<? super S, ? extends ObservableList<? extends S>> sourceChildListExtractor,
             Function<? super S, ? extends T> mapper) {
@@ -49,6 +77,15 @@ public final class CollectionBindings {
         sourceList.addListener(treeContentListener);
     }
 
+    /**
+     * 
+     * @param <S>
+     * @param <T>
+     * @param targetList
+     * @param targetChildListExtractor
+     * @param sourceList
+     * @param sourceChildListExtractor 
+     */
     public static <S, T> void unbindTreeContent(List<T> targetList, Function<? super T, ? extends List<T>> targetChildListExtractor,
             ObservableList<? extends S> sourceList, Function<? super S, ? extends ObservableList<? extends S>> sourceChildListExtractor) {
         unbindSubTreeContent(targetList, targetChildListExtractor, sourceList, sourceChildListExtractor);  // recursion

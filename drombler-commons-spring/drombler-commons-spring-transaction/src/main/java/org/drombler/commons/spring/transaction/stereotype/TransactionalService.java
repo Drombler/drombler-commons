@@ -1,4 +1,4 @@
-package org.drombler.commons.spring.jpa.stereotype;
+package org.drombler.commons.spring.transaction.stereotype;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,8 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
- * @author puce
+ * A transactional Spring service.
  */
 @Inherited
 @Documented

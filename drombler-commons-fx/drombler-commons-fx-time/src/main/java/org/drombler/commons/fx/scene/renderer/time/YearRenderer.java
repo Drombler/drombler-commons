@@ -24,6 +24,9 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
  */
 public class YearRenderer extends AbstractDataRenderer<Year> {
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String getText(Year year) {
         if (year != null) {

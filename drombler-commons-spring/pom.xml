@@ -66,20 +66,26 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
-        <module>drombler-commons-spring-core</module>
         <module>drombler-commons-spring-jpa</module>
+        <module>drombler-commons-spring-transaction</module>
+        <module>drombler-commons-spring-boot</module>
     </modules>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-spring-core</artifactId>
+                <artifactId>drombler-commons-spring-jpa</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-spring-jpa</artifactId>
+                <artifactId>drombler-commons-spring-transaction</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-spring-boot</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

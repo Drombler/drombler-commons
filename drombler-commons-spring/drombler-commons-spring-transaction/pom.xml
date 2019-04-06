@@ -7,12 +7,12 @@
         <version>0.14-SNAPSHOT</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
-    <artifactId>drombler-commons-spring-core</artifactId>
+    <artifactId>drombler-commons-spring-transaction</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Drombler Commons - Spring - Core</name>
-    <description>Drombler Commons - Spring - Core Utility classes</description>
-    <inceptionYear>2018</inceptionYear>
+    <name>Drombler Commons - Spring - Transaction</name>
+    <description>Drombler Commons - Spring - Transaction Utility classes</description>
+    <inceptionYear>2019</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
@@ -47,37 +47,37 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-            </plugin>         
+            </plugin>       
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.commons.spring.core</Automatic-Module-Name>
+                            <Automatic-Module-Name>org.drombler.commons.spring.transaction</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>
+            </plugin>  
         </plugins>
     </build>
     
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>org.softsmithy.lib</groupId>
+            <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>  
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
         </dependency>
     </dependencies>
 </project>

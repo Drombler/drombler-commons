@@ -19,10 +19,25 @@ public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCel
 
     private final Map<Class<?>, DataRenderer<?>> dataRenderers = new HashMap<>();
 
+    /**
+     * Registers a {@link DataRenderer} for the specified type.
+     *
+     * @param <E> the type
+     * @param type the type
+     * @param dataRenderer the data renderer for the specified type
+     * @return the previous data renderer registerd for the specified type if any, else null
+     */
     public <E extends T> DataRenderer<? super E> registerDataRenderer(Class<E> type, DataRenderer<? super E> dataRenderer) {
         return (DataRenderer<? super E>) dataRenderers.put(type, dataRenderer);
     }
 
+    /**
+     * Unregisters the {@link DataRenderer} for the specified type.
+     *
+     * @param <E> the type
+     * @param type the type
+     * @return the data renderer that was registerd for the specified type if any, else null
+     */
     public <E extends T> DataRenderer<? super E> unregisterDataRenderer(Class<E> type) {
         return (DataRenderer<? super E>) dataRenderers.remove(type);
     }
