@@ -1,0 +1,15 @@
+/* 
+    Created on : 11.02.2019, 21:56:33
+    Author     : puce
+*/
+.building {
+    -fx-background-color: #CCFF99;
+}
+
+.floor {
+    -fx-background-color: #11AA99;
+}
+
+.room {
+    -fx-background-color: #8181FF;
+}

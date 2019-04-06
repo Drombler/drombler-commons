@@ -18,14 +18,15 @@ import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import org.drombler.commons.fx.scene.renderer.AbstractDataRenderer;
+import org.drombler.commons.fx.scene.renderer.DataRenderer;
 
 /**
+ * A {@link DataRenderer} for {@link DayOfWeek}.
  *
  * @author puce
  */
-
-
 public class DayOfWeekRenderer extends AbstractDataRenderer<DayOfWeek> {
+
     private final TextStyle textStyle;
 
     public DayOfWeekRenderer() {
@@ -36,6 +37,9 @@ public class DayOfWeekRenderer extends AbstractDataRenderer<DayOfWeek> {
         this.textStyle = textStyle;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String getText(DayOfWeek dayOfWeek) {
         if (dayOfWeek != null) {
@@ -44,5 +48,5 @@ public class DayOfWeekRenderer extends AbstractDataRenderer<DayOfWeek> {
             return null;
         }
     }
-    
+
 }
