@@ -9,17 +9,23 @@ import java.time.Duration;
 public interface IntegrationConfigurationProperties {
 
     /**
-     * @return the endpoint
+     * Gets the endpoint of the remote service to integrate.
+     *
+     * @return the endpoint of the remote service to integrate
      */
     URI getEndpoint();
 
     /**
-     * @return the connectTimeout
+     * Gets the connect timeout.
+     *
+     * @return the connect timeout
      */
     Duration getConnectTimeout();
 
     /**
-     * @return the readTimeout
+     * Gets the read timeout.
+     *
+     * @return the read timeout
      */
     Duration getReadTimeout();
 }

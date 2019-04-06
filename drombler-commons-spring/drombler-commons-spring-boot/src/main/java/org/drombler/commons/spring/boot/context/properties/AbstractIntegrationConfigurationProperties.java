@@ -1,16 +1,16 @@
 package org.drombler.commons.spring.boot.context.properties;
 
-
 import java.net.URI;
 import java.time.Duration;
 import javax.validation.constraints.NotNull;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * A base class for remote service integration configuration properties.
  *
- * @author puce
+ * @see ConfigurationProperties
  */
 public abstract class AbstractIntegrationConfigurationProperties implements IntegrationConfigurationProperties {
-
 
     @NotNull
     private URI endpoint;
@@ -18,7 +18,7 @@ public abstract class AbstractIntegrationConfigurationProperties implements Inte
     private Duration readTimeout = Duration.ofSeconds(70);
 
     /**
-     * @return the endpoint
+     * {@inheritDoc}
      */
     @Override
     public URI getEndpoint() {
@@ -26,14 +26,16 @@ public abstract class AbstractIntegrationConfigurationProperties implements Inte
     }
 
     /**
-     * @param endpoint the endpoint to set
+     * Sets the endpoint of the remote service to integrate.
+     *
+     * @param endpoint the endpoint of the remote service to integrate
      */
     public void setEndpoint(URI endpoint) {
         this.endpoint = endpoint;
     }
 
     /**
-     * @return the connectTimeout
+     * {@inheritDoc}
      */
     @Override
     public Duration getConnectTimeout() {
@@ -41,14 +43,16 @@ public abstract class AbstractIntegrationConfigurationProperties implements Inte
     }
 
     /**
-     * @param connectTimeout the connectTimeout to set
+     * Sets the connect timeout.
+     *
+     * @param connectTimeout the connect timeout
      */
     public void setConnectTimeout(Duration connectTimeout) {
         this.connectTimeout = connectTimeout;
     }
 
     /**
-     * @return the readTimeout
+     * {@inheritDoc}
      */
     @Override
     public Duration getReadTimeout() {
@@ -56,7 +60,9 @@ public abstract class AbstractIntegrationConfigurationProperties implements Inte
     }
 
     /**
-     * @param readTimeout the readTimeout to set
+     * Sets the read timeout.
+     *
+     * @param readTimeout the read timeout
      */
     public void setReadTimeout(Duration readTimeout) {
         this.readTimeout = readTimeout;

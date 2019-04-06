@@ -11,8 +11,8 @@
     <packaging>bundle</packaging>
 
     <name>Drombler Commons - Spring - Boot</name>
-    <description>Drombler Commons - Spring - Core Utility classes</description>
-    <inceptionYear>2018</inceptionYear>
+    <description>Drombler Commons - Spring - Boot Utility classes</description>
+    <inceptionYear>2019</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
     <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 

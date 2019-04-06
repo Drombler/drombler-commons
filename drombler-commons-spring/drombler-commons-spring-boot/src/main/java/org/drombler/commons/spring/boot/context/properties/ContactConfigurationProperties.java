@@ -6,8 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- *
- * @author puce
+ * The contact configuration properties.
  */
 public class ContactConfigurationProperties {
 
@@ -22,42 +21,54 @@ public class ContactConfigurationProperties {
     private String email;
 
     /**
-     * @return the name
+     * Gets the name of the software provider of this application.
+     *
+     * @return the name of the software provider of this application
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name the name to set
+     * Sets the name of the software provider of this application.
+     *
+     * @param name the name of the software provider of this application
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return the homepage
+     * Gets the homepage of the software provider of this application.
+     *
+     * @return the homepage of the software provider of this application
      */
     public URL getHomepage() {
         return homepage;
     }
 
     /**
-     * @param homepage the homepage to set
+     * Sets the homepage of the software provider of this application.
+     *
+     * @param homepage the homepage of the software provider of this application
      */
     public void setHomepage(URL homepage) {
         this.homepage = homepage;
     }
 
     /**
-     * @return the email
+     * Gets the email address of the software provider of this application.
+     *
+     * @return the email address of the software provider of this application
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * @param email the email to set
+     * Sets the email address of the software provider of this application.
+     *
+     * @param email the email address of the software provider of this application
      */
     public void setEmail(String email) {
         this.email = email;
