@@ -66,8 +66,9 @@ Contributor(s): .
     </prerequisites>
 
     <modules>
-        <module>drombler-commons-spring-core</module>
         <module>drombler-commons-spring-jpa</module>
+        <module>drombler-commons-spring-transaction</module>
+        <module>drombler-commons-spring-boot</module>
     </modules>
     
     <dependencyManagement>

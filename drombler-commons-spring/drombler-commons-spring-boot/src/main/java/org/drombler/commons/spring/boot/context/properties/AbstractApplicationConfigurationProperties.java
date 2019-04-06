@@ -1,6 +1,6 @@
-package org.drombler.commons.spring.core.context.properties;
+package org.drombler.commons.spring.boot.context.properties;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Bean;
 
@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Bean;
  * @author puce
  */
 public class AbstractApplicationConfigurationProperties implements ApplicationConfigurationProperties{
-    @NotNull
+    @NotBlank
     private String name;
+
     @NestedConfigurationProperty
     private final ContactConfigurationProperties contact = new ContactConfigurationProperties();
 

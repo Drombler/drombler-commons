@@ -1,4 +1,4 @@
-package org.drombler.commons.spring.core.context.properties;
+package org.drombler.commons.spring.boot.context.properties;
 
 /**
  *
