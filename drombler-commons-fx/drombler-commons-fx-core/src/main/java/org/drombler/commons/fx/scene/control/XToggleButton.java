@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.fx.scene.control;
 
+import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
@@ -26,6 +27,34 @@ import javafx.scene.control.ToggleGroup;
  */
 public class XToggleButton extends ToggleButton {
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public XToggleButton() {
+    }
+
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param text the text of this button
+     */
+    public XToggleButton(String text) {
+        super(text);
+    }
+
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param text the text of this button
+     * @param graphic the graphic of this button
+     */
+    public XToggleButton(String text, Node graphic) {
+        super(text, graphic);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void fire() {
         if (getToggleGroup() == null || !isSelected()) {
