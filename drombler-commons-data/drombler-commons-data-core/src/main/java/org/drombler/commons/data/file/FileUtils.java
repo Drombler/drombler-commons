@@ -69,14 +69,14 @@ public class FileUtils {
         }
     }
 
-    private static <T extends UniqueKeyProvider<Path>> T getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+    private static Object getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
             DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry, ContextManager contextManager, ContextInjector contextInjector) {
-        DocumentHandlerDescriptor<T> documentHandlerDescriptor = getDocumentHandlerDescriptor(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
+        DocumentHandlerDescriptor<?> documentHandlerDescriptor = getDocumentHandlerDescriptor(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
         if (documentHandlerDescriptor != null) {
             if (registeredDataHandlerForUniqueKeyExists(documentHandlerDescriptor, dataHandlerRegistry, fileToOpen)) {
-                return (T) dataHandlerRegistry.getDataHandler((Class<? extends DataHandler<Path>>) documentHandlerDescriptor.getDataHandlerClass(), fileToOpen);
+                return dataHandlerRegistry.getDataHandler((Class<? extends DataHandler<Path>>) documentHandlerDescriptor.getDataHandlerClass(), fileToOpen);
             } else {
-                T documentHandler = createNewDocumentHandler(documentHandlerDescriptor, fileToOpen);
+                Object documentHandler = createNewDocumentHandler(documentHandlerDescriptor, fileToOpen);
                 if (documentHandler != null && documentHandler instanceof DataHandler) {
                     configureDataHandler((DataHandler<Path>) documentHandler, contextManager, contextInjector, dataHandlerRegistry);
                 }
@@ -87,7 +87,7 @@ public class FileUtils {
         }
     }
 
-    private static <T extends UniqueKeyProvider<Path>> boolean registeredDataHandlerForUniqueKeyExists(DocumentHandlerDescriptor<T> documentHandlerDescriptor, DataHandlerRegistry dataHandlerRegistry,
+    private static boolean registeredDataHandlerForUniqueKeyExists(DocumentHandlerDescriptor<?> documentHandlerDescriptor, DataHandlerRegistry dataHandlerRegistry,
             Path fileToOpen) {
         return DataHandler.class.isAssignableFrom(documentHandlerDescriptor.getDataHandlerClass())
                 && dataHandlerRegistry.containsDataHandlerForUniqueKey((Class<? extends DataHandler<Path>>) documentHandlerDescriptor.getDataHandlerClass(), fileToOpen);
@@ -119,7 +119,7 @@ public class FileUtils {
         });
     }
 
-    private static <T extends UniqueKeyProvider<Path>> T createNewDocumentHandler(DocumentHandlerDescriptor<T> documentHandlerDescriptor, Path fileToOpen) {
+    private static Object createNewDocumentHandler(DocumentHandlerDescriptor<?> documentHandlerDescriptor, Path fileToOpen) {
         try {
             return documentHandlerDescriptor.createDocumentHandler(fileToOpen);
         } catch (IllegalAccessException | SecurityException | InvocationTargetException | InstantiationException | IllegalArgumentException | NoSuchMethodException ex) {
