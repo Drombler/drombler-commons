@@ -22,14 +22,15 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextInjector;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
-import org.softsmithy.lib.util.CloseEvent;
-import org.softsmithy.lib.util.CloseEventListener;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.data.DataHandlerRegistry;
 import org.drombler.commons.data.Openable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.nio.file.PathUtils;
+import org.softsmithy.lib.util.CloseEvent;
+import org.softsmithy.lib.util.CloseEventListener;
+import org.softsmithy.lib.util.UniqueKeyProvider;
 
 /**
  * A utility class for files.
@@ -68,17 +69,28 @@ public class FileUtils {
         }
     }
 
-    private static Object getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+    private static <T extends UniqueKeyProvider<Path>> T getDocumentHandler(Path fileToOpen, DataHandlerRegistry dataHandlerRegistry, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
             DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry, ContextManager contextManager, ContextInjector contextInjector) {
-        if (dataHandlerRegistry.containsDataHandlerForUniqueKey(fileToOpen)) {
-            return dataHandlerRegistry.getDataHandler(fileToOpen);
-        } else {
-            Object documentHandler = createNewDocumentHandler(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
-            if (documentHandler != null && documentHandler instanceof DataHandler) {
-                configureDataHandler((DataHandler<?>) documentHandler, contextManager, contextInjector, dataHandlerRegistry);
+        DocumentHandlerDescriptor<T> documentHandlerDescriptor = getDocumentHandlerDescriptor(fileToOpen, fileExtensionDescriptorRegistry, documentHandlerDescriptorRegistry);
+        if (documentHandlerDescriptor != null) {
+            if (registeredDataHandlerForUniqueKeyExists(documentHandlerDescriptor, dataHandlerRegistry, fileToOpen)) {
+                return (T) dataHandlerRegistry.getDataHandler((Class<? extends DataHandler<Path>>) documentHandlerDescriptor.getDataHandlerClass(), fileToOpen);
+            } else {
+                T documentHandler = createNewDocumentHandler(documentHandlerDescriptor, fileToOpen);
+                if (documentHandler != null && documentHandler instanceof DataHandler) {
+                    configureDataHandler((DataHandler<Path>) documentHandler, contextManager, contextInjector, dataHandlerRegistry);
+                }
+                return documentHandler;
             }
-            return documentHandler;
+        } else {
+            return null;
         }
+    }
+
+    private static <T extends UniqueKeyProvider<Path>> boolean registeredDataHandlerForUniqueKeyExists(DocumentHandlerDescriptor<T> documentHandlerDescriptor, DataHandlerRegistry dataHandlerRegistry,
+            Path fileToOpen) {
+        return DataHandler.class.isAssignableFrom(documentHandlerDescriptor.getDataHandlerClass())
+                && dataHandlerRegistry.containsDataHandlerForUniqueKey((Class<? extends DataHandler<Path>>) documentHandlerDescriptor.getDataHandlerClass(), fileToOpen);
     }
 
     private static void configureDataHandler(DataHandler<?> dataHandler, ContextManager contextManager, ContextInjector contextInjector, DataHandlerRegistry dataHandlerRegistry) {
@@ -107,25 +119,30 @@ public class FileUtils {
         });
     }
 
-    private static Object createNewDocumentHandler(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry, DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
+    private static <T extends UniqueKeyProvider<Path>> T createNewDocumentHandler(DocumentHandlerDescriptor<T> documentHandlerDescriptor, Path fileToOpen) {
+        try {
+            return documentHandlerDescriptor.createDocumentHandler(fileToOpen);
+        } catch (IllegalAccessException | SecurityException | InvocationTargetException | InstantiationException | IllegalArgumentException | NoSuchMethodException ex) {
+            LOG.error("Could not create a document handler for " + fileToOpen + "!", ex);
+            return null;
+        }
+    }
+
+    private static <T extends UniqueKeyProvider<Path>> DocumentHandlerDescriptor<T> getDocumentHandlerDescriptor(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+            DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
         String extension = PathUtils.getExtension(fileToOpen);
         FileExtensionDescriptor fileExtensionDescriptor = fileExtensionDescriptorRegistry.getFileExtensionDescriptor(extension);
         if (fileExtensionDescriptor != null) {
             String mimeType = fileExtensionDescriptor.getMimeType();
-            DocumentHandlerDescriptor<?> documentHandlerDescriptor = documentHandlerDescriptorRegistry.getDocumentHandlerDescriptor(mimeType);
+            DocumentHandlerDescriptor<T> documentHandlerDescriptor = (DocumentHandlerDescriptor<T>) documentHandlerDescriptorRegistry.getDocumentHandlerDescriptor(mimeType);
             if (documentHandlerDescriptor != null) {
-                try {
-                    return documentHandlerDescriptor.createDocumentHandler(fileToOpen);
-                } catch (IllegalAccessException | SecurityException | InvocationTargetException | InstantiationException | IllegalArgumentException | NoSuchMethodException ex) {
-                    LOG.error("Could not create a document handler for " + fileToOpen + "!", ex);
-                }
-            } else {
                 LOG.warn("No DocumentHandlerDescriptor found for:" + mimeType + "!");
             }
+            return documentHandlerDescriptor;
         } else {
             LOG.warn("No FileExtensionDescriptor found for:" + extension + "!");
+            return null;
         }
-        return null;
     }
 
     private static void openDocument(Object documentHandler) {
