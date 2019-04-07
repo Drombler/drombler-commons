@@ -91,7 +91,12 @@ public class ProxyContext extends AbstractContext {
         fireContextEvents(Arrays.asList(context));
     }
 
-    public void addContexts(List<Context> contexts) {
+    /**
+     * Adds a collection of {@link Context}s to be proxied by this context
+     *
+     * @param contexts the contexts to be proxied
+     */
+    public void addContexts(Collection<Context> contexts) {
         contexts.forEach(this::addContextOnly);
         fireContextEvents(contexts);
     }
@@ -170,7 +175,7 @@ public class ProxyContext extends AbstractContext {
         return contexts.isEmpty();
     }
 
-    private void fireContextEvents(List<Context> changedContexts) {
+    private void fireContextEvents(Collection<Context> changedContexts) {
         for (Class<?> type : getListeners().keySet()) {
             for (Context context : changedContexts) {
                 if (!context.findAll(type).isEmpty()) {

@@ -14,6 +14,11 @@
  */
 package org.drombler.commons.client.geometry;
 
+/**
+ * The horizontal alignment.
+ *
+ * @author puce
+ */
 public enum HorizontalAlignment {
     LEFT,
     CENTER,

@@ -53,6 +53,11 @@ public class SimpleContextContent {
         return types;
     }
 
+    /**
+     * Adds a collection of objects to this context.
+     *
+     * @param contentList the content to be added
+     */
     public void addAll(Collection<?> contentList) {
         Set<Class<?>> types = new HashSet<>();
         contentList.forEach(content -> types.addAll(addOnly(content)));
@@ -74,7 +79,7 @@ public class SimpleContextContent {
     }
 
     /**
-     * Removed an object.
+     * Removes an object.
      *
      * @param obj the object to be removed.
      */

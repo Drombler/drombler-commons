@@ -141,6 +141,12 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
         }
     }
 
+    /**
+     * Gets the local context for the specified object.
+     *
+     * @param obj the object
+     * @return the local context of the specified object
+     */
     public LocalProxyContext getLocalContext(Object obj) {
         return localContexts.get(obj);
     }

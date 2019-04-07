@@ -92,6 +92,12 @@ public final class Contexts {
         }
     }
 
+    /**
+     * Creates a context with a fixed content.
+     *
+     * @param content the content
+     * @return a context with a fixed content
+     */
     public static Context createFixedContext(Collection<?> content) {
         SimpleContextContent contextContent = new SimpleContextContent();
         Context fixedContext = new SimpleContext(contextContent);
@@ -99,6 +105,15 @@ public final class Contexts {
         return fixedContext;
     }
 
+    /**
+     * Configures the specified object.
+     *
+     * @param obj the object
+     * @param contextManager the context manager
+     * @param contextInjector the context injector
+     * @see ContextManager#putLocalContext(java.lang.Object)
+     * @see ContextInjector#inject(java.lang.Object)
+     */
     public static void configureObject(Object obj, ContextManager contextManager, ContextInjector contextInjector) {
         contextManager.putLocalContext(obj);
         contextInjector.inject(obj);

@@ -7,6 +7,11 @@ import java.nio.file.Path;
  */
 public interface DirectoryChooserProvider {
 
+    /**
+     * Shows a directory chooser dialog.
+     *
+     * @return the path of the selected directory or null if no directory has been selected
+     */
     Path showDialog();
 
 }
