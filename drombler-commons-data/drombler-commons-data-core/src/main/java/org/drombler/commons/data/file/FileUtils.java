@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.nio.file.PathUtils;
 import org.softsmithy.lib.util.CloseEvent;
 import org.softsmithy.lib.util.CloseEventListener;
-import org.softsmithy.lib.util.UniqueKeyProvider;
 
 /**
  * A utility class for files.
@@ -128,13 +127,13 @@ public class FileUtils {
         }
     }
 
-    private static <T extends UniqueKeyProvider<Path>> DocumentHandlerDescriptor<T> getDocumentHandlerDescriptor(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
+    private static DocumentHandlerDescriptor<?> getDocumentHandlerDescriptor(Path fileToOpen, FileExtensionDescriptorRegistry fileExtensionDescriptorRegistry,
             DocumentHandlerDescriptorRegistry documentHandlerDescriptorRegistry) {
         String extension = PathUtils.getExtension(fileToOpen);
         FileExtensionDescriptor fileExtensionDescriptor = fileExtensionDescriptorRegistry.getFileExtensionDescriptor(extension);
         if (fileExtensionDescriptor != null) {
             String mimeType = fileExtensionDescriptor.getMimeType();
-            DocumentHandlerDescriptor<T> documentHandlerDescriptor = (DocumentHandlerDescriptor<T>) documentHandlerDescriptorRegistry.getDocumentHandlerDescriptor(mimeType);
+            DocumentHandlerDescriptor<?> documentHandlerDescriptor = documentHandlerDescriptorRegistry.getDocumentHandlerDescriptor(mimeType);
             if (documentHandlerDescriptor != null) {
                 LOG.warn("No DocumentHandlerDescriptor found for:" + mimeType + "!");
             }
