@@ -28,8 +28,7 @@ import java.util.Properties;
 import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 
 /**
- *
- * @author puce
+ * The client configuration. Subclass may add additional properties or change the configuration such as the application layout.
  */
 public class DromblerClientConfiguration {
 
@@ -79,7 +78,7 @@ public class DromblerClientConfiguration {
 
     private final Properties userConfigProps;
     private final CommandLineArgs commandLineArgs;
-    protected final ApplicationConfiguration applicationConfig;
+    private final ApplicationConfiguration applicationConfig;
 
     /**
      * Creates a new instance of this class.

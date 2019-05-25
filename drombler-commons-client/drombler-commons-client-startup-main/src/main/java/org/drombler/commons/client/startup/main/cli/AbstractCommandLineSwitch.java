@@ -1,16 +1,26 @@
 package org.drombler.commons.client.startup.main.cli;
 
+import java.util.Set;
+
+/**
+ * An abstract base class for {@link CommandLineSwitch}es.
+ */
 public abstract class AbstractCommandLineSwitch implements CommandLineSwitch{
 
-    private final String commandLineSwitch;
+    private final Set<String> commandLineSwitches;
 
-    public AbstractCommandLineSwitch(String commandLineSwitch) {
-        this.commandLineSwitch = commandLineSwitch;
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param commandLineSwitches a single supported command line switch
+     */
+    public AbstractCommandLineSwitch(Set<String> commandLineSwitches) {
+        this.commandLineSwitches = commandLineSwitches;
     }
 
         @Override
     public boolean supportsSwitch(String commandLineSwitch) {
-        return commandLineSwitch.equals(this.commandLineSwitch);
+            return commandLineSwitches.contains(commandLineSwitch);
     }
     
     protected void checkConsumeSwitchArgs(String commandLineSwitch, String[] followUpArgs) throws IllegalArgumentException {
