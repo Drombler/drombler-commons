@@ -6,6 +6,7 @@ import java.util.Set;
 
 /**
  * The application installation directory switch.<br>
+ * <br>
  * Usage: {@code [--installdir <install-directory>]}
  */
 public class InstallDirSwitch extends AbstractCommandLineSwitch implements CommandLineSwitch {

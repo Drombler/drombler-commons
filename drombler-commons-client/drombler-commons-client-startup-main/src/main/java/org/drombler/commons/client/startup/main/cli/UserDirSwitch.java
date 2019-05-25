@@ -6,6 +6,7 @@ import java.util.Set;
 
 /**
  * The application user directory switch.<br>
+ * <br>
  * Usage: {@code [--userdir <user-directory>]}
  */
 public class UserDirSwitch extends AbstractCommandLineSwitch implements CommandLineSwitch {
