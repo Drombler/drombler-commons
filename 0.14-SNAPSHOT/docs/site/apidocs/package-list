@@ -1,3 +1,4 @@
+org.drombler.commons.action
 org.drombler.commons.action.command
 org.drombler.commons.action.context
 org.drombler.commons.action.fx
@@ -32,6 +33,6 @@ org.drombler.commons.fx.scene.layout
 org.drombler.commons.fx.scene.renderer
 org.drombler.commons.fx.scene.renderer.time
 org.drombler.commons.fx.stage
-org.drombler.commons.spring.core.context.properties
+org.drombler.commons.spring.boot.context.properties
 org.drombler.commons.spring.jpa
-org.drombler.commons.spring.jpa.stereotype
+org.drombler.commons.spring.transaction.stereotype
