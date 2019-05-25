@@ -24,18 +24,31 @@ public enum HorizontalAlignment {
     CENTER,
     RIGHT,
     LEADING {
+        /**
+         * {@inheritDoc ]
+         */
         @Override
         public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
             return leftToRight || mirroringEnabled ? LEFT : RIGHT;
         }
     },
     TRAILING {
+        /**
+         * {@inheritDoc ]
+         */
         @Override
         public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
             return leftToRight || mirroringEnabled ? RIGHT : LEFT;
         }
     };
 
+    /**
+     * Gets the horizontal alignment for the given orientation.
+     *
+     * @param leftToRight left-to-right flag
+     * @param mirroringEnabled mirroring enabled flag
+     * @return the horizontal alignment for the given orientation
+     */
     public HorizontalAlignment orient(boolean leftToRight, boolean mirroringEnabled) {
         return this;
     }

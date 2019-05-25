@@ -20,10 +20,10 @@
         <action>
             <actionName>rebuild</actionName>
             <goals>
-                <goal>-T</goal>
-                <goal>1C</goal>
                 <goal>clean</goal>
                 <goal>install</goal>
+                
+                
             </goals>
         </action>
         <action>
