@@ -18,11 +18,21 @@ public abstract class AbstractCommandLineSwitch implements CommandLineSwitch{
         this.commandLineSwitches = commandLineSwitches;
     }
 
+    /**
+     * {@inheritDoc }
+     */
         @Override
     public boolean supportsSwitch(String commandLineSwitch) {
             return commandLineSwitches.contains(commandLineSwitch);
     }
-    
+
+    /**
+     * Checks if the switch args can be consumed.
+     *
+     * @param commandLineSwitch the command line switch
+     * @param followUpArgs the follow-up arguments
+     * @throws IllegalArgumentException
+     */
     protected void checkConsumeSwitchArgs(String commandLineSwitch, String[] followUpArgs) throws IllegalArgumentException {
         if (!supportsSwitch(commandLineSwitch)) {
             throw new IllegalArgumentException("Unsupported switch: " + commandLineSwitch);

@@ -58,6 +58,12 @@ public abstract class DromblerClientStarter<T extends DromblerClientConfiguratio
         addAdditionalStarters(singleInstanceStarter);// first starter
     }
 
+    /**
+     * Adds additional {@link BootServiceStarter}s to the list of starters to execute. Only active starters will be added to the effective starters list.
+     *
+     * @param additionalStarters additional starters
+     * @see BootServiceStarter#isActive()
+     */
     protected final void addAdditionalStarters(BootServiceStarter... additionalStarters) {
         Arrays.stream(additionalStarters)
                 .filter(BootServiceStarter::isActive)

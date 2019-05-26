@@ -26,6 +26,8 @@ public interface BootServiceStarter {
      *
      * @return true, if the starter could successfully be initialized, else false
      * @throws Exception if an unexpected error occured
+     * @see #startAndWait()
+     * @see #stop()
      */
     boolean init() throws Exception;
 
@@ -34,6 +36,7 @@ public interface BootServiceStarter {
      *
      * @throws Exception if an unexpected error occured
      * @see #init()
+     * @see #stop()
      */
     void startAndWait() throws Exception;
 
@@ -41,6 +44,8 @@ public interface BootServiceStarter {
      * Stops this starter.
      *
      * @throws Exception if an unexpected error occured
+     * @see #init()
+     * @see #startAndWait()
      */
     void stop() throws Exception;
 

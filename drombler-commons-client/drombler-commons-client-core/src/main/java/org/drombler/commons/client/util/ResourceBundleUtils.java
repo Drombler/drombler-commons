@@ -40,7 +40,7 @@ public final class ResourceBundleUtils {
     }
 
     /**
-     * Gets the {@link ResoureBundle} if the resource key is prefixed with '%', else null (no I18N).<br>
+     * Gets the {@link ResourceBundle} if the resource key is prefixed with '%', else null (no I18N).<br>
      * <br>
      * <pre>
      * If resourceBundleBaseName is null, the {@link #getClassResourceBundle(java.lang.Class) } gets returned.
