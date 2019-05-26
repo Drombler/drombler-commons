@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
+import org.drombler.commons.client.startup.main.ApplicationInstanceEvent;
 import org.drombler.commons.client.startup.main.ApplicationInstanceListener;
 import org.drombler.commons.client.startup.main.BootServiceStarter;
 import org.drombler.commons.client.startup.main.DromblerClientConfiguration;
@@ -163,7 +164,7 @@ public class SingleInstanceStarter implements BootServiceStarter {
                                 }
                             })
                             .collect(Collectors.toList());
-                    fireNewInstance(additionalArgs);
+                    fireNewInstance(new ApplicationInstanceEvent(this, additionalArgs));
                 } catch (UnsupportedEncodingException ex) {
                     System.err.println("Error connecting to local port for single instance notification");
                     ex.printStackTrace();
@@ -217,9 +218,9 @@ public class SingleInstanceStarter implements BootServiceStarter {
         this.applicationInstanceListener = applicationInstanceListener;
     }
 
-    private void fireNewInstance(List<String> additionalArgs) {
+    private void fireNewInstance(ApplicationInstanceEvent event) {
         if (applicationInstanceListener != null) {
-            applicationInstanceListener.newInstanceCreated(additionalArgs);
+            applicationInstanceListener.newInstanceCreated(event);
         }
     }
 

@@ -19,8 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
- * @author puce
+ * The command line arguments.
  */
 public class CommandLineArgs {
 
@@ -34,6 +33,12 @@ public class CommandLineArgs {
         this.additionalArguments = additionalArguments;
     }
 
+    /**
+     * Parses the command line arguments.
+     *
+     * @param args the command line arguments to parse
+     * @return the command line arguments
+     */
     public static CommandLineArgs parseCommandLineArgs(String[] args) {
         List<String> additionalArguments = new ArrayList<>();
 
@@ -83,21 +88,27 @@ public class CommandLineArgs {
     }
 
     /**
-     * @return the additionalArguments
+     * Gets the additional arguments.
+     *
+     * @return the additional arguments
      */
     public List<String> getAdditionalArguments() {
         return additionalArguments;
     }
 
     /**
-     * @return the installDirSwitch
+     * Gets the application installation directory switch.
+     *
+     * @return the application installation directory switch
      */
     public InstallDirSwitch getInstallDirSwitch() {
         return installDirSwitch;
     }
 
     /**
-     * @return the userDirSwitch
+     * Gets the application user directory switch.
+     *
+     * @return the application user directory switch
      */
     public UserDirSwitch getUserDirSwitch() {
         return userDirSwitch;

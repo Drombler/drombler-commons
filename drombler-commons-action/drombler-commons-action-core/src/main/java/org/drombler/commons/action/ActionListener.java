@@ -17,16 +17,12 @@ package org.drombler.commons.action;
 import org.softsmithy.lib.beans.Bean;
 
 /**
- * A GUI toolkit agnostic interface which keeps the state (enabled/ disabled) and the logic between menu items and
- * toolbar buttons in sync.
+ * A GUI toolkit agnostic interface which keeps the state (enabled/ disabled) and the logic between menu items and toolbar buttons in sync.
  *
- * TODO: extend EventListener?
- *
- * TODO: E extend EventObject?
- *
- * @author puce
  * @param <E> the type of the action event
  */
+// TODO: extend EventListener?
+// TODO: E extend EventObject?
 public interface ActionListener<E> extends Bean {
 
     /**
@@ -37,9 +33,9 @@ public interface ActionListener<E> extends Bean {
     void onAction(E event);
 
     /**
-     * Returns true, if this action is disabled, else false.
+     * Returns true, if this action is enabled, else false.
      *
-     * @return true, if this action is disabled, else false
+     * @return true, if this action is enabled, else false
      */
     boolean isEnabled();
 

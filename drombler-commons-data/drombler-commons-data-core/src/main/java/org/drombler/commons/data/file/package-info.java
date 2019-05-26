@@ -8,23 +8,11 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (GitHub user: puce77).
- * Copyright 2015 Drombler.org. All Rights Reserved.
+ * Copyright 2018 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
-package org.drombler.commons.client.startup.main;
-
-import java.util.EventListener;
-
 /**
- * A listener for application instance events.
+ * File support for the Data Handler Framework.
  */
-public interface ApplicationInstanceListener extends EventListener {
-
-    /**
-     * Callback for new application instance created events.
-     *
-     * @param event the application instance event
-     */
-    void newInstanceCreated(ApplicationInstanceEvent event);
-}
+package org.drombler.commons.data.file;
