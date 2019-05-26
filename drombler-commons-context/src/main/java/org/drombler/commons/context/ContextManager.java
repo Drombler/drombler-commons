@@ -84,11 +84,9 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      * @param obj an object
      * @param context the local context of the object
      */
-    // TODO: Good name? registerLocalContext?
-    public void putLocalContext(Object obj, LocalProxyContext context) {
+    public void registerLocalContext(Object obj, LocalProxyContext context) {
         if (context == null) {
-            // TODO error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("context must no be null!");
         }
 
         boolean isLocalContextActive = isLocalContextActive(obj);
@@ -115,11 +113,10 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      *
      * @param obj an object
      */
-    // TODO: Good name? registerLocalContext?
-    public void putLocalContext(Object obj) {
+    public void registerLocalContext(Object obj) {
         if (obj instanceof LocalContextProvider) {
             LocalProxyContext localProxyContext = LocalProxyContext.createLocalProxyContext(obj);
-            putLocalContext(obj, localProxyContext);
+            registerLocalContext(obj, localProxyContext);
         }
     }
 
@@ -129,8 +126,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      * @param obj the object whose local context should be unregistered.
      * @return the registered context
      */
-    // TODO: Good name? unregisterLocalContext?
-    public LocalProxyContext removeLocalContext(Object obj) {
+    public LocalProxyContext unregisterLocalContext(Object obj) {
         if (localContexts.containsKey(obj)) {
             LocalProxyContext oldContext = localContexts.remove(obj);
             activeContext.removeContext(oldContext);

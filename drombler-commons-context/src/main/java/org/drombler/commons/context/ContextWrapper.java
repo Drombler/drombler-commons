@@ -46,7 +46,7 @@ public class ContextWrapper implements Context {
      * {@inheritDoc }
      */
     @Override
-    public <T> Collection<? extends T> findAll(Class<T> type) {
+    public <T> Collection<T> findAll(Class<T> type) {
         return context.findAll(type);
     }
 

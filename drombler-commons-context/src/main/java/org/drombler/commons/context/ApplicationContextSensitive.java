@@ -16,13 +16,9 @@ package org.drombler.commons.context;
 
 /**
  * An injection point for the application-wide context.
- *
- * TODO: Replace with CDI?
- *
- * TODO: Needed?
- *
- * @author puce
  */
+// TODO: Replace with CDI?
+// TODO: Needed?
 public interface ApplicationContextSensitive {
 
     /**

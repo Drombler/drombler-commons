@@ -44,7 +44,7 @@ public final class Contexts {
                 }
 
                 @Override
-                public <T> Collection<? extends T> findAll(Class<T> type) {
+                public <T> Collection<T> findAll(Class<T> type) {
                     return Collections.emptyList();
                 }
 
@@ -80,9 +80,8 @@ public final class Contexts {
      * @param localContextProvider a LocalContextProvider
      * @param type the specified type
      * @return the first instance found in this context with the specified type, or {@code null} if no instance was found or if localContextProvider does not implement LocalContextProvider.
-     *
-     * TODO: return Optional?
      */
+    // TODO: return Optional?
     public static <T> T find(Object localContextProvider, Class<T> type) {
         if (localContextProvider instanceof LocalContextProvider) {
             Context localContext = getLocalContext(localContextProvider);
@@ -111,11 +110,11 @@ public final class Contexts {
      * @param obj the object
      * @param contextManager the context manager
      * @param contextInjector the context injector
-     * @see ContextManager#putLocalContext(java.lang.Object)
+     * @see ContextManager#registerLocalContext(java.lang.Object)
      * @see ContextInjector#inject(java.lang.Object)
      */
     public static void configureObject(Object obj, ContextManager contextManager, ContextInjector contextInjector) {
-        contextManager.putLocalContext(obj);
+        contextManager.registerLocalContext(obj);
         contextInjector.inject(obj);
     }
 }

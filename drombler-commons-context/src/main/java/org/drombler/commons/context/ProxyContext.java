@@ -46,7 +46,7 @@ public class ProxyContext extends AbstractContext {
      * {@inheritDoc }
      */
     @Override
-    public <T> Collection<? extends T> findAll(Class<T> type) {
+    public <T> Collection<T> findAll(Class<T> type) {
         List<T> result = new ArrayList<>();
 
         contexts.forEach(context -> result.addAll(context.findAll(type)));
