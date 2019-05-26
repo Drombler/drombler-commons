@@ -29,6 +29,12 @@ public class ProxyContext extends AbstractContext {
     private final List<Context> contexts = new ArrayList<>();
 
     /**
+     * Creates a new instance of this class.
+     */
+    public ProxyContext() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override
