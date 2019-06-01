@@ -21,7 +21,7 @@ import org.softsmithy.lib.util.Comparables;
 /**
  * An implementation of {@link LimitedProperty} for a {@link Comparable}.
  *
- * @author puce
+ * @param <T> the type of the wrapped object
  */
 public class LimitedComparableProperty<T extends Comparable<? super T>> extends SimpleObjectProperty<T> implements LimitedProperty<T> {
 
@@ -50,38 +50,89 @@ public class LimitedComparableProperty<T extends Comparable<? super T>> extends 
         }
     };
 
+    /**
+     * Creates a new instance of this class.
+     */
     public LimitedComparableProperty() {
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param initialValue the initial value of this property
+     */
     public LimitedComparableProperty(T initialValue) {
         super(initialValue);
     }
 
+    /**
+     * Creates a new instance of this class
+     *
+     * @param bean the bean of this property
+     * @param name the name of this property
+     */
     public LimitedComparableProperty(Object bean, String name) {
         super(bean, name);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param bean the bean of this property
+     * @param name the name of this property
+     * @param initialValue the initial value of this property
+     */
     public LimitedComparableProperty(Object bean, String name, T initialValue) {
         super(bean, name, initialValue);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param min the min value allowed for this property
+     * @param max the max value allowed for this property
+     */
     public LimitedComparableProperty(T min, T max) {
         setMin(min);
         setMax(max);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param initialValue the initial value of this property
+     * @param min the min value allowed for this property
+     * @param max the max value allowed for this property
+     */
     public LimitedComparableProperty(T initialValue, T min, T max) {
         super(initialValue);
         setMin(min);
         setMax(max);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param bean the bean of this property
+     * @param name the name of this property
+     * @param min the min value allowed for this property
+     * @param max the max value allowed for this property
+     */
     public LimitedComparableProperty(Object bean, String name, T min, T max) {
         super(bean, name);
         setMin(min);
         setMax(max);
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param bean the bean of this property
+     * @param name the name of this property
+     * @param initialValue the initial value of this property
+     * @param min the min value allowed for this property
+     * @param max the max value allowed for this property
+     */
     public LimitedComparableProperty(Object bean, String name, T initialValue, T min, T max) {
         super(bean, name, initialValue);
         setMin(min);

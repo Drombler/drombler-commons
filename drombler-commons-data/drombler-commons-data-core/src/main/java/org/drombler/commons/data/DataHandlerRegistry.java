@@ -19,6 +19,21 @@ public class DataHandlerRegistry implements AutoCloseable {
 
     private final Map<Object, DataHandler<?>> dataHandlers = new HashMap<>();
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public DataHandlerRegistry() {
+    }
+
+    /**
+     * Registers a new {@link DataHandler}.<br>
+     * <br>
+     * Note: Always work with the returned data handler!
+     *
+     * @param <T> the type of the unique key of the data handler
+     * @param dataHandler the data handler
+     * @return the provided data handler or the already registered data handler for the unique key, if there is any
+     */
     public <T> DataHandler<T> registerDataHandler(DataHandler<T> dataHandler) {
         if (dataHandler.getUniqueKey() != null) {
             if (! dataHandlers.containsKey(dataHandler.getUniqueKey())) {
@@ -44,15 +59,32 @@ public class DataHandlerRegistry implements AutoCloseable {
         }
     }
 
+    /**
+     * Unregisters a {@link DataHandler}.
+     *
+     * @param dataHandler the data handler to unregister
+     */
     public void unregisterDataHandler(DataHandler<?> dataHandler) {
         dataHandlers.remove(dataHandler.getUniqueKey());
         closeDataHandler(dataHandler);
     }
 
+    /**
+     * Checks if there is already a registered {@link DataHandler} for the provided unique key.
+     *
+     * @param uniqueKey the unique key
+     * @return true, if there is already a registered data handler for the provided unique key, else false
+     */
     public boolean containsDataHandlerForUniqueKey(Object uniqueKey) {
         return dataHandlers.containsKey(uniqueKey);
     }
 
+    /**
+     * Gets the {@link DataHandler} for the provided unique key.
+     *
+     * @param uniqueKey the data handler for the provided unique key
+     * @return the data handler for the provided unique key
+     */
     public DataHandler<?> getDataHandler(Object uniqueKey) {
         return dataHandlers.get(uniqueKey);
     }
