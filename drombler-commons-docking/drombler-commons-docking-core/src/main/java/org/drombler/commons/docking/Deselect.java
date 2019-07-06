@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Marks the deselect method of a Dockable.
  *
  * @author puce
  */

@@ -55,7 +55,9 @@ public class DockableEntry<D, DATA extends DockableData> {
     }
 
     /**
-     * @return the kind
+     * Gets the kind of the Dockable.
+     *
+     * @return the kind of the Dockable
      */
     public DockableKind getKind() {
         return kind;
@@ -104,6 +106,9 @@ public class DockableEntry<D, DATA extends DockableData> {
         return Objects.equals(this.dockable, other.dockable);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "DockableEntry[dockablePreferences=" + dockablePreferences + "]";
