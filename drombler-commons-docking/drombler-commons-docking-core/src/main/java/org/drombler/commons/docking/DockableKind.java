@@ -27,7 +27,7 @@ public enum DockableKind {
      */
     VIEW,
     /**
-     * Editor Dockables are used to edit the data managed by a data handler. Usually every data hanlder gets its own Dockable instance when it's opened for edit.
+     * Editor Dockables are used to edit some content (e.g. a file or a business object). Usually every content gets its own Dockable instance when it's opened for edit.
      */
     EDITOR;
 }
