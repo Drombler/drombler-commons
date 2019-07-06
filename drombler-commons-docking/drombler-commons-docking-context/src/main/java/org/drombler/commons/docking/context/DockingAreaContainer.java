@@ -94,26 +94,56 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
      */
     String getDefaultEditorAreaId();
 
+    /**
+     * Gets all Dockables of this Docking Area container.
+     *
+     * @return all Dockables of this Docking Area container
+     */
     Set<E> getDockables();
 
+    /**
+     * Gets all modified Dockables of this Docking Area container, sorted by their titles.
+     *
+     * @return all Dockables of this Docking Area container
+     * @see DockableData#getTitle()
+     */
     SortedSet<E> getSortedModifiedDockables();
 
     /**
-     * bound property
+     * Sets the active Dockable.
      *
-     * @param dockableEntry
+     * This is a bound property.
+     *
+     * @param dockableEntry the Dockable to set active
      */
     void setActiveDockable(E dockableEntry);
 
     /**
-     * bound property
+     * Gets the active Dockable.
      *
-     * @return
+     * This is a bound property.
+     *
+     * @return the active Dockable
      */
     E getActiveDockable();
 
+    /**
+     * Opens and registers a new view Dockable.
+     *
+     * @param viewType the view type
+     * @param active flag if the new view should be set as the active Dockable in this container.
+     * @param displayName the display name of th the view
+     * @param icon the icon name pattern to get icon for the view
+     * @param resourceLoader the resource loader to load the icon
+     * @return the Dockable entry for the view
+     */
     E openAndRegisterNewView(Class<? extends D> viewType, boolean active, String displayName, String icon, ResourceLoader resourceLoader);
 
+    /**
+     * Closes and unregisters a view.
+     *
+     * @param viewEntry the view entry for the view to close and unregister
+     */
     void closeAndUnregisterView(E viewEntry);
 
     /**
@@ -130,12 +160,35 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     // TODO: require UniqueKeyProvider<?> or DataHandler<?> as content?
     E openEditorForContent(Object content, Class<? extends D> editorType, String icon, ResourceLoader resourceLoader);
 
+    /**
+     * Closes all editors of the specified type.
+     *
+     * @param editorType the editor type
+     */
     void closeEditors(Class<? extends D> editorType);
 
+    /**
+     * Registers the default {@link DockablePreferences} for the specified Dockable class.
+     *
+     * @param dockableClass the Dockable class
+     * @param dockablePreferences the default DockablePreferences
+     */
     void registerDefaultDockablePreferences(Class<?> dockableClass, DockablePreferences dockablePreferences);
 
+    /**
+     * Unregisters the default {@link DockablePreferences} for the specified Dockable class.
+     *
+     * @param dockableClass the Dockable class
+     * @return the previously registered DockablePreferences if any, else null
+     */
     DockablePreferences unregisterDefaultDockablePreferences(Class<?> dockableClass);
 
+    /**
+     * Gets the {@link DockablePreferences} for the specified Dockable.
+     *
+     * @param dockable the Dockable
+     * @return the DockablePreferences
+     */
     DockablePreferences getDockablePreferences(D dockable);
 
 }
