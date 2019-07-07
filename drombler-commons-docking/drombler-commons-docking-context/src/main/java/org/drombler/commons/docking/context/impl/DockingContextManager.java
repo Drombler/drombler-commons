@@ -91,7 +91,7 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         LocalProxyContext localContext = contextManager.getLocalContext(dockable);
         if (localContext == null) { // dockable is not an instance of LocalContextProvider and no other implicit contexts have been associated
             localContext = LocalProxyContext.createLocalProxyContext(dockable);
-            contextManager.putLocalContext(dockable, localContext);
+            contextManager.registerLocalContext(dockable, localContext);
         }
         localContext.getImplicitContext().addContexts(Arrays.asList(implicitLocalContexts));
     }
@@ -112,13 +112,13 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         @Override
         public void elementAdded(SetChangeEvent<E> event) {
             LOG.debug("Dockable added: {}", event.getElement());
-            contextManager.putLocalContext(event.getElement().getDockable());
+            contextManager.registerLocalContext(event.getElement().getDockable());
         }
 
         @Override
         public void elementRemoved(SetChangeEvent<E> event) {
             LOG.debug("Dockable removed: {}", event.getElement());
-            contextManager.removeLocalContext(event.getElement().getDockable());
+            contextManager.unregisterLocalContext(event.getElement().getDockable());
         }
 
     }
