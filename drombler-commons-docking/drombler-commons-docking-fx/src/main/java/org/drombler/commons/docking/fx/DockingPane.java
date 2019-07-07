@@ -39,8 +39,6 @@ import org.slf4j.LoggerFactory;
  * The DockingPane splits up the content area into any number of Docking Areas. The Docking Areas can be resized using the dividers. Each Docking Area can hold any number of Dockable Panes, which are
  * layed out as Tabs.
  *
- * Wiki: http://wiki.drombler.org/DockingFramework
- *
  * @author puce
  */
 public class DockingPane extends Control {//extends BorderPane {// GridPane {
@@ -59,6 +57,9 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     // TODO: needed? useful?
     private final Map<Node, FXDockableEntry> dockableEntryMap = new HashMap<>();
 
+    /**
+     * The onDockableCloseRequest event handler.
+     */
     // TODO: should this be a real event handler or a simple property?
     private final ObjectProperty<EventHandler<DockableCloseRequestEvent>> onDockableCloseRequest = new SimpleEventHandlerProperty<>(this, "onDockableCloseRequest",
             DockableCloseRequestEvent.DOCKABLE_CLOSE_REQUEST, this::setEventHandler);
@@ -107,6 +108,11 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         return Stylesheets.getDefaultStylesheet();
     }
 
+    /**
+     * Removes a Dockable from this DockingPane.
+     *
+     * @param dockable the Dockable to remove
+     */
     // TODO: needed? useful?
     public void removeDockable(Node dockable) {
         FXDockableEntry dockableEntry = dockableEntryMap.get(dockable);
@@ -129,9 +135,9 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     }
 
     /**
-     * Gets the Dockable entry.
+     * Gets the Dockable entries.
      *
-     * @return the Dockable entry.
+     * @return the Dockable entries.
      */
     public ObservableSet<FXDockableEntry> getDockables() {
         return dockables;
@@ -161,6 +167,11 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
         return onDockableCloseRequest;
     }
 
+    /**
+     * Gets the default editor area id.
+     *
+     * @return the default editor area id
+     */
     public String getDefaultEditorAreaId() {
         return dockingAreaDescriptors.stream()
                 .filter(dockingAreaDescriptor -> dockingAreaDescriptor.getKind() == DockingAreaKind.EDITOR)
