@@ -31,16 +31,17 @@ public class DataHandlerRegistry implements AutoCloseable {
      * Note: Always work with the returned data handler!
      *
      * @param <T> the type of the unique key of the data handler
+     * @param <D> the type of the data handler
      * @param dataHandler the data handler
-     * @return the provided data handler or the already registered data handler for the unique key, if there is any
+     * @return the provided data handler or the already registered data handler for the unique key (which is expected to have the same type), if there is any
      */
-    public <T> DataHandler<T> registerDataHandler(DataHandler<T> dataHandler) {
+    public <T, D extends DataHandler<T>> D registerDataHandler(D dataHandler) {
         if (dataHandler.getUniqueKey() != null) {
             if (! dataHandlers.containsKey(dataHandler.getUniqueKey())) {
                 dataHandlers.put(dataHandler.getUniqueKey(), dataHandler);
                 return dataHandler;
             } else {
-                return (DataHandler<T>) dataHandlers.get(dataHandler.getUniqueKey());
+                return getDataHandler(dataHandler.getUniqueKey());
             }
         } else {
             final PropertyChangeListener uniqueKeyListener = new PropertyChangeListener() {
@@ -82,11 +83,13 @@ public class DataHandlerRegistry implements AutoCloseable {
     /**
      * Gets the {@link DataHandler} for the provided unique key.
      *
+     * @param <T> the type of the unique key of the data handler
+     * @param <D> the type of the data handler
      * @param uniqueKey the data handler for the provided unique key
      * @return the data handler for the provided unique key, if there is any, else null
      */
-    public DataHandler<?> getDataHandler(Object uniqueKey) {
-        return dataHandlers.get(uniqueKey);
+    public <T, D extends DataHandler<T>> D getDataHandler(Object uniqueKey) {
+        return (D) dataHandlers.get(uniqueKey);
     }
 
     /**
