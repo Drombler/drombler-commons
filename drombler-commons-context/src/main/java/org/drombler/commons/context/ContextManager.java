@@ -86,7 +86,7 @@ public class ContextManager implements ActiveContextProvider, ApplicationContext
      */
     public void registerLocalContext(Object obj, LocalProxyContext context) {
         if (context == null) {
-            throw new IllegalArgumentException("context must no be null!");
+            throw new IllegalArgumentException("context must not be null!");
         }
 
         boolean isLocalContextActive = isLocalContextActive(obj);
