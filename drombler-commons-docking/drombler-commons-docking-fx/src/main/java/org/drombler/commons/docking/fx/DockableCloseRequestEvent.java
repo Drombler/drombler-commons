@@ -26,7 +26,7 @@ public class DockableCloseRequestEvent extends Event {
     /**
      * Creates a new instance of this class.
      *
-     * @param dockableEntry the Dockable entry to requested to close
+     * @param dockableEntry the Dockable entry requested to close
      */
     public DockableCloseRequestEvent(FXDockableEntry dockableEntry) {
         super(DOCKABLE_CLOSE_REQUEST);
@@ -36,7 +36,7 @@ public class DockableCloseRequestEvent extends Event {
     /**
      * Creates a new instance of this class.
      *
-     * @param dockableEntry the Dockable entry to requested to close
+     * @param dockableEntry the Dockable entry requested to close
      * @param source the event source
      * @param target the event target
      */

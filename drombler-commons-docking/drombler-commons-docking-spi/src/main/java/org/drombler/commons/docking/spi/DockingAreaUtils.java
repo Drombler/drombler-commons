@@ -33,7 +33,7 @@ public final class DockingAreaUtils {
      * Handles onSelectionChanged events.<br>
      * <br>
      * Calls the method of the previously selected Dockable, which is annotated with {@link Deselect}. <br>
-     * Calls the method of the currently selected Dockable, which is annotated with {@link Select}.
+     * Calls the method of the newly selected Dockable, which is annotated with {@link Select}.
      *
      * @param oldValue the previously selected Dockable
      * @param newValue the currently selected Dockable

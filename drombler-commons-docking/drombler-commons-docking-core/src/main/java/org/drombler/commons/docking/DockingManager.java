@@ -139,7 +139,7 @@ public class DockingManager<D, DATA extends DockableData, E extends DockableEntr
     }
 
     /**
-     * Unegisters the default {@link DockablePreferences} for the provided Dockable class.
+     * Unregisters the default {@link DockablePreferences} for the provided Dockable class.
      *
      * @param dockableClass the Dockable class
      * @return the previously registered default Dockable preferences if any, else null

@@ -83,7 +83,7 @@ public class DataHandlerRegistry implements AutoCloseable {
      * Gets the {@link DataHandler} for the provided unique key.
      *
      * @param uniqueKey the data handler for the provided unique key
-     * @return the data handler for the provided unique key
+     * @return the data handler for the provided unique key, if there is any, else null
      */
     public DataHandler<?> getDataHandler(Object uniqueKey) {
         return dataHandlers.get(uniqueKey);

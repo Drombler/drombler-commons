@@ -20,7 +20,7 @@ import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 
 /**
- * A JavaFX-based entry in the Docking System, which groups a Dockable with its {@link DockablePreferences} and * {@link FXDockableData}.
+ * A JavaFX-based entry in the Docking System, which groups a Dockable with its {@link DockablePreferences} and {@link FXDockableData}.
  *
  * @author puce
  */

@@ -137,7 +137,7 @@ public class DockingPane extends Control {//extends BorderPane {// GridPane {
     /**
      * Gets the Dockable entries.
      *
-     * @return the Dockable entries.
+     * @return the Dockable entries
      */
     public ObservableSet<FXDockableEntry> getDockables() {
         return dockables;
