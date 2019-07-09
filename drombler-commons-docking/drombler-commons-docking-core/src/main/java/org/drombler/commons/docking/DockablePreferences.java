@@ -28,8 +28,8 @@ public class DockablePreferences {
     /**
      * Creates a new instance of this class.
      *
-     * @param areaId
-     * @param position
+     * @param areaId the Docking Area ID
+     * @param position the preferred position it the Docking Area
      */
     public DockablePreferences(String areaId, int position) {
         this.areaId = areaId;

@@ -18,11 +18,8 @@ import java.util.Collection;
 
 /**
  * A simple context with a writable content.
- *
- * @author puce
- * <br>
- * TODO: Better name?
  */
+// TODO: Better name?
 public class SimpleContext extends AbstractContext {
 
     private final SimpleContextContent contextContent;
@@ -49,7 +46,7 @@ public class SimpleContext extends AbstractContext {
      * {@inheritDoc }
      */
     @Override
-    public <T> Collection<? extends T> findAll(Class<T> type) {
+    public <T> Collection<T> findAll(Class<T> type) {
         return contextContent.findAll(type);
     }
 

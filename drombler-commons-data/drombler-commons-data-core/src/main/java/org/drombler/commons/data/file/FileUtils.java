@@ -22,14 +22,14 @@ import org.drombler.commons.context.Context;
 import org.drombler.commons.context.ContextInjector;
 import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
-import org.softsmithy.lib.util.CloseEvent;
-import org.softsmithy.lib.util.CloseEventListener;
 import org.drombler.commons.data.DataHandler;
 import org.drombler.commons.data.DataHandlerRegistry;
 import org.drombler.commons.data.Openable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.nio.file.PathUtils;
+import org.softsmithy.lib.util.CloseEvent;
+import org.softsmithy.lib.util.CloseEventListener;
 
 /**
  * A utility class for files.
@@ -102,7 +102,7 @@ public class FileUtils {
             public void onClose(CloseEvent evt) {
                 dataHandler.removeCloseEventListener(this);
                 dataHandlerRegistry.unregisterDataHandler(dataHandler);
-                contextManager.removeLocalContext(dataHandler);
+                contextManager.unregisterLocalContext(dataHandler);
             }
         });
     }

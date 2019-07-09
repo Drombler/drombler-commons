@@ -15,13 +15,23 @@
 package org.drombler.commons.docking;
 
 /**
+ * A {@link DockableEntry} factory.
  *
  * @author puce
- * @param <D>
- * @param <DATA>
- * @param <E>
+ * @param <D> the Dockable type
+ * @param <DATA> the Dockable data type
+ * @param <E> the Dockable entry type
  */
 public interface DockableEntryFactory<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> {
 
+    /**
+     * Creates a new Dockable entry.
+     *
+     * @param dockable the Dockable
+     * @param kind the kind of the Dockable
+     * @param dockableData the Dockable data
+     * @param dockablePreferences the Dockable preferences
+     * @return a new Dockable entry
+     */
     E createDockableEntry(D dockable, DockableKind kind, DATA dockableData, DockablePreferences dockablePreferences);
 }

@@ -24,9 +24,24 @@ package org.drombler.commons.docking.spi;
  */
 public interface DockingArea<A extends DockingArea<A>> {
 
+    /**
+     * Sets the parent {@link DockingAreaManager}, which manages this Docking Area.
+     *
+     * @param parentDockingAreaManager the parent DockingAreaManager, which manages this Docking Area
+     */
     void setParentManager(DockingAreaManager<A> parentDockingAreaManager);
 
+    /**
+     * Gets the position of the Docking Area.
+     *
+     * @return the position of the Docking Area
+     */
     int getPosition();
 
+    /**
+     * Flag which indicates if the Docking Area is or should currently be shown.
+     *
+     * @return true, if the Docking Area is or should currently be shown, else false
+     */
     boolean isVisual();
 }

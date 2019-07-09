@@ -21,6 +21,8 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Region;
 import org.drombler.commons.docking.LayoutConstraintsDescriptor;
+import static org.drombler.commons.docking.LayoutConstraintsDescriptor.PREF_HEIGHT_PROPERTY_NAME;
+import static org.drombler.commons.docking.LayoutConstraintsDescriptor.PREF_WIDTH_PROPERTY_NAME;
 import org.drombler.commons.docking.fx.impl.DockingSplitPane;
 import org.drombler.commons.docking.fx.impl.DockingSplitPaneChildBase;
 import org.drombler.commons.fx.scene.layout.RegionDimension;
@@ -30,9 +32,6 @@ import org.drombler.commons.fx.scene.layout.RegionDimension;
  * @author puce
  */
 public class DockingSplitPaneChildPreferencesManager implements AutoCloseable {
-
-    private static final String PREF_WIDTH = "prefWidth";
-    private static final String PREF_HEIGHT = "prefHeight";
 
     private final ListChangeListener<DockingSplitPaneChildBase> dockingSplitPaneChildrenListener = change -> {
         while (change.next()) {
@@ -91,14 +90,14 @@ public class DockingSplitPaneChildPreferencesManager implements AutoCloseable {
 
     private void addChildListeners(DockingSplitPaneChildBase child) {
         child.layoutConstraintsProperty().addListener(layoutConstraintsChangeListener);
-        child.getLayoutConstraints().addPropertyChangeListener(PREF_WIDTH, layoutConstraintsDimensionChangeListener);
-        child.getLayoutConstraints().addPropertyChangeListener(PREF_HEIGHT, layoutConstraintsDimensionChangeListener);
+        child.getLayoutConstraints().addPropertyChangeListener(PREF_WIDTH_PROPERTY_NAME, layoutConstraintsDimensionChangeListener);
+        child.getLayoutConstraints().addPropertyChangeListener(PREF_HEIGHT_PROPERTY_NAME, layoutConstraintsDimensionChangeListener);
     }
 
     private void removeChildListeners(DockingSplitPaneChildBase child) {
         child.layoutConstraintsProperty().removeListener(layoutConstraintsChangeListener);
-        child.getLayoutConstraints().removePropertyChangeListener(PREF_WIDTH, layoutConstraintsDimensionChangeListener);
-        child.getLayoutConstraints().removePropertyChangeListener(PREF_HEIGHT, layoutConstraintsDimensionChangeListener);
+        child.getLayoutConstraints().removePropertyChangeListener(PREF_WIDTH_PROPERTY_NAME, layoutConstraintsDimensionChangeListener);
+        child.getLayoutConstraints().removePropertyChangeListener(PREF_HEIGHT_PROPERTY_NAME, layoutConstraintsDimensionChangeListener);
     }
 
     @Override

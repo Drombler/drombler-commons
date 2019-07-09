@@ -20,6 +20,7 @@ import org.drombler.commons.fx.scene.image.IconFactory;
 import org.softsmithy.lib.util.ResourceLoader;
 
 /**
+ * A factory for {@link FXDockableData}.
  *
  * @author puce
  */
@@ -27,6 +28,9 @@ public class FXDockableDataFactory implements DockableDataFactory<FXDockableData
 
     private static final int ICON_SIZE = 16;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public FXDockableData createDockableData(String displayName, String icon, ResourceLoader resourceLoader) {
         FXDockableData dockableData = createCommonDockableData(icon, resourceLoader);
@@ -45,6 +49,9 @@ public class FXDockableDataFactory implements DockableDataFactory<FXDockableData
         return dockableData;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public FXDockableData createDockableData(String icon, ResourceLoader resourceLoader) {
         return createCommonDockableData(icon, resourceLoader);

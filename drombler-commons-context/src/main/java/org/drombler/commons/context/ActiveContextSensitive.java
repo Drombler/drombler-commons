@@ -16,11 +16,8 @@ package org.drombler.commons.context;
 
 /**
  * An injection point for the active context.
- *
- * TODO: Replace with CDI?
- *
- * @author puce
  */
+// TODO: Replace with CDI?
 public interface ActiveContextSensitive {
 
     /**

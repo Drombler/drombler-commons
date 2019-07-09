@@ -21,11 +21,14 @@ import org.drombler.commons.fx.application.PlatformUtils;
 /**
  * An {@link Executor}, which executes the provided {@link Runnable} on the JavaFX Application Thread.
  * 
- * @see PlatformUtils
+ * @see PlatformUtils#runOnFxApplicationThread(java.lang.Runnable)
  * @author puce
  */
 public class FXApplicationThreadExecutor implements Executor {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(Runnable command) {
         PlatformUtils.runOnFxApplicationThread(command);
