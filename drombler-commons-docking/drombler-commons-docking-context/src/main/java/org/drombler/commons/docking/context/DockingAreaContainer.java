@@ -87,9 +87,9 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     void removeDockableSetChangeListener(SetChangeListener<E> listener);
 
     /**
-     * Gets the defaul Docking Area id fo
+     * Gets the default editor Docking Area id.
      *
-     * @return
+     * @return the default editor Docking Area id
      * @see DockingAreaKind#EDITOR
      */
     String getDefaultEditorAreaId();
