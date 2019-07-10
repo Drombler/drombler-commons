@@ -17,6 +17,7 @@ package org.drombler.commons.fx.scene.control;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 
