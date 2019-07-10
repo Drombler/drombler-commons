@@ -42,7 +42,8 @@ public final class FXMLLoaders {
     }
 
     /**
-     * Creates a new {@link FXMLLoader}. <br> <br>
+     * Creates a new {@link FXMLLoader}. <br>
+     * <br>
      * Sets:
      * <ul>
      * <li>the {@link ClassLoader}</li>
@@ -81,13 +82,13 @@ public final class FXMLLoaders {
      * <li>resources</li>
      * <li>location</li>
      * </ul>
-     * TODO: needed?
      *
      * @param loader a {@link FXMLLoader}
      * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object)
      * @see #loadRoot(javafx.fxml.FXMLLoader, java.lang.Object, java.util.ResourceBundle)
      * @see #load(javafx.fxml.FXMLLoader, java.lang.Class, java.util.ResourceBundle)
      */
+    // TODO: needed?
     public static void resetFXMLLoader(FXMLLoader loader) {
         loader.setRoot(null);
         loader.setController(null);
@@ -111,9 +112,9 @@ public final class FXMLLoaders {
      * <li>the location to the FXML file</li>
      * </ul>
      *
-     * The root element of the FXML document is expected to be:
-     * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
-     * <br> <br>
+     * The root element of the FXML document is expected to be:<br>
+     * <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">} <br>
+     * <br>
      * where "super-type" is the super type of the type of the specified rootController.
      *
      * @param rootController the Object acting as the root and as the controller.
@@ -125,8 +126,8 @@ public final class FXMLLoaders {
 
     /**
      * Loads the &lt;class name&gt;.fxml file, where &lt;class name&gt; is the type of the specified rootController and
-     * the FXML-file is expected to be in the same package.
-     * <br> <br>
+     * the FXML-file is expected to be in the same package.<br>
+     * <br>
      * Sets:
      * <ul>
      * <li>the root</li>

@@ -19,8 +19,11 @@ import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.Node;
 
 /**
+ * An {@link EventHandler} property.<br>
+ * <p>
  * Usage:
  * <pre>
  * {@code
@@ -32,9 +35,11 @@ import javafx.event.EventType;
  * }
  * }
  * </pre>
+ * </p>
  *
- * @author puce
  * @param <E> the event type
+ * @see Node#setEventHandler(javafx.event.EventType, javafx.event.EventHandler)
+ * @author puce
  */
 public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyBase<EventHandler<E>> {
 
@@ -43,6 +48,15 @@ public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyB
     private final EventType<E> eventType;
     private final EventHandlerRegistrar eventHandlerRegistrar;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param bean the bean that contains this property
+     * @param name the name of this property
+     * @param eventType the event type to associate with the value of this property
+     * @param eventHandlerRegistrar the event handler registrar. Use: {@code this::setEventHandler}
+     * @see Node#setEventHandler(javafx.event.EventType, javafx.event.EventHandler)
+     */
     public SimpleEventHandlerProperty(Object bean, String name, EventType<E> eventType,
             EventHandlerRegistrar eventHandlerRegistrar) {
         this.bean = bean;
@@ -51,32 +65,45 @@ public class SimpleEventHandlerProperty<E extends Event> extends ObjectPropertyB
         this.eventHandlerRegistrar = eventHandlerRegistrar;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void invalidated() {
         getEventHandlerRegistrar().registerEventHandler(getEventType(), get());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getBean() {
         return bean;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
     /**
-     * @return the eventType
+     * Gets the event type to associate with the value of this property.
+     *
+     * @return the event type to associate with the value of this property
      */
     public EventType<E> getEventType() {
         return eventType;
     }
 
     /**
-     * Note: might be removed in a future version!
+     * Gets the event handler registrar.<br>
+     * <br>
+     * Note: This method might be removed in a future version!
      *
-     * @return the eventHandlerRegistrar
+     * @return the event handler registrar
      */
     public EventHandlerRegistrar getEventHandlerRegistrar() {
         return eventHandlerRegistrar;
