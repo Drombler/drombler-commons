@@ -23,7 +23,7 @@ import javafx.scene.Node;
 
 /**
  * An {@link EventHandler} property.<br>
- * <p>
+ * <br>
  * Usage:
  * <pre>
  * {@code
@@ -35,7 +35,6 @@ import javafx.scene.Node;
  * }
  * }
  * </pre>
- * </p>
  *
  * @param <E> the event type
  * @see Node#setEventHandler(javafx.event.EventType, javafx.event.EventHandler)
