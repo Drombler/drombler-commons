@@ -19,10 +19,11 @@ import java.util.Map;
 import javafx.geometry.Orientation;
 
 /**
+ * Utility class for {@link Orientation}.
  *
  * @author puce
  */
-public class OrientationUtils {
+public final class OrientationUtils {
 
     //TODO: not safe as changes to Orientation are missed at compile time. 
     // Possible solutions:
@@ -41,6 +42,12 @@ public class OrientationUtils {
         }
     }
 
+    /**
+     * Gets the JavaFX orientation for the given {@code org.drombler.commons.client.geometry.Orientation}.
+     *
+     * @param orientation an {@code org.drombler.commons.client.geometry.Orientation}
+     * @return the JavaFX orientation for the given {@code org.drombler.commons.client.geometry.Orientation}
+     */
     public static Orientation getOrientation(org.drombler.commons.client.geometry.Orientation orientation) {
         return ORIENTATIONS.get(orientation);
     }

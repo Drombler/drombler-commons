@@ -17,13 +17,24 @@ package org.drombler.commons.fx.event;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.Node;
 
 /**
- * Note: might be removed in a future version!
+ * An event handler registrar can register an event handler. This functional interface matches the signature of {@link Node#setEventHandler(javafx.event.EventType, javafx.event.EventHandler) }.<br>
+ * <br>
+ * Note: This interface might be removed in a future version!
  *
  * @author puce
  */
 @FunctionalInterface
 public interface EventHandlerRegistrar {
+
+    /**
+     * Registers an event handler.
+     *
+     * @param <T> the event type
+     * @param eventType the event type to associate with the event handler
+     * @param eventHandler the event handler to register, or null to unregister
+     */
     <T extends Event> void registerEventHandler(EventType<T> eventType, EventHandler<? super T> eventHandler);
 }
