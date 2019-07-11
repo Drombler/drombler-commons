@@ -1,4 +1,4 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,11 +7,11 @@ import javafx.beans.property.SimpleIntegerProperty;
  *
  * @author puce
  */
-public class Room  extends AbstractFacility{
+public class Room extends AbstractFacility {
 
     private final IntegerProperty capacity = new SimpleIntegerProperty(this, "capacity");
 
-    public final int   getCapacity() {
+    public final int getCapacity() {
         return capacityProperty().get();
     }
 

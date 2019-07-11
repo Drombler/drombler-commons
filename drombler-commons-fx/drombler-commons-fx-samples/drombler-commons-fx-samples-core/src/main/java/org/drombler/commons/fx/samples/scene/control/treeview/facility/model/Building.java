@@ -1,4 +1,4 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -10,9 +10,9 @@ import javafx.collections.ObservableList;
  * @author puce
  */
 public class Building extends AbstractFacility {
+
     private final StringProperty address = new SimpleStringProperty(this, "address");
     private final ObservableList<Floor> floors = FXCollections.observableArrayList();
-
 
     public final String getAddress() {
         return addressProperty().get();

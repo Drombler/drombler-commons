@@ -1,5 +1,6 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.editor;
 
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Room;
 import java.text.NumberFormat;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -35,10 +36,9 @@ public class RoomPane extends GridPane {
 //
 //        capacityField.setTextFormatter(
 //                new TextFormatter<>(new IntegerStringConverter(), 0, integerFilter));
-
         final NumberStringConverter integerStringConverter = new NumberStringConverter(NumberFormat.getIntegerInstance());
         capacityField.setTextFormatter(new TextFormatter<>(integerStringConverter));
-        capacityField.textProperty().bindBidirectional(room.capacityProperty(),integerStringConverter);
+        capacityField.textProperty().bindBidirectional(room.capacityProperty(), integerStringConverter);
     }
 
 }

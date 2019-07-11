@@ -1,5 +1,6 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.editor;
 
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Building;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
