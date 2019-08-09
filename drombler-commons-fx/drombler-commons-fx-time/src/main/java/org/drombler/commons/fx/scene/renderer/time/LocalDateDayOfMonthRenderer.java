@@ -26,6 +26,12 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
 public class LocalDateDayOfMonthRenderer extends AbstractDataRenderer<LocalDate> {
 
     /**
+     * Creates a new instance of this class.
+     */
+    public LocalDateDayOfMonthRenderer() {
+    }
+
+    /**
      * {@inheritDoc} 
      */
     @Override

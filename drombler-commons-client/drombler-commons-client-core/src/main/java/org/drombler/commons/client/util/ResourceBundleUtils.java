@@ -67,10 +67,10 @@ public final class ResourceBundleUtils {
             if (resourceBundleBaseName == null) {
                 resourceBundle = getClassResourceBundle(type);
             } else if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
-                    resourceBundle = getPackageResourceBundle(type);
-                } else {
-                    resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
-                }
+                resourceBundle = getPackageResourceBundle(type);
+            } else {
+                resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
+            }
         }
         return resourceBundle;
     }
@@ -123,6 +123,15 @@ public final class ResourceBundleUtils {
         return ResourceBundle.getBundle(resourceBundleBaseName, Locale.getDefault(), classLoader);
     }
 
+    /**
+     * Gets a resource string from the package-{@link ResourceBundle} (Bundle.properties), if the {@code  resourceKey} is prefixed with {@literal '%'}, else the resoure key itself gets returned (no
+     * I18N).
+     *
+     * @param type a type of the package
+     * @param resourceKey the prefixed key
+     * @return the package resource for the prefixed key, if the key is prefixed, else the resource key gets returned
+     * @see #KEY_PREFIX
+     */
     public static String getPackageResourceStringPrefixed(Class<?> type, String resourceKey) {
         return getPackageResourceStringPrefixed(type.getPackage().getName(), resourceKey, type.getClassLoader());
     }

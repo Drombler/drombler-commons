@@ -14,7 +14,6 @@
  */
 /**
  * JavaFX controls for classes in the {@link java.time} package.
- *
- * TODO: Change the package name to: org.drombler.commons.time.fx.scene.control ?
  */
+// TODO: Change the package name to: org.drombler.commons.time.fx.scene.control ?
 package org.drombler.commons.fx.scene.control.time;

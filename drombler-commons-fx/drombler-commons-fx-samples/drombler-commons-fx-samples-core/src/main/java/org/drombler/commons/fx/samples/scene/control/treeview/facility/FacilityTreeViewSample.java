@@ -1,13 +1,23 @@
 package org.drombler.commons.fx.samples.scene.control.treeview.facility;
 
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.ToolBar;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.drombler.commons.action.fx.ButtonUtils;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Building;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Facility;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Floor;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Room;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.renderer.BuildingRenderer;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.renderer.FloorRenderer;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.renderer.RoomRenderer;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.tree.AbstractFacilityTreeItem;
+import org.drombler.commons.fx.samples.scene.control.treeview.facility.tree.BuildingTreeItem;
 import org.drombler.commons.fx.scene.control.RenderedTreeCellFactory;
 
 /**
@@ -23,16 +33,19 @@ public class FacilityTreeViewSample extends Application {
         BorderPane root = new BorderPane();
 
         TreeView<Facility> facilityTreeView = createFacilityTreeView(building);
-        facilityTreeView.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends TreeItem<Facility>> observable, TreeItem<Facility> oldValue, TreeItem<Facility> newValue) -> {
-                    if (newValue != null) {
-                        root.setCenter(((AbstractFacilityTreeItem<?>) newValue).createFacilityEditor());
-                    } else {
-                        root.setCenter(null);
-                    }
-                });
+        facilityTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                root.setCenter(((AbstractFacilityTreeItem<?>) newValue).getFacilityHandler().getEditor());
+            } else {
+                root.setCenter(null);
+            }
+        });
+
+        AddAction addAction = new AddAction(facilityTreeView.getSelectionModel());
+        ToolBar toolBar = new ToolBar(createAddButton(addAction));
 
         BorderPane detailsParentPane = new BorderPane();
+        root.setTop(toolBar);
         root.setLeft(facilityTreeView);
         root.setCenter(detailsParentPane);
         Scene scene = new Scene(root, 600, 250);
@@ -89,6 +102,12 @@ public class FacilityTreeViewSample extends Application {
         room.setName(name);
         room.setCapacity(numPersons);
         return room;
+    }
+
+    private Button createAddButton(AddAction addAction) {
+        Button button = new Button();
+        ButtonUtils.configureToolbarButton(button, addAction, 24);
+        return button;
     }
 
 }
