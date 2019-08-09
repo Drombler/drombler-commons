@@ -100,11 +100,11 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     }
 
     public final T getValue() {
-        return value.get();
+        return valueProperty().get();
     }
 
     public final void setValue(T value) {
-        this.value.set(value);
+        valueProperty().set(value);
     }
 
     public LimitedComparableProperty<T> valueProperty() {
@@ -112,11 +112,11 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     }
 
     public final DataRenderer<? super T> getDataRenderer() {
-        return dataRenderer.get();
+        return dataRendererProperty().get();
     }
 
     public final void setDataRenderer(DataRenderer<? super T> dataRenderer) {
-        this.dataRenderer.set(dataRenderer);
+        dataRendererProperty().set(dataRenderer);
     }
 
     public ObjectProperty<DataRenderer<? super T>> dataRendererProperty() {
@@ -124,11 +124,11 @@ public class FormattedTextField<T extends Comparable<? super T>> extends TextFie
     }
 
     public final Parser<? extends T> getParser() {
-        return parser.get();
+        return parserProperty().get();
     }
 
     public final void setParser(Parser<? extends T> parser) {
-        this.parser.set(parser);
+        parserProperty().set(parser);
     }
 
     public ObjectProperty<Parser<? extends T>> parserProperty() {

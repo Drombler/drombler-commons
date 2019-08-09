@@ -22,6 +22,7 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
 /**
  * A list cell factory using a {@link DataRenderer}.
  *
+ * @param <T> the type of the elements of the list
  * @author puce
  */
 public class RenderedListCellFactory<T> implements Callback<ListView<T>, ListCell<T>> {

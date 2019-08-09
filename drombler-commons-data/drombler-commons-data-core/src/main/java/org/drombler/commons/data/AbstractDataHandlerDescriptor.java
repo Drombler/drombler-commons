@@ -29,6 +29,12 @@ public abstract class AbstractDataHandlerDescriptor<D> {
     private ResourceLoader resourceLoader;
 
     /**
+     * Creates a new instance of this class.
+     */
+    public AbstractDataHandlerDescriptor() {
+    }
+
+    /**
      * Gets the icon pattern.
      *
      * @return the icon pattern

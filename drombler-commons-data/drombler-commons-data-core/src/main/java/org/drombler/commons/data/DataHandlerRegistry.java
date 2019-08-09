@@ -21,17 +21,29 @@ public class DataHandlerRegistry implements AutoCloseable {
     private final Map<DataHandlerRegistryKey<?, ?>, DataHandler<?>> dataHandlers = new HashMap<>();
 
     /**
-     * Registers a data handler. If a data handler is already registered for the unique key, the registered data handler will be returned. Use the returned data handler.<br>
+     * Creates a new instance of this class.
+     */
+    public DataHandlerRegistry() {
+    }
+
+    /**
+     * Registers a {@link DataHandler}. <br>
+     * <br>
+     * If a data handler is already registered for the unique key, the registered data handler will be returned. Use the returned data handler.<br>
      * <br>
      * If the unique key of the data handler is non-null, the data handler is registered immediately. Else the unique key property of the data handler will be observed for changes and once it's
-     * non-null, the data handler will be registerd.
+     * non-null, the data handler will be registerd.<br>
+     * <br>
+     * Note: Always work with the returned data handler!
      *
-     * @param <T> the type of the unique key of the data handler
+     * @param <K> the type of the unique key of the data handler
+     * @param <D> the type of the data handler
      * @param dataHandler the data handler
-     * @return the registered data handler for the unique key or observed data handler for null unique keys
+     * @return the provided data handler or the already registered data handler for the unique key (which is expected to have the same type), if there is any, or the observed data handler for null
+     * unique keys
      */
-    public <K, T extends DataHandler<K>> T registerDataHandler(T dataHandler) {
-        final DataHandlerRegistryKey<K, T> dataHandlerRegistryKey = createDataHandlerRegistryKey(dataHandler);
+    public <K, D extends DataHandler<K>> D registerDataHandler(D dataHandler) {
+        final DataHandlerRegistryKey<K, D> dataHandlerRegistryKey = createDataHandlerRegistryKey(dataHandler);
         if (dataHandler.getUniqueKey() != null) {
             if (!containsDataHandlerForUniqueKey(dataHandlerRegistryKey)) {
                 dataHandlers.put(dataHandlerRegistryKey, dataHandler);
@@ -56,14 +68,14 @@ public class DataHandlerRegistry implements AutoCloseable {
         }
     }
 
-    private <K, T extends DataHandler<K>> DataHandlerRegistryKey createDataHandlerRegistryKey(T dataHandler) {
+    private <K, D extends DataHandler<K>> DataHandlerRegistryKey<K, D> createDataHandlerRegistryKey(D dataHandler) {
         return new DataHandlerRegistryKey<>(dataHandler.getClass(), dataHandler.getUniqueKey());
     }
 
     /**
-     * Unregisters a data handler.
+     * Unregisters a {@link DataHandler}.
      *
-     * @param dataHandler a data handler
+     * @param dataHandler the data handler to unregister
      */
     public void unregisterDataHandler(DataHandler<?> dataHandler) {
         DataHandlerRegistryKey<?, ?> dataHandlerRegistryKey = createDataHandlerRegistryKey(dataHandler);
@@ -72,38 +84,38 @@ public class DataHandlerRegistry implements AutoCloseable {
     }
 
     /**
-     * Checks if a data handler is registered for the unique key
+     * Checks if there is a registered {@link DataHandler} for the provided unique key.
      *
      * @param <K> the type of the unique key of the data handler
-     * @param <T> the type of the data handler
+     * @param <D> the type of the data handler
      * @param type the type of the data handler
      * @param uniqueKey the unique key of the data handler
-     * @return true, if this registry contains a data handler for the specified key
+     * @return true, if this registry contains a data handler for the provided unique key, else false
      */
-    public <K, T extends DataHandler<K>> boolean containsDataHandlerForUniqueKey(Class<T> type, K uniqueKey) {
-        DataHandlerRegistryKey<K, T> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
+    public <K, D extends DataHandler<K>> boolean containsDataHandlerForUniqueKey(Class<D> type, K uniqueKey) {
+        DataHandlerRegistryKey<K, D> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
         return containsDataHandlerForUniqueKey(dataHandlerRegistryKey);
     }
 
-    private <K, T extends DataHandler<K>> boolean containsDataHandlerForUniqueKey(DataHandlerRegistryKey<K, T> dataHandlerRegistryKey) {
+    private <K, D extends DataHandler<K>> boolean containsDataHandlerForUniqueKey(DataHandlerRegistryKey<K, D> dataHandlerRegistryKey) {
         return dataHandlers.containsKey(dataHandlerRegistryKey);
     }
 
     /**
-     * Gets the data handler for the specified unique key.
+     * Gets the {@link DataHandler} for the provided unique key.
      *
      * @param <K> the type of the unique key of the data handler
-     * @param <T> the type of the data handler
+     * @param <D> the type of the data handler
      * @param type the type of the data handler
      * @param uniqueKey the unique key of the data handler
-     * @return the data handler for the specified unique key
+     * @return the data handler for the specified unique key, if there is any, else null
      */
-    public <K, T extends DataHandler<K>> T getDataHandler(Class<T> type, K uniqueKey) {
-        DataHandlerRegistryKey<K, T> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
+    public <K, D extends DataHandler<K>> D getDataHandler(Class<D> type, K uniqueKey) {
+        DataHandlerRegistryKey<K, D> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
         return getDataHandler(dataHandlerRegistryKey);
     }
 
-    private <K, T extends DataHandler<K>> T getDataHandler(DataHandlerRegistryKey<K, T> dataHandlerRegistryKey) {
+    private <K, D extends DataHandler<K>> D getDataHandler(DataHandlerRegistryKey<K, D> dataHandlerRegistryKey) {
         return dataHandlerRegistryKey.getType().cast(dataHandlers.get(dataHandlerRegistryKey));
     }
 
@@ -130,12 +142,12 @@ public class DataHandlerRegistry implements AutoCloseable {
         }
     }
 
-    private static class DataHandlerRegistryKey<K, T extends DataHandler<K>> {
+    private static class DataHandlerRegistryKey<K, D extends DataHandler<K>> {
 
-        private final Class<T> type;
+        private final Class<D> type;
         private final K uniqueKey;
 
-        public DataHandlerRegistryKey(Class<T> type, K uniqueKey) {
+        public DataHandlerRegistryKey(Class<D> type, K uniqueKey) {
             this.type = type;
             this.uniqueKey = uniqueKey;
         }
@@ -143,7 +155,7 @@ public class DataHandlerRegistry implements AutoCloseable {
         /**
          * @return the type
          */
-        public Class<T> getType() {
+        public Class<D> getType() {
             return type;
         }
 

@@ -25,6 +25,12 @@ import org.drombler.commons.fx.scene.renderer.DataRenderer;
 public class YearRenderer extends AbstractDataRenderer<Year> {
 
     /**
+     * Creates a new instance of this class.
+     */
+    public YearRenderer() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override

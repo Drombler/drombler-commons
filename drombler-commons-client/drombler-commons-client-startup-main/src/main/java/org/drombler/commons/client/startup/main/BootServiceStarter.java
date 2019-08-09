@@ -14,24 +14,67 @@
  */
 package org.drombler.commons.client.startup.main;
 
+/**
+ * A starter for a boot time service.
+ *
+ * @author puce
+ */
 public interface BootServiceStarter {
 
+    /**
+     * Initializes this starter.
+     *
+     * @return true, if the starter could successfully be initialized, else false
+     * @throws Exception if an unexpected error occured
+     * @see #startAndWait()
+     * @see #stop()
+     */
     boolean init() throws Exception;
 
+    /**
+     * Starts this starter and waits (blocks the current thread). Call this method only after a successful {@link #init() } call.
+     *
+     * @throws Exception if an unexpected error occured
+     * @see #init()
+     * @see #stop()
+     */
     void startAndWait() throws Exception;
 
+    /**
+     * Stops this starter.
+     *
+     * @throws Exception if an unexpected error occured
+     * @see #init()
+     * @see #startAndWait()
+     */
     void stop() throws Exception;
 
-    boolean isActive();
-    
     /**
-     * If true, prevents the whole application from starting if initialization this starter throws some exception.
+     * Indicates if this starter should be used.
+     *
+     * @return true, if active, else false
+     */
+    boolean isActive();
+
+    /**
+     * If true, prevents the whole application from starting if initialization this starter was not successful.
+     *
      * @return true, if required, else false.
      */
     boolean isRequired();
 
+    /**
+     * Gets the name of this starter.
+     *
+     * @return the name of this starter
+     */
     public String getName();
 
+    /**
+     * Indicates if this starter is running.
+     *
+     * @return true, if this starter is running, else false
+     */
     public boolean isRunning();
 
 }

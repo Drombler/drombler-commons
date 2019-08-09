@@ -1,4 +1,4 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.model;
 
 import javafx.beans.property.StringProperty;
 

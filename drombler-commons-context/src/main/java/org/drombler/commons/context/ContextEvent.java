@@ -43,8 +43,6 @@ public class ContextEvent<T> extends EventObject {
 
     /**
      * {@inheritDoc }
-     *
-     * @return the source Context
      */
     @Override
     public Context getSource() {

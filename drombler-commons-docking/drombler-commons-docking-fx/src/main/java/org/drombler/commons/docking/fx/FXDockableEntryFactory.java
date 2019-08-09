@@ -20,12 +20,15 @@ import org.drombler.commons.docking.DockableKind;
 import org.drombler.commons.docking.DockablePreferences;
 
 /**
+ * A factory for {@link FXDockableEntry}.
  *
  * @author puce
  */
 public class FXDockableEntryFactory implements DockableEntryFactory<Node, FXDockableData, FXDockableEntry> {
 
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public FXDockableEntry createDockableEntry(Node dockable, DockableKind kind, FXDockableData dockableData, DockablePreferences dockablePreferences) {
         return new FXDockableEntry(dockable, kind, dockableData, dockablePreferences);

@@ -21,10 +21,9 @@ import javafx.scene.control.ToggleGroup;
 /**
  * A ToggleButton, which cannot be unselected if it is selected and a member of a {@link ToggleGroup}.
  *
- * TODO: better name?
- *
  * @author puce
  */
+//TODO: better name?
 public class XToggleButton extends ToggleButton {
 
     /**

@@ -1,4 +1,4 @@
-package org.drombler.commons.fx.samples.scene.control.treeview.facility;
+package org.drombler.commons.fx.samples.scene.control.treeview.facility.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -7,10 +7,9 @@ import javafx.beans.property.StringProperty;
  *
  * @author puce
  */
-public abstract class AbstractFacility implements Facility{
+public abstract class AbstractFacility implements Facility {
 
     private final StringProperty name = new SimpleStringProperty(this, "name");
-
 
     @Override
     public final String getName() {
@@ -26,7 +25,5 @@ public abstract class AbstractFacility implements Facility{
     public StringProperty nameProperty() {
         return name;
     }
-
-  
 
 }

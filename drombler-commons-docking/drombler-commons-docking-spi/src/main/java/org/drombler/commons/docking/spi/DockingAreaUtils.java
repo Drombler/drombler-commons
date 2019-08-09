@@ -20,14 +20,24 @@ import org.drombler.commons.docking.Select;
 import org.softsmithy.lib.util.PositionableAdapter;
 
 /**
+ * A utility class for Docking Areas.
  *
  * @author puce77
  */
-public class DockingAreaUtils {
+public final class DockingAreaUtils {
 
     private DockingAreaUtils() {
     }
 
+    /**
+     * Handles onSelectionChanged events.<br>
+     * <br>
+     * Calls the method of the previously selected Dockable, which is annotated with {@link Deselect}. <br>
+     * Calls the method of the newly selected Dockable, which is annotated with {@link Select}.
+     *
+     * @param oldValue the previously selected Dockable
+     * @param newValue the currently selected Dockable
+     */
     public static void onSelectionChanged(PositionableAdapter<? extends DockableEntry<?, ?>> oldValue,
             PositionableAdapter<? extends DockableEntry<?, ?>> newValue) {
         RefelectionUtils.invokeAnnotatedDockableMethod(oldValue, Deselect.class);

@@ -14,7 +14,6 @@
  */
 package org.drombler.commons.client.startup.main;
 
-import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +25,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
+import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 
 /**
- *
- * @author puce
+ * The client configuration. Subclass may add additional properties or change the configuration such as the application layout.
  */
 public class DromblerClientConfiguration {
 
@@ -79,11 +78,12 @@ public class DromblerClientConfiguration {
 
     private final Properties userConfigProps;
     private final CommandLineArgs commandLineArgs;
-    protected final ApplicationConfiguration applicationConfig;
+    private final ApplicationConfiguration applicationConfig;
 
     /**
+     * Creates a new instance of this class.
      *
-     * @param commandLineArgs
+     * @param commandLineArgs the command line args
      * @throws URISyntaxException
      * @throws IOException
      * @throws MissingPropertyException
@@ -147,11 +147,24 @@ public class DromblerClientConfiguration {
         return mainJarPath;
     }
 
+    /**
+     * Determines the installation directory path of this application. The default implementation expects the following application installation layout: {@code <install-dir>/lib/<jar>}
+     *
+     * @param mainJarPath the path to the JAR file containing the main starter
+     * @return the installation directory path of this application
+     */
     protected Path determineInstallDirPath(Path mainJarPath) {
         // <install-dir>/lib/<jar>
         return mainJarPath.getParent().getParent();
     }
 
+    /**
+     * Loads and sets the system properties.
+     *
+     * @param rootDirPath the root dir path
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     protected void loadSystemProperties(Path rootDirPath) throws MalformedURLException, IOException {
         Properties systemProps = new Properties();
         loadProperties(systemProps, SYSTEM_PROPERTIES_PROP, rootDirPath, SYSTEM_PROPERTIES_FILE_NAME);
@@ -185,6 +198,12 @@ public class DromblerClientConfiguration {
         }
     }
 
+    /**
+     * Loads the default configuration properties.
+     *
+     * @return the default configuration properties
+     * @throws IOException
+     */
     protected Properties loadDefaultConfigProps() throws IOException {
         Properties props = new Properties();
         try (InputStream is = DromblerClientConfiguration.class.getResourceAsStream("config.properties")) {
@@ -208,53 +227,83 @@ public class DromblerClientConfiguration {
         return Paths.get(userDirName);
     }
 
+    /**
+     * Copies and sets some additional system properties. The default implementation does not copy any additional system properties.
+     *
+     * @param configProps the source properties to copy from
+     */
     protected void copySystemProperties(Properties configProps) {
         // does currently nothing by default
     }
 
-    protected void resolveProperties(Properties systemProps) {
+    /**
+     * Resolves properties with variables. The default implementation does nothing currently.
+     *
+     * @param configProps the properties to resolve
+     */
+    protected void resolveProperties(Properties configProps) {
         // does currently nothing by default
         // TODO: is property substitution generally required or only for Drombler FX applications?
     }
 
     /**
-     * @return the installDirPath
+     * Gets the installation directory path of this application.
+     *
+     * @return the installation directory path of this application
      */
     public final Path getInstallDirPath() {
         return installDirPath;
     }
 
+    /**
+     * Gets the path to the configuration directory in the installation directory of this application.
+     *
+     * @return the path to the configuration directory in the installation directory of this application
+     */
     public final Path getInstallConfigDirPath() {
         return installConfigDirPath;
     }
 
     /**
-     * @return the userDirPath
+     * Gets the user directory path.
+     *
+     * @return the user directory path
      */
     public final Path getUserDirPath() {
         return userDirPath;
     }
 
+    /**
+     * Gets the path to the configuration directory in the user directory of the current user for this application.
+     *
+     * @return the path to the configuration directory in the user directory of the current user for this application
+     */
     public final Path getUserConfigDirPath() {
         return userConfigDirPath;
     }
 
     /**
-     * @return the userConfigProps
+     * Gets the user configuration properties.
+     *
+     * @return the user configuration properties
      */
     public Properties getUserConfigProps() {
         return userConfigProps;
     }
 
     /**
-     * @return the commandLineArgs
+     * Gets the command line args.
+     *
+     * @return the command line args
      */
     public CommandLineArgs getCommandLineArgs() {
         return commandLineArgs;
     }
 
     /**
-     * @return the applicationConfig
+     * Gets the application configuration packaged with the application.
+     *
+     * @return the application configuration
      */
     public ApplicationConfiguration getApplicationConfig() {
         return applicationConfig;

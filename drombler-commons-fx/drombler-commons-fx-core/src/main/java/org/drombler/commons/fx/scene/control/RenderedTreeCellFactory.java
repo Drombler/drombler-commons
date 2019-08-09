@@ -13,6 +13,7 @@ import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 /**
  * A tree cell factory using a {@link DataRenderer}.
  *
+ * @param <T> The type of the elements of the TreeView
  * @author puce
  */
 public class RenderedTreeCellFactory<T> implements Callback<TreeView<T>, TreeCell<T>> {

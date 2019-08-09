@@ -82,11 +82,11 @@ public class DataButton<T> extends Button {
     }
 
     public final T getData() {
-        return data.get();
+        return dataProperty().get();
     }
 
     public final void setData(T data) {
-        this.data.set(data);
+        dataProperty().set(data);
     }
 
     public ObjectProperty<T> dataProperty() {
@@ -94,11 +94,11 @@ public class DataButton<T> extends Button {
     }
 
     public final DataRenderer<? super T> getDataRenderer() {
-        return dataRenderer.get();
+        return dataRendererProperty().get();
     }
 
     public final void setDataRenderer(DataRenderer<? super T> dataRenderer) {
-        this.dataRenderer.set(dataRenderer);
+        dataRendererProperty().set(dataRenderer);
     }
 
     public ObjectProperty<DataRenderer<? super T>> dataRendererProperty() {

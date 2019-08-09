@@ -17,15 +17,17 @@ package org.drombler.commons.fx.scene.control;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import org.drombler.commons.fx.scene.renderer.DataRenderer;
 import org.drombler.commons.fx.scene.renderer.ObjectRenderer;
 
 /**
- * A {@link ToggleButton} which can hold some data and knows how to render it.
+ * A {@link ToggleButton} which can hold some data and knows how to render it. This ToggleButton cannot be unselected if it is selected and a member of a {@link ToggleGroup}.
  *
+ * @param <T> the data type
  * @author puce
  */
-public class DataToggleButton<T> extends ToggleButton {
+public class DataToggleButton<T> extends XToggleButton {
 
     /**
      * The data of this toggle button.
@@ -57,6 +59,8 @@ public class DataToggleButton<T> extends ToggleButton {
     /**
      * Creates a new instance of this class.
      *
+     * It uses a {@link DataRenderer} which uses {@link Object#toString() } to render the data.
+     *
      * @param data the data of this toggle button.
      */
     public DataToggleButton(T data) {
@@ -78,11 +82,11 @@ public class DataToggleButton<T> extends ToggleButton {
     }
 
     public final T getData() {
-        return data.get();
+        return dataProperty().get();
     }
 
     public final void setData(T data) {
-        this.data.set(data);
+        dataProperty().set(data);
     }
 
     public ObjectProperty<T> dataProperty() {
@@ -90,24 +94,15 @@ public class DataToggleButton<T> extends ToggleButton {
     }
 
     public final DataRenderer<? super T> getDataRenderer() {
-        return dataRenderer.get();
+        return dataRendererProperty().get();
     }
 
     public final void setDataRenderer(DataRenderer<? super T> dataRenderer) {
-        this.dataRenderer.set(dataRenderer);
+        dataRendererProperty().set(dataRenderer);
     }
 
     public ObjectProperty<DataRenderer<? super T>> dataRendererProperty() {
         return dataRenderer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void fire() {
-        if (getToggleGroup() == null || !isSelected()) {
-            super.fire();
-        }
-    }
 }

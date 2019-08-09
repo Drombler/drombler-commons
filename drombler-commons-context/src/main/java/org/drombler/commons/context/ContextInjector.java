@@ -20,11 +20,8 @@ import org.softsmithy.lib.util.Injector;
  * The ContextInjector injects the active {@link Context} to Objects, which implement the {@link ActiveContextSensitive}
  * interface and the application {@link Context} to Objects, which implement the {@link ApplicationContextSensitive}
  * interface.
- *
- * TODO: Replace with CDI?
- *
- * @author puce
  */
+// TODO: Replace with CDI?
 public class ContextInjector implements Injector<Object> {
 
     private final ActiveContextProvider activeContextProvider;

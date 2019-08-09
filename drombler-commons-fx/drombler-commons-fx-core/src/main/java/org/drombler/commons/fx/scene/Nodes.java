@@ -24,7 +24,7 @@ import javafx.scene.Parent;
  *
  * @author puce
  */
-public class Nodes {
+public final class Nodes {
 
     private Nodes() {
     }

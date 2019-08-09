@@ -23,7 +23,14 @@ import org.softsmithy.lib.beans.Bean;
  */
 public interface DockableData extends Bean {
 
+    /**
+     * The name of the 'title' property.
+     */
     public static final String TITLE_PROPERTY_NAME = "title";
+
+    /**
+     * The name of the 'modified' property.
+     */
     public static final String MODIFIED_PROPERTY_NAME = "modified";
 
     /**
@@ -40,8 +47,18 @@ public interface DockableData extends Bean {
      */
     void setTitle(String title);
 
+    /**
+     * Flag if the data has been modified.
+     *
+     * @return true if modified, else false
+     */
     boolean isModified();
 
+    /**
+     * Sets the modified flag of the data.
+     *
+     * @param modified the modified flag to set
+     */
     void setModified(boolean modified);
 
 }

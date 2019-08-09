@@ -38,6 +38,12 @@ public abstract class AbstractDataRenderer<T> implements DataRenderer<T> {
         return null;
     }
 
+    /**
+     * This DataRenderer returns no tootip by default (null).
+     *
+     * @param item the item to render
+     * @return null
+     */
     @Override
     public Tooltip getTooltip(T item) {
         return null;
