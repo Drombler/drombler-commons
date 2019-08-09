@@ -66,12 +66,10 @@ public final class ResourceBundleUtils {
             resourceBundleBaseName = StringUtils.stripToNull(resourceBundleBaseName);
             if (resourceBundleBaseName == null) {
                 resourceBundle = getClassResourceBundle(type);
+            } else if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
+                resourceBundle = getPackageResourceBundle(type);
             } else {
-                if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
-                    resourceBundle = getPackageResourceBundle(type);
-                } else {
-                    resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
-                }
+                resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
             }
         }
         return resourceBundle;
