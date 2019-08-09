@@ -27,9 +27,9 @@ import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.time.impl.skin.Stylesheets;
 
 /**
- * A control which allows to select a {@link LocalDate}. It can show several
- * {@link YearMonth} side by side and provides controls to change the currently
- * visible {@link YearMonth}s.
+ * A control which allows to select a {@link LocalDate}. <br>
+ * <br>
+ * It can show several {@link YearMonth}s side by side and provides controls to change the currently * visible {@link YearMonth}s.
  *
  * @author puce
  */
@@ -38,9 +38,8 @@ public class LocalDateChooser extends Control {
     /**
      * The currently selected {@link LocalDate}.<br> <br> Default:
      * {@link LocalDate#now()}
-     * 
-     * TODO: support multi-selection?
      */
+    // TODO: support multi-selection?
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());
     /**

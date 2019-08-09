@@ -29,10 +29,18 @@ public class DayOfWeekRenderer extends AbstractDataRenderer<DayOfWeek> {
 
     private final TextStyle textStyle;
 
+    /**
+     * Creates a new instance of this class. Uses {@link DayOfWeek#getDisplayName(java.time.format.TextStyle, java.util.Locale)} and {@link TextStyle#FULL} to get a text representation.
+     */
     public DayOfWeekRenderer() {
         this(TextStyle.FULL);
     }
 
+    /**
+     * Creates a new instance of this class. Uses {@link DayOfWeek#getDisplayName(java.time.format.TextStyle, java.util.Locale)} to get a text representation.
+     *
+     * @param textStyle the {@link TextStyle}
+     */
     public DayOfWeekRenderer(TextStyle textStyle) {
         this.textStyle = textStyle;
     }
