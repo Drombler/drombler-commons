@@ -17,97 +17,187 @@ package org.drombler.commons.fx.scene.layout;
 import javafx.scene.layout.Region;
 
 /**
- *
+ * A {@link Region] dimension.
  * @author puce
  */
 public enum RegionDimension {
 
+    /**
+     * The width of a {@link Region}.
+     */
     WIDTH {
-                @Override
-                public double getSize(Region region) {
-                    return region.getWidth();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getSize(Region region) {
+            return region.getWidth();
+        }
 
-                @Override
-                public double getPrefSize(Region region) {
-                    return region.getPrefWidth();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getPrefSize(Region region) {
+            return region.getPrefWidth();
+        }
 
-                @Override
-                public void setPrefSize(Region region, double prefSize) {
-                    region.setPrefWidth(prefSize);
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setPrefSize(Region region, double prefSize) {
+            region.setPrefWidth(prefSize);
+        }
 
-                @Override
-                public double getMinSize(Region region) {
-                    return region.getMinWidth();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getMinSize(Region region) {
+            return region.getMinWidth();
+        }
 
-                @Override
-                public void setMinSize(Region region, double minSize) {
-                    region.setMinWidth(minSize);
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setMinSize(Region region, double minSize) {
+            region.setMinWidth(minSize);
+        }
 
-                @Override
-                public double getMaxSize(Region region) {
-                    return region.getMaxWidth();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getMaxSize(Region region) {
+            return region.getMaxWidth();
+        }
 
-                @Override
-                public void setMaxSize(Region region, double maxSize) {
-                    region.setMaxWidth(maxSize);
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setMaxSize(Region region, double maxSize) {
+            region.setMaxWidth(maxSize);
+        }
 
-            },
+    },
+    /**
+     * The height of a {@link Region}.
+     */
     HEIGHT {
-                @Override
-                public double getSize(Region region) {
-                    return region.getHeight();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getSize(Region region) {
+            return region.getHeight();
+        }
 
-                @Override
-                public double getPrefSize(Region region) {
-                    return region.getPrefHeight();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getPrefSize(Region region) {
+            return region.getPrefHeight();
+        }
 
-                @Override
-                public void setPrefSize(Region region, double prefSize) {
-                    region.setPrefHeight(prefSize);
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setPrefSize(Region region, double prefSize) {
+            region.setPrefHeight(prefSize);
+        }
 
-                @Override
-                public double getMinSize(Region region) {
-                    return region.getMinHeight();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getMinSize(Region region) {
+            return region.getMinHeight();
+        }
 
-                @Override
-                public void setMinSize(Region region, double minSize) {
-                    region.setMinHeight(minSize);
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setMinSize(Region region, double minSize) {
+            region.setMinHeight(minSize);
+        }
 
-                @Override
-                public double getMaxSize(Region region) {
-                    return region.getMaxHeight();
-                }
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public double getMaxSize(Region region) {
+            return region.getMaxHeight();
+        }
 
-                @Override
-                public void setMaxSize(Region region, double maxSize) {
-                    region.setMaxHeight(maxSize);
-                }
-            };
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public void setMaxSize(Region region, double maxSize) {
+            region.setMaxHeight(maxSize);
+        }
+    };
 
+    /**
+     * Gets the size of a region dimension.
+     *
+     * @param region the region
+     * @return the size of a region dimension
+     */
     public abstract double getSize(Region region);
 
+    /**
+     * Gets the preferred size of a region dimension.
+     *
+     * @param region the region
+     * @return the preferred size of a region dimension
+     */
     public abstract double getPrefSize(Region region);
 
+    /**
+     * Sets the preferred size of a region dimension.
+     *
+     * @param region the region
+     * @param prefSize the preferred size of a region dimension
+     */
     public abstract void setPrefSize(Region region, double prefSize);
 
+    /**
+     * Gets the minimum size of a region dimension.
+     *
+     * @param region the region
+     * @return the minimum size of a region dimension
+     */
     public abstract double getMinSize(Region region);
 
+    /**
+     * Sets the minimum size of a region dimension.
+     *
+     * @param region the region
+     * @param minSize the minimum size of a region dimension
+     */
     public abstract void setMinSize(Region region, double minSize);
 
+    /**
+     * Gets the maximal size of a region dimension.
+     *
+     * @param region the region
+     * @return the maximal size of a region dimension
+     */
     public abstract double getMaxSize(Region region);
 
+    /**
+     * Sets the maximal size of a region dimension.
+     *
+     * @param region the region
+     * @param maxSize the maximal size of a region dimension
+     */
     public abstract void setMaxSize(Region region, double maxSize);
 
 }

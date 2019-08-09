@@ -20,7 +20,7 @@ import javafx.concurrent.Worker;
 
 /**
  * Utility class for {@link Worker}.
- * * 
+ *  
  * @author puce
  */
 public final class WorkerUtils {

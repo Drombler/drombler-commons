@@ -22,7 +22,7 @@ import javafx.stage.WindowEvent;
 /**
  * An application exit request handler.
  * 
- * This is an interface to easily reuse implimentations e.g. in exit menu items and window on close event handlers.
+ * This is an interface to easily re-use implementations e.g. in exit menu items and window on close event handlers.
  * 
  * Implementations e.g. can check if the user really wants to close the application or check if there is any unsaved data.
  */
