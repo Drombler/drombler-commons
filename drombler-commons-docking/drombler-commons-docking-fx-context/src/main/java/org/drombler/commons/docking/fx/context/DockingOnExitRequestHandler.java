@@ -40,6 +40,11 @@ public class DockingOnExitRequestHandler implements OnExitRequestHandler {
     private final ResourceBundle resourceBundle = ResourceBundleUtils.getClassResourceBundle(DockingOnExitRequestHandler.class);
     private final DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dockingAreaContainer the Docking Area container
+     */
     public DockingOnExitRequestHandler(DockingAreaContainer<Node, FXDockableData, FXDockableEntry> dockingAreaContainer) {
         this.dockingAreaContainer = dockingAreaContainer;
     }
@@ -52,7 +57,7 @@ public class DockingOnExitRequestHandler implements OnExitRequestHandler {
         return handleModifiedDockables();
     }
 
-    public boolean handleModifiedDockables() {
+    private boolean handleModifiedDockables() {
         SortedSet<FXDockableEntry> modifiedDockables = dockingAreaContainer.getSortedModifiedDockables();
 
         if (!modifiedDockables.isEmpty()) {
