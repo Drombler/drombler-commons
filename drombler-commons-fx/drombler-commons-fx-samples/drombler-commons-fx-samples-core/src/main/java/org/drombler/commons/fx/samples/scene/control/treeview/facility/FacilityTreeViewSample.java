@@ -1,22 +1,14 @@
 package org.drombler.commons.fx.samples.scene.control.treeview.facility;
 
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.ToolBar;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.drombler.commons.action.fx.ButtonUtils;
-import org.drombler.commons.context.Context;
-import org.drombler.commons.context.ContextManager;
-import org.drombler.commons.context.LocalContextProvider;
-import org.drombler.commons.context.SimpleContext;
-import org.drombler.commons.context.SimpleContextContent;
-import org.drombler.commons.fx.samples.scene.control.treeview.facility.handler.FacilityHandler;
 import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Building;
 import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Facility;
 import org.drombler.commons.fx.samples.scene.control.treeview.facility.model.Floor;
@@ -32,36 +24,25 @@ import org.drombler.commons.fx.scene.control.RenderedTreeCellFactory;
  *
  * @author puce
  */
-public class FacilityTreeViewSample extends Application implements LocalContextProvider {
-
-    private final ContextManager contextManager = new ContextManager();
-    private final SimpleContextContent contextContent = new SimpleContextContent();
-    private final Context localContext = new SimpleContext(contextContent);
+public class FacilityTreeViewSample extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        contextManager.registerLocalContext(this);
-        contextManager.setLocalContextActive(this);
-
         Building building = createBuilding();
 
         BorderPane root = new BorderPane();
 
-        ToolBar toolBar = createToolBar();
         TreeView<Facility> facilityTreeView = createFacilityTreeView(building);
-        facilityTreeView.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends TreeItem<Facility>> observable, TreeItem<Facility> oldValue, TreeItem<Facility> newValue) -> {
-                    if (oldValue != null) {
-                        contextContent.remove(((AbstractFacilityTreeItem<?>) oldValue).getFacilityFoo());
-                    }
-                    if (newValue != null) {
-                        final FacilityHandler<?, ?> newFacilityFoo = ((AbstractFacilityTreeItem<?>) newValue).getFacilityFoo();
-                        root.setCenter(newFacilityFoo.getEditor());
-                        contextContent.add(newFacilityFoo);
-                    } else {
-                        root.setCenter(null);
-                    }
-                });
+        facilityTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                root.setCenter(((AbstractFacilityTreeItem<?>) newValue).getFacilityHandler().getEditor());
+            } else {
+                root.setCenter(null);
+            }
+        });
+
+        AddAction addAction = new AddAction(facilityTreeView.getSelectionModel());
+        ToolBar toolBar = new ToolBar(createAddButton(addAction));
 
         BorderPane detailsParentPane = new BorderPane();
         root.setTop(toolBar);
@@ -123,24 +104,10 @@ public class FacilityTreeViewSample extends Application implements LocalContextP
         return room;
     }
 
-    private ToolBar createToolBar() {
-        ToolBar toolBar = new ToolBar(createAddButton());
-        return toolBar;
-    }
-
-    private Button createAddButton() {
-        AddAction addAction = new AddAction();
-        addAction.setDisplayName("+");
-        addAction.setActiveContext(contextManager.getActiveContext());
-
+    private Button createAddButton(AddAction addAction) {
         Button button = new Button();
         ButtonUtils.configureToolbarButton(button, addAction, 24);
         return button;
-    }
-
-    @Override
-    public Context getLocalContext() {
-        return localContext;
     }
 
 }

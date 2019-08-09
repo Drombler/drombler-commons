@@ -25,7 +25,7 @@ public abstract class AbstractFacilityTreeItem<T extends Facility> extends TreeI
     /**
      * @return the facility
      */
-    public FacilityHandler<T, ?> getFacilityFoo() {
+    public FacilityHandler<T, ?> getFacilityHandler() {
         return facilityFoo;
     }
 
