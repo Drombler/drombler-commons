@@ -113,7 +113,7 @@ public class FileUtils {
             public void onClose(CloseEvent evt) {
                 dataHandler.removeCloseEventListener(this);
                 dataHandlerRegistry.unregisterDataHandler(dataHandler);
-                contextManager.removeLocalContext(dataHandler);
+                contextManager.unregisterLocalContext(dataHandler);
             }
         });
     }

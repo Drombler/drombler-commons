@@ -21,8 +21,8 @@ public class DataHandlerRegistry implements AutoCloseable {
     private final Map<DataHandlerRegistryKey<?, ?>, DataHandler<?>> dataHandlers = new HashMap<>();
 
     /**
-     * Registers a data handler. If a data handler is already registered for the unique key, the registered data handler will be returned. Use the returned data handler.
-     *
+     * Registers a data handler. If a data handler is already registered for the unique key, the registered data handler will be returned. Use the returned data handler.<br>
+     * <br>
      * If the unique key of the data handler is non-null, the data handler is registered immediately. Else the unique key property of the data handler will be observed for changes and once it's
      * non-null, the data handler will be registerd.
      *
@@ -74,8 +74,11 @@ public class DataHandlerRegistry implements AutoCloseable {
     /**
      * Checks if a data handler is registered for the unique key
      *
-     * @param uniqueKey
-     * @return
+     * @param <K> the type of the unique key of the data handler
+     * @param <T> the type of the data handler
+     * @param type the type of the data handler
+     * @param uniqueKey the unique key of the data handler
+     * @return true, if this registry contains a data handler for the specified key
      */
     public <K, T extends DataHandler<K>> boolean containsDataHandlerForUniqueKey(Class<T> type, K uniqueKey) {
         DataHandlerRegistryKey<K, T> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
@@ -87,10 +90,13 @@ public class DataHandlerRegistry implements AutoCloseable {
     }
 
     /**
-     * Gets the data handler for the specified unique key
+     * Gets the data handler for the specified unique key.
      *
-     * @param uniqueKey
-     * @return
+     * @param <K> the type of the unique key of the data handler
+     * @param <T> the type of the data handler
+     * @param type the type of the data handler
+     * @param uniqueKey the unique key of the data handler
+     * @return the data handler for the specified unique key
      */
     public <K, T extends DataHandler<K>> T getDataHandler(Class<T> type, K uniqueKey) {
         DataHandlerRegistryKey<K, T> dataHandlerRegistryKey = new DataHandlerRegistryKey<>(type, uniqueKey);
