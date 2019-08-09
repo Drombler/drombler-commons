@@ -69,7 +69,7 @@ public class DataHandlerRegistry implements AutoCloseable {
     }
 
     private <K, D extends DataHandler<K>> DataHandlerRegistryKey<K, D> createDataHandlerRegistryKey(D dataHandler) {
-        return new DataHandlerRegistryKey<>(dataHandler.getClass(), dataHandler.getUniqueKey());
+        return new DataHandlerRegistryKey<>((Class<D>) dataHandler.getClass(), dataHandler.getUniqueKey());
     }
 
     /**
