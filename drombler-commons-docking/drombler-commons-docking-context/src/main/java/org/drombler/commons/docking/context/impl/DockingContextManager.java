@@ -32,8 +32,8 @@ import org.softsmithy.lib.util.SetChangeEvent;
 import org.softsmithy.lib.util.SetChangeListener;
 
 /**
- * The DockingContextManager registers and unregisters the local {@link Context}s of Dockables depending on the Dockables registered in the specified {@link DockingPane} and set the active local
- * {@link Context} depending on the active Dockable set in the specified {@link DockingPane}.
+ * The DockingContextManager registers and unregisters the local {@link Context}s of Dockables depending on the Dockables registered in the specified {@link DockingAreaContainer} and sets the active
+ * local {@link Context} depending on the active Dockable set in the specified {@link DockingAreaContainer}.
  *
  * TODO: API ?
  *
@@ -42,8 +42,8 @@ import org.softsmithy.lib.util.SetChangeListener;
  * @param <D>
  * @param <DATA>
  * @param <E>
- * @see DockingPane#getDockables()
- * @see DockingPane#activeDockableProperty()
+ * @see DockingAreaContainer#getDockables()
+ * @see DockingAreaContainer#getActiveDockable()
  * @see ContextManager#putLocalContext(java.lang.Object, org.drombler.commons.context.Context)
  * @see ContextManager#removeLocalContext(java.lang.Object)
  * @see ContextManager#setLocalContextActive(java.lang.Object)
