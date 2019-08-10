@@ -44,8 +44,8 @@ import org.softsmithy.lib.util.SetChangeListener;
  * @param <E>
  * @see DockingAreaContainer#getDockables()
  * @see DockingAreaContainer#getActiveDockable()
- * @see ContextManager#putLocalContext(java.lang.Object, org.drombler.commons.context.Context)
- * @see ContextManager#removeLocalContext(java.lang.Object)
+ * @see ContextManager#registerLocalContext(java.lang.Object, org.drombler.commons.context.LocalProxyContext)
+ * @see ContextManager#unregisterLocalContext(java.lang.Object)
  * @see ContextManager#setLocalContextActive(java.lang.Object)
  *
  * @author puce
