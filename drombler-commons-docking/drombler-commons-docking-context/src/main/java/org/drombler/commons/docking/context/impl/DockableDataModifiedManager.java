@@ -29,7 +29,7 @@ import org.softsmithy.lib.util.SetChangeEvent;
 import org.softsmithy.lib.util.SetChangeListener;
 
 /**
- * This manager listens for {@link Savable} in the local contexts of the Dockables and synchronizes the {@link FXDockableData#modifiedProperty()} accordingly.
+ * This manager listens for {@link Savable} in the local contexts of the Dockables and synchronizes {@link DockableData#isModified()} accordingly.
  *
  * @author puce
  * @param <D>
