@@ -1,2 +1,3 @@
 org.drombler.commons.client.startup.main
 org.drombler.commons.client.startup.main.cli
+org.drombler.commons.client.startup.main.impl
