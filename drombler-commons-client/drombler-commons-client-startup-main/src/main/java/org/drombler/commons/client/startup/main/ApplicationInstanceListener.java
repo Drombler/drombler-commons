@@ -17,7 +17,7 @@ package org.drombler.commons.client.startup.main;
 import java.util.EventListener;
 
 /**
- * A listener for application instance events.
+ * A listener for {@link ApplicationInstanceEvent}s.
  */
 public interface ApplicationInstanceListener extends EventListener {
 

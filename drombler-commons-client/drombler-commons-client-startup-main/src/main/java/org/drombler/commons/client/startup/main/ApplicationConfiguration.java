@@ -28,10 +28,19 @@ import org.drombler.commons.client.startup.main.impl.PropertiesUtils;
  */
 public class ApplicationConfiguration {
 
+    /**
+     * The relative path of the applicationConfig.properties file expected to be packaged within the application JAR.
+     */
     public static final String APPLICATION_PROPERTIES_FILE_PATH_RELATIVE = "applicationConfig.properties";
 
+    /**
+     * The absolute path of the applicationConfig.properties file expected to be packaged within the application JAR.
+     */
     public static final String APPLICATION_PROPERTIES_FILE_PATH_ABSOLUTE = "/" + APPLICATION_PROPERTIES_FILE_PATH_RELATIVE;
 
+    /**
+     * The property name of the optional default single instance port property in the applicationConfig.properties file to indicate a single instance application.
+     */
     public static final String APPLICATION_DEFAULT_SINGLE_INSTANCE_PORT_PROPERTY_NAME
             = "drombler.application.defaultSingleInstancePort";
 
