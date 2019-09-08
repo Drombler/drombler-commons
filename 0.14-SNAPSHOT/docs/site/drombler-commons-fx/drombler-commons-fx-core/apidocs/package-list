@@ -4,7 +4,6 @@ org.drombler.commons.fx.beans.property
 org.drombler.commons.fx.concurrent
 org.drombler.commons.fx.event
 org.drombler.commons.fx.fxml
-org.drombler.commons.fx.fxml.impl
 org.drombler.commons.fx.geometry
 org.drombler.commons.fx.scene
 org.drombler.commons.fx.scene.control
