@@ -230,7 +230,7 @@ public class DromblerClientConfiguration {
     /**
      * Copies and sets some additional system properties. The default implementation does not copy any additional system properties.
      *
-     * @param configProps the source properties to copy from
+     * @param configProps the source properties to copy to
      */
     protected void copySystemProperties(Properties configProps) {
         // does currently nothing by default
