@@ -1,9 +1,5 @@
 org.drombler.commons.docking
 org.drombler.commons.docking.context
-org.drombler.commons.docking.context.impl
 org.drombler.commons.docking.fx
 org.drombler.commons.docking.fx.context
-org.drombler.commons.docking.fx.context.impl
-org.drombler.commons.docking.fx.impl
-org.drombler.commons.docking.impl
 org.drombler.commons.docking.spi
