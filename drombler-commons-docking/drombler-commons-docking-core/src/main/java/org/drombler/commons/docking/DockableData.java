@@ -25,11 +25,15 @@ public interface DockableData extends Bean {
 
     /**
      * The name of the 'title' property.
+     *
+     * @see #getTitle()
      */
     public static final String TITLE_PROPERTY_NAME = "title";
 
     /**
      * The name of the 'modified' property.
+     *
+     * @see #isModified()
      */
     public static final String MODIFIED_PROPERTY_NAME = "modified";
 

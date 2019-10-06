@@ -14,9 +14,9 @@
  */
 package org.drombler.commons.data;
 
-import org.softsmithy.lib.util.CloseEventListener;
 import org.drombler.commons.context.LocalContextProvider;
 import org.softsmithy.lib.beans.Bean;
+import org.softsmithy.lib.util.CloseEventListener;
 import org.softsmithy.lib.util.UniqueKeyProvider;
 
 /**
@@ -29,31 +29,65 @@ import org.softsmithy.lib.util.UniqueKeyProvider;
  * @author puce
  */
 public interface DataHandler<K> extends LocalContextProvider, UniqueKeyProvider<K>, Bean, AutoCloseable {
+
+    /**
+     * The name of the 'uniqueKey' property.
+     *
+     * @see #getUniqueKey()
+     */
     String UNIQUE_KEY_PROPERTY_NAME = "uniqueKey";
+
+    /**
+     * The name of the 'title' property.
+     *
+     * @see #getTitle()
+     */
     String TITLE_PROPERTY_NAME = "title";
+
+    /**
+     * The name of the 'tooltipText' property.
+     *
+     * @see #getTooltipText()
+     */
     String TOOLTIP_TEXT_PROPERTY_NAME = "tooltipText";
+
+    /**
+     * The name of the 'dirty' property.
+     *
+     * @see #isDirty()
+     */
     String DIRTY_PROPERTY_NAME = "dirty";
+
+    /**
+     * The name of the 'initialized' property.
+     *
+     * @see #isInitialized()
+     */
     String INITIALIZED_PROPERTY_NAME = "initialized";
 
     /**
-     * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.
+     * Gets the title of this data handler. It's intended to be used e.g. in tabs and cells.<br>
+     * <br>
+     * This is a bound property.
      *
      * @return the title of this data handler
+     * @see #TITLE_PROPERTY_NAME
      */
     String getTitle();
 
     /**
-     * Gets the tooltip text. This text is intended to be used in tooltips.
+     * Gets the tooltip text. This text is intended to be used in tooltips.<br>
+     * <br>
+     * This is a bound property.
      *
      * @return the tooltip text
+     * @see #TOOLTIP_TEXT_PROPERTY_NAME
      */
     String getTooltipText();
-    
-    
 
     /**
-     * Marks the content of this data handler as dirty.
-     *
+     * Marks the content of this data handler as dirty.<br>
+     * <br>
      * If the content has been modified but the user discarded the changes, the data handler should be marked as dirty to indicate that the content needs to be reloaded from its source when it's
      * accessed the next time.
      *
@@ -62,18 +96,24 @@ public interface DataHandler<K> extends LocalContextProvider, UniqueKeyProvider<
     void markDirty();
 
     /**
-     * A flag if the content of this data handler is dirty.
-     *
-     * If the content is marked as dirty it should be reloaded from its source when it's accessed the next time.
+     * A flag if the content of this data handler is dirty.<br>
+     * <br>
+     * If the content is marked as dirty it should be reloaded from its source when it's accessed the next time.<br>
+     * <br>
+     * This is a bound property.
      *
      * @return true, if the content is marked as dirty, else false
+     * @see #DIRTY_PROPERTY_NAME
      */
     boolean isDirty();
 
     /**
-     * A flag if this data handler is initialized.
+     * A flag if this data handler is initialized.<br>
+     * <br>
+     * This is a bound property.
      *
      * @return true, if the data handler is initialized, else false
+     * @see #INITIALIZED_PROPERTY_NAME
      */
     boolean isInitialized();
 
