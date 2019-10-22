@@ -55,24 +55,42 @@ public final class ResourceBundleUtils {
      *
      * @see #getClassResourceBundle(java.lang.Class)
      * @see #getPackageResourceBundle(java.lang.Class)
+     * @see #getConditionalResourceBundle(java.lang.Class, java.lang.String)
      * @see #KEY_PREFIX
      * @see #PACKAGE_RESOURCE_BUNDLE_BASE_NAME
      */
     // TODO: useful?
-    public static ResourceBundle getResourceBundle(Class<?> type, String resourceBundleBaseName, String resourceKey) {
-        ResourceBundle resourceBundle = null;
-        resourceKey = StringUtils.stripToNull(resourceKey);
-        if (isPrefixedResourceString(resourceKey)) {
-            resourceBundleBaseName = StringUtils.stripToNull(resourceBundleBaseName);
-            if (resourceBundleBaseName == null) {
-                resourceBundle = getClassResourceBundle(type);
-            } else if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
-                resourceBundle = getPackageResourceBundle(type);
-            } else {
-                resourceBundle = getResourceBundle(resourceBundleBaseName, type.getClassLoader());
-            }
+    public static ResourceBundle getConditionalResourceBundlePrefixed(Class<?> type, String resourceBundleBaseName, String resourceKey) {
+        return isPrefixedResourceString(resourceKey) ? getConditionalResourceBundle(type, resourceBundleBaseName) : null;
+    }
+
+    /**
+     * Gets the {@link ResourceBundle}.<br>
+     * <br>
+     * <pre>
+     * If resourceBundleBaseName is null, the {@link #getClassResourceBundle(java.lang.Class) } gets returned.
+     * If resourceBundleBaseName equals 'Bundle', the {@link #getPackageResourceBundle(java.lang.Class)} gets returned.
+     * Else the ResourceBundle for the resourceBundleBaseName gets returned using the same {@link ClassLoader} as the provided type.
+     * </pre>
+     *
+     * @param type the type
+     * @param resourceBundleBaseName the base name of the ResourceBundle, 'Bundle' (for the package ResourceBundle) or null (for the class ResourceBundle).
+     * @return the ResoureBundle
+     *
+     * @see #getClassResourceBundle(java.lang.Class)
+     * @see #getPackageResourceBundle(java.lang.Class)
+     * @see #PACKAGE_RESOURCE_BUNDLE_BASE_NAME
+     */
+    // TODO: useful?
+    public static ResourceBundle getConditionalResourceBundle(Class<?> type, String resourceBundleBaseName) {
+        resourceBundleBaseName = StringUtils.stripToNull(resourceBundleBaseName);
+        if (resourceBundleBaseName == null) {
+            return getClassResourceBundle(type);
+        } else if (resourceBundleBaseName.equals(PACKAGE_RESOURCE_BUNDLE_BASE_NAME)) {
+            return getPackageResourceBundle(type);
+        } else {
+            return getResourceBundle(resourceBundleBaseName, type.getClassLoader());
         }
-        return resourceBundle;
     }
 
     /**
@@ -80,6 +98,7 @@ public final class ResourceBundleUtils {
      *
      * @param type the type
      * @return the resource bundle for the type
+     * @see #getResourceBundle(java.lang.Class, java.lang.String)
      */
     public static ResourceBundle getClassResourceBundle(Class<?> type) {
         return getResourceBundle(type, type.getSimpleName());
@@ -152,16 +171,12 @@ public final class ResourceBundleUtils {
 
     private static String getResourceStringPrefixed(String resourceKey, String aPackage, String baseName,
             ClassLoader classLoader) {
-        String strippedResourceKey = StringUtils.stripToNull(resourceKey);
-        if (isPrefixedResourceString(strippedResourceKey)) {
+        if (isPrefixedResourceString(resourceKey)) {
             ResourceBundle rb = getResourceBundle(aPackage, baseName, classLoader);
             return getResourceStringPrefixed(resourceKey, rb);
+        } else {
+            return resourceKey;
         }
-        return resourceKey;
-    }
-
-    private static boolean isPrefixedResourceString(String strippedResourceKey) {
-        return strippedResourceKey != null && strippedResourceKey.startsWith(KEY_PREFIX);
     }
 
     /**
@@ -182,7 +197,20 @@ public final class ResourceBundleUtils {
 //            if (rb.containsKey(resourceKey)) {
             return resourceBundle.getString(strippedResourceKey);
 //            }
+        } else {
+            return resourceKey;
         }
-        return resourceKey;
+    }
+
+    /**
+     * Checks if the resource key starts with the '%' prefix, which marks it as an I18N key.
+     *
+     * @param resourceKey the resource key to check
+     * @return true if the resource key starts with the '%' prefix, else false (no I18N)
+     * @see #KEY_PREFIX
+     */
+    public static boolean isPrefixedResourceString(String resourceKey) {
+        String strippedResourceKey = StringUtils.stripToNull(resourceKey);
+        return strippedResourceKey != null && strippedResourceKey.startsWith(KEY_PREFIX);
     }
 }
