@@ -28,7 +28,7 @@ import java.util.Properties;
 import org.drombler.commons.client.startup.main.cli.CommandLineArgs;
 
 /**
- * The client configuration. Subclass may add additional properties or change the configuration such as the application layout.
+ * The client configuration. Subclasses may add additional properties or change the configuration such as the application layout.
  */
 public class DromblerClientConfiguration {
 
@@ -69,6 +69,9 @@ public class DromblerClientConfiguration {
      */
     public static final String CONFIG_PROPERTIES_FILE_NAME = "config.properties";
 
+    /**
+     * The property name of the user dir property in the config.properties file expected at {@code <install-dir>/conf}.
+     */
     public static final String USER_DIR_PROPERTY = "drombler.application.userdir";
 
     private final Path installDirPath;

@@ -36,7 +36,9 @@ import org.softsmithy.lib.util.SetChangeListener;
 public interface DockingAreaContainer<D, DATA extends DockableData, E extends DockableEntry<D, DATA>> extends Bean {
 
     /**
-     * The activeDockable property name.
+     * The name of the 'activeDockable' property.
+     *
+     * @see #getActiveDockable() ()
      */
     static final String ACTIVE_DOCKABLE_PROPERTY_NAME = "activeDockable";
 
@@ -110,20 +112,23 @@ public interface DockingAreaContainer<D, DATA extends DockableData, E extends Do
     SortedSet<E> getSortedModifiedDockables();
 
     /**
-     * Sets the active Dockable.
-     *
+     * Sets the active Dockable.<br>
+     * <br>
      * This is a bound property.
      *
      * @param dockableEntry the Dockable to set active
+     * @see #ACTIVE_DOCKABLE_PROPERTY_NAME
      */
     void setActiveDockable(E dockableEntry);
 
     /**
-     * Gets the active Dockable.
+     * Gets the active Dockable.<br>
+     * <br>
      *
      * This is a bound property.
      *
      * @return the active Dockable
+     * @see #ACTIVE_DOCKABLE_PROPERTY_NAME
      */
     E getActiveDockable();
 

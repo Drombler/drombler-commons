@@ -28,16 +28,22 @@ public final class LayoutConstraintsDescriptor implements Bean {
 
     /**
      * The name of the 'prefWidth' property.
+     *
+     * @see #getPrefWidth()
      */
     public static final String PREF_WIDTH_PROPERTY_NAME = "prefWidth";
 
     /**
      * The name of the 'prefHeight' property.
+     *
+     * @see #getPrefHeight()
      */
     public static final String PREF_HEIGHT_PROPERTY_NAME = "prefHeight";
 
     /**
      * The default value for flexible heights or widths.
+     *
+     * @see #isFlexible(double)
      */
     public static final double FLEXIBLE_PREF = -1.0;
 
