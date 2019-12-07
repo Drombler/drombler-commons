@@ -14,14 +14,17 @@
  */
 package org.drombler.commons.client.startup.main;
 
-import java.util.List;
+import java.util.EventListener;
 
 /**
- *
- * @author puce
+ * A listener for {@link ApplicationInstanceEvent}s.
  */
+public interface ApplicationInstanceListener extends EventListener {
 
-public interface ApplicationInstanceListener {
-
-    void newInstanceCreated(List<String> additionalArgs);
+    /**
+     * Callback for new application instance created events.
+     *
+     * @param event the application instance event
+     */
+    void newInstanceCreated(ApplicationInstanceEvent event);
 }

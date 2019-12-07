@@ -111,6 +111,12 @@ public class IconFactory implements GraphicFactory<Node> {
         }
     }
 
+    /**
+     * Gets the resource path of the icon with the specified size.
+     *
+     * @param size the size of the icon
+     * @return the resource path of the icon with the specified size
+     */
     protected String getIconResourcePath(int size) {
         String currentIconResourcePath = iconResourcePath;
         if (currentIconResourcePath != null) {

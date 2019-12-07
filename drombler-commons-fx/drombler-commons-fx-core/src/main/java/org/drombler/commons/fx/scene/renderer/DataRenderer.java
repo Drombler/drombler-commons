@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 
 /**
+ * A renderer, which knows how to render some data independent of the control type.<br>
  * Note: more methods might be added
  *
  * @param <T> the type of the data to render

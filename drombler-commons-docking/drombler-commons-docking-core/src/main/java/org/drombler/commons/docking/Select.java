@@ -21,6 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Marks the select method of a Dockable, which should be called on onSelectionChanged events on the newly selected Dockable.
  *
  * @author puce
  */

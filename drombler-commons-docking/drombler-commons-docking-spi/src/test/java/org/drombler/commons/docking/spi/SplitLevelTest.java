@@ -15,10 +15,10 @@
 package org.drombler.commons.docking.spi;
 
 import org.drombler.commons.client.geometry.Orientation;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -27,7 +27,7 @@ import org.junit.Test;
 public class SplitLevelTest {
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetLevel() {
         System.out.println("getLevel");
         SplitLevel instance = null;
@@ -38,7 +38,7 @@ public class SplitLevelTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetOrientation() {
         System.out.println("getOrientation");
         SplitLevel instance = null;
@@ -49,7 +49,7 @@ public class SplitLevelTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testValueOf() {
         System.out.println("valueOf");
         int level = 0;
@@ -60,7 +60,7 @@ public class SplitLevelTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testHashCode() {
         System.out.println("hashCode");
         SplitLevel instance = null;
@@ -71,7 +71,7 @@ public class SplitLevelTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testEquals() {
         System.out.println("equals");
         Object obj = null;
@@ -83,7 +83,7 @@ public class SplitLevelTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testToString() {
         System.out.println("toString");
         SplitLevel instance = null;

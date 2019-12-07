@@ -17,14 +17,15 @@ package org.drombler.commons.context;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 /**
  *
  * @author puce
  */
-public class ContextTests {
+public final class ContextTests {
 
     private ContextTests() {
     }

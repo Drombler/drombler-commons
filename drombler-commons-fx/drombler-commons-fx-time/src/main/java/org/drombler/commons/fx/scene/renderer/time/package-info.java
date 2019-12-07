@@ -14,7 +14,6 @@
  */
 /**
  * JavaFX {@link org.drombler.commons.fx.scene.renderer.DataRenderer}s for classes in the {@link java.time} package.
- *
- * TODO: Change the package name to: org.drombler.commons.time.fx.scene.renderer
  */
+// TODO: Change the package name to: org.drombler.commons.time.fx.scene.renderer
 package org.drombler.commons.fx.scene.renderer.time;

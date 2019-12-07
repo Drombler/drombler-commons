@@ -19,7 +19,7 @@ import org.drombler.commons.fx.scene.renderer.WholeNumberRenderer;
 import org.softsmithy.lib.text.IntegerParser;
 
 /**
- * An Integer field.
+ * An {@link Integer} field.
  *
  * @author puce
  */

@@ -17,6 +17,7 @@ package org.drombler.commons.action.command;
 import java.util.Locale;
 
 /**
+ * An action command to save something.
  *
  * @author puce
  */
@@ -24,7 +25,16 @@ import java.util.Locale;
 // (and the default locale used instead)
 public interface Savable {
 
+    /**
+     * Executes this save command.
+     */
     void save();
 
+    /**
+     * Gets the display string for this command.
+     *
+     * @param inLocale the locale used to display the text.
+     * @return the display string for this command
+     */
     String getDisplayString(Locale inLocale);
 }

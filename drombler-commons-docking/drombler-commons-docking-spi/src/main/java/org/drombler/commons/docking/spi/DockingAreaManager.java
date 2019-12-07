@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A Docking Area manager.
  *
  * @param <A> the type of the Docking Area
  * @author puce
@@ -36,16 +37,36 @@ public class DockingAreaManager<A extends DockingArea<A>> {
     private final int position;
     private final SplitLevel level;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param parent the parent Docking Area manager
+     * @param position the position this manager manages
+     * @param level the level
+     */
     public DockingAreaManager(DockingAreaManager<A> parent, int position, int level) {
         this(parent, position, SplitLevel.valueOf(level));
     }
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param parent the parent Docking Area manager
+     * @param position the position this manager manages
+     * @param level the level
+     */
     public DockingAreaManager(DockingAreaManager<A> parent, int position, SplitLevel level) {
         this.parent = parent;
         this.position = position;
         this.level = level;
     }
 
+    /**
+     * Adds a Docking Area.
+     *
+     * @param path the path where the Docking Area should be added to
+     * @param dockingArea the Docking Area to add
+     */
     public void addDockingArea(List<Integer> path, A dockingArea) {
         addDockingArea(path.iterator(), dockingArea);
     }
@@ -57,7 +78,7 @@ public class DockingAreaManager<A extends DockingArea<A>> {
                 dockingAreaManagers.put(childPosition, new DockingAreaManager<>(this, childPosition,
                         SplitLevel.valueOf(level.getLevel() + 1)));
             }
-            dockingAreaManagers.get(childPosition).addDockingArea(path, dockingArea);
+            dockingAreaManagers.get(childPosition).addDockingArea(path, dockingArea); // recursion
         } else {
             // TODO: handle case where 2 dockingAreas have the same position
             // TODO: handle case where dockingArea and dockingAreaManager have the same position
@@ -114,6 +135,14 @@ public class DockingAreaManager<A extends DockingArea<A>> {
                 && dockingAreas.get(position).isVisual());
     }
 
+    /**
+     * Gets the short path for the provided Docking Area. The short path is the path without any unnecessary split panes.<br>
+     * <br>
+     * The provided Docking Area must be managed by this manager.
+     *
+     * @param dockingArea the Docking Area
+     * @return the short path for the provided Docking Area
+     */
     public List<ShortPathPart> getShortPath(A dockingArea) {
         if (!(dockingAreas.containsKey(dockingArea.getPosition())
                 && dockingAreas.get(dockingArea.getPosition()).equals(dockingArea))) {
@@ -146,6 +175,9 @@ public class DockingAreaManager<A extends DockingArea<A>> {
         return shortPath;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return String.format("%s[position=%d, level=%s]", DockingAreaManager.class.getSimpleName(), position, level);

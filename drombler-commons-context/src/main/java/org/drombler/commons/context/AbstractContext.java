@@ -31,6 +31,12 @@ public abstract class AbstractContext implements Context {
     private final Map<Class<?>, List<ContextListener<?>>> unmodifiableListeners = Collections.unmodifiableMap(listeners);
 
     /**
+     * Creates a new instance of this class.
+     */
+    public AbstractContext() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override

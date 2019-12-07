@@ -17,6 +17,9 @@ package org.drombler.commons.docking.spi;
 import java.util.Objects;
 
 /**
+ * A part of a short path.<br>
+ * <br>
+ * A short path is a path without any unnecessary split panes.
  *
  * @author puce
  */
@@ -26,30 +29,45 @@ public class ShortPathPart {
     private final SplitLevel inLogicalLevel;
 
     /**
-     * {@code inLogicalLevel} refers to the parent, so read it as: The {@code position} in the split pane at the logical
-     * (not shortened) level {@code inLogicalLevel}.
+     * Creates a new instance of this class.<br>
+     * <br>
+     * The {@code inLogicalLevel} refers to the parent, so read it as:<br>
+     * The {@code position} in the split pane at the logical (not shortened) level {@code inLogicalLevel}.
      *
-     * @param position
-     * @param inLogicalLevel
+     * @param position the position in the split pane
+     * @param inLogicalLevel the logical (not shortened) level of the parent split pane
      */
     public ShortPathPart(int position, int inLogicalLevel) {
         this(position, SplitLevel.valueOf(inLogicalLevel));
     }
 
+    /**
+     * Creates a new instance of this class.<br>
+     * <br>
+     * The {@code inLogicalLevel} refers to the parent, so read it as:<br>
+     * The {@code position} in the split pane at the logical (not shortened) level {@code inLogicalLevel}.
+     *
+     * @param position the position in the split pane
+     * @param inLogicalLevel the logical (not shortened) level of the parent split pane
+     */
     public ShortPathPart(int position, SplitLevel inLogicalLevel) {
         this.position = position;
         this.inLogicalLevel = inLogicalLevel;
     }
 
     /**
-     * @return the pathPart
+     * Gets the position in the split pane.
+     *
+     * @return the position in the split pane
      */
     public int getPosition() {
         return position;
     }
 
     /**
-     * @return the level
+     * Gets the logical (not shortened) level of the parent split pane.
+     *
+     * @return the logical (not shortened) level of the parent split pane
      */
     public SplitLevel getInLogicalLevel() {
         return inLogicalLevel;

@@ -22,4 +22,10 @@ package org.drombler.commons.data;
  */
 public class BusinessObjectHandlerDescriptor<D> extends AbstractDataHandlerDescriptor<D> {
 
+    /**
+     * Creates a new instance of this class.
+     */
+    public BusinessObjectHandlerDescriptor() {
+    }
+
 }

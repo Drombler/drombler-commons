@@ -26,6 +26,7 @@ import org.drombler.commons.context.ContextManager;
 import org.drombler.commons.context.Contexts;
 import org.drombler.commons.docking.DockingAreaDescriptor;
 import org.drombler.commons.docking.context.AbstractDockingAreaContainer;
+import org.drombler.commons.docking.context.DockingAreaContainer;
 import org.drombler.commons.docking.fx.DockingPane;
 import org.drombler.commons.docking.fx.FXDockableData;
 import org.drombler.commons.docking.fx.FXDockableDataFactory;
@@ -33,6 +34,7 @@ import org.drombler.commons.docking.fx.FXDockableEntry;
 import org.drombler.commons.docking.fx.FXDockableEntryFactory;
 
 /**
+ * An adapter to use a {@link DockingPane} as a {@link DockingAreaContainer}.
  *
  * @author puce
  */
@@ -40,6 +42,12 @@ public class DockingPaneDockingAreaContainerAdapter extends AbstractDockingAreaC
 
     private final DockingPane dockingPane;
 
+    /**
+     * Creates a new instance of this class.
+     *
+     * @param dockingPane the DockingPane
+     * @param contextManager the ContextManager
+     */
     public DockingPaneDockingAreaContainerAdapter(DockingPane dockingPane, ContextManager contextManager) {
         super(new FXDockableEntryFactory(), new FXDockableDataFactory(), contextManager); // TODO remove?
 

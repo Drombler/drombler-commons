@@ -14,11 +14,11 @@
  */
 package org.drombler.commons.docking;
 
-import org.drombler.commons.docking.LayoutConstraintsDescriptor;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 
 /**
  *
@@ -26,11 +26,9 @@ import org.junit.Test;
  */
 public class LayoutConstraintsDescriptorTest {
 
-    public LayoutConstraintsDescriptorTest() {
-    }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetLayoutConstraints() {
         System.out.println("getLayoutConstraints");
         double prefWidth = 0.0;
@@ -42,7 +40,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testPrefWidth() {
         System.out.println("prefWidth");
         double prefWidth = 0.0;
@@ -53,7 +51,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testPrefHeight() {
         System.out.println("prefHeight");
         double prefHeight = 0.0;
@@ -64,7 +62,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testFlexible() {
         System.out.println("flexible");
         LayoutConstraintsDescriptor expResult = null;
@@ -74,7 +72,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetPrefWidth() {
         System.out.println("getPrefWidth");
         LayoutConstraintsDescriptor instance = null;
@@ -85,7 +83,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetPrefHeight() {
         System.out.println("getPrefHeight");
         LayoutConstraintsDescriptor instance = null;
@@ -96,7 +94,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testIsFlexible() {
         System.out.println("isFlexible");
         double size = 0.0;
@@ -107,7 +105,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testIsPreferred() {
         System.out.println("isPreferred");
         double size = 0.0;
@@ -118,7 +116,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testToString() {
         System.out.println("toString");
         LayoutConstraintsDescriptor instance = null;
@@ -129,7 +127,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testHashCode() {
         System.out.println("hashCode");
         LayoutConstraintsDescriptor instance = null;
@@ -140,7 +138,7 @@ public class LayoutConstraintsDescriptorTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testEquals() {
         System.out.println("equals");
         Object obj = null;

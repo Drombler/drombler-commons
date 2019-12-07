@@ -32,8 +32,8 @@ import org.softsmithy.lib.util.SetChangeEvent;
 import org.softsmithy.lib.util.SetChangeListener;
 
 /**
- * The DockingContextManager registers and unregisters the local {@link Context}s of Dockables depending on the Dockables registered in the specified {@link DockingPane} and set the active local
- * {@link Context} depending on the active Dockable set in the specified {@link DockingPane}.
+ * The DockingContextManager registers and unregisters the local {@link Context}s of Dockables depending on the Dockables registered in the specified {@link DockingAreaContainer} and sets the active
+ * local {@link Context} depending on the active Dockable set in the specified {@link DockingAreaContainer}.
  *
  * TODO: API ?
  *
@@ -42,10 +42,10 @@ import org.softsmithy.lib.util.SetChangeListener;
  * @param <D>
  * @param <DATA>
  * @param <E>
- * @see DockingPane#getDockables()
- * @see DockingPane#activeDockableProperty()
- * @see ContextManager#putLocalContext(java.lang.Object, org.drombler.commons.context.Context)
- * @see ContextManager#removeLocalContext(java.lang.Object)
+ * @see DockingAreaContainer#getDockables()
+ * @see DockingAreaContainer#getActiveDockable()
+ * @see ContextManager#registerLocalContext(java.lang.Object, org.drombler.commons.context.LocalProxyContext)
+ * @see ContextManager#unregisterLocalContext(java.lang.Object)
  * @see ContextManager#setLocalContextActive(java.lang.Object)
  *
  * @author puce
@@ -91,7 +91,7 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         LocalProxyContext localContext = contextManager.getLocalContext(dockable);
         if (localContext == null) { // dockable is not an instance of LocalContextProvider and no other implicit contexts have been associated
             localContext = LocalProxyContext.createLocalProxyContext(dockable);
-            contextManager.putLocalContext(dockable, localContext);
+            contextManager.registerLocalContext(dockable, localContext);
         }
         localContext.getImplicitContext().addContexts(Arrays.asList(implicitLocalContexts));
     }
@@ -112,13 +112,13 @@ public class DockingContextManager<D, DATA extends DockableData, E extends Docka
         @Override
         public void elementAdded(SetChangeEvent<E> event) {
             LOG.debug("Dockable added: {}", event.getElement());
-            contextManager.putLocalContext(event.getElement().getDockable());
+            contextManager.registerLocalContext(event.getElement().getDockable());
         }
 
         @Override
         public void elementRemoved(SetChangeEvent<E> event) {
             LOG.debug("Dockable removed: {}", event.getElement());
-            contextManager.removeLocalContext(event.getElement().getDockable());
+            contextManager.unregisterLocalContext(event.getElement().getDockable());
         }
 
     }

@@ -29,12 +29,13 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.Map;
 import java.util.Set;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -45,7 +46,7 @@ public class ISOFileSystemProviderTest {
     private final ISOFileSystemProvider testee = new ISOFileSystemProvider();
     private URI isoFileURI;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException {
         this.isoFileURI = URI.create("iso:" + ISOFileSystemProviderTest.class.getResource("/test.iso").toURI().
                 toString());
@@ -62,16 +63,16 @@ public class ISOFileSystemProviderTest {
         assertNotNull(testee.newFileSystem(isoFileURI, env));
     }
 
-    @Test(expected = FileSystemAlreadyExistsException.class)
+    @Test
     public void testNewFileSystemFileSystemAlreadyExistsException() throws Exception {
         Map env = null;
         assertNotNull(testee.newFileSystem(isoFileURI, env));
-        testee.newFileSystem(isoFileURI, env);
+        assertThrows(FileSystemAlreadyExistsException.class, () ->  testee.newFileSystem(isoFileURI, env));
     }
 
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetFileSystem() {
         System.out.println("getFileSystem");
         URI uri = null;
@@ -83,7 +84,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetPath() {
         System.out.println("getPath");
         URI uri = null;
@@ -95,7 +96,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testNewByteChannel() throws Exception {
         System.out.println("newByteChannel");
         Path path = null;
@@ -109,7 +110,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testNewDirectoryStream() throws Exception {
         System.out.println("newDirectoryStream");
         Path dir = null;
@@ -122,7 +123,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testCreateDirectory() throws Exception {
         System.out.println("createDirectory");
         Path dir = null;
@@ -133,7 +134,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testDelete() throws Exception {
         System.out.println("delete");
         Path path = null;
@@ -143,7 +144,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testCopy() throws Exception {
         System.out.println("copy");
         Path source = null;
@@ -155,7 +156,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testMove() throws Exception {
         System.out.println("move");
         Path source = null;
@@ -167,7 +168,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testIsSameFile() throws Exception {
         System.out.println("isSameFile");
         Path path = null;
@@ -180,7 +181,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testIsHidden() throws Exception {
         System.out.println("isHidden");
         Path path = null;
@@ -192,7 +193,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetFileStore() throws Exception {
         System.out.println("getFileStore");
         Path path = null;
@@ -204,7 +205,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testCheckAccess() throws Exception {
         System.out.println("checkAccess");
         Path path = null;
@@ -215,7 +216,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testGetFileAttributeView() {
         System.out.println("getFileAttributeView");
         ISOFileSystemProvider instance = new ISOFileSystemProvider();
@@ -226,7 +227,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testReadAttributes_3args_1() throws Exception {
         System.out.println("readAttributes");
         ISOFileSystemProvider instance = new ISOFileSystemProvider();
@@ -237,7 +238,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testReadAttributes_3args_2() throws Exception {
         System.out.println("readAttributes");
         Path path = null;
@@ -251,7 +252,7 @@ public class ISOFileSystemProviderTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testSetAttribute() throws Exception {
         System.out.println("setAttribute");
         Path path = null;

@@ -34,26 +34,52 @@ public class DataHandlerDescriptorRegistry {
     private final Set<AbstractDataHandlerDescriptor<?>> unmodifiableDataHandlerDescriptors = Collections.unmodifiableSet(dataHandlerDescriptors);
     private final Set<SetChangeListener<AbstractDataHandlerDescriptor<?>>> listeners = new HashSet<>();
 
+    /**
+     * Registers a data handler descriptor.
+     *
+     * @param dataHandlerDescriptor a data handler descriptor
+     */
     public void registerDataHandlerDescriptor(AbstractDataHandlerDescriptor<?> dataHandlerDescriptor) {
         dataHandlerClasses.put(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
         dataHandlerDescriptors.add(dataHandlerDescriptor);
         fireDataHandlerDescriptorAdded(dataHandlerDescriptor);
     }
 
+    /**
+     * Unregisters a data handler descriptor.
+     *
+     * @param dataHandlerDescriptor a data handler descriptor
+     */
     public void unregisterDataHandlerDescriptor(AbstractDataHandlerDescriptor<?> dataHandlerDescriptor) {
         dataHandlerClasses.remove(dataHandlerDescriptor.getDataHandlerClass(), dataHandlerDescriptor);
         dataHandlerDescriptors.remove(dataHandlerDescriptor);
         fireDataHandlerDescriptorRemoved(dataHandlerDescriptor);
     }
 
+    /**
+     * Gets the registered descriptor for the specified data handler.
+     *
+     * @param dataHandler a data handler
+     * @return a data handler descriptor
+     */
     public AbstractDataHandlerDescriptor<?> getDataHandlerDescriptor(Object dataHandler) {
         return dataHandlerClasses.get(dataHandler.getClass());
     }
 
+    /**
+     * Adds a change listener to this registry.
+     *
+     * @param listener a change listener
+     */
     public void addDataHandlerDescriptorListener(SetChangeListener<AbstractDataHandlerDescriptor<?>> listener) {
         listeners.add(listener);
     }
 
+    /**
+     * Removes a change listener from this registry.
+     *
+     * @param listener a change listener
+     */
     public void removeDataHandlerDescriptorListener(SetChangeListener<AbstractDataHandlerDescriptor<?>> listener) {
         listeners.remove(listener);
     }

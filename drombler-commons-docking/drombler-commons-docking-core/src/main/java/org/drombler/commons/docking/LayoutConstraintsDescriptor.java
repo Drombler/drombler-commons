@@ -26,6 +26,25 @@ import static org.softsmithy.lib.beans.PropertyChangeUtils.firePropertyChange;
  */
 public final class LayoutConstraintsDescriptor implements Bean {
 
+    /**
+     * The name of the 'prefWidth' property.
+     *
+     * @see #getPrefWidth()
+     */
+    public static final String PREF_WIDTH_PROPERTY_NAME = "prefWidth";
+
+    /**
+     * The name of the 'prefHeight' property.
+     *
+     * @see #getPrefHeight()
+     */
+    public static final String PREF_HEIGHT_PROPERTY_NAME = "prefHeight";
+
+    /**
+     * The default value for flexible heights or widths.
+     *
+     * @see #isFlexible(double)
+     */
     public static final double FLEXIBLE_PREF = -1.0;
 
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
@@ -53,24 +72,41 @@ public final class LayoutConstraintsDescriptor implements Bean {
     }
 
     /**
-     * Gets a LayoutConstraintsDescriptor with the specified preferred width and preferred height
+     * Gets a LayoutConstraintsDescriptor with the specified preferred width and preferred height.
      *
      * @param prefWidth the preferred width of the Docking Area. Can be negative to indicate a flexible width.
      * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
-     * @return a LayoutConstraintsDescriptor
+     * @return a LayoutConstraintsDescriptor with the specified preferred width and preferred height
      */
     public static LayoutConstraintsDescriptor getLayoutConstraints(double prefWidth, double prefHeight) {
         return new LayoutConstraintsDescriptor(prefWidth, prefHeight);
     }
 
+    /**
+     * Gets a LayoutConstraintsDescriptor with the specified preferred width and a flexible height.
+     *
+     * @param prefWidth the preferred width of the Docking Area. Can be negative to indicate a flexible width.
+     * @return a LayoutConstraintsDescriptor with the specified preferred width and a flexible height
+     */
     public static LayoutConstraintsDescriptor prefWidth(double prefWidth) {
         return new LayoutConstraintsDescriptor(prefWidth, FLEXIBLE_PREF);
     }
 
+    /**
+     * Gets a LayoutConstraintsDescriptor with the specified preferred height and a flexible width.
+     *
+     * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
+     * @return a LayoutConstraintsDescriptor with the specified preferred height and a flexible width
+     */
     public static LayoutConstraintsDescriptor prefHeight(double prefHeight) {
         return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, prefHeight);
     }
 
+    /**
+     * Gets a LayoutConstraintsDescriptor with a flexible width and a flexible height.
+     *
+     * @return a LayoutConstraintsDescriptor with a flexible width and a flexible height
+     */
     public static LayoutConstraintsDescriptor flexible() {
         return new LayoutConstraintsDescriptor(FLEXIBLE_PREF, FLEXIBLE_PREF);
     }
@@ -84,10 +120,17 @@ public final class LayoutConstraintsDescriptor implements Bean {
         return prefWidth;
     }
 
+    /**
+     * Sets the preferred width of the Docking Area. Can be negative to indicate a flexible width.<br>
+     * <br>
+     * This is a bound property.
+     *
+     * @param prefWidth the preferred width of the Docking Area. Can be negative to indicate a flexible width.
+     */
     public void setPrefWidth(double prefWidth) {
         double oldValue = this.prefWidth;
         this.prefWidth = getPrefSize(prefWidth);
-        firePropertyChange(propertyChangeSupport, "prefWidth", oldValue, this.prefWidth);
+        firePropertyChange(propertyChangeSupport, PREF_WIDTH_PROPERTY_NAME, oldValue, this.prefWidth);
     }
 
     /**
@@ -99,35 +142,66 @@ public final class LayoutConstraintsDescriptor implements Bean {
         return prefHeight;
     }
 
+    /**
+     * Sets the preferred height of the Docking Area. Can be negative to indicate a flexible height.<br>
+     * <br>
+     * This is a bound property.
+     *
+     * @param prefHeight the preferred height of the Docking Area. Can be negative to indicate a flexible height.
+     */
     public void setPrefHeight(double prefHeight) {
         double oldValue = this.prefHeight;
         this.prefHeight = getPrefSize(prefHeight);
-        firePropertyChange(propertyChangeSupport, "prefHeight", oldValue, this.prefHeight);
+        firePropertyChange(propertyChangeSupport, PREF_HEIGHT_PROPERTY_NAME, oldValue, this.prefHeight);
     }
 
+    /**
+     * Checks if a size is negative and thus considered flexible.
+     *
+     * @param size the size
+     * @return true, if it should be considered a flexible size, else false
+     */
     public static boolean isFlexible(double size) {
         return !isPreferred(size);
     }
 
+    /**
+     * Checks if a size is non-negative and thus considered preferred.
+     *
+     * @param size the size
+     * @return true, if it should be considered a preferred size, else false
+     */
     public static boolean isPreferred(double size) {
         return size >= 0;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public String toString() {
         return "LayoutConstraintsDescriptor[prefWidth=" + prefWidth + ", prefHeight=" + prefHeight + "]";
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -136,6 +210,9 @@ public final class LayoutConstraintsDescriptor implements Bean {
         return hash;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

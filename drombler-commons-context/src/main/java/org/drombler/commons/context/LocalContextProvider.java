@@ -16,15 +16,9 @@ package org.drombler.commons.context;
 
 /**
  * The local context provider provides a local context.
- *
- *
- *
- * TODO: Good package/ bundle? SPI?
- *
- * TODO: Replace with CDI?
- *
- * @author puce
  */
+// TODO: Good package/ bundle? SPI?
+// TODO: Replace with CDI?
 public interface LocalContextProvider {
 
     /**

@@ -10,12 +10,23 @@ import javafx.beans.WeakListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-
+/**
+ * A utility class for binding collections.
+ */
 public final class CollectionBindings {
 
     private CollectionBindings() {
     }
 
+    /**
+     * Binds the content of one list to the content of an observable list with possibly transformed elements.
+     *
+     * @param <S> the type of the elements of the source list
+     * @param <T> the type of the elements of the target list
+     * @param targetList the target list
+     * @param sourceList the observalble source list
+     * @param mapper a mapper function to map the elements from the source list to the elements of the target list
+     */
     public static <S, T> void bindContent(List<T> targetList, ObservableList<? extends S> sourceList, Function<? super S, ? extends T> mapper) {
         List<? extends T> elements = mapList(sourceList, mapper);
         setContent(targetList, elements);
@@ -24,6 +35,14 @@ public final class CollectionBindings {
         sourceList.addListener(contentListener);
     }
 
+    /**
+     * Unbinds the content of a bound list.
+     *
+     * @param <S> the type of the elements of the source list
+     * @param <T> the type of the elements of the target list
+     * @param targetList the target list
+     * @param sourceList the observalble source list
+     */
     public static <S, T> void unbindContent(List<T> targetList, ObservableList<? extends S> sourceList) {
         sourceList.removeListener(new ListContentListener<>(targetList, null));
     }
@@ -37,6 +56,17 @@ public final class CollectionBindings {
         }
     }
 
+    /**
+     * Binds the content of a tree (deeply nested list) to the content of an observable tree with possibly transformed elements.
+     *
+     * @param <S> the type of the elements of the source tree
+     * @param <T> the type of the elements of the target tree
+     * @param targetList the target tree
+     * @param targetChildListExtractor an extractor to get a child list in the target tree
+     * @param sourceList the observalble source tree
+     * @param sourceChildListExtractor an extractor to get a child list in the source tree
+     * @param mapper a mapper function to map the elements from the source tree to the elements of the target tree
+     */
     public static <S, T> void bindTreeContent(List<T> targetList, Function<? super T, ? extends List<T>> targetChildListExtractor,
             ObservableList<? extends S> sourceList, Function<? super S, ? extends ObservableList<? extends S>> sourceChildListExtractor,
             Function<? super S, ? extends T> mapper) {
@@ -49,6 +79,16 @@ public final class CollectionBindings {
         sourceList.addListener(treeContentListener);
     }
 
+    /**
+     * Unbinds the content of a bound tree (deeply nested list).
+     *
+     * @param <S> the type of the elements of the source tree
+     * @param <T> the type of the elements of the target tree
+     * @param targetList the target tree
+     * @param targetChildListExtractor an extractor to get a child list in the target tree
+     * @param sourceList the observalble source tree
+     * @param sourceChildListExtractor an extractor to get a child list in the source tree
+     */
     public static <S, T> void unbindTreeContent(List<T> targetList, Function<? super T, ? extends List<T>> targetChildListExtractor,
             ObservableList<? extends S> sourceList, Function<? super S, ? extends ObservableList<? extends S>> sourceChildListExtractor) {
         unbindSubTreeContent(targetList, targetChildListExtractor, sourceList, sourceChildListExtractor);  // recursion

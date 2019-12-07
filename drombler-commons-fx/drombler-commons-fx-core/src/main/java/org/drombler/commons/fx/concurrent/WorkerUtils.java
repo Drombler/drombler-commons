@@ -19,11 +19,11 @@ import java.util.Set;
 import javafx.concurrent.Worker;
 
 /**
- * Utility methods for {@link Worker}.
- * 
+ * Utility class for {@link Worker}.
+ *  
  * @author puce
  */
-public class WorkerUtils {
+public final class WorkerUtils {
 
     private static final Set<Worker.State> FINISHED_STATES = EnumSet.of(Worker.State.SUCCEEDED, Worker.State.FAILED, Worker.State.CANCELLED);
 
@@ -31,7 +31,8 @@ public class WorkerUtils {
     }
 
     /**
-     * Gets the finished Worker states: {@link Worker.State#SUCCEEDED}, {@link Worker.State#FAILED} and {@link Worker.State#CANCELLED}
+     * Gets the finished Worker states: {@link Worker.State#SUCCEEDED}, {@link Worker.State#FAILED} and {@link Worker.State#CANCELLED}.
+     *
      * @return the finished Worker states
      */
     // TODO: good name? getTerminalStates() ?
