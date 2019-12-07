@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.14-SNAPSHOT</version>
+        <version>0.14</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-spring-transaction</artifactId>
