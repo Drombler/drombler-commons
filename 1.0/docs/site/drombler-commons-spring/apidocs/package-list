@@ -1,0 +1,3 @@
+org.drombler.commons.spring.boot.context.properties
+org.drombler.commons.spring.jpa
+org.drombler.commons.spring.transaction.stereotype
