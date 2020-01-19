@@ -14,6 +14,7 @@
  */
 package org.drombler.commons.action.fx;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
@@ -58,7 +59,11 @@ public final class MenuItemUtils {
      * @param iconSize the icon size
      */
     public static void configureRadioMenuItem(RadioMenuItem menuItem, FXToggleAction action, int iconSize) {
-        configureMenuItem(menuItem, action, iconSize);
+        // use DelegateFXToggleAction for RadioMenuItem
+        // see https://github.com/Drombler/drombler-fx/issues/255
+        // see https://bugs.openjdk.java.net/browse/JDK-8237505
+        FXToggleAction delegateAction = new DelegateFXToggleAction(action);
+        configureMenuItem(menuItem, delegateAction, iconSize);
         menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
     }
 
@@ -73,4 +78,30 @@ public final class MenuItemUtils {
         configureMenuItem(menuItem, action, iconSize);
         menuItem.selectedProperty().bindBidirectional(action.selectedProperty());
     }
+
+    private static class DelegateFXToggleAction extends AbstractFXToggleAction {
+
+        private final FXToggleAction toggleAction;
+
+        public DelegateFXToggleAction(FXToggleAction toggleAction) {
+            this.toggleAction = toggleAction;
+
+            selectedProperty().bindBidirectional(toggleAction.selectedProperty());
+            displayNameProperty().bindBidirectional(toggleAction.displayNameProperty());
+            acceleratorProperty().bindBidirectional(toggleAction.acceleratorProperty());
+            graphicFactoryProperty().bindBidirectional(toggleAction.graphicFactoryProperty());
+
+            toggleAction.enabledProperty().addListener((observable, oldValue, newValue) -> setEnabled(newValue));
+
+        }
+
+        @Override
+        public void handle(ActionEvent event) {
+            // possible solution: https://stackoverflow.com/a/57912809/506855
+            toggleAction.setSelected(true);
+            toggleAction.handle(event);
+            super.handle(event);
+        }
+    }
+
 }
