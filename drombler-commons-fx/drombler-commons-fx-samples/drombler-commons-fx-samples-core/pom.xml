@@ -86,8 +86,8 @@ Contributor(s): .
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <!--<mainClass>org.drombler.commons.fx.samples.fxml.FxmlSampleApplication</mainClass>-->
-                    <mainClass>org.drombler.commons.fx.samples.scene.control.treeview.facility.FacilityTreeViewSample</mainClass>
+                    <mainClass>org.drombler.commons.fx.samples.fxml.FxmlSampleApplication</mainClass>
+                    <!--<mainClass>org.drombler.commons.fx.samples.scene.control.treeview.facility.FacilityTreeViewSample</mainClass>-->
                 </configuration>
             </plugin>
             <plugin>
