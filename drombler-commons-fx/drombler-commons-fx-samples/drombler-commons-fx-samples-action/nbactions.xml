@@ -5,14 +5,9 @@
         <goals>
             <!--            <goal>-e</goal>
             <goal>-X</goal>-->
-            <goal>package</goal>
-            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+            <goal>clean</goal>
+            <goal>javafx:run</goal>
         </goals>
-        <properties>
-            <exec.args>-Djavafx.verbose=true -Dbinary.css=false -Djava.util.logging.config.file=${project.build.directory}/jfx/app/logging.properties -jar ${project.build.directory}/jfx/app/${project.build.finalName}-jfx.jar</exec.args>
-            <exec.executable>java</exec.executable>
-            <exec.classpathScope>runtime</exec.classpathScope>
-        </properties>
     </action>
     <action>
         <actionName>debug</actionName>
@@ -42,4 +37,5 @@
             <exec.executable>${profiler.java}</exec.executable>
         </properties>
     </action>
+    
 </actions>

@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>2.0-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-core</artifactId>
@@ -83,19 +83,12 @@ Contributor(s): .
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.zenjava</groupId>
+                <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>org.drombler.commons.fx.samples.fxml.FXMLSampleApplication</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <!--<mainClass>org.drombler.commons.fx.samples.fxml.FxmlSampleApplication</mainClass>-->
+                    <mainClass>org.drombler.commons.fx.samples.scene.control.treeview.facility.FacilityTreeViewSample</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -116,6 +109,11 @@ Contributor(s): .
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-action-fx</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
