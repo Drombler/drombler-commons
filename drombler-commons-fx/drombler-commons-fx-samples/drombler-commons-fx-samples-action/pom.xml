@@ -51,17 +51,6 @@ Contributor(s): .
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.commons.fx.samples.action</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -101,6 +90,16 @@ Contributor(s): .
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-controls</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-graphics</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-action-fx</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -122,6 +121,11 @@ Contributor(s): .
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
+            <version>${dependency.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
             <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>

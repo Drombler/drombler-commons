@@ -69,16 +69,34 @@ Contributor(s): .
 
     <modules>
         <module>drombler-commons-fx-parent</module>
-        <module>drombler-commons-fx-core</module>
         <module>drombler-commons-fx-time</module>
         <module>drombler-commons-fx-samples</module>
+        <module>drombler-commons-fx-base</module>
+        <module>drombler-commons-fx-graphics</module>
+        <module>drombler-commons-fx-fxml</module>
+        <module>drombler-commons-fx-controls</module>
     </modules>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>drombler-commons-fx-core</artifactId>
+                <artifactId>drombler-commons-fx-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-graphics</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-fxml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>drombler-commons-fx-controls</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -29,9 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.drombler.commons.iso9660.impl.ISOFileStore;
-import org.drombler.commons.iso9660.impl.ISOFileSystemProvider;
-import org.drombler.commons.iso9660.impl.ISOPath;
+import org.drombler.commons.iso9660.ISOVolumeDescriptor;
 
 /**
  *

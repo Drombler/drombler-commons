@@ -67,11 +67,12 @@ Contributor(s): .
     <modules>
         <module>drombler-commons-fx-samples-parent</module>
         <module>drombler-commons-fx-samples-docking</module>
-        <module>drombler-commons-fx-samples-core</module>
-      <!--<module>drombler-commons-fx-samples-ensemble</module>-->
+        <!--<module>drombler-commons-fx-samples-ensemble</module>-->
         <module>drombler-commons-fx-samples-time</module>
         <module>drombler-commons-fx-samples-context</module>
         <module>drombler-commons-fx-samples-action</module>
+        <module>drombler-commons-fx-samples-fxml</module>
+        <module>drombler-commons-fx-samples-controls</module>
     </modules>
   
     <build>
