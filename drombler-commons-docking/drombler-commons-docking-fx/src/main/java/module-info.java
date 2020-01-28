@@ -15,6 +15,7 @@
 
 module org.drombler.commons.docking.fx {
     exports org.drombler.commons.docking.fx;
+    exports org.drombler.commons.docking.fx.impl.skin to javafx.controls;
 
     requires transitive org.drombler.commons.docking.core;
     requires transitive org.drombler.commons.docking.spi;

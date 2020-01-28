@@ -15,6 +15,7 @@
 
 module org.drombler.commons.fx.samples.time {
     exports org.drombler.commons.fx.samples.time to javafx.graphics;
+    opens org.drombler.commons.fx.samples.time to org.drombler.commons.fx.fxml, javafx.fxml;
 
     requires org.drombler.commons.fx.time;
     requires org.drombler.commons.fx.fxml;

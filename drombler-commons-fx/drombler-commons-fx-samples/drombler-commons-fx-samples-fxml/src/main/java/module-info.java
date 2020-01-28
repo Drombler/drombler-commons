@@ -14,10 +14,12 @@
  */
 
 module org.drombler.commons.fx.samples.fxml {
-    exports org.drombler.commons.fx.samples.fxml to javafx.graphics;
+    exports org.drombler.commons.fx.samples.fxml to javafx.graphics, javafx.fxml;
+    opens org.drombler.commons.fx.samples.fxml to org.drombler.commons.fx.fxml;
 
     requires org.drombler.commons.fx.fxml;
     requires javafx.graphics;
+    requires javafx.controls;
     requires org.slf4j;
 
 }

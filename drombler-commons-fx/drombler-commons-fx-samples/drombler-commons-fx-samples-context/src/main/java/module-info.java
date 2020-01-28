@@ -15,6 +15,7 @@
 
 module org.drombler.commons.fx.samples.context {
     exports org.drombler.commons.fx.samples.context to javafx.graphics, org.drombler.commons.docking.core;
+    opens org.drombler.commons.fx.samples.context to org.drombler.commons.fx.fxml, javafx.fxml;
 
     requires org.drombler.commons.fx.fxml;
     requires org.drombler.commons.docking.fx;

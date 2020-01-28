@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.io.IORuntimeException;
 import org.softsmithy.lib.util.ResourceFileNotFoundException;
+import org.softsmithy.lib.util.Resources;
+import static org.softsmithy.lib.util.Resources.RESOURCE_PATH_DELIMITER;
 
 /**
  * Utility methods for {@link FXMLLoader}.
@@ -36,7 +38,6 @@ public final class FXMLLoaders {
 
     private static final Logger LOG = LoggerFactory.getLogger(FXMLLoaders.class);
     private static final String FXML_EXTENSION = ".fxml";
-    private static final String RESOURCE_PATH_DELIMITER = "/";
 
     private FXMLLoaders() {
     }
@@ -295,10 +296,12 @@ public final class FXMLLoaders {
     }
 
     private static <T> T loadFXML(FXMLLoader loader, Class<?> type) {
-        try (InputStream is = getFXMLInputStream(type)) {
+        String moduleFxmlResourcePath = getModuleFxmlResourcePath(type);
+        try (InputStream is = type.getModule().getResourceAsStream(moduleFxmlResourcePath)) {
+            // avoid NullPointerException
             if (is == null) {
-                // avoid NullPointerException
-                throw new ResourceFileNotFoundException(getAbsoluteFxmlResourcePath(type));
+                Resources.checkPackageIsOpen(moduleFxmlResourcePath, type.getModule(), FXMLLoaders.class);
+                throw new ResourceFileNotFoundException(type.getModule(), moduleFxmlResourcePath);
             }
             return loader.load(is);
         } catch (IOException ex) {
@@ -308,20 +311,12 @@ public final class FXMLLoaders {
         }
     }
 
-    private static InputStream getFXMLInputStream(Class<?> type) {
-        return type.getResourceAsStream(getFxmlFileName(type));
-    }
-
     private static URL getFXMLLocation(Class<?> type) {
         return type.getResource(getFxmlFileName(type));
     }
 
-    private static String getAbsoluteFxmlResourcePath(Class<?> type) {
-        return getAbsolutePackageResourcePath(type.getPackage()) + RESOURCE_PATH_DELIMITER + getFxmlFileName(type);
-    }
-
-    private static String getAbsolutePackageResourcePath(Package typePackage) {
-        return RESOURCE_PATH_DELIMITER + typePackage.getName().replace(".", RESOURCE_PATH_DELIMITER);
+    private static String getModuleFxmlResourcePath(Class<?> type) {
+        return Resources.toModulePackageResourcePath(type.getPackageName()) + RESOURCE_PATH_DELIMITER + getFxmlFileName(type);
     }
 
     private static String getFxmlFileName(Class<?> type) {
