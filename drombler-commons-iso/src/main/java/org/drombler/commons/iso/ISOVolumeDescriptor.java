@@ -33,17 +33,19 @@ public abstract class ISOVolumeDescriptor {
 
     protected ISOVolumeDescriptor(ISOVolumeDescriptorType type, ByteBuffer byteBuffer) {
         this.type = type;
-        identifier = ISOUtils.getStringATrimmed(byteBuffer, 5);
+System.out.println("Type Code: " + type);
+        this.identifier = ISOUtils.getStringATrimmed(byteBuffer, 5);
         if (!identifier.equals(IDENTIFIER)) {
             throw new IllegalArgumentException(
                     "The identifier must be " + IDENTIFIER + " but was: " + identifier);
         }
-        version = ISOUtils.getUnsignedByte(byteBuffer.get());
+System.out.println("Identifier: " + identifier);
+        this.version = ISOUtils.getUnsignedByte(byteBuffer.get());
         if (version != VERSION) {
             throw new IllegalArgumentException(
                     "The identifier must be " + VERSION + " but was: " + version);
         }
-        System.out.println(version);
+        System.out.println("Version: "+version);
     }
 
     public static ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
