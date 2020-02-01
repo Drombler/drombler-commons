@@ -72,6 +72,11 @@ public final class ISOUtils {
         return value;
     }
 
+    public static int getUnsignedInt32LSB(ByteBuffer byteBuffer) {
+}
+
+    public static int getUnsignedInt32MSB(ByteBuffer byteBuffer) {
+}
     public static short getUnsignedByte(byte value) {
         return (short) (value & MAX_UNSIGNED_BYTE);
     }
