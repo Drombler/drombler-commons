@@ -37,18 +37,21 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
         super(ISOVolumeDescriptorType.PRIMARY_VOLUME_DESCRIPTOR, byteBuffer);
         readUnused(byteBuffer, 1);
         systemIdentifier = ISOUtils.getStringATrimmed(byteBuffer, SYSTEM_IDENTIFIER_LENGTH);
-        System.out.println(systemIdentifier);
+        System.out.println("System Identifier: " +systemIdentifier);
         volumeIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, VOLUME_IDENTIFIER_LENGTH);
-        System.out.println(volumeIdentifier);
+        System.out.println("Volume Identifier: "+ volumeIdentifier);
         readUnused(byteBuffer, 8);
         volumeSpaceSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
-        System.out.println(volumeSpaceSize);
+        System.out.println("Volume Space Size: "+volumeSpaceSize);
         readUnused(byteBuffer, 32);
         volumeSetSize = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
-        System.out.println(volumeSetSize);
+        System.out.println("Volume Set Size: "+volumeSetSize);
         volumeSequenceNumber = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
+        System.out.println("Volume Sequence Number: "+volumeSequenceNumber);
         logicalBlockSize  = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
+        System.out.println("Logical Block Size: "+logicalBlockSize);
         pathTableSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
+        System.out.println("Path Table Size : "+pathTableSize);
     }
 
     private void readUnused(ByteBuffer byteBuffer, int length) {
