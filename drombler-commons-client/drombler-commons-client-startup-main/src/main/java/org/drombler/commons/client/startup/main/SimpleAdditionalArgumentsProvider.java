@@ -8,7 +8,7 @@
  *
  * The Original Code is Drombler.org. The Initial Developer of the
  * Original Code is Florian Brunner (GitHub user: puce77).
- * Copyright 2019 Drombler.org. All Rights Reserved.
+ * Copyright 2016 Drombler.org. All Rights Reserved.
  *
  * Contributor(s): .
  */
@@ -16,32 +16,20 @@ package org.drombler.commons.client.startup.main;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EventObject;
 import java.util.List;
 
 /**
- * An application instance event.
+ *
+ * @author puce
  */
-public class ApplicationInstanceEvent extends EventObject implements AdditionalArgumentsProvider {
-
-    private static final long serialVersionUID = 5516075349620653481L;
+public class SimpleAdditionalArgumentsProvider implements AdditionalArgumentsProvider {
 
     private final List<String> additionalArguments;
 
-    /**
-     * Creates a new instance of this class.
-     *
-     * @param source the source of this event
-     * @param additionalArguments the additional arguments passed to the application
-     */
-    public ApplicationInstanceEvent(Object source, List<String> additionalArguments) {
-        super(source);
-        this.additionalArguments = Collections.unmodifiableList(new ArrayList<>(additionalArguments));;
+    public SimpleAdditionalArgumentsProvider(List<String> additionalArguments) {
+        this.additionalArguments = Collections.unmodifiableList(new ArrayList<>(additionalArguments));
     }
 
-    /**
-     * {@inheritDoc }
-     */
     @Override
     public List<String> getAdditionalArguments() {
         return additionalArguments;
