@@ -3,29 +3,24 @@
     <action>
         <actionName>run</actionName>
         <goals>
-            <goal>-e</goal>
-            <goal>-X</goal>
-            <goal>package</goal>
-            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+            <goal>clean</goal>
+            <goal>javafx:run</goal>
+            
+            
         </goals>
-        <properties>
-            <exec.args>-Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/jfx/app/drombler-commons-fx-samples-time-${project.version}-jfx.jar</exec.args>
-            <exec.executable>java</exec.executable>
-            <exec.classpathScope>runtime</exec.classpathScope>
-        </properties>
     </action>
     <action>
         <actionName>debug</actionName>
         <goals>
-            <goal>-e</goal>
-            <goal>-X</goal>
-            <goal>package</goal>
-            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+            <goal>clean</goal>
+            <goal>javafx:run</goal>
+            <goal>-Xdebug</goal>
+            <goal>-Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</goal>
         </goals>
         <properties>
-            <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Djavafx.verbose=true -Dbinary.css=false -jar ${project.build.directory}/jfx/app/drombler-commons-fx-samples-time-${project.version}-jfx.jar</exec.args>
-            <exec.executable>java</exec.executable>
-            <exec.classpathScope>runtime</exec.classpathScope>
+            
+            
+            
             <jpda.listen>true</jpda.listen>
         </properties>
     </action>

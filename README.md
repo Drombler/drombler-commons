@@ -4,6 +4,28 @@
 
 See the [documentation](https://www.drombler.org/drombler-commons) for the Javadoc and information about the provided Maven modules (available from Maven Central).
 
+| Major Version | Comments |
+| ------------- | ------- |
+| v2 | <ul><li>Java SE 11</li></ul> |
+| v1 | <ul><li>Java SE 8</li></ul> |
+
+## Maven Dependency Management
+
+```xml
+    <dependencyManagement>
+        <dependencies>
+            [...] 
+            <dependency>
+                <groupId>org.drombler.commons</groupId>
+                <artifactId>drombler-commons</artifactId>
+                <version>2.0</version> <!-- replace with the current version -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>  
+            [...]
+        </dependencies>
+    </dependencyManagement>
+```
 
 ## Build the project from sources
 ```bash

@@ -14,36 +14,37 @@
  */
 package org.drombler.commons.client.startup.main;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.List;
 
 /**
  * An application instance event.
  */
-public class ApplicationInstanceEvent extends EventObject {
+public class ApplicationInstanceEvent extends EventObject implements AdditionalArgumentsProvider {
 
-    private static final long serialVersionUID = 5516075349620653480L;
+    private static final long serialVersionUID = 5516075349620653481L;
 
-    private final List<String> additionalArgs;
+    private final List<String> additionalArguments;
 
     /**
      * Creates a new instance of this class.
      *
      * @param source the source of this event
-     * @param additionalArgs the additional args passed to the application
+     * @param additionalArguments the additional arguments passed to the application
      */
-    public ApplicationInstanceEvent(Object source, List<String> additionalArgs) {
+    public ApplicationInstanceEvent(Object source, List<String> additionalArguments) {
         super(source);
-        this.additionalArgs = additionalArgs;
+        this.additionalArguments = Collections.unmodifiableList(new ArrayList<>(additionalArguments));;
     }
 
     /**
-     * Gets the additional args.
-     *
-     * @return the additional args
+     * {@inheritDoc }
      */
-    public List<String> getAdditionalArgs() {
-        return additionalArgs;
+    @Override
+    public List<String> getAdditionalArguments() {
+        return additionalArguments;
     }
 
 }
