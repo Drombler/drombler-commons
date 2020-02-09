@@ -29,7 +29,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.drombler.commons.iso.ISOPrimaryVolumeDescriptor;
 import org.drombler.commons.iso.ISOVolumeDescriptor;
+import org.drombler.commons.iso.ISOVolumeDescriptorType;
 
 /**
  *
@@ -54,6 +56,7 @@ public class ISOFileSystem extends FileSystem {
     private final ISOPath parentDirectory = new ISOPath(this, PARENT_PATH_STRING, false);
     private final SeekableByteChannel byteChannel;
     private boolean open = true;
+    private ISOPrimaryVolumeDescriptor primaryVolumeDescriptor;
 
     ISOFileSystem(ISOFileSystemProvider fileSystemProvider, Path fileSystemPath, Map<String, ?> env) throws IOException {
         this.fileSystemProvider = fileSystemProvider;
@@ -74,13 +77,17 @@ public class ISOFileSystem extends FileSystem {
         final int KiB_32 = 32768;
         byteChannel.position(KiB_32);
      
-        ByteBuffer byteBuffer = ByteBuffer.allocate(ISOVolumeDescriptor.SECTION_LENGTH);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(ISOVolumeDescriptor.SECTOR_LENGTH);
         final int numBytes = byteChannel.read(byteBuffer);
-        if (numBytes != ISOVolumeDescriptor.SECTION_LENGTH) {
+        if (numBytes != ISOVolumeDescriptor.SECTOR_LENGTH) {
             throw new IOException("Too few data to read: " + numBytes);
         }
         byteBuffer.position(0);
         ISOVolumeDescriptor volumeDescriptor = ISOVolumeDescriptor.createISOVolumeDescriptor(byteBuffer);
+        System.out.println(volumeDescriptor);
+        if (volumeDescriptor.getType() == ISOVolumeDescriptorType.PRIMARY_VOLUME_DESCRIPTOR){
+            this.primaryVolumeDescriptor = (ISOPrimaryVolumeDescriptor) volumeDescriptor;
+        }
 
     }
 

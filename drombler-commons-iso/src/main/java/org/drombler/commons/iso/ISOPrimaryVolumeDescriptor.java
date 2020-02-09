@@ -14,7 +14,10 @@
  */
 package org.drombler.commons.iso;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 /**
@@ -25,33 +28,104 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
 
     private static final int SYSTEM_IDENTIFIER_LENGTH = 32;
     private static final int VOLUME_IDENTIFIER_LENGTH = 32;
+    private static final byte FILE_STRUCTURE_VERSION = 0x01;
+
     private final String systemIdentifier;
     private final String volumeIdentifier;
-    private final long volumeSpaceSize;
-    private final int volumeSetSize;
-    private final int volumeSequenceNumber;
-    private final int logicalBlockSize;
-    private final long pathTableSize;
+    private final BigInteger volumeSpaceSize;
+    private final long volumeSetSize;
+    private final long volumeSequenceNumber;
+    private final long logicalBlockSize;
+    private final BigInteger pathTableSize;
+    private final long locationOfTypeLPathTable;
+    private final long locationOfOptionalTypeLPathTable;
+    private final long locationOfTypeMPathTable;
+    private final long locationOfOptionalTypeMPathTable;
+    private final String volumeSetIdentifier;
+    private final String copyrightFileIdentifier;
+    private final String abstractFileIdentifier;
+    private final String bibliographicFileIdentifier;
+    private final ZonedDateTime volumeCreationDateTime;
+    private final ZonedDateTime volumeModificationDateTime;
+    private final ZonedDateTime volumeExpirationDateTime;
+    private final ZonedDateTime volumeEffectiveDateTime;
+    private final byte fileStructureVersion;
+    private final byte[] directoryEntryForRootDirectory;
+    private final ISODirectoryDescriptor rootDirectoryDescriptor;
 
     public ISOPrimaryVolumeDescriptor(ByteBuffer byteBuffer) {
         super(ISOVolumeDescriptorType.PRIMARY_VOLUME_DESCRIPTOR, byteBuffer);
         readUnused(byteBuffer, 1);
-        systemIdentifier = ISOUtils.getStringATrimmed(byteBuffer, SYSTEM_IDENTIFIER_LENGTH);
-        System.out.println("System Identifier: " +systemIdentifier);
-        volumeIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, VOLUME_IDENTIFIER_LENGTH);
-        System.out.println("Volume Identifier: "+ volumeIdentifier);
+        this.systemIdentifier = ISOUtils.getStringATrimmed(byteBuffer, SYSTEM_IDENTIFIER_LENGTH);
+        this.volumeIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, VOLUME_IDENTIFIER_LENGTH);
         readUnused(byteBuffer, 8);
-        volumeSpaceSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
-        System.out.println("Volume Space Size: "+volumeSpaceSize);
+        this.volumeSpaceSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
         readUnused(byteBuffer, 32);
-        volumeSetSize = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
-        System.out.println("Volume Set Size: "+volumeSetSize);
-        volumeSequenceNumber = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
-        System.out.println("Volume Sequence Number: "+volumeSequenceNumber);
-        logicalBlockSize  = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
-        System.out.println("Logical Block Size: "+logicalBlockSize);
-        pathTableSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
-        System.out.println("Path Table Size : "+pathTableSize);
+        this.volumeSetSize = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
+        this.volumeSequenceNumber = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
+        this.logicalBlockSize = ISOUtils.getUnsignedInt16LSBMSB(byteBuffer);
+        this.pathTableSize = ISOUtils.getUnsignedInt32LSBMSB(byteBuffer);
+        this.locationOfTypeLPathTable = ISOUtils.getUnsignedInt32LSB(byteBuffer);
+        this.locationOfOptionalTypeLPathTable = ISOUtils.getUnsignedInt32LSB(byteBuffer);
+        this.locationOfTypeMPathTable = ISOUtils.getUnsignedInt32MSB(byteBuffer);
+        this.locationOfOptionalTypeMPathTable = ISOUtils.getUnsignedInt32MSB(byteBuffer);
+        this.directoryEntryForRootDirectory = ISOUtils.getBytes(byteBuffer, 34);
+//        if (directoryEntryForRootDirectory[0] != 0) {
+//            throw new IllegalArgumentException("0x00 expected but was: 0x" + Integer.toHexString(directoryEntryForRootDirectory[0]));
+//        }
+        this.rootDirectoryDescriptor = new ISODirectoryDescriptor(ByteBuffer.wrap(directoryEntryForRootDirectory));
+        this.volumeSetIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, 128);
+        ISOUtils.getBytes(byteBuffer, 128);
+        ISOUtils.getBytes(byteBuffer, 128);
+        ISOUtils.getBytes(byteBuffer, 128);
+        this.copyrightFileIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, 38);
+
+        this.abstractFileIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, 36);
+
+        this.bibliographicFileIdentifier = ISOUtils.getStringDTrimmed(byteBuffer, 37);
+        this.volumeCreationDateTime = ISOUtils.getDecDateTime(byteBuffer);
+        this.volumeModificationDateTime = ISOUtils.getDecDateTime(byteBuffer);
+        this.volumeExpirationDateTime = ISOUtils.getDecDateTime(byteBuffer);
+        this.volumeEffectiveDateTime = ISOUtils.getDecDateTime(byteBuffer);
+        this.fileStructureVersion = byteBuffer.get();
+        if (fileStructureVersion != FILE_STRUCTURE_VERSION) {
+            throw new IllegalArgumentException(
+                    "The File Structure Version  must be " + FILE_STRUCTURE_VERSION + " but was: " + fileStructureVersion);
+        }
+        readUnused(byteBuffer, 1);
+        ISOUtils.getBytes(byteBuffer, 512);
+        ISOUtils.getBytes(byteBuffer, 653);
+    }
+
+    @Override
+    public String toString() {
+        return "ISOPrimaryVolumeDescriptor{" +
+                super.toString() +
+                "\n, systemIdentifier=" + systemIdentifier +
+                "\n, volumeIdentifier=" + volumeIdentifier + 
+                "\n, volumeSpaceSize=" + volumeSpaceSize + 
+                "\n, volumeSetSize=" + volumeSetSize + 
+                "\n, volumeSequenceNumber=" + volumeSequenceNumber +
+                "\n, logicalBlockSize=" + logicalBlockSize + 
+                "\n, pathTableSize=" + pathTableSize + 
+                "\n, locationOfTypeLPathTable=" + locationOfTypeLPathTable +
+                "\n, locationOfOptionalTypeLPathTable=" + locationOfOptionalTypeLPathTable +
+                "\n, locationOfTypeMPathTable=" + locationOfTypeMPathTable + 
+                "\n, locationOfOptionalTypeMPathTable=" + locationOfOptionalTypeMPathTable +
+                "\n, volumeSetIdentifier=" + volumeSetIdentifier + 
+                "\n, copyrightFileIdentifier=" + copyrightFileIdentifier +
+                "\n, abstractFileIdentifier=" + abstractFileIdentifier + 
+                "\n, bibliographicFileIdentifier=" + bibliographicFileIdentifier +
+                "\n, volumeCreationDateTime=" + volumeCreationDateTime + 
+                "\n, volumeModificationDateTime=" + volumeModificationDateTime + 
+                "\n, volumeExpirationDateTime=" + volumeExpirationDateTime + 
+                "\n, volumeEffectiveDateTime=" + volumeEffectiveDateTime +
+                "\n, fileStructureVersion=" + fileStructureVersion + 
+                "\n, rootDirectoryDescriptor=" + rootDirectoryDescriptor + '}';
+    }
+
+    public byte[] getDirectoryEntryForRootDirectory() {
+        return directoryEntryForRootDirectory;
     }
 
     private void readUnused(ByteBuffer byteBuffer, int length) {
@@ -63,6 +137,86 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
                 throw new IllegalArgumentException("0s expected but was: " + Arrays.toString(dst));
             }
         }
+    }
+
+    public String getSystemIdentifier() {
+        return systemIdentifier;
+    }
+
+    public String getVolumeIdentifier() {
+        return volumeIdentifier;
+    }
+
+    public BigInteger getVolumeSpaceSize() {
+        return volumeSpaceSize;
+    }
+
+    public long getVolumeSetSize() {
+        return volumeSetSize;
+    }
+
+    public long getVolumeSequenceNumber() {
+        return volumeSequenceNumber;
+    }
+
+    public long getLogicalBlockSize() {
+        return logicalBlockSize;
+    }
+
+    public BigInteger getPathTableSize() {
+        return pathTableSize;
+    }
+
+    public long getLocationOfTypeLPathTable() {
+        return locationOfTypeLPathTable;
+    }
+
+    public long getLocationOfOptionalTypeLPathTable() {
+        return locationOfOptionalTypeLPathTable;
+    }
+
+    public long getLocationOfTypeMPathTable() {
+        return locationOfTypeMPathTable;
+    }
+
+    public long getLocationOfOptionalTypeMPathTable() {
+        return locationOfOptionalTypeMPathTable;
+    }
+
+    public String getVolumeSetIdentifier() {
+        return volumeSetIdentifier;
+    }
+
+    public String getCopyrightFileIdentifier() {
+        return copyrightFileIdentifier;
+    }
+
+    public String getAbstractFileIdentifier() {
+        return abstractFileIdentifier;
+    }
+
+    public String getBibliographicFileIdentifier() {
+        return bibliographicFileIdentifier;
+    }
+
+    public ZonedDateTime getVolumeCreationDateTime() {
+        return volumeCreationDateTime;
+    }
+
+    public ZonedDateTime getVolumeModificationDateTime() {
+        return volumeModificationDateTime;
+    }
+
+    public ZonedDateTime getVolumeExpirationDateTime() {
+        return volumeExpirationDateTime;
+    }
+
+    public ZonedDateTime getVolumeEffectiveDateTime() {
+        return volumeEffectiveDateTime;
+    }
+
+    public byte getFileStructureVersion() {
+        return fileStructureVersion;
     }
 
 }

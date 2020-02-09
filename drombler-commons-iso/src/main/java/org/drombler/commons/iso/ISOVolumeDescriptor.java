@@ -23,7 +23,7 @@ import java.util.Arrays;
  */
 public abstract class ISOVolumeDescriptor {
 
-    public static final int SECTION_LENGTH = 2048;
+    public static final int SECTOR_LENGTH = 2048;
     private static final String IDENTIFIER = "CD001";
     private static final short VERSION = 0x01;
 
@@ -33,31 +33,48 @@ public abstract class ISOVolumeDescriptor {
 
     protected ISOVolumeDescriptor(ISOVolumeDescriptorType type, ByteBuffer byteBuffer) {
         this.type = type;
-System.out.println("Type Code: " + type);
         this.identifier = ISOUtils.getStringATrimmed(byteBuffer, 5);
         if (!identifier.equals(IDENTIFIER)) {
             throw new IllegalArgumentException(
                     "The identifier must be " + IDENTIFIER + " but was: " + identifier);
         }
-System.out.println("Identifier: " + identifier);
-        this.version = ISOUtils.getUnsignedByte(byteBuffer.get());
+        this.version = ISOUtils.getUnsignedByte(byteBuffer);
         if (version != VERSION) {
             throw new IllegalArgumentException(
                     "The identifier must be " + VERSION + " but was: " + version);
         }
-        System.out.println("Version: "+version);
+    }
+
+    public ISOVolumeDescriptorType getType() {
+        return type;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public short getVersion() {
+        return version;
     }
 
     public static ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-        if (byteBuffer.limit() != SECTION_LENGTH) {
+        if (byteBuffer.limit() != SECTOR_LENGTH) {
             throw new IllegalArgumentException(
-                    "The byteBuffer length must be " + SECTION_LENGTH + " but was: " + byteBuffer.limit());
+                    "The byteBuffer length must be " + SECTOR_LENGTH + " but was: " + byteBuffer.limit());
         }
         System.out.println(byteBuffer.toString());
         System.out.println(Arrays.toString(byteBuffer.array()));
         System.out.println("Position: " + byteBuffer.position());
-        ISOVolumeDescriptorType type = ISOVolumeDescriptorType.getType(ISOUtils.getUnsignedByte(byteBuffer.get()));
+        ISOVolumeDescriptorType type = ISOVolumeDescriptorType.getType(ISOUtils.getUnsignedByte(byteBuffer));
         System.out.println(type);
         return type.createISOVolumeDescriptor(byteBuffer);
     }
+
+    @Override
+    public String toString() {
+        return "type=" + type 
+                + "\n, identifier=" + identifier 
+                + "\n, version=" + version;
+    }
+
 }

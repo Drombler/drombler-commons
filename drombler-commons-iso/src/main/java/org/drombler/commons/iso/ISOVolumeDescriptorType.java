@@ -26,52 +26,52 @@ public enum ISOVolumeDescriptorType {
 
     BOOT_RECORD((short) 0) {
 
-                @Override
+        @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            },
+    },
     PRIMARY_VOLUME_DESCRIPTOR((short) 1) {
 
-                @Override
-        public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
+        @Override
+        public ISOPrimaryVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
             return new ISOPrimaryVolumeDescriptor(byteBuffer);
-                }
+        }
 
-            },
+    },
     SUPPLEMENTARY_VOLUME_DESCRIPTOR((short) 2) {
 
-                @Override
+        @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            },
+    },
     VOLUME_PARTITION_DESCRIPTOR((short) 3) {
 
-                @Override
+        @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            },
+    },
     RESERVED((short) 4) {
 
-                @Override
+        @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            },
+    },
     VOLUME_DESCRIPTOR_SET_TERMINATOR((short) 255) {
 
-                @Override
+        @Override
         public ISOVolumeDescriptor createISOVolumeDescriptor(ByteBuffer byteBuffer) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            };
+    };
 
     private static final Map<Short, ISOVolumeDescriptorType> TYPES = new HashMap<>();
 
