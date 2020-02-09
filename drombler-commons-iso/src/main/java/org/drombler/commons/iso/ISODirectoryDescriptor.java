@@ -27,13 +27,13 @@ public class ISODirectoryDescriptor {
 
     private final short length;
     private final short extendedAttributeRecordLength;
-    private final BigInteger locationOfExtend;
-    private final BigInteger dataLength;
+    private final long locationOfExtend;
+    private final long dataLength;
     private final ZonedDateTime recordingDateTime;
     private final Set<ISOFileFlag> fileFlags;
     private final short interleavedModeFileUnitSize;
     private final short interleavedModeInterleaveGapSize;
-    private final long volumeSequenceNumber;
+    private final int volumeSequenceNumber;
     private final short fileIdentifierLength;
     private final String fileIdentifier;
 

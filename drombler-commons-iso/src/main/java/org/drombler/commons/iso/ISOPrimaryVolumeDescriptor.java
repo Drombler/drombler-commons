@@ -32,11 +32,11 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
 
     private final String systemIdentifier;
     private final String volumeIdentifier;
-    private final BigInteger volumeSpaceSize;
-    private final long volumeSetSize;
-    private final long volumeSequenceNumber;
-    private final long logicalBlockSize;
-    private final BigInteger pathTableSize;
+    private final long volumeSpaceSize;
+    private final int volumeSetSize;
+    private final int volumeSequenceNumber;
+    private final int logicalBlockSize;
+    private final long pathTableSize;
     private final long locationOfTypeLPathTable;
     private final long locationOfOptionalTypeLPathTable;
     private final long locationOfTypeMPathTable;
@@ -147,23 +147,23 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
         return volumeIdentifier;
     }
 
-    public BigInteger getVolumeSpaceSize() {
+    public long getVolumeSpaceSize() {
         return volumeSpaceSize;
     }
 
-    public long getVolumeSetSize() {
+    public int getVolumeSetSize() {
         return volumeSetSize;
     }
 
-    public long getVolumeSequenceNumber() {
+    public int getVolumeSequenceNumber() {
         return volumeSequenceNumber;
     }
 
-    public long getLogicalBlockSize() {
+    public int getLogicalBlockSize() {
         return logicalBlockSize;
     }
 
-    public BigInteger getPathTableSize() {
+    public long getPathTableSize() {
         return pathTableSize;
     }
 

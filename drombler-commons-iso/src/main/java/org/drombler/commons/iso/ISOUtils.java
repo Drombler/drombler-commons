@@ -62,7 +62,7 @@ public final class ISOUtils {
         return getStringD(byteBuffer, length).trim();
     }
 
-    public static long getUnsignedInt16LSBMSB(ByteBuffer byteBuffer) {
+    public static int getUnsignedInt16LSBMSB(ByteBuffer byteBuffer) {
 //        byte[] bytes = getBytes(byteBuffer, 2 * NUM_SHORT_BITS);
 //        int value = 0;
 //        for (int i = 0; i < NUM_SHORT_BITS; i++) {
@@ -70,13 +70,15 @@ public final class ISOUtils {
 //        }
 //        return value;
         int unsignedInt16LSB = getUnsignedInt16LSB(byteBuffer);
-        long int32LSB = Integer.toUnsignedLong(unsignedInt16LSB << Short.SIZE);
         int unsignedInt16MSB = getUnsignedInt16MSB(byteBuffer);
-        long int32MSB = Integer.toUnsignedLong(unsignedInt16MSB);
-        return int32LSB + int32MSB;
+        if (unsignedInt16LSB != unsignedInt16MSB) {
+            throw new IllegalArgumentException("unsignedInt16LSB (was: " + unsignedInt16LSB
+                    + ") must be equal to unsignedInt16MSB (but was: " + unsignedInt16MSB + ")");
+        }
+        return unsignedInt16LSB;
     }
 
-    public static BigInteger getUnsignedInt32LSBMSB(ByteBuffer byteBuffer) {
+    public static long getUnsignedInt32LSBMSB(ByteBuffer byteBuffer) {
 //        byte[] bytes = getBytes(byteBuffer, 2 * NUM_INTEGER_BYTES);
 //        long value = 0;
 //        for (int i = 0; i < NUM_INTEGER_BYTES; i++) {
@@ -84,10 +86,12 @@ public final class ISOUtils {
 //        }
 //        return value;
         long unsignedInt32LSB = getUnsignedInt32LSB(byteBuffer);
-        String int32LSB = Long.toUnsignedString(unsignedInt32LSB << Integer.SIZE);
         long unsignedInt32MSB = getUnsignedInt32MSB(byteBuffer);
-        String int32MSB = Long.toUnsignedString(unsignedInt32MSB);
-        return new BigInteger(int32LSB).add(new BigInteger(int32MSB));
+        if (unsignedInt32LSB != unsignedInt32MSB) {
+            throw new IllegalArgumentException("unsignedInt16LSB (was: " + unsignedInt32LSB
+                    + ") must be equal to unsignedInt16MSB (but was: " + unsignedInt32MSB + ")");
+        }
+        return unsignedInt32LSB;
     }
 
     public static int getUnsignedInt16LSB(ByteBuffer byteBuffer) {
