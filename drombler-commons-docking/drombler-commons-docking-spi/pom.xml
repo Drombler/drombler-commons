@@ -90,6 +90,7 @@ Contributor(s): .
             <groupId>org.softsmithy.lib</groupId>
             <artifactId>softsmithy-lib-core</artifactId>
         </dependency>
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

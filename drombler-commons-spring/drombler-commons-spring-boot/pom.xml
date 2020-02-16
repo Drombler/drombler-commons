@@ -49,8 +49,31 @@
                 <extensions>true</extensions>
             </plugin>         
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <!-- detectLinks=true results in: Exit code: 1 - javadoc: error - Error fetching URL: https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot/apidocs/ -->
+                        <detectLinks>false</detectLinks>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- detectLinks=true results in: Exit code: 1 - javadoc: error - Error fetching URL: https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot/apidocs/ -->
+                    <!--<detectLinks>false</detectLinks>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

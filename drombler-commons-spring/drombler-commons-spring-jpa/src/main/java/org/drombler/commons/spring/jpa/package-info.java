@@ -1,4 +1,4 @@
 /**
- * Utility classes and extensions for the {@link org.springframework.data.jpa} package.
+ * Utility classes and extensions for the {@code org.springframework.data.jpa} package.
  */
 package org.drombler.commons.spring.jpa;
