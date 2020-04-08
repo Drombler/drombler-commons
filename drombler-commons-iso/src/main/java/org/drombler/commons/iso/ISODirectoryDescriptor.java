@@ -67,4 +67,81 @@ public class ISODirectoryDescriptor {
                 + ", fileIdentifier=" + fileIdentifier + '}';
     }
 
+    /**
+     * @return the length
+     */
+    public short getLength() {
+        return length;
+    }
+
+    /**
+     * @return the extendedAttributeRecordLength
+     */
+    public short getExtendedAttributeRecordLength() {
+        return extendedAttributeRecordLength;
+    }
+
+    /**
+     * @return the locationOfExtend
+     */
+    public long getLocationOfExtend() {
+        return locationOfExtend;
+    }
+
+    /**
+     * @return the dataLength
+     */
+    public long getDataLength() {
+        return dataLength;
+    }
+
+    /**
+     * @return the recordingDateTime
+     */
+    public ZonedDateTime getRecordingDateTime() {
+        return recordingDateTime;
+    }
+
+    /**
+     * @return the fileFlags
+     */
+    public Set<ISOFileFlag> getFileFlags() {
+        return fileFlags;
+    }
+
+    /**
+     * @return the interleavedModeFileUnitSize
+     */
+    public short getInterleavedModeFileUnitSize() {
+        return interleavedModeFileUnitSize;
+    }
+
+    /**
+     * @return the interleavedModeInterleaveGapSize
+     */
+    public short getInterleavedModeInterleaveGapSize() {
+        return interleavedModeInterleaveGapSize;
+    }
+
+    /**
+     * @return the volumeSequenceNumber
+     */
+    public int getVolumeSequenceNumber() {
+        return volumeSequenceNumber;
+    }
+
+    /**
+     * @return the fileIdentifierLength
+     */
+    public short getFileIdentifierLength() {
+        return fileIdentifierLength;
+    }
+
+    /**
+     * @return the fileIdentifier
+     */
+    public String getFileIdentifier() {
+        return fileIdentifier;
+    }
+
 }

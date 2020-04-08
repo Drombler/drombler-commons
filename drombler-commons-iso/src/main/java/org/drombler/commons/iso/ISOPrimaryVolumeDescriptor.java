@@ -219,4 +219,11 @@ public class ISOPrimaryVolumeDescriptor extends ISOVolumeDescriptor {
         return fileStructureVersion;
     }
 
+    /**
+     * @return the rootDirectoryDescriptor
+     */
+    public ISODirectoryDescriptor getRootDirectoryDescriptor() {
+        return rootDirectoryDescriptor;
+    }
+
 }

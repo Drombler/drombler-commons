@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.drombler.commons.iso.ISODirectoryDescriptor;
 import org.drombler.commons.iso.ISOPrimaryVolumeDescriptor;
 import org.drombler.commons.iso.ISOVolumeDescriptor;
 import org.drombler.commons.iso.ISOVolumeDescriptorType;
@@ -87,6 +88,8 @@ public class ISOFileSystem extends FileSystem {
         System.out.println(volumeDescriptor);
         if (volumeDescriptor.getType() == ISOVolumeDescriptorType.PRIMARY_VOLUME_DESCRIPTOR){
             this.primaryVolumeDescriptor = (ISOPrimaryVolumeDescriptor) volumeDescriptor;
+            ISODirectoryDescriptor rootDirectoryDescriptor = primaryVolumeDescriptor.getRootDirectoryDescriptor();
+            long locationOfExtend = rootDirectoryDescriptor.getLocationOfExtend();
         }
 
     }
