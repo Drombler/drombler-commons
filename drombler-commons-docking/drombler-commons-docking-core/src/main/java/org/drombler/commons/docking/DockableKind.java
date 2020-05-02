@@ -22,6 +22,12 @@ package org.drombler.commons.docking;
 //@XmlType(name = "DockingAreaKindType")//namespace="http://www.drombler.org/schema/acp/dockingAreas"
 //@XmlEnum
 public enum DockableKind {
-
-    VIEW, EDITOR;
+    /**
+     * There is typically only one Dockable instance of each view type. Often views are auxiliary Dockables.
+     */
+    VIEW,
+    /**
+     * Editor Dockables are used to edit some content (e.g. a file or a business object). Usually every content gets its own Dockable instance when it's opened for edit.
+     */
+    EDITOR;
 }

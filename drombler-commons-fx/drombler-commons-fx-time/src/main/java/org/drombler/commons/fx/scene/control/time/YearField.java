@@ -16,8 +16,6 @@ package org.drombler.commons.fx.scene.control.time;
 
 import java.text.NumberFormat;
 import java.time.Year;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import org.drombler.commons.fx.beans.property.LimitedComparableProperty;
 import org.drombler.commons.fx.scene.control.IntegerField;
 
@@ -38,21 +36,13 @@ public class YearField extends IntegerField {
     public YearField() {
         super(createNumberFormat());
         setPrefColumnCount(4);
-        year.addListener(new ChangeListener<Year>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Year> ov, Year oldVal, Year newVal) {
-//                System.out.println("year object changed: " + oldVal + "; " + newVal);
-                setValue(newVal.getValue());
-            }
+        year.addListener((ov, oldVal, newVal) -> {
+            //                System.out.println("year object changed: " + oldVal + "; " + newVal);
+            setValue(newVal.getValue());
         });
-        valueProperty().addListener(new ChangeListener<Integer>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Integer> ov, Integer oldVal, Integer newVal) {
-//                System.out.println("year int changed: " + oldVal + "; " + newVal);
-                setYear(Year.of(newVal));
-            }
+        valueProperty().addListener((ov, oldVal, newVal) -> {
+            //                System.out.println("year int changed: " + oldVal + "; " + newVal);
+            setYear(Year.of(newVal));
         });
     }
 

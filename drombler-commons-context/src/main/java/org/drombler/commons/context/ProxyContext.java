@@ -29,6 +29,12 @@ public class ProxyContext extends AbstractContext {
     private final List<Context> contexts = new ArrayList<>();
 
     /**
+     * Creates a new instance of this class.
+     */
+    public ProxyContext() {
+    }
+
+    /**
      * {@inheritDoc }
      */
     @Override
@@ -46,7 +52,7 @@ public class ProxyContext extends AbstractContext {
      * {@inheritDoc }
      */
     @Override
-    public <T> Collection<? extends T> findAll(Class<T> type) {
+    public <T> Collection<T> findAll(Class<T> type) {
         List<T> result = new ArrayList<>();
 
         contexts.forEach(context -> result.addAll(context.findAll(type)));
@@ -91,7 +97,12 @@ public class ProxyContext extends AbstractContext {
         fireContextEvents(Arrays.asList(context));
     }
 
-    public void addContexts(List<Context> contexts) {
+    /**
+     * Adds a collection of {@link Context}s to be proxied by this context
+     *
+     * @param contexts the contexts to be proxied
+     */
+    public void addContexts(Collection<Context> contexts) {
         contexts.forEach(this::addContextOnly);
         fireContextEvents(contexts);
     }
@@ -170,7 +181,7 @@ public class ProxyContext extends AbstractContext {
         return contexts.isEmpty();
     }
 
-    private void fireContextEvents(List<Context> changedContexts) {
+    private void fireContextEvents(Collection<Context> changedContexts) {
         for (Class<?> type : getListeners().keySet()) {
             for (Context context : changedContexts) {
                 if (!context.findAll(type).isEmpty()) {

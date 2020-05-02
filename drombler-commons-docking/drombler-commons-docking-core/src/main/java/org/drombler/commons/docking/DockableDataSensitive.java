@@ -17,12 +17,12 @@ package org.drombler.commons.docking;
 /**
  * An injection point for the {@link DockableData}.
  *
- * TODO: Replace with CDI?
  *
  * @param <D> the DockableData type
  *
  * @author puce
  */
+//  TODO: Replace with CDI?
 public interface DockableDataSensitive<D extends DockableData> {
 
     /**

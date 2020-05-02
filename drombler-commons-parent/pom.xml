@@ -19,16 +19,16 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler</groupId>
         <artifactId>drombler-oss-parent</artifactId>
-        <version>2.10</version>
+        <version>4.0-SNAPSHOT</version>
         <relativePath />
     </parent>
     <groupId>org.drombler.commons</groupId>
     <artifactId>drombler-commons-parent</artifactId>
-    <version>0.13-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Drombler Commons - Parent</name>
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
     <description>The parent POM of the Drombler Commons project. This Drombler Commons Parent POM should be the parent (either directly or indirectly) of every Drombler Commons project unless there is a good reason to do otherwise (in which case the reason should be documented).</description>
     <inceptionYear>2012</inceptionYear>
     
@@ -43,7 +43,7 @@ Contributor(s): .
         <license>
             <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
             <distribution>repo</distribution>
-            <!--<url>http://java.sun.com/spl.html</url>-->
+            <!--<url>https://opensource.org/licenses/CDDL-1.0</url>-->
             <url>../LICENSE.txt</url>
         </license>
     </licenses>
@@ -66,8 +66,8 @@ Contributor(s): .
         <distributionManagement.parent.url>${distributionManagement.base.url}/docs/site</distributionManagement.parent.url>
         <!-- URL to use with the GitHub site plugin -->
         <!--<distributionManagement.parent.url>${project.version}/docs/site</distributionManagement.parent.url>-->
-        <excludePackageNamesAggregate>${excludePackageNames}:*.maven.plugin.*:*.samples.*:org.drombler.commons.iso</excludePackageNamesAggregate>
-        <!--<url.parent>http://www.drombler.org/drombler-commons/${project.version}/docs/site/</url.parent>-->
+        <excludePackageNamesAggregate>${excludePackageNames}:*.maven.plugin.*:*.samples.*:org.drombler.commons.iso9660</excludePackageNamesAggregate>
+        <!--<url.parent>https://www.drombler.org/drombler-commons/${project.version}/docs/site/</url.parent>-->
         
         <!-- Dependency Versions -->
         
@@ -78,4 +78,22 @@ Contributor(s): .
         <maven>${maven.version}</maven>
     </prerequisites>
     
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!--TODO: move to SoftSmithy Parent-->
+                    <groupId>com.amashchenko.maven.plugin</groupId>
+                    <artifactId>gitflow-maven-plugin</artifactId>
+                    <version>1.10.0</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <gitFlowConfig>
+                            <versionTagPrefix>release-</versionTagPrefix>
+                        </gitFlowConfig>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

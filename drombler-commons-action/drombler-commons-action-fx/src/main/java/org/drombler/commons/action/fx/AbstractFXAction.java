@@ -84,7 +84,7 @@ public abstract class AbstractFXAction implements FXAction {
         return enabledProperty().get();
     }
 
-    protected void setEnabled(boolean enabled) {
+    protected final void setEnabled(boolean enabled) {
         this.enabled.set(enabled);
     }
 

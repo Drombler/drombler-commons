@@ -26,11 +26,8 @@ import org.softsmithy.lib.lang.reflect.Classes;
 
 /**
  * A simple writable in-memory context content.
- *
- * @author puce
- * <br>
- * TODO: Better name?
  */
+// TODO: Better name?
 public class SimpleContextContent {
 
     private final Map<Class<?>, List<Object>> objects = new HashMap<>();
@@ -53,6 +50,11 @@ public class SimpleContextContent {
         return types;
     }
 
+    /**
+     * Adds a collection of objects to this context.
+     *
+     * @param contentList the content to be added
+     */
     public void addAll(Collection<?> contentList) {
         Set<Class<?>> types = new HashSet<>();
         contentList.forEach(content -> types.addAll(addOnly(content)));
@@ -74,7 +76,7 @@ public class SimpleContextContent {
     }
 
     /**
-     * Removed an object.
+     * Removes an object.
      *
      * @param obj the object to be removed.
      */
@@ -113,9 +115,9 @@ public class SimpleContextContent {
     }
 
     @SuppressWarnings("unchecked")
-    /*package-private*/ <T> Collection<? extends T> findAll(Class<T> type) {
+    /*package-private*/ <T> Collection<T> findAll(Class<T> type) {
         if (objects.containsKey(type)) {
-            return (Collection<? extends T>) Collections.unmodifiableList(objects.get(type));
+            return (Collection<T>) Collections.unmodifiableList(objects.get(type));
         }
         return Collections.emptyList();
     }

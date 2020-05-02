@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>0.13-SNAPSHOT</version>
+        <version>2.0-SNAPSHOT</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-docking-fx</artifactId>
@@ -28,7 +28,7 @@ Contributor(s): .
     <description>Drombler Commons - Docking - FX provides a docking framework for JavaFX.</description>
     <inceptionYear>2014</inceptionYear>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -61,7 +61,7 @@ Contributor(s): .
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-            </plugin>         
+            </plugin>        
         </plugins>
     </build>
 
@@ -78,8 +78,20 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-fx-core</artifactId>
+            <artifactId>drombler-commons-fx-controls</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <scope>provided</scope>
+            <version>${dependency.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <scope>provided</scope>
+            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
@@ -90,8 +102,13 @@ Contributor(s): .
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -114,7 +131,7 @@ Contributor(s): .
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <excludedGroups>org.drombler.commons.docking.fx.GUITests</excludedGroups>
+                            <excludedGroups>GUITests</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -60,8 +60,8 @@ public class LocalDatePicker extends Control {
      */
     private final ObjectProperty<Parser<? extends LocalDate>> parser = new SimpleObjectProperty<>(this, "parser");
     /**
-     * The currently selected {@link LocalDate}.<br> <br> Default:
-     * {@link LocalDate#now()}
+     * The currently selected {@link LocalDate}.<br> <br>
+     * Default: {@link LocalDate#now()}
      */
     private final LimitedComparableProperty<LocalDate> selectedDate = new LimitedComparableProperty<>(this, "selectedDate",
             LocalDate.now());

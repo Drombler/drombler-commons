@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-fx-samples-parent</artifactId>
-        <version>0.13-SNAPSHOT</version>
+        <version>2.0-SNAPSHOT</version>
         <relativePath>../drombler-commons-fx-samples-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-fx-samples-action</artifactId>
@@ -26,7 +26,7 @@ Contributor(s): .
 
     <name>Drombler Commons - FX - Samples - Action</name>
     <!-- required for Javadoc (apidocs) linking -->
-    <url>http://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
+    <url>https://www.drombler.org/drombler-commons/${project.version}/docs/site</url>
 
     <scm>
         <connection>${scm.connection}</connection>
@@ -72,19 +72,11 @@ Contributor(s): .
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.zenjava</groupId>
+                <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>org.drombler.commons.fx.samples.action.ActionSampleApplication</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <mainClass>org.drombler.commons.fx.samples.action.ActionSampleApplication</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -96,6 +88,16 @@ Contributor(s): .
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-controls</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>drombler-commons-fx-graphics</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-action-fx</artifactId>
@@ -115,6 +117,16 @@ Contributor(s): .
             <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-context</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${dependency.javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

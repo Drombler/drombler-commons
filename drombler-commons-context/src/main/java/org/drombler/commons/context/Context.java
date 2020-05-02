@@ -24,16 +24,13 @@ import java.util.Collection;
 public interface Context {
 
     /**
-     * Finds an instance of the specified type in this context. If this context has more than one instance of the
-     * specified type, the first one found will be returned.
+     * Finds an instance of the specified type in this context. If this context has more than one instance of the specified type, the first one found will be returned.
      *
      * @param <T> the specified type
      * @param type the specified type
-     * @return the first instance found in this context with the specified type, or {@code null} if no instance was
-     * found.
-     *
-     * TODO: return Optional?
+     * @return the first instance found in this context with the specified type, or {@code null} if no instance was found.
      */
+    //    TODO: return Optional?
     <T> T find(Class<T> type);
 
     /**
@@ -41,13 +38,11 @@ public interface Context {
      *
      * @param <T> the specified type
      * @param type the specified type
-     * @return a collection with all instances found in this context with the specified type, or an empty collection if
-     * no instance was found
+     * @return a collection with all instances found in this context with the specified type, or an empty collection if no instance was found
      *
-     * TODO: return {@code List} instead of {@code Collection}? <br>
-     * TODO: return {@code <T>} instead of {@code <? extends T>}?
      */
-    <T> Collection<? extends T> findAll(Class<T> type);
+    // TODO: return {@code List} instead of {@code Collection}?
+    <T> Collection<T> findAll(Class<T> type);
 
     /**
      * Registers a {@link ContextListener} for a specified type.

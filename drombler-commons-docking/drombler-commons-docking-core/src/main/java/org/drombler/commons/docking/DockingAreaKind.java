@@ -22,6 +22,16 @@ package org.drombler.commons.docking;
 //@XmlType(name = "DockingAreaKindType")//namespace="http://www.drombler.org/schema/acp/dockingAreas"
 //@XmlEnum
 public enum DockingAreaKind {
-
-    VIEW, EDITOR;
+    /**
+     * A Docking Area of kind 'view' can hold Dockables of kind 'view'.
+     *
+     * @see DockableKind#VIEW
+     */
+    VIEW,
+    /**
+     * A Docking Area of kind 'editor' can hold Dockables of kind 'editor'.
+     *
+     * @see DockableKind#EDITOR
+     */
+    EDITOR;
 }

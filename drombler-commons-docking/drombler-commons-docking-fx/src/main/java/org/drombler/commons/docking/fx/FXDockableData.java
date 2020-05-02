@@ -25,11 +25,11 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tooltip;
-import org.drombler.commons.docking.DockableData;
 import org.drombler.commons.client.graphic.GraphicFactory;
+import org.drombler.commons.docking.DockableData;
 
 /**
- * Data about a Dockable.
+ * JavaFX-based {@link DockableData} implementation.
  *
  * @author puce
  */

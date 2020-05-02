@@ -15,17 +15,26 @@
 package org.drombler.commons.client.util;
 
 /**
+ * A utility class to work with mnemonics.
  *
  * @author puce
  */
+public final class MnemonicUtils {
 
-
-public class MnemonicUtils {
+    /**
+     * The character which marks the following character as mnemonic character.
+     */
     public static final String MNEMONIC_CHAR = "_";
 
     private MnemonicUtils() {
     }
 
+    /**
+     * Removes the mnemonic marker from a display string.
+     *
+     * @param displayString the display string
+     * @return the display string without mnemonic marker character.
+     */
     public static String removeMnemonicChar(String displayString) {
         return displayString.replace(MNEMONIC_CHAR, "");
     }

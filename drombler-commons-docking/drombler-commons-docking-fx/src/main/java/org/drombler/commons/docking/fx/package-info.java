@@ -14,7 +14,5 @@
  */
 /**
  * A JavaFX based Docking Framework.
- *
- * TODO: Change the package name to: org.drombler.commons.docking.fx?
  */
 package org.drombler.commons.docking.fx;

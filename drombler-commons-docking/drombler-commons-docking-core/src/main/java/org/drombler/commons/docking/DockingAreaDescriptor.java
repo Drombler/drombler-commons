@@ -20,10 +20,9 @@ import java.util.Objects;
 /**
  * The Docking Area descriptor describes a Docking Area.
  *
- * TODO: Immutable?
- *
  * @author puce
  */
+//  TODO: Immutable?
 public final class DockingAreaDescriptor {
 
     private String id;
