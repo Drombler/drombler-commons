@@ -12,32 +12,21 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
+import java.io.IOException;
 import java.nio.file.Path;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
+import java.nio.file.spi.FileTypeDetector;
 
 /**
  *
  * @author puce
  */
-@Disabled
-public class PathComparatorTest {
+public class ISOFileTypeDetector extends FileTypeDetector {
 
-    @Test
-    public void testCompare() {
-        System.out.println("compare");
-        Path path1 = null;
-        Path path2 = null;
-        PathComparator instance = new PathComparator();
-        int expResult = 0;
-        int result = instance.compare(path1, path2);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+    @Override
+    public String probeContentType(Path path) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

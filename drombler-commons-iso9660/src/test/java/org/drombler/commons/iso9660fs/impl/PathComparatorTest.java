@@ -12,8 +12,9 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
+import org.drombler.commons.iso9660fs.impl.PathComparator;
 import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -26,24 +27,16 @@ import org.junit.jupiter.api.Test;
  * @author puce
  */
 @Disabled
-public class PathIteratorTest {
+public class PathComparatorTest {
 
     @Test
-    public void testHasNext() {
-        System.out.println("hasNext");
-        PathIterator instance = null;
-        boolean expResult = false;
-        boolean result = instance.hasNext();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testNext() {
-        System.out.println("next");
-        PathIterator instance = null;
-        Path expResult = null;
-        Path result = instance.next();
+    public void testCompare() {
+        System.out.println("compare");
+        Path path1 = null;
+        Path path2 = null;
+        PathComparator instance = new PathComparator();
+        int expResult = 0;
+        int result = instance.compare(path1, path2);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

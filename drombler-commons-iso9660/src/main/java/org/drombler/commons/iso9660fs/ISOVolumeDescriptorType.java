@@ -12,12 +12,12 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660;
+package org.drombler.commons.iso9660fs;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import static org.drombler.commons.iso9660.ISOVolumeDescriptorType.values;
+import static org.drombler.commons.iso9660fs.ISOVolumeDescriptorType.values;
 
 /**
  *

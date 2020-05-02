@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -29,10 +29,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.drombler.commons.iso9660.ISODirectoryDescriptor;
-import org.drombler.commons.iso9660.ISOPrimaryVolumeDescriptor;
-import org.drombler.commons.iso9660.ISOVolumeDescriptor;
-import org.drombler.commons.iso9660.ISOVolumeDescriptorType;
+import org.drombler.commons.iso9660fs.ISODirectoryDescriptor;
+import org.drombler.commons.iso9660fs.ISOPrimaryVolumeDescriptor;
+import org.drombler.commons.iso9660fs.ISOVolumeDescriptor;
+import org.drombler.commons.iso9660fs.ISOVolumeDescriptorType;
 
 /**
  *

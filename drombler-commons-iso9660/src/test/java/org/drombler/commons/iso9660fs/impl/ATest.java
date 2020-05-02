@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
 import java.io.IOException;
 import java.net.URI;
@@ -31,7 +31,7 @@ public class ATest {
         URI isoURI = new URI("iso:" + ATest.class.getResource("/test.iso").toURI().toString());
         ISOFileSystemProvider isoFileSystemProvider = new ISOFileSystemProvider();
         try (FileSystem isoFileSystem = isoFileSystemProvider.newFileSystem(isoURI, null)) {
-isoFileSystem.getRootDirectories().forEach(System.out::println);
+            isoFileSystem.getRootDirectories().forEach(rootDirectory -> System.out.println("Root directory: " + rootDirectory));
         }
     }
 }

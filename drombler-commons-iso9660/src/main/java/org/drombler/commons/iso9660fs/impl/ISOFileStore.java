@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
 import java.io.IOException;
 import java.nio.file.FileStore;
