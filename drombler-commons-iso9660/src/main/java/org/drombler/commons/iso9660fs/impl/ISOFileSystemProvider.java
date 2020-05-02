@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
 import java.io.IOException;
 import java.net.URI;
@@ -36,7 +36,7 @@ import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.drombler.commons.iso9660.impl.ISOFileSystem;
+import org.drombler.commons.iso9660fs.impl.ISOFileSystem;
 
 //https://docs.oracle.com/javase/8/docs/technotes/guides/io/fsp/filesystemprovider.html
 //http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/9dc67d03e6e5/src/share/demo/nio/zipfs/src/com/sun/nio/zipfs

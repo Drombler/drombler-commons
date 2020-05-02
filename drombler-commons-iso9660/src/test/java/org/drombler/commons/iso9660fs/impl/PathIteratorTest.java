@@ -12,28 +12,39 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
+import org.drombler.commons.iso9660fs.impl.PathIterator;
 import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+
 /**
  *
  * @author puce
  */
 @Disabled
-public class ISOFileTypeDetectorTest {
+public class PathIteratorTest {
 
     @Test
-    public void testProbeContentType() throws Exception {
-        System.out.println("probeContentType");
-        Path path = null;
-        ISOFileTypeDetector instance = new ISOFileTypeDetector();
-        String expResult = "";
-        String result = instance.probeContentType(path);
+    public void testHasNext() {
+        System.out.println("hasNext");
+        PathIterator instance = null;
+        boolean expResult = false;
+        boolean result = instance.hasNext();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testNext() {
+        System.out.println("next");
+        PathIterator instance = null;
+        Path expResult = null;
+        Path result = instance.next();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

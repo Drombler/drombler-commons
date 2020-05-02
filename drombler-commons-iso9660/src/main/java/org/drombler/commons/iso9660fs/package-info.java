@@ -16,4 +16,4 @@
  * Utility classes to work with ISO 9660 files. The jar also registers a {@link java.nio.file.spi.FileSystemProvider}
  * for ISO 9660 files, * which allows them to be read with the NIO.2 File API.
  */
-package org.drombler.commons.iso9660;
+package org.drombler.commons.iso9660fs;

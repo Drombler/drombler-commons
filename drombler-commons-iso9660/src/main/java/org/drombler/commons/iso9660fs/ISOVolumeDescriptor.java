@@ -12,7 +12,7 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660;
+package org.drombler.commons.iso9660fs;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;

@@ -12,8 +12,9 @@
  *
  * Contributor(s): .
  */
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
+import org.drombler.commons.iso9660fs.impl.ISOFileStore;
 import java.nio.file.attribute.FileAttributeView;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

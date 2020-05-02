@@ -1,6 +1,8 @@
 
-package org.drombler.commons.iso9660.impl;
+package org.drombler.commons.iso9660fs.impl;
 
+import org.drombler.commons.iso9660fs.impl.ISOPath;
+import org.drombler.commons.iso9660fs.impl.ISOFileSystem;
 import java.nio.file.FileStore;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
