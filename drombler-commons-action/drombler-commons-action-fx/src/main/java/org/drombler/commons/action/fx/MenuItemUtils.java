@@ -14,6 +14,10 @@
  */
 package org.drombler.commons.action.fx;
 
+import java.util.Objects;
+import javafx.beans.property.ReadOnlyStringPropertyBase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
@@ -37,7 +41,11 @@ public final class MenuItemUtils {
      * @param iconSize the icon size
      */
     public static void configureMenuItem(MenuItem menuItem, FXAction action, int iconSize) {
-        menuItem.setMnemonicParsing(true);
+        ObservableList<String> observableArrayList = FXCollections.observableArrayList();
+//        DisplayProperty displayProperty = new DisplayProperty();
+//        StringProperty displayProperty = new SimpleStringProperty();
+//        displayProperty.bind(Bindings.createStringBinding(clbl, os));
+//        Bindings.convert(displayProperty)        menuItem.setMnemonicParsing(true);
         menuItem.textProperty().bind(action.displayNameProperty());
         menuItem.acceleratorProperty().bind(action.acceleratorProperty());
         menuItem.setOnAction(action);
@@ -46,6 +54,33 @@ public final class MenuItemUtils {
             Node graphic = action.getGraphicFactory().createGraphic(iconSize);
             if (graphic != null) {
                 menuItem.setGraphic(graphic);
+            }
+        }
+    }
+
+    private class DisplayProperty extends ReadOnlyStringPropertyBase {
+
+        private String displayText;
+
+        @Override
+        public Object getBean() {
+            return MenuItemUtils.this;
+        }
+
+        @Override
+        public String getName() {
+            return "display";
+        }
+
+        @Override
+        public String get() {
+            return displayText;
+        }
+
+        private void set(String newValue) {
+            if (!Objects.equals(displayText, newValue)) {
+                displayText = newValue;
+                fireValueChangedEvent();
             }
         }
     }
