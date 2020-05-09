@@ -75,7 +75,6 @@ Contributor(s): .
         <module>drombler-commons-fx</module>
         <module>drombler-commons-client</module>
         <module>drombler-commons-spring</module>
-        <module>drombler-commons-iso9660</module>
         <module>drombler-commons-docs</module>
     </modules>
     
