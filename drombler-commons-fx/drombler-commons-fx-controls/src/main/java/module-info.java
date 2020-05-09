@@ -18,6 +18,7 @@ module org.drombler.commons.fx.controls {
     exports org.drombler.commons.fx.scene.renderer;
 
     exports org.drombler.commons.fx.scene.control.impl.skin to javafx.controls;
+    opens org.drombler.commons.fx.scene.control.impl.skin to org.drombler.commons.fx.fxml, javafx.fxml;
 
     requires transitive javafx.controls;
     requires transitive org.drombler.commons.fx.base;
