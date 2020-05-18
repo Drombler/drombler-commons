@@ -20,22 +20,14 @@
             </goals>
         </action>
         <action>
-            <actionName>rebuild</actionName>
-            <recursive>false</recursive>
-            <goals>
-                <goal>clean</goal>
-                <goal>install</goal>
-                
-                
-            </goals>
-        </action>
-        <action>
             <actionName>CUSTOM-release</actionName>
             <displayName>release</displayName>
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
                 <goal>-DperformRelease=true</goal>
+                
+                
             </goals>
         </action>
         <action>
@@ -47,4 +39,5 @@
                 <goal>-DperformRelease=true</goal>
             </goals>
         </action>
+        
     </actions>

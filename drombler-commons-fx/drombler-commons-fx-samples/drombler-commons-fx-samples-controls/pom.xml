@@ -111,7 +111,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.drombler.iso9660fs</groupId>
             <artifactId>drombler-iso9660fs</artifactId>
-            <version>0.1-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
