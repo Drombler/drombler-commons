@@ -102,14 +102,13 @@ Contributor(s): .
 
     <dependencies>      
         <dependency>
-            <groupId>org.drombler.commons</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-fx-time</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>

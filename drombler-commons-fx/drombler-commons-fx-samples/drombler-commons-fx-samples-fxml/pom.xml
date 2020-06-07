@@ -101,7 +101,6 @@ Contributor(s): .
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

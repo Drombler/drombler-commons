@@ -101,12 +101,32 @@ Contributor(s): .
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.drombler.iso9660fs</groupId>
+            <artifactId>drombler-iso9660fs</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>pathsample</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClass>org.drombler.commons.fx.samples.scene.control.treeview.path.PathTreeViewSample</mainClass>
+                        </configuration>
+                    </plugin>                
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

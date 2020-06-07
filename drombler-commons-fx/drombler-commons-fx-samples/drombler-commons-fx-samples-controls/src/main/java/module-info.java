@@ -15,7 +15,9 @@
 
 module org.drombler.commons.fx.samples.controls {
     exports org.drombler.commons.fx.samples.scene.control.treeview.facility to javafx.graphics;
+    exports org.drombler.commons.fx.samples.scene.control.treeview.path to javafx.graphics;
     opens org.drombler.commons.fx.samples.scene.control.treeview.facility.editor to org.drombler.commons.fx.fxml, javafx.fxml;
+    opens org.drombler.commons.fx.samples.scene.control.treeview.path to org.drombler.commons.fx.fxml, javafx.fxml;
 
     requires org.drombler.commons.fx.controls;
     requires org.drombler.commons.fx.fxml;

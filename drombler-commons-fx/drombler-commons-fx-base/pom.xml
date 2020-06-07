@@ -151,7 +151,6 @@ Contributor(s): .
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <scope>provided</scope>
-            <version>${dependency.javafx.version}</version>
         </dependency>
 
         <dependency>
