@@ -71,7 +71,7 @@ Contributor(s): .
 
     <dependencies>
         <dependency>
-            <groupId>org.drombler.commons</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>drombler-commons-fx-controls</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -79,13 +79,11 @@ Contributor(s): .
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <scope>provided</scope>
-            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <scope>provided</scope>
-            <version>${dependency.javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
