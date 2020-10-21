@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>1.0</version>
+        <version>2.0-SNAPSHOT</version>
         <relativePath>../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-docs</artifactId>
@@ -55,18 +55,13 @@ Contributor(s): .
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.commons.docs</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
+                <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>

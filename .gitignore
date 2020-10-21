@@ -1,3 +1,51 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+/target/
 /drombler-commons-parent/target/
 /drombler-commons-action/drombler-commons-action-core/target/
 /drombler-commons-client/drombler-commons-client-parent/target/
@@ -20,9 +68,8 @@
 /drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-samples-context/target/
 /drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-samples-docking/target/
 /drombler-commons-fx/target/
-/target/
 /drombler-commons-client/target/
-/drombler-commons-iso/target/
+/drombler-commons-iso9660/target/
 /drombler-commons-docs/target/
 /drombler-commons-action/drombler-commons-action-command/target/
 /drombler-commons-docking/target/
@@ -43,3 +90,8 @@
 /drombler-commons-spring/target/
 /drombler-commons-spring/drombler-commons-spring-boot/target/
 /drombler-commons-spring/drombler-commons-spring-transaction/target/
+/drombler-commons-fx/drombler-commons-fx-base/target/
+/drombler-commons-fx/drombler-commons-fx-graphics/target/
+/drombler-commons-fx/drombler-commons-fx-fxml/target/
+/drombler-commons-fx/drombler-commons-fx-controls/target/
+/drombler-commons-fx/drombler-commons-fx-samples/drombler-commons-fx-samples-controls/target/

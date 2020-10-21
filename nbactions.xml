@@ -4,6 +4,7 @@
             <actionName>CUSTOM-site</actionName>
             <displayName>site</displayName>
             <goals>
+                <goal>compile</goal>
                 <goal>site:site</goal>
                 <goal>site:stage</goal>
                 <goal>-DperformRelease=true</goal>
@@ -13,17 +14,9 @@
             <actionName>CUSTOM-javadoc</actionName>
             <displayName>javadoc</displayName>
             <goals>
+                <goal>compile</goal>
                 <goal>javadoc:javadoc</goal>
                 <goal>javadoc:aggregate</goal>
-            </goals>
-        </action>
-        <action>
-            <actionName>rebuild</actionName>
-            <goals>
-                <goal>clean</goal>
-                <goal>install</goal>
-                
-                
             </goals>
         </action>
         <action>
@@ -33,14 +26,18 @@
                 <goal>clean</goal>
                 <goal>install</goal>
                 <goal>-DperformRelease=true</goal>
+                
+                
             </goals>
         </action>
         <action>
             <actionName>CUSTOM-site-deploy</actionName>
             <displayName>site-deploy</displayName>
             <goals>
+                <goal>compile</goal>
                 <goal>site-deploy</goal>
                 <goal>-DperformRelease=true</goal>
             </goals>
         </action>
+        
     </actions>

@@ -18,7 +18,7 @@ Contributor(s): .
     <parent>
         <groupId>org.drombler.commons</groupId>
         <artifactId>drombler-commons-parent</artifactId>
-        <version>1.0</version>
+        <version>2.0-SNAPSHOT</version>
         <relativePath>../../drombler-commons-parent/pom.xml</relativePath>
     </parent>
     <artifactId>drombler-commons-docking-fx</artifactId>
@@ -62,17 +62,6 @@ Contributor(s): .
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>        
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>org.drombler.commons.docking.fx</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin> 
         </plugins>
     </build>
 
@@ -89,8 +78,18 @@ Contributor(s): .
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>drombler-commons-fx-core</artifactId>
+            <artifactId>drombler-commons-fx-controls</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
