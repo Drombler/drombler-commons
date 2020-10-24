@@ -4,7 +4,8 @@
 
 See the [documentation](https://www.drombler.org/drombler-commons) for the Javadoc and information about the provided Maven modules (available from Maven Central).
 
-
+## Samples
+There are a couple of samples for JavaFX based controls and utility classes: [drombler-commons-fx/drombler-commons-fx-samples](drombler-commons-fx/drombler-commons-fx-samples)
 ## Build the project from sources
 ```bash
 mvn clean install
