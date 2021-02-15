@@ -76,6 +76,9 @@ Contributor(s): .
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>org.drombler.commons.fx.samples.fxml.FxmlSampleApplication</mainClass>
+                    <options>
+                        <option>-Djava.util.logging.config.file=src/main/conf/logging.properties</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
