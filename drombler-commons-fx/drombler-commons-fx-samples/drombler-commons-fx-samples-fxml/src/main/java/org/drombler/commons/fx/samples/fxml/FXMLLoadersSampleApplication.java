@@ -27,9 +27,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author puce
  */
-public class FxmlSampleApplication extends Application {
+public class FXMLLoadersSampleApplication extends Application {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FxmlSampleApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FXMLLoadersSampleApplication.class);
 
     public static void main(String... args) {
         launch(args);
@@ -37,15 +37,15 @@ public class FxmlSampleApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        LOG.info("Starting FxmlSampleApplication...");
+        LOG.info("Starting FXMLLoadersSampleApplication...");
 
-        FXMLLoader loader = FXMLLoaders.createFXMLLoader(FxmlSampleApplication.class.getClassLoader());
-        BorderPane root = FXMLLoaders.load(loader, FxmlSampleApplication.class);
+        FXMLLoader loader = FXMLLoaders.createFXMLLoader(FXMLLoadersSampleApplication.class.getClassLoader());
+        BorderPane root = FXMLLoaders.load(loader, FXMLLoadersSampleApplication.class);
         FXMLLoaders.resetFXMLLoader(loader);
 
         Scene scene = new Scene(root, 1500, 1000);
 
-        stage.setTitle("FXML Sample Application");
+        stage.setTitle("FXMLLoaders Sample Application");
         stage.setScene(scene);
         stage.show();
     }
