@@ -19,4 +19,5 @@ module org.drombler.commons.fx.samples.time {
 
     requires org.drombler.commons.fx.time;
     requires org.drombler.commons.fx.fxml;
+    requires java.logging;
 }

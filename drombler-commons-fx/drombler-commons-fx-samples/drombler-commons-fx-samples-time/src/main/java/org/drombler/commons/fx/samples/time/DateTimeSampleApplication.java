@@ -15,28 +15,31 @@
 package org.drombler.commons.fx.samples.time;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 
 /**
- *
  * @author puce
  */
 
 
-public class DateTimeSampleApplication extends Application{
-     
+public class DateTimeSampleApplication extends Application {
+
+    private final FXMLLoader loader = FXMLLoaders.createFXMLLoader(DateTimeSampleApplication.class.getClassLoader());
+
     @Override
     public void start(Stage stage) {
-        Parent root = FXMLLoaders.load(getClass());
-    
+        BorderPane root = FXMLLoaders.load(loader, getClass());
+        FXMLLoaders.resetFXMLLoader(loader);
+
         Scene scene = new Scene(root, 1500, 1000);
-    
+
         stage.setTitle("Date & Time JavaFX 8 Sample Apllication");
         stage.setScene(scene);
         stage.show();
     }
-    
+
 }

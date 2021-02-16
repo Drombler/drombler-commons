@@ -14,12 +14,6 @@
  */
 package org.drombler.commons.fx.fxml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import org.drombler.commons.client.util.ResourceBundleUtils;
 import org.slf4j.Logger;
@@ -27,10 +21,20 @@ import org.slf4j.LoggerFactory;
 import org.softsmithy.lib.io.IORuntimeException;
 import org.softsmithy.lib.util.ResourceFileNotFoundException;
 import org.softsmithy.lib.util.Resources;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import static org.softsmithy.lib.util.Resources.RESOURCE_PATH_DELIMITER;
 
 /**
- * Utility methods for {@link FXMLLoader}.
+ * Utility methods for {@link FXMLLoader}.<br>
+ * <br>
+ * This class uses a convention over configuration approach. See the documentation of the methods for details.
  *
  * @author puce
  */
@@ -112,7 +116,7 @@ public final class FXMLLoaders {
      * {@link Locale})</li>
      * <li>the location to the FXML file</li>
      * </ul>
-     *
+     * <p>
      * The root element of the FXML document is expected to be:<br>
      * <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">} <br>
      * <br>
@@ -137,7 +141,7 @@ public final class FXMLLoaders {
      * the name of the specified type (or a locale specific derivation using the default {@link Locale})</li>
      * <li>the location to the FXML file</li>
      * </ul>
-     *
+     * <p>
      * The root element of the FXML document is expected to be:
      * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
      * <br> <br>
@@ -145,7 +149,7 @@ public final class FXMLLoaders {
      * <br> <br>
      * TODO: needed?
      *
-     * @param loader the {@link FXMLLoader}
+     * @param loader         the {@link FXMLLoader}
      * @param rootController the Object acting as the root and as the controller.
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
@@ -166,7 +170,7 @@ public final class FXMLLoaders {
      * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
      * <li>the location to the FXML file</li>
      * </ul>
-     *
+     * <p>
      * The root element of the FXML document is expected to be:
      * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
      * <br> <br>
@@ -191,19 +195,19 @@ public final class FXMLLoaders {
      * <li>the {@link ResourceBundle} to the specified resourceBundle</li>
      * <li>the location to the FXML file</li>
      * </ul>
-     *
+     * <p>
      * The root element of the FXML document is expected to be:
      * <br> <br> {@code  <fx:root type="{super-type}" xmlns:fx="http://javafx.com/fxml">}
      * <br> <br>
      * where "super-type" is the super type of the type of the specified rootController.
      *
-     * @param loader the {@link FXMLLoader}
+     * @param loader         the {@link FXMLLoader}
      * @param rootController the Object acting as the root and as the controller.
      * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
     public static void loadRoot(final FXMLLoader loader, final Object rootController,
-            final ResourceBundle resourceBundle) {
+                                final ResourceBundle resourceBundle) {
         configureRootController(loader, rootController);
         load(loader, rootController.getClass(), resourceBundle);
     }
@@ -225,7 +229,7 @@ public final class FXMLLoaders {
      * <li>the location to the FXML file</li>
      * </ul>
      *
-     * @param <T> the type of the root element
+     * @param <T>  the type of the root element
      * @param type the type
      * @return the loaded object
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
@@ -244,9 +248,9 @@ public final class FXMLLoaders {
      * <li>the location to the FXML file</li>
      * </ul>
      *
-     * @param <T> the type of the root element
+     * @param <T>    the type of the root element
      * @param loader the {@link FXMLLoader}
-     * @param type the type
+     * @param type   the type
      * @return the loaded object
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
      */
@@ -264,8 +268,8 @@ public final class FXMLLoaders {
      * <li>the location to the FXML file</li>
      * </ul>
      *
-     * @param <T> the type of the root element
-     * @param type the type
+     * @param <T>            the type of the root element
+     * @param type           the type
      * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
      * @return the loaded object
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
@@ -283,9 +287,9 @@ public final class FXMLLoaders {
      * <li>the location to the FXML file</li>
      * </ul>
      *
-     * @param <T> the type of the root element
-     * @param loader the {@link FXMLLoader}
-     * @param type the type
+     * @param <T>            the type of the root element
+     * @param loader         the {@link FXMLLoader}
+     * @param type           the type
      * @param resourceBundle the {@link ResourceBundle} the {@link FXMLLoader} should use.
      * @return the loaded object
      * @see #resetFXMLLoader(javafx.fxml.FXMLLoader)
@@ -295,7 +299,7 @@ public final class FXMLLoaders {
         return loadFXML(loader, type);
     }
 
-    private static <T> T loadFXML(FXMLLoader loader, Class<?> type) {
+    private static <T> T loadFXML(FXMLLoader loader, Class<?> type) { // TODO: Isn't this the only reusable method using FXMLLoader? The other methods change the loader... -> make this method public and remove the others?
         String moduleFxmlResourcePath = getModuleFxmlResourcePath(type);
         try (InputStream is = type.getModule().getResourceAsStream(moduleFxmlResourcePath)) {
             // avoid NullPointerException

@@ -56,6 +56,9 @@ Contributor(s): .
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>org.drombler.commons.fx.samples.time.DateTimeSampleApplication</mainClass>
+                    <options>
+                        <option>-Djava.util.logging.config.file=src/main/conf/logging.properties</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
@@ -74,6 +77,11 @@ Contributor(s): .
         <dependency>
             <groupId>org.softsmithy.lib</groupId>
             <artifactId>softsmithy-lib-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
