@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import java.lang.String?>
 <fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml" hgap="5" vgap="5" stylesheets="@sample.css">
     <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>
@@ -11,22 +12,25 @@
     <Label text="%label.header.text" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" stylesheets="@a.css" alignment="CENTER_LEFT">
         <Label text="%label.1.text" GridPane.rowIndex="1" GridPane.columnIndex="0" stylesheets="@a.css"/>
-        <Label text="A" styleClass="sample, relative1"/>
+        <Label text="A" styleClass="sample, sampleA"/>
     </HBox>
     <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" stylesheets="@style/b.css" alignment="CENTER_LEFT">
         <Label text="%label.2.text"/>
-        <Label text="B" styleClass="sample, relative2"/>
+        <Label text="B" styleClass="sample, sampleB"/>
     </HBox>
     <HBox GridPane.rowIndex="3" GridPane.columnIndex="0" stylesheets="@../c.css" alignment="CENTER_LEFT">
         <Label text="%label.3.text"/>
-        <Label text="C" styleClass="sample, relative3"/>
+        <Label text="C" styleClass="sample, sampleC"/>
     </HBox>
     <HBox GridPane.rowIndex="4" GridPane.columnIndex="0" stylesheets="@/d.css" alignment="CENTER_LEFT">
         <Label text="%label.4.text"/>
-        <Label text="D" styleClass="sample, relative4"/>
+        <Label text="D" styleClass="sample, sampleD"/>
     </HBox>
-    <HBox GridPane.rowIndex="5" GridPane.columnIndex="0" stylesheets="@/style/e.css" alignment="CENTER_LEFT">
+    <HBox GridPane.rowIndex="5" GridPane.columnIndex="0" alignment="CENTER_LEFT">
+        <stylesheets>
+            <String fx:value="/style/e.css" />
+        </stylesheets>
         <Label text="%label.5.text"/>
-        <Label text="E" styleClass="sample, relative5"/>
+        <Label text="E" styleClass="sample, sampleE"/>
     </HBox>
 </fx:root>
