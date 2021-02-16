@@ -40,7 +40,7 @@ public class FXMLLoadersSampleApplication extends Application {
 
         BorderPane root = FXMLLoaders.load(FXMLLoadersSampleApplication.class);
 
-        Scene scene = new Scene(root, 1500, 1000);
+        Scene scene = new Scene(root, 1150, 300);
 
         stage.setTitle("FXMLLoaders Sample Application");
         stage.setScene(scene);

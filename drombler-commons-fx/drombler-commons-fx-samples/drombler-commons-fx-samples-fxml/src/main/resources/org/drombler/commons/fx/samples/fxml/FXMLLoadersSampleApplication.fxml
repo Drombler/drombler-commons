@@ -6,7 +6,7 @@
 <?import org.drombler.commons.fx.samples.fxml.ImageSamplePane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml">
     <center>
-        <HBox>
+        <HBox spacing="10">
             <ImageSamplePane/>
             <CSSSamplePane/>
         </HBox>
