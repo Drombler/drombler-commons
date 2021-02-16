@@ -15,7 +15,6 @@
 package org.drombler.commons.fx.samples.fxml;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -39,9 +38,7 @@ public class FXMLLoadersSampleApplication extends Application {
     public void start(Stage stage) {
         LOG.info("Starting FXMLLoadersSampleApplication...");
 
-        FXMLLoader loader = FXMLLoaders.createFXMLLoader(FXMLLoadersSampleApplication.class.getClassLoader());
-        BorderPane root = FXMLLoaders.load(loader, FXMLLoadersSampleApplication.class);
-        FXMLLoaders.resetFXMLLoader(loader);
+        BorderPane root = FXMLLoaders.load(FXMLLoadersSampleApplication.class);
 
         Scene scene = new Scene(root, 1500, 1000);
 
