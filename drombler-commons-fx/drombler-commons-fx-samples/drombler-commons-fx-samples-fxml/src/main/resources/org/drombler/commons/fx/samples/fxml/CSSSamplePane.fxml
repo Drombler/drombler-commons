@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import java.lang.String?>
+<fx:root type="GridPane" xmlns:fx="http://javafx.com/fxml" hgap="5" vgap="5" stylesheets="@sample.css">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+    <Label text="%label.header.text" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <Label text="%label.1.text" GridPane.rowIndex="1" GridPane.columnIndex="0" stylesheets="@a.css"/>
+    <Label text="A" GridPane.rowIndex="1" GridPane.columnIndex="1" stylesheets="@a.css" styleClass="sample, sampleA"/>
+    <Label text="%label.2.text" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <Label text="B" GridPane.rowIndex="2" GridPane.columnIndex="1" stylesheets="@style/b.css"
+           styleClass="sample, sampleB"/>
+    <Label text="%label.3.text" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <Label text="C" GridPane.rowIndex="3" GridPane.columnIndex="1" stylesheets="@../c.css"
+           styleClass="sample, sampleC"/>
+    <Label text="%label.4.text" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <Label text="D" GridPane.rowIndex="4" GridPane.columnIndex="1" stylesheets="@/d.css" styleClass="sample, sampleD"/>
+    <Label text="%label.5.text" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <Label text="E" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="sample, sampleE">
+        <stylesheets>
+            <String fx:value="/style/e.css"/>
+        </stylesheets>
+    </Label>
+</fx:root>

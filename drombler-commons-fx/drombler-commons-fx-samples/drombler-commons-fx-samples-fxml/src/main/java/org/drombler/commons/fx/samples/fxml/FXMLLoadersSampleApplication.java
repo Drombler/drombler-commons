@@ -15,9 +15,8 @@
 package org.drombler.commons.fx.samples.fxml;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.drombler.commons.fx.fxml.FXMLLoaders;
 import org.slf4j.Logger;
@@ -27,9 +26,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author puce
  */
-public class FxmlSampleApplication extends Application {
+public class FXMLLoadersSampleApplication extends Application {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FxmlSampleApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FXMLLoadersSampleApplication.class);
 
     public static void main(String... args) {
         launch(args);
@@ -37,13 +36,13 @@ public class FxmlSampleApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        FXMLLoader loader = FXMLLoaders.createFXMLLoader(FxmlSampleApplication.class.getClassLoader());
-        Parent root = FXMLLoaders.load(loader, FxmlSampleApplication.class);
-        FXMLLoaders.resetFXMLLoader(loader);
+        LOG.info("Starting FXMLLoadersSampleApplication...");
 
-        Scene scene = new Scene(root, 1500, 1000);
+        BorderPane root = FXMLLoaders.load(FXMLLoadersSampleApplication.class);
 
-        stage.setTitle("FXML Sample Application");
+        Scene scene = new Scene(root, 1150, 300);
+
+        stage.setTitle("FXMLLoaders Sample Application");
         stage.setScene(scene);
         stage.show();
     }

@@ -75,7 +75,10 @@ Contributor(s): .
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.drombler.commons.fx.samples.fxml.FxmlSampleApplication</mainClass>
+                    <mainClass>org.drombler.commons.fx.samples.fxml.FXMLLoadersSampleApplication</mainClass>
+                    <options>
+                        <option>-Djava.util.logging.config.file=src/main/conf/logging.properties</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>

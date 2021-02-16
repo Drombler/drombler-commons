@@ -21,5 +21,6 @@ module org.drombler.commons.fx.samples.fxml {
     requires javafx.graphics;
     requires javafx.controls;
     requires org.slf4j;
+    requires java.logging;
 
 }

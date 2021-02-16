@@ -21,9 +21,9 @@ import org.drombler.commons.fx.fxml.FXMLLoaders;
  *
  * @author puce
  */
-public class ImageSamplePane extends GridPane {
+public class CSSSamplePane extends GridPane {
 
-    public ImageSamplePane() {
+    public CSSSamplePane() {
         FXMLLoaders.loadRoot(this);
     }
 
