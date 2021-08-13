@@ -92,7 +92,7 @@ Contributor(s): .
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.47</version>
+            <version>1.67</version>
         </dependency>
     </dependencies>
 </project>
